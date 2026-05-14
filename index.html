@@ -646,20 +646,30 @@
 </section>
 
 <!-- TECH ECOSYSTEM / PARTNER STRIP -->
-<section style="padding:2.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.015);">
+<section style="padding:2.2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(255,255,255,.015);">
 <div class="container" style="text-align:center;">
-<p style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);font-family:'Inter Tight',sans-serif;font-weight:600;margin-bottom:1.5rem;">Works with your enterprise stack</p>
-<div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem 0;">
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:-.2px;">NVIDIA</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">Microsoft Azure</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">AWS Bedrock</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">Anthropic Claude</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">Google Cloud</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">GitHub</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">JIRA / Atlassian</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">Azure DevOps</span>
-  <span style="padding:.5rem 1.4rem;border-right:1px solid rgba(255,255,255,.07);font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">Playwright</span>
-  <span style="padding:.5rem 1.4rem;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.35);">ServiceNow</span>
+<p style="font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);font-family:'Inter Tight',sans-serif;font-weight:600;margin-bottom:1.6rem;">Works with your enterprise stack</p>
+<style>
+  .stack-logos{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0;}
+  .stack-logo{display:flex;flex-direction:column;align-items:center;gap:.45rem;padding:.7rem 1.6rem;border-right:1px solid rgba(255,255,255,.06);transition:opacity .2s;}
+  .stack-logo:last-child{border-right:none;}
+  .stack-logo:hover{opacity:1!important;}
+  .stack-logo img{height:26px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.38;transition:opacity .2s;}
+  .stack-logo:hover img{opacity:.75;}
+  .stack-logo span{font-size:.6rem;font-weight:600;color:rgba(255,255,255,.25);letter-spacing:.04em;white-space:nowrap;}
+  @media(max-width:600px){.stack-logo{padding:.6rem 1rem;} .stack-logo span{display:none;}}
+</style>
+<div class="stack-logos">
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/nvidia/fff" alt="NVIDIA" loading="lazy"/><span>NVIDIA</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/microsoftazure/fff" alt="Microsoft Azure" loading="lazy"/><span>Azure</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/amazonaws/fff" alt="AWS Bedrock" loading="lazy"/><span>AWS Bedrock</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/anthropic/fff" alt="Anthropic Claude" loading="lazy"/><span>Anthropic</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/googlecloud/fff" alt="Google Cloud" loading="lazy"/><span>Google Cloud</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/github/fff" alt="GitHub" loading="lazy"/><span>GitHub</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/atlassian/fff" alt="Atlassian / JIRA" loading="lazy"/><span>Atlassian</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/azuredevops/fff" alt="Azure DevOps" loading="lazy"/><span>Azure DevOps</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/playwright/fff" alt="Playwright" loading="lazy"/><span>Playwright</span></div>
+  <div class="stack-logo"><img src="https://cdn.simpleicons.org/servicenow/fff" alt="ServiceNow" loading="lazy"/><span>ServiceNow</span></div>
 </div>
 </div>
 </section>
