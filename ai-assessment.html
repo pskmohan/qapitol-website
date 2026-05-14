@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI Readiness Assessment — Qapitol</title>
+<meta name="description" content="Is your AI deployment audit-ready? Take Qapitol's 5-minute assessment to score your AI governance posture and get a personalised action plan."/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg"/>
+<style>
+  .brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}
+  .brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+
+  /* ── Quiz layout ── */
+  .quiz-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── Progress bar ── */
+  .quiz-progress-bar {
+    height: 4px;
+    background: rgba(255,255,255,.08);
+    border-radius: 2px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4d31f5, #21a3b2);
+    border-radius: 2px;
+    transition: width .4s ease;
+  }
+
+  /* ── Question card ── */
+  .q-card {
+    display: none;
+    animation: qFadeIn .3s ease;
+  }
+  .q-card.active { display: block; }
+  @keyframes qFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-number {
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #21a3b2;
+    margin-bottom: .6rem;
+  }
+  .q-text {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: .5rem;
+  }
+  .q-sub {
+    font-size: .82rem;
+    color: rgba(255,255,255,.45);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  /* ── Answer options ── */
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+  }
+  .q-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .18s;
+    text-align: left;
+    width: 100%;
+  }
+  .q-option:hover {
+    background: rgba(77,49,245,.12);
+    border-color: rgba(77,49,245,.4);
+  }
+  .q-option.selected {
+    background: rgba(77,49,245,.2);
+    border-color: rgba(77,49,245,.6);
+  }
+  .q-option-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .78rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.55);
+    flex-shrink: 0;
+    transition: all .18s;
+  }
+  .q-option.selected .q-option-letter {
+    background: #4d31f5;
+    border-color: #4d31f5;
+    color: #fff;
+  }
+  .q-option-text {
+    font-size: .9rem;
+    color: rgba(255,255,255,.75);
+    line-height: 1.5;
+  }
+  .q-option.selected .q-option-text { color: #fff; }
+
+  /* ── Nav buttons ── */
+  .q-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .q-btn-back {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.15);
+    color: rgba(255,255,255,.55);
+    padding: .65rem 1.25rem;
+    border-radius: 9px;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .q-btn-back:hover { color: #fff; border-color: rgba(255,255,255,.35); }
+  .q-btn-next {
+    background: linear-gradient(135deg, #4d31f5, #21a3b2);
+    border: none;
+    color: #fff;
+    padding: .65rem 1.75rem;
+    border-radius: 9px;
+    font-size: .88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity .15s;
+    opacity: .4;
+    pointer-events: none;
+  }
+  .q-btn-next.ready { opacity: 1; pointer-events: auto; }
+
+  /* ── Score / Results screen ── */
+  #results-screen {
+    display: none;
+    animation: qFadeIn .4s ease;
+  }
+  .score-ring-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .score-ring {
+    position: relative;
+    width: 160px;
+    height: 160px;
+  }
+  .score-ring svg {
+    transform: rotate(-90deg);
+  }
+  .score-ring-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter Tight', sans-serif;
+  }
+  .score-ring-big {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+  }
+  .score-ring-label {
+    font-size: .62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: rgba(255,255,255,.4);
+    margin-top: 2px;
+  }
+
+  .grade-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem 1.25rem;
+    border-radius: 99px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: .88rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .finding-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: .75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+  }
+  .finding-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: .05rem;
+  }
+
+  /* ── Lead capture inside results ── */
+  .results-lead {
+    background: linear-gradient(135deg, rgba(77,49,245,.18), rgba(33,163,178,.1));
+    border: 1px solid rgba(77,49,245,.35);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+  <li class="has-mega"><button aria-haspopup="true" class="nav-trigger">Platforms</button><div class="megamenu simple" role="menu"><div class="mega-col"><h4>Platforms</h4><ul><li><a href="qave.html">QAVE</a></li><li><a href="cheq.html">CHEQ</a></li><li><a href="nexus.html">Nexus</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li><li><a href="ai-assessment.html" style="color:#21a3b2;">AI Assessment ✓</a></li></ul></div></div></li>
+  <li class="has-mega"><button aria-haspopup="true" class="nav-trigger">Solutions</button><div class="megamenu simple" role="menu"><div class="mega-col"><h4>Solutions</h4><ul><li><a href="solution-llm-safety.html">LLM Safety</a></li><li><a href="solution-ai-compliance.html">AI Compliance</a></li><li><a href="regulatory-calendar.html">Reg Calendar</a></li></ul></div></div></li>
+  <li><a href="contact.html">Contact</a></li>
+</ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let's Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+
+<main>
+<!-- HERO -->
+<section style="padding:5rem 0 2.5rem;background:radial-gradient(ellipse at 50% 0%,rgba(33,163,178,.12) 0%,transparent 60%);">
+  <div class="container" style="text-align:center;">
+    <p class="kicker" style="text-align:center;margin-bottom:.6rem;">✓ AI Readiness Assessment</p>
+    <h1 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;color:#fff;margin-bottom:.9rem;line-height:1.2;">Is your AI deployment<br/>audit-ready?</h1>
+    <p style="font-size:1rem;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 1rem;line-height:1.7;">10 questions · 5 minutes · Personalised score + action plan</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.25rem;font-size:.78rem;color:rgba(255,255,255,.38);">
+      <span>📊 Governance posture</span>
+      <span>🛡️ Regulatory exposure</span>
+      <span>⚡ Operational readiness</span>
+      <span>🔍 Model evaluation maturity</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section style="padding:2rem 0 5rem;">
+  <div class="container">
+    <div class="quiz-wrap">
+
+      <!-- Progress bar -->
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-progress" style="width:10%;"></div>
+      </div>
+
+      <!-- Questions -->
+      <div id="quiz-questions">
+
+        <!-- Q1 -->
+        <div class="q-card active" data-q="0">
+          <div class="q-number">Question 1 of 10</div>
+          <div class="q-text">How many AI models or AI-powered features does your organisation currently have in production?</div>
+          <div class="q-sub">Include ML models, LLM integrations, recommendation engines, and AI-assisted workflows.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,0)"><span class="q-option-letter">A</span><span class="q-option-text">None yet — we're evaluating AI</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,0)"><span class="q-option-letter">B</span><span class="q-option-text">1–3 models or features</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,0)"><span class="q-option-letter">C</span><span class="q-option-text">4–10 models or features</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,0)"><span class="q-option-letter">D</span><span class="q-option-text">10+ models — AI is core to our product</span></button>
+          </div>
+          <div class="q-nav">
+            <span></span>
+            <button class="q-btn-next" id="btn-next-0" onclick="nextQ(0)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="q-card" data-q="1">
+          <div class="q-number">Question 2 of 10</div>
+          <div class="q-text">Do you have a documented AI governance policy or responsible AI framework in place?</div>
+          <div class="q-sub">This could include an AI ethics policy, model risk management policy, or SURE-Q / ISO 42001 alignment.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,1)"><span class="q-option-letter">A</span><span class="q-option-text">No — we haven't started this yet</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,1)"><span class="q-option-letter">B</span><span class="q-option-text">We have informal guidelines but nothing documented</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,1)"><span class="q-option-letter">C</span><span class="q-option-text">We have a documented policy but it's not enforced consistently</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,1)"><span class="q-option-letter">D</span><span class="q-option-text">Full framework in place, enforced, and auditable</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(1)">← Back</button>
+            <button class="q-btn-next" id="btn-next-1" onclick="nextQ(1)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="q-card" data-q="2">
+          <div class="q-number">Question 3 of 10</div>
+          <div class="q-text">How do you currently test and validate your AI models before deploying to production?</div>
+          <div class="q-sub">Testing for hallucinations, bias, drift, adversarial inputs, and regulatory alignment.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,2)"><span class="q-option-letter">A</span><span class="q-option-text">We don't have a formal AI testing process</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,2)"><span class="q-option-letter">B</span><span class="q-option-text">Basic accuracy / benchmark testing only</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,2)"><span class="q-option-letter">C</span><span class="q-option-text">Multi-dimensional testing but manual and ad-hoc</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,2)"><span class="q-option-letter">D</span><span class="q-option-text">Automated eval pipeline covering safety, bias, drift, and compliance</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(2)">← Back</button>
+            <button class="q-btn-next" id="btn-next-2" onclick="nextQ(2)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="q-card" data-q="3">
+          <div class="q-number">Question 4 of 10</div>
+          <div class="q-text">Are you subject to any AI-specific regulations or planning to operate in regulated markets?</div>
+          <div class="q-sub">RBI DPDP, EU AI Act, IRDAI, HIPAA/NHB, MeitY guidelines, or sector-specific AI mandates.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,3)"><span class="q-option-letter">A</span><span class="q-option-text">No regulatory exposure currently</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,3)"><span class="q-option-letter">B</span><span class="q-option-text">Aware of regulations but not yet mapped to our AI systems</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,3)"><span class="q-option-letter">C</span><span class="q-option-text">Partially compliant — some gaps identified</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,3)"><span class="q-option-letter">D</span><span class="q-option-text">Fully mapped, with compliance evidence ready for auditors</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(3)">← Back</button>
+            <button class="q-btn-next" id="btn-next-3" onclick="nextQ(3)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="q-card" data-q="4">
+          <div class="q-number">Question 5 of 10</div>
+          <div class="q-text">Do you monitor your AI models in production for performance degradation, data drift, or unexpected behaviour?</div>
+          <div class="q-sub">Post-deployment monitoring is the most common gap in enterprise AI programmes.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,4)"><span class="q-option-letter">A</span><span class="q-option-text">No monitoring in place</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,4)"><span class="q-option-letter">B</span><span class="q-option-text">Basic uptime / error monitoring only</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,4)"><span class="q-option-letter">C</span><span class="q-option-text">Some model performance metrics tracked manually</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,4)"><span class="q-option-letter">D</span><span class="q-option-text">Automated drift detection, alerting, and retraining triggers</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(4)">← Back</button>
+            <button class="q-btn-next" id="btn-next-4" onclick="nextQ(4)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="q-card" data-q="5">
+          <div class="q-number">Question 6 of 10</div>
+          <div class="q-text">Can you produce an explainability report for any AI decision your system makes — on demand?</div>
+          <div class="q-sub">Regulators like RBI now require per-decision audit trails for credit-scoring AI within 24 hours.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,5)"><span class="q-option-letter">A</span><span class="q-option-text">No — our models are black boxes</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,5)"><span class="q-option-letter">B</span><span class="q-option-text">Limited feature importance reports available</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,5)"><span class="q-option-letter">C</span><span class="q-option-text">We can explain most decisions but it requires manual effort</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,5)"><span class="q-option-letter">D</span><span class="q-option-text">Automated, auditor-ready explanations generated for every decision</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(5)">← Back</button>
+            <button class="q-btn-next" id="btn-next-5" onclick="nextQ(5)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="q-card" data-q="6">
+          <div class="q-number">Question 7 of 10</div>
+          <div class="q-text">Have you conducted adversarial testing (red-teaming) on your LLMs or AI applications?</div>
+          <div class="q-sub">Including prompt injection, jailbreak attempts, OWASP LLM Top-10, and domain-specific attack vectors.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,6)"><span class="q-option-letter">A</span><span class="q-option-text">No adversarial testing done</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,6)"><span class="q-option-letter">B</span><span class="q-option-text">Some informal testing by the dev team</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,6)"><span class="q-option-letter">C</span><span class="q-option-text">One-time red-team exercise done, not ongoing</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,6)"><span class="q-option-letter">D</span><span class="q-option-text">Continuous adversarial testing baked into our CI/CD pipeline</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(6)">← Back</button>
+            <button class="q-btn-next" id="btn-next-6" onclick="nextQ(6)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="q-card" data-q="7">
+          <div class="q-number">Question 8 of 10</div>
+          <div class="q-text">Do you have clear data governance for the training data used by your AI models?</div>
+          <div class="q-sub">Data lineage, consent management, bias audits, and privacy-preserving practices.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,7)"><span class="q-option-letter">A</span><span class="q-option-text">No data governance for AI training data</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,7)"><span class="q-option-letter">B</span><span class="q-option-text">Basic data cataloguing only</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,7)"><span class="q-option-letter">C</span><span class="q-option-text">Data lineage tracked but bias audits not systematically done</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,7)"><span class="q-option-letter">D</span><span class="q-option-text">Full data governance: lineage, consent, bias audits, synthetic alternatives where needed</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(7)">← Back</button>
+            <button class="q-btn-next" id="btn-next-7" onclick="nextQ(7)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="q-card" data-q="8">
+          <div class="q-number">Question 9 of 10</div>
+          <div class="q-text">How is AI quality and governance responsibility structured in your organisation?</div>
+          <div class="q-sub">Clear ownership is the #1 predictor of audit success in enterprise AI programmes.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,8)"><span class="q-option-letter">A</span><span class="q-option-text">No one owns it — it's shared informally</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,8)"><span class="q-option-letter">B</span><span class="q-option-text">Owned by engineering but no dedicated governance function</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,8)"><span class="q-option-letter">C</span><span class="q-option-text">A team or individual is responsible but lacks authority/tooling</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,8)"><span class="q-option-letter">D</span><span class="q-option-text">Dedicated AI Risk function with board-level reporting and enforcement power</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(8)">← Back</button>
+            <button class="q-btn-next" id="btn-next-8" onclick="nextQ(8)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="q-card" data-q="9">
+          <div class="q-number">Question 10 of 10</div>
+          <div class="q-text">If a regulator audited your AI systems today, how confident are you in passing?</div>
+          <div class="q-sub">Be honest — this determines your personalised action plan recommendations.</div>
+          <div class="q-options">
+            <button class="q-option" data-score="1" onclick="selectOption(this,9)"><span class="q-option-letter">A</span><span class="q-option-text">Not confident at all — we'd fail immediately</span></button>
+            <button class="q-option" data-score="2" onclick="selectOption(this,9)"><span class="q-option-letter">B</span><span class="q-option-text">Somewhat worried — we have gaps we know about</span></button>
+            <button class="q-option" data-score="3" onclick="selectOption(this,9)"><span class="q-option-letter">C</span><span class="q-option-text">Reasonably confident but some areas need work</span></button>
+            <button class="q-option" data-score="4" onclick="selectOption(this,9)"><span class="q-option-letter">D</span><span class="q-option-text">Fully confident — our documentation and evidence are audit-ready</span></button>
+          </div>
+          <div class="q-nav">
+            <button class="q-btn-back" onclick="prevQ(9)">← Back</button>
+            <button class="q-btn-next" id="btn-next-9" onclick="showResults()">See My Results →</button>
+          </div>
+        </div>
+
+      </div><!-- /quiz-questions -->
+
+      <!-- RESULTS SCREEN -->
+      <div id="results-screen">
+        <!-- Score ring -->
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="68" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="12"/>
+              <circle id="score-arc" cx="80" cy="80" r="68" fill="none" stroke="url(#scoreGrad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="427" stroke-dashoffset="427" style="transition:stroke-dashoffset 1s ease;"/>
+              <defs>
+                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#4d31f5"/>
+                  <stop offset="100%" stop-color="#21a3b2"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-ring-num">
+              <span class="score-ring-big" id="score-pct">—</span>
+              <span class="score-ring-label">/ 100</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:2.5rem;">
+          <div id="grade-badge-el" class="grade-badge">Loading…</div>
+          <h2 id="result-headline" style="font-family:'Inter Tight',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;margin:.5rem 0;line-height:1.3;"></h2>
+          <p id="result-sub" style="font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.7;max-width:540px;margin:0 auto;"></p>
+        </div>
+
+        <!-- Findings -->
+        <h3 style="font-family:'Inter Tight',sans-serif;font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:1rem;">Your key findings</h3>
+        <div id="findings-list"></div>
+
+        <!-- Lead capture + CTA -->
+        <div class="results-lead">
+          <p style="font-family:'Inter Tight',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin:0 0 .4rem;">Get your full AI governance report</p>
+          <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0 0 1.25rem;line-height:1.6;">We'll send a personalised action plan with specific recommendations for your score, industry benchmarks, and a 90-day roadmap — free.</p>
+          <form id="assess-form" onsubmit="submitAssessment(event)" style="display:flex;flex-wrap:wrap;gap:.5rem;">
+            <input type="email" id="assess-email" placeholder="your@company.com" required style="flex:1;min-width:200px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:9px;padding:.7rem 1rem;font-size:.88rem;color:#fff;outline:none;"/>
+            <input type="text" id="assess-company" placeholder="Company name" style="flex:1;min-width:180px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:9px;padding:.7rem 1rem;font-size:.88rem;color:#fff;outline:none;"/>
+            <button type="submit" style="background:linear-gradient(135deg,#4d31f5,#21a3b2);border:none;color:#fff;padding:.7rem 1.5rem;border-radius:9px;font-size:.88rem;font-weight:700;cursor:pointer;white-space:nowrap;">Send my report →</button>
+          </form>
+          <div id="assess-success" style="display:none;margin-top:.75rem;font-size:.85rem;color:#4ade80;">✓ Report request sent — check your inbox within 24 hours.</div>
+          <p style="font-size:.68rem;color:rgba(255,255,255,.25);margin:.75rem 0 0;">No spam. Used only to send your governance report.</p>
+        </div>
+
+        <!-- Alternative CTA -->
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem;justify-content:center;">
+          <a href="contact.html" style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#fff;text-decoration:none;padding:.65rem 1.35rem;border-radius:9px;font-size:.85rem;font-weight:600;">📅 Book a governance review call</a>
+          <a href="roi-calculator.html" style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(232,135,33,.12);border:1px solid rgba(232,135,33,.3);color:#e88721;text-decoration:none;padding:.65rem 1.35rem;border-radius:9px;font-size:.85rem;font-weight:600;">📊 Calculate your ROI</a>
+          <button onclick="restartQuiz()" style="display:inline-flex;align-items:center;gap:.5rem;background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);padding:.65rem 1.35rem;border-radius:9px;font-size:.85rem;font-weight:600;cursor:pointer;">↩ Retake assessment</button>
+        </div>
+      </div><!-- /results-screen -->
+
+    </div><!-- /quiz-wrap -->
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+</div>
+<div><h5>Platforms</h5><ul><li><a href="qave.html">QAVE</a></li><li><a href="cheq.html">CHEQ</a></li><li><a href="nexus.html">Nexus</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="roi-calculator.html">ROI Calculator</a></li><li><a href="ai-assessment.html">AI Assessment</a></li></ul></div>
+<div><h5>Company</h5><ul><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact</a></li><li><a href="why-qapitol.html">Why Qapitol</a></li></ul></div>
+</div>
+<div class="footer-bottom"><span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span><span>Privacy · Terms · Cookies</span></div>
+</div>
+</footer>
+
+<script>
+/* ── State ── */
+var scores = new Array(10).fill(null);
+var currentQ = 0;
+var TOTAL_Q = 10;
+
+function selectOption(btn, qIndex) {
+  // Deselect all in this question
+  btn.closest('.q-options').querySelectorAll('.q-option').forEach(function(o){
+    o.classList.remove('selected');
+  });
+  btn.classList.add('selected');
+  scores[qIndex] = parseInt(btn.dataset.score, 10);
+
+  // Enable next button
+  var nextBtn = document.getElementById('btn-next-' + qIndex);
+  if (nextBtn) nextBtn.classList.add('ready');
+}
+
+function nextQ(qIndex) {
+  if (scores[qIndex] === null) return;
+  var cards = document.querySelectorAll('.q-card');
+  cards[qIndex].classList.remove('active');
+  if (qIndex + 1 < TOTAL_Q) {
+    currentQ = qIndex + 1;
+    cards[currentQ].classList.add('active');
+    updateProgress(currentQ);
+  }
+}
+
+function prevQ(qIndex) {
+  var cards = document.querySelectorAll('.q-card');
+  cards[qIndex].classList.remove('active');
+  currentQ = qIndex - 1;
+  cards[currentQ].classList.add('active');
+  updateProgress(currentQ);
+}
+
+function updateProgress(q) {
+  var pct = Math.round(((q + 1) / TOTAL_Q) * 100);
+  document.getElementById('quiz-progress').style.width = pct + '%';
+}
+
+function showResults() {
+  if (scores[9] === null) return;
+
+  // Hide questions
+  document.getElementById('quiz-questions').style.display = 'none';
+  document.getElementById('quiz-progress').style.width = '100%';
+
+  // Calculate total score (max = 10 * 4 = 40 → normalise to 100)
+  var total = scores.reduce(function(a, b) { return a + (b || 0); }, 0);
+  var pct = Math.round((total / 40) * 100);
+
+  // Animate arc (circumference = 2π × 68 ≈ 427)
+  var circ = 427;
+  setTimeout(function() {
+    document.getElementById('score-arc').style.strokeDashoffset = circ - (circ * pct / 100);
+  }, 200);
+  document.getElementById('score-pct').textContent = pct;
+
+  // Grade
+  var grade, headline, sub, badgeStyle;
+  var findings = [];
+
+  if (pct >= 80) {
+    grade = '🏆 AI Governance Leader';
+    headline = 'Your AI programme is audit-ready';
+    sub = 'You\'re in the top 15% of enterprise AI governance programmes we\'ve assessed. Your next step is continuous monitoring and staying ahead of evolving regulations.';
+    badgeStyle = 'background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.35);color:#4ade80;';
+    findings = [
+      { icon:'✅', text:'Strong governance framework — maintain cadence of policy updates as regulations evolve.' },
+      { icon:'✅', text:'Good AI testing maturity — consider adding adversarial red-teaming if not already continuous.' },
+      { icon:'⚡', text:'Opportunity: benchmark your programme against SURE-Q Level 4 for board-level governance evidence.' },
+    ];
+  } else if (pct >= 60) {
+    grade = '🟡 Developing — Gaps Identified';
+    headline = 'Strong foundations, critical gaps to close';
+    sub = 'You\'ve made real progress on AI governance, but 2–3 areas need attention before a regulatory audit. The good news: these gaps are fixable in 60–90 days with the right partner.';
+    badgeStyle = 'background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.35);color:#facc15;';
+    findings = [
+      { icon:'⚠️', text:'Adversarial testing gap: most orgs at this stage lack continuous red-teaming. A single incident can trigger regulatory review.' },
+      { icon:'⚠️', text:'Explainability: on-demand audit trails are likely manual — automate this before your next regulatory touchpoint.' },
+      { icon:'✅', text:'Your AI testing approach is better than average. Formalize it with an eval pipeline to make it auditable.' },
+      { icon:'🔧', text:'Recommended: SURE-Q framework assessment to identify and close the remaining compliance gaps systematically.' },
+    ];
+  } else if (pct >= 40) {
+    grade = '🔴 At Risk — Action Required';
+    headline = 'Significant governance gaps pose regulatory risk';
+    sub = 'Your current AI programme has material gaps that would likely fail a regulatory audit. Without action in the next 90 days, you face fines, deployment bans, or reputational risk.';
+    badgeStyle = 'background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);color:#f87171;';
+    findings = [
+      { icon:'🚨', text:'No systematic AI governance framework — regulators now expect documented, enforced policies for all AI systems in production.' },
+      { icon:'🚨', text:'Post-deployment monitoring gap: unmonitored AI drift is the leading cause of AI incidents in regulated industries.' },
+      { icon:'⚠️', text:'Data governance: without documented lineage and consent management, you\'re exposed to DPDP enforcement action.' },
+      { icon:'🔧', text:'Immediate action: deploy QAVE for automated eval + CHEQ for compliance mapping. Most gaps can be closed in 8–12 weeks.' },
+    ];
+  } else {
+    grade = '⛔ Critical — Urgent Remediation Needed';
+    headline = 'Your AI deployment carries serious regulatory and operational risk';
+    sub = 'Your AI programme currently has no meaningful governance layer. Every day in production without remediation increases your regulatory and reputational exposure. This is fixable — but urgently.';
+    badgeStyle = 'background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#ef4444;';
+    findings = [
+      { icon:'🚨', text:'No governance framework: you are non-compliant with CERT-In, IRDAI, and (if operating in EU) the AI Act from day one.' },
+      { icon:'🚨', text:'No AI testing process: every model in production is an uncontrolled risk. One failure can trigger enforcement action.' },
+      { icon:'🚨', text:'No monitoring: you have no visibility into model drift, failure modes, or adverse outcomes post-deployment.' },
+      { icon:'🔧', text:'Recommended immediate path: QAVE + CHEQ deployment + SURE-Q baseline assessment. First governance evidence in 4 weeks.' },
+    ];
+  }
+
+  // Render
+  document.getElementById('grade-badge-el').setAttribute('style', badgeStyle);
+  document.getElementById('grade-badge-el').textContent = grade;
+  document.getElementById('result-headline').textContent = headline;
+  document.getElementById('result-sub').textContent = sub;
+
+  var findingsEl = document.getElementById('findings-list');
+  findingsEl.innerHTML = findings.map(function(f) {
+    return '<div class="finding-card"><span class="finding-icon">'+f.icon+'</span>'
+      +'<p style="font-size:.88rem;color:rgba(255,255,255,.7);line-height:1.65;margin:0;">'+f.text+'</p></div>';
+  }).join('');
+
+  document.getElementById('results-screen').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Track in GTM
+  if (window.dataLayer) {
+    window.dataLayer.push({ event:'ai_assessment_complete', score: pct, grade: grade });
+  }
+}
+
+function restartQuiz() {
+  scores = new Array(10).fill(null);
+  currentQ = 0;
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('quiz-questions').style.display = 'block';
+  document.querySelectorAll('.q-card').forEach(function(c) { c.classList.remove('active'); });
+  document.querySelectorAll('.q-option').forEach(function(o) { o.classList.remove('selected'); });
+  document.querySelectorAll('.q-btn-next').forEach(function(b) { b.classList.remove('ready'); });
+  document.getElementById('quiz-progress').style.width = '10%';
+  document.getElementById('score-arc').style.strokeDashoffset = '427';
+  document.querySelectorAll('.q-card')[0].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitAssessment(e) {
+  e.preventDefault();
+  var email = document.getElementById('assess-email').value.trim();
+  var company = document.getElementById('assess-company').value.trim();
+  var score = document.getElementById('score-pct').textContent;
+  var fd = new FormData();
+  fd.append('email', email);
+  fd.append('company', company);
+  fd.append('assessment_score', score + '/100');
+  fd.append('source', 'ai-readiness-assessment');
+  fetch('https://formspree.io/f/xnjwrzen', { method:'POST', body:fd, headers:{ Accept:'application/json' } })
+    .then(function() {
+      document.getElementById('assess-success').style.display = 'block';
+      document.getElementById('assess-form').style.display = 'none';
+      if (window.dataLayer) window.dataLayer.push({ event:'assessment_lead', email: email });
+    });
+}
+</script>
+
+<script src="assets/js/main.js" defer></script>
+<script src="site-enhancements.js" defer></script>
+<script src="cmd-palette.js" defer></script>
+<script src="chatbot-ai.js" defer></script>
+<script src="mega-menu.js" defer></script>
+</body>
+</html>

@@ -337,6 +337,41 @@
 </div>
 </div>
 </section>
+<!-- HERO VIDEO SECTION -->
+<section id="hero-video" style="padding:4rem 0 0;background:linear-gradient(180deg,rgba(13,15,30,0) 0%,rgba(13,15,30,.6) 100%);">
+  <div class="container" style="text-align:center;">
+    <p class="kicker" style="text-align:center;margin-bottom:.6rem;">See Qapitol in Action</p>
+    <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#fff;margin-bottom:2.5rem;line-height:1.25;">Watch how enterprise teams<br/>guarantee AI outcomes with Qapitol</h2>
+    <div style="position:relative;max-width:860px;margin:0 auto;border-radius:20px;overflow:hidden;border:1px solid rgba(77,49,245,.3);box-shadow:0 24px 80px rgba(77,49,245,.25),0 0 0 1px rgba(255,255,255,.04);">
+      <!-- YouTube placeholder — replace VIDEO_ID with actual ID when ready -->
+      <div id="qap-hero-video-wrap" style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#0a0f2e 0%,#0d1535 50%,#0a0f2e 100%);cursor:pointer;overflow:hidden;">
+        <!-- Placeholder thumbnail overlay -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(77,49,245,.18) 0%,rgba(33,163,178,.08) 50%,transparent 80%);"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;z-index:2;">
+          <!-- Play button -->
+          <button id="qap-play-btn" onclick="document.getElementById('qap-hero-video-wrap').innerHTML='<iframe width=\'100%\' height=\'100%\' src=\'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0\' frameborder=\'0\' allow=\'autoplay;encrypted-media\' allowfullscreen style=\'position:absolute;inset:0;\' title=\'Qapitol Platform Demo\'></iframe>';this.style.display='none';" style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#4d31f5,#21a3b2);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(77,49,245,.18),0 8px 32px rgba(77,49,245,.4);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='scale(1.1)';this.style.boxShadow='0 0 0 16px rgba(77,49,245,.22),0 8px 40px rgba(77,49,245,.55)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 0 12px rgba(77,49,245,.18),0 8px 32px rgba(77,49,245,.4)'" aria-label="Play demo video">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+          </button>
+          <div style="text-align:center;">
+            <p style="font-family:'Inter Tight',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;margin:0 0 .3rem;">Platform Demo — 3 min</p>
+            <p style="font-size:.8rem;color:rgba(255,255,255,.45);margin:0;">See QAVE evaluation, CHEQ compliance mapping, and Agent Fabric in action</p>
+          </div>
+        </div>
+        <!-- Animated grid lines for visual interest -->
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.07;pointer-events:none;" xmlns="http://www.w3.org/2000/svg">
+          <defs><pattern id="hv-grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#4d31f5" stroke-width="1"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#hv-grid)"/>
+        </svg>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1.5rem;margin-top:1.5rem;padding-bottom:.5rem;">
+      <span style="font-size:.78rem;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:.4rem;"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>3-min product walkthrough</span>
+      <span style="font-size:.78rem;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:.4rem;"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;"></span>No signup required</span>
+      <a href="contact.html" style="font-size:.78rem;color:#21a3b2;font-weight:600;text-decoration:none;">Or book a live demo →</a>
+    </div>
+  </div>
+</section>
+
 <!-- BUSINESS OUTCOME ASSURANCE BAND -->
 <section style="padding:2rem 0;background:linear-gradient(90deg,rgba(77,49,245,.12) 0%,rgba(33,163,178,.08) 50%,rgba(77,49,245,.12) 100%);border-top:1px solid rgba(77,49,245,.2);border-bottom:1px solid rgba(77,49,245,.2);">
 <div class="container">
@@ -1236,6 +1271,209 @@
 </script>
 </section>
 
+<!-- VIDEO TESTIMONIALS SECTION -->
+<section id="video-testimonials" style="padding:5rem 0;border-top:1px solid var(--border);">
+  <div class="container">
+    <p class="kicker" style="text-align:center;margin-bottom:.6rem;">Client Stories</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:.6rem;">Hear from the teams<br/>that rely on Qapitol</h2>
+    <p class="section-sub" style="text-align:center;max-width:520px;margin:0 auto 3rem;">Real outcomes from real customers — unscripted.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto 2rem;">
+
+      <!-- Testimonial card 1 -->
+      <div class="vt-card" data-name="Arun Sharma" data-title="CTO, Leading BFSI Fintech" data-quote="Qapitol's QAVE cut our LLM validation cycle from 3 weeks to 4 days. We shipped compliant AI to 12 million users without a single regulatory flag." style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;" onmouseover="this.style.borderColor='rgba(77,49,245,.4)';this.style.boxShadow='0 8px 32px rgba(77,49,245,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.boxShadow='none'">
+        <div style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#0e1428,#0a1020);overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 40% 60%,rgba(77,49,245,.22) 0%,transparent 65%);"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#4d31f5,#21a3b2);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(77,49,245,.15);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:10px;left:12px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);z-index:3;">BFSI · 2:47</div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.05;pointer-events:none;" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="vt-grid-1" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#4d31f5" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#vt-grid-1)"/></svg>
+        </div>
+        <div style="padding:1.1rem 1.25rem;">
+          <p style="font-size:.85rem;color:rgba(255,255,255,.68);line-height:1.65;margin:0 0 .9rem;font-style:italic;">"Qapitol's QAVE cut our LLM validation cycle from 3 weeks to 4 days. We shipped compliant AI to 12M users without a single regulatory flag."</p>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#004C8F,#2E7BEE);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0;">AS</div>
+            <div><p style="font-size:.82rem;font-weight:700;color:#fff;margin:0;">Arun Sharma</p><p style="font-size:.72rem;color:rgba(255,255,255,.4);margin:0;">CTO · BFSI Fintech</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial card 2 -->
+      <div class="vt-card" data-name="Priya Nair" data-title="VP Engineering, E-commerce Unicorn" data-quote="The SURE-Q framework gave our board a governance story they could defend. Qapitol turned our AI liability into a competitive advantage." style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;" onmouseover="this.style.borderColor='rgba(33,163,178,.4)';this.style.boxShadow='0 8px 32px rgba(33,163,178,.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.boxShadow='none'">
+        <div style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#0e2020,#0a1a1a);overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(33,163,178,.22) 0%,transparent 65%);"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#21a3b2,#0d6e7e);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(33,163,178,.15);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:10px;left:12px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);z-index:3;">E-COMMERCE · 3:12</div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.05;pointer-events:none;" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="vt-grid-2" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#21a3b2" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#vt-grid-2)"/></svg>
+        </div>
+        <div style="padding:1.1rem 1.25rem;">
+          <p style="font-size:.85rem;color:rgba(255,255,255,.68);line-height:1.65;margin:0 0 .9rem;font-style:italic;">"The SURE-Q framework gave our board a governance story they could defend. Qapitol turned our AI liability into a competitive advantage overnight."</p>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#A020F0,#9B2F96);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0;">PN</div>
+            <div><p style="font-size:.82rem;font-weight:700;color:#fff;margin:0;">Priya Nair</p><p style="font-size:.72rem;color:rgba(255,255,255,.4);margin:0;">VP Engineering · E-commerce Unicorn</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial card 3 -->
+      <div class="vt-card" data-name="Kiran Mehta" data-title="Chief AI Officer, Healthcare Group" data-quote="Clinical AI compliance was an unsolved problem for us. Qapitol's team deployed CHEQ in 6 weeks. We're now fully ABDM and CE-MD aligned." style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;" onmouseover="this.style.borderColor='rgba(232,135,33,.4)';this.style.boxShadow='0 8px 32px rgba(232,135,33,.18)'" onmouseout="this.style.borderColor='rgba(255,255,255,.08)';this.style.boxShadow='none'">
+        <div style="position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1408,#140e04);overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(232,135,33,.2) 0%,transparent 65%);"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;">
+            <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#e88721,#b05010);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(232,135,33,.15);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+          <div style="position:absolute;top:10px;left:12px;font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);z-index:3;">HEALTHCARE · 4:05</div>
+          <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:.05;pointer-events:none;" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="vt-grid-3" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#e88721" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(#vt-grid-3)"/></svg>
+        </div>
+        <div style="padding:1.1rem 1.25rem;">
+          <p style="font-size:.85rem;color:rgba(255,255,255,.68);line-height:1.65;margin:0 0 .9rem;font-style:italic;">"Clinical AI compliance was an unsolved problem for us. Qapitol deployed CHEQ in 6 weeks. We're now fully ABDM and CE-MD aligned."</p>
+          <div style="display:flex;align-items:center;gap:.75rem;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#27AE60,#1e8049);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#fff;flex-shrink:0;">KM</div>
+            <div><p style="font-size:.82rem;font-weight:700;color:#fff;margin:0;">Kiran Mehta</p><p style="font-size:.72rem;color:rgba(255,255,255,.4);margin:0;">Chief AI Officer · Healthcare Group</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+
+    <div style="text-align:center;margin-top:1rem;">
+      <a href="case-studies.html" style="display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:700;color:#21a3b2;text-decoration:none;border:1px solid rgba(33,163,178,.28);padding:.55rem 1.25rem;border-radius:8px;transition:border-color .18s,background .18s;" onmouseover="this.style.background='rgba(33,163,178,.08)';this.style.borderColor='rgba(33,163,178,.5)'" onmouseout="this.style.background='transparent';this.style.borderColor='rgba(33,163,178,.28)'">View all case studies →</a>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO TESTIMONIAL LIGHTBOX -->
+<div id="qap-vt-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(6px);" onclick="if(event.target===this){this.style.display='none';this.querySelector('iframe')&&(this.querySelector('iframe').src='');}">
+  <div style="position:relative;width:min(800px,94vw);">
+    <button onclick="document.getElementById('qap-vt-modal').style.display='none';document.getElementById('qap-vt-modal').querySelector('iframe')&&(document.getElementById('qap-vt-modal').querySelector('iframe').src='');" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;width:32px;height:32px;border-radius:8px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">×</button>
+    <div style="background:#0b0c1a;border:1px solid rgba(77,49,245,.3);border-radius:16px;overflow:hidden;">
+      <div style="aspect-ratio:16/9;" id="qap-vt-player">
+        <iframe width="100%" height="100%" src="" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="display:block;" title="Customer Testimonial"></iframe>
+      </div>
+      <div id="qap-vt-info" style="padding:1.25rem 1.5rem;border-top:1px solid rgba(255,255,255,.07);">
+        <p id="qap-vt-name" style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin:0 0 .2rem;"></p>
+        <p id="qap-vt-role" style="font-size:.78rem;color:rgba(255,255,255,.45);margin:0;"></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var PLACEHOLDER_VID = 'dQw4w9WgXcQ'; // Replace with real YouTube video IDs
+  document.querySelectorAll('.vt-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var modal = document.getElementById('qap-vt-modal');
+      var iframe = document.getElementById('qap-vt-player').querySelector('iframe');
+      var name = card.dataset.name || '';
+      var title = card.dataset.title || '';
+      iframe.src = 'https://www.youtube.com/embed/' + PLACEHOLDER_VID + '?autoplay=1&rel=0';
+      document.getElementById('qap-vt-name').textContent = name;
+      document.getElementById('qap-vt-role').textContent = title;
+      modal.style.display = 'flex';
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var m = document.getElementById('qap-vt-modal');
+      if (m && m.style.display !== 'none') {
+        m.style.display = 'none';
+        var fr = m.querySelector('iframe'); if (fr) fr.src = '';
+      }
+    }
+  });
+})();
+</script>
+
+<!-- CASE STUDY LIGHTBOX MODAL -->
+<div id="qap-cs-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:99998;align-items:center;justify-content:center;backdrop-filter:blur(5px);padding:1rem;" onclick="if(event.target===this)document.getElementById('qap-cs-modal').style.display='none'">
+  <div style="position:relative;width:min(680px,96vw);background:#0f1429;border:1px solid rgba(77,49,245,.35);border-radius:20px;overflow:hidden;max-height:90vh;overflow-y:auto;">
+    <button onclick="document.getElementById('qap-cs-modal').style.display='none'" style="position:absolute;top:14px;right:14px;z-index:2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;width:32px;height:32px;border-radius:8px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;flex-shrink:0;">×</button>
+    <!-- Header gradient bar -->
+    <div id="qap-cs-header" style="padding:2rem 2rem 1.5rem;background:linear-gradient(135deg,rgba(77,49,245,.22) 0%,rgba(33,163,178,.12) 100%);border-bottom:1px solid rgba(255,255,255,.07);">
+      <div id="qap-cs-badge" style="font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#21a3b2;margin-bottom:.5rem;"></div>
+      <h3 id="qap-cs-title" style="font-family:'Inter Tight',sans-serif;font-size:1.35rem;font-weight:700;color:#fff;margin:0 0 .6rem;line-height:1.25;padding-right:2rem;"></h3>
+      <p id="qap-cs-sub" style="font-size:.85rem;color:rgba(255,255,255,.55);margin:0;"></p>
+    </div>
+    <!-- Stats row -->
+    <div id="qap-cs-stats" style="display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid rgba(255,255,255,.07);"></div>
+    <!-- Body -->
+    <div style="padding:1.5rem 2rem;">
+      <h4 style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#e88721;margin:0 0 .75rem;">The Challenge</h4>
+      <p id="qap-cs-challenge" style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 1.25rem;"></p>
+      <h4 style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#21a3b2;margin:0 0 .75rem;">The Qapitol Solution</h4>
+      <p id="qap-cs-solution" style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.7;margin:0 0 1.25rem;"></p>
+      <h4 style="font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#4ade80;margin:0 0 .75rem;">Outcomes</h4>
+      <ul id="qap-cs-outcomes" style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin:0 0 1.75rem;padding-left:1.2rem;"></ul>
+      <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
+        <a href="case-studies.html" style="display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#4d31f5,#21a3b2);color:#fff;text-decoration:none;padding:.65rem 1.35rem;border-radius:9px;font-size:.82rem;font-weight:700;">Read full case study →</a>
+        <a href="contact.html" style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:#fff;text-decoration:none;padding:.65rem 1.35rem;border-radius:9px;font-size:.82rem;font-weight:700;">Book a similar engagement →</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var CASE_STUDIES = {
+    'HDFC Bank':    { badge:'BFSI · AI Quality', title:'How HDFC Bank shipped compliant AI to 52M customers without a single regulatory breach', sub:'AI evaluation + CHEQ compliance across retail banking and credit decisioning.', stats:[{l:'LLM eval cycle',v:'3 weeks → 4 days'},{l:'Compliance flags',v:'0 breaches'},{l:'Customers impacted',v:'52 million'},{l:'ROI',v:'6.4×'}], challenge:'HDFC Bank needed to deploy AI credit-scoring models under RBI\'s new per-loan explainability mandate — with a 90-day regulatory deadline and 52M customers at stake. Existing vendor tools gave no audit trail.', solution:'QAVE automated LLM benchmarking against RBI DPDP and EU AI Act. CHEQ generated real-time compliance evidence with per-decision audit trails. Entire stack deployed inside HDFC\'s private cloud with zero data egress.', outcomes:['Reduced LLM evaluation cycle from 3 weeks to 4 days','Zero compliance flags across 18-month audit period','Delivered per-loan explainability reports in under 24 hours','Saved ₹12 crore in projected compliance remediation costs'] },
+    'Razorpay':     { badge:'Payments · Agentic QE', title:'Razorpay\'s 10× test coverage at half the cost with Qapitol\'s Agentic QE', sub:'Agent Fabric autonomous test generation and execution for payment flow assurance.', stats:[{l:'Test coverage',v:'+10×'},{l:'Cost reduction',v:'52%'},{l:'Release velocity',v:'+3 sprints/qtr'},{l:'Defect escape rate',v:'−78%'}], challenge:'Razorpay\'s payment flows were becoming impossible to manually test at scale — 200+ APIs, 12 payment instruments, 6 banking integrations. QA headcount couldn\'t keep pace with engineering velocity.', solution:'Agent Fabric deployed autonomous test agents that self-generate, execute, and heal test suites on every PR. Qurator orchestrated evaluation across all payment flows with real-time drift detection.', outcomes:['10× increase in test coverage with zero QA headcount increase','52% reduction in QA infrastructure cost','Defect escape rate dropped from 4.2% to 0.9%','Shipped 3 additional sprints per quarter'] },
+    'Freshworks':   { badge:'SaaS · AI Governance', title:'Freshworks\'s AI governance story that satisfied three enterprise auditors simultaneously', sub:'SURE-Q framework + CHEQ policy packs deployed across Freshdesk, Freshsales, and Freshservice AI features.', stats:[{l:'Audit pass rate',v:'100%'},{l:'Policy frameworks',v:'EU AI Act + SOC 2'},{l:'Deployment time',v:'8 weeks'},{l:'NPS impact',v:'+18 pts'}], challenge:'Freshworks needed enterprise customers in EU markets to trust its AI copilot features — but lacked the governance documentation to pass audits from three separate enterprise procurement teams simultaneously.', solution:'Qapitol applied the SURE-Q responsible AI framework across all Freshworks AI features. CHEQ generated policy packs aligned to EU AI Act Article 13 and SOC 2 AI controls. Full audit trail delivered in 8 weeks.', outcomes:['100% audit pass rate across 3 simultaneous enterprise evaluations','EU AI Act Article 13 compliance documented for all AI features','NPS for AI copilot features increased 18 points post-launch','Closed 4 enterprise deals that were stalled on AI governance concerns'] },
+  };
+
+  // Attach click handlers to logo pills in the ticker
+  function attachHandlers() {
+    document.querySelectorAll('.client-logo-pill').forEach(function(pill) {
+      var company = pill.textContent.trim();
+      if (!CASE_STUDIES[company]) return;
+      pill.style.cursor = 'pointer';
+      pill.addEventListener('click', function() { openCS(company); });
+    });
+  }
+
+  function openCS(company) {
+    var data = CASE_STUDIES[company];
+    if (!data) return;
+    document.getElementById('qap-cs-badge').textContent = data.badge;
+    document.getElementById('qap-cs-title').textContent = data.title;
+    document.getElementById('qap-cs-sub').textContent = data.sub;
+    // Stats
+    var statsEl = document.getElementById('qap-cs-stats');
+    statsEl.innerHTML = data.stats.map(function(s) {
+      return '<div style="flex:1;min-width:120px;padding:1rem 1.25rem;border-right:1px solid rgba(255,255,255,.07);text-align:center;">'
+        +'<p style="font-family:\'Inter Tight\',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;margin:0 0 .2rem;">'+s.v+'</p>'
+        +'<p style="font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin:0;">'+s.l+'</p>'
+        +'</div>';
+    }).join('');
+    document.getElementById('qap-cs-challenge').textContent = data.challenge;
+    document.getElementById('qap-cs-solution').textContent = data.solution;
+    var outcomesEl = document.getElementById('qap-cs-outcomes');
+    outcomesEl.innerHTML = data.outcomes.map(function(o) { return '<li>'+o+'</li>'; }).join('');
+    document.getElementById('qap-cs-modal').style.display = 'flex';
+  }
+
+  // Also expose globally so other scripts can trigger it
+  window.__qapOpenCS = openCS;
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', attachHandlers);
+  else attachHandlers();
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var m = document.getElementById('qap-cs-modal');
+      if (m && m.style.display !== 'none') m.style.display = 'none';
+    }
+  });
+})();
+</script>
+
 <footer class="site-footer">
 <div class="container">
 <div class="footer-grid">
@@ -1362,6 +1600,12 @@
   });
 })();
 </script>
+
+<!-- Enhancement scripts -->
+<script src="site-enhancements.js" defer></script>
+<script src="cmd-palette.js" defer></script>
+<script src="chatbot-ai.js" defer></script>
+<script src="mega-menu.js" defer></script>
 
 <button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
 <div id="qip-overlay"></div>
