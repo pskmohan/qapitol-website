@@ -222,17 +222,55 @@
   function init() {
     build();
 
+    /* Use capture:true so we fire BEFORE any element's own keydown handler */
     document.addEventListener('keydown', e => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
+        e.stopPropagation();
         window.__qapCP && window.__qapCP.toggle();
       }
-    });
+      if (e.key === 'Escape') {
+        const overlay = document.getElementById('qap-cp-overlay');
+        if (overlay && overlay.classList.contains('open')) {
+          overlay.classList.remove('open');
+          window.__qapCP._open = false;
+        }
+      }
+    }, true); /* ← capture phase */
 
-    /* Add Cmd+K hint to nav search icons if any */
-    document.querySelectorAll('[data-search], .nav-search, .search-trigger').forEach(el => {
+    /* Wire any existing nav search icons */
+    document.querySelectorAll('[data-search], .nav-search, .search-trigger, #qap-search-btn').forEach(el => {
       el.addEventListener('click', e => { e.preventDefault(); window.__qapCP && window.__qapCP.toggle(); });
     });
+
+    /* Inject a visible ⌘K search pill into the nav */
+    const nav = document.querySelector('nav, .nav, .navbar, header nav, .site-nav');
+    if (nav && !document.getElementById('qap-search-btn')) {
+      const pill = document.createElement('button');
+      pill.id = 'qap-search-btn';
+      pill.setAttribute('aria-label', 'Search (Cmd+K)');
+      pill.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span style="font-size:12px;color:inherit;opacity:.7">Search</span>
+        <kbd style="font-size:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 5px;color:inherit;opacity:.6;font-family:inherit">⌘K</kbd>
+      `;
+      Object.assign(pill.style, {
+        display:'flex', alignItems:'center', gap:'5px',
+        background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.12)',
+        borderRadius:'20px', padding:'5px 10px', cursor:'pointer',
+        color:'#94a3b8', fontFamily:'inherit', transition:'all .2s',
+        marginLeft:'auto', marginRight:'8px', flexShrink:'0'
+      });
+      pill.onmouseenter = () => { pill.style.background='rgba(245,158,11,.12)'; pill.style.borderColor='rgba(245,158,11,.3)'; pill.style.color='#f59e0b'; };
+      pill.onmouseleave = () => { pill.style.background='rgba(255,255,255,.06)'; pill.style.borderColor='rgba(255,255,255,.12)'; pill.style.color='#94a3b8'; };
+      pill.onclick = e => { e.preventDefault(); window.__qapCP && window.__qapCP.toggle(); };
+
+      /* Insert before the last nav item (usually a CTA button) */
+      const navItems = nav.querySelectorAll('a, button');
+      const lastNavItem = navItems[navItems.length - 1];
+      if (lastNavItem) nav.insertBefore(pill, lastNavItem);
+      else nav.appendChild(pill);
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

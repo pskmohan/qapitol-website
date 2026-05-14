@@ -230,11 +230,101 @@
       }
     }
 
+    /* ── Hide mobile-only elements on desktop ── */
+    .mm-close-btn { display: none !important; }
+
+    /* ── Platforms wide layout: override .megamenu.simple constraints ── */
+    .megamenu.simple.mm-two-col {
+      min-width: 720px !important;
+      display: grid !important;
+      grid-template-columns: 1fr 230px !important;
+      grid-template-rows: auto auto auto !important;
+      padding: 1.2rem 1.4rem !important;
+      gap: .6rem 1.2rem !important;
+    }
+    .megamenu.simple.mm-two-col .mega-col {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .megamenu.simple.mm-two-col .mm-spotlight {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      margin-top: 0 !important;
+      align-self: start;
+    }
+    .megamenu.simple.mm-two-col .mm-pills {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: .55rem .8rem .45rem;
+      gap: .4rem;
+      margin-top: 0;
+    }
+    .megamenu.simple.mm-two-col .mm-pills::-webkit-scrollbar { display: none; }
+    .megamenu.simple.mm-two-col .mm-pill { white-space: nowrap; flex-shrink: 0; }
+    .megamenu.simple.mm-two-col .mm-actions {
+      grid-column: 1 / -1;
+      grid-row: 3;
+    }
+
+    /* ── Platforms 2-column list layout ── */
+    .mm-two-col .mega-col ul {
+      columns: 2;
+      column-gap: 1.4rem;
+      break-inside: avoid;
+    }
+    .mm-two-col .mega-col ul li {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* ── Extra pill-links row (used for quick nav) ── */
+    .mm-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .35rem;
+      padding: .65rem 1rem .45rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+      margin-top: .4rem;
+    }
+    .mm-pill {
+      font-size: .68rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all .15s;
+      white-space: nowrap;
+    }
+    .mm-pill:hover {
+      background: rgba(33,163,178,.12);
+      border-color: rgba(33,163,178,.35);
+      color: #21a3b2;
+    }
+    .mm-pill.hot {
+      background: rgba(245,158,11,.1);
+      border-color: rgba(245,158,11,.3);
+      color: #e88721;
+    }
+
     /* ── Keyboard focus highlight ── */
     .megamenu a:focus-visible {
       outline: 2px solid #e88721;
       outline-offset: 2px;
       border-radius: 4px;
+    }
+
+    /* ── On mobile: restore close button ── */
+    @media (max-width: 900px) {
+      .mm-close-btn { display: flex !important; }
+      .mm-two-col .mega-col ul { columns: 1; }
     }
   `;
 
@@ -301,6 +391,65 @@
     ],
   };
 
+  /* ─── Extra pill-links per nav item ─────────────────────────────────── */
+  const PILLS = {
+    'Platforms': [
+      { label: '🆓 QAVE Free Tier', href: 'qave-platform.html', hot: true },
+      { label: 'SURE-Q Framework', href: 'sure-q.html' },
+      { label: 'AgentOps', href: 'agentops.html' },
+      { label: 'Platform Engineering', href: 'platform-engineering.html' },
+      { label: '📊 ROI Calculator', href: 'roi-calculator.html', hot: true },
+      { label: 'Integrations', href: 'integrations.html' },
+      { label: 'API Docs', href: 'integrations.html#api' },
+    ],
+    'Industries': [
+      { label: 'BFSI & Payments', href: 'industries.html#bfsi' },
+      { label: 'Healthcare AI', href: 'solution-healthcare-ai.html' },
+      { label: 'Insurance', href: 'industries.html#insurance' },
+      { label: 'Retail & E-commerce', href: 'industries.html#retail' },
+      { label: 'Logistics', href: 'industries.html#logistics' },
+      { label: 'Tech & SaaS', href: 'industries.html#tech-saas' },
+      { label: '🇦🇪 UAE & MENA', href: 'uae.html', hot: true },
+      { label: '🇺🇸 USA', href: 'usa.html' },
+      { label: 'Government AI', href: 'industries.html#government' },
+    ],
+    'Insights': [
+      { label: 'Case Studies', href: 'case-studies.html' },
+      { label: 'AI Governance Blog', href: 'insights.html#blogs' },
+      { label: 'Research Papers', href: 'insights.html#research' },
+      { label: '📅 Reg Calendar', href: 'regulatory-calendar.html', hot: true },
+      { label: 'AI Readiness Quiz', href: 'ai-assessment.html' },
+      { label: 'Build vs Buy', href: 'build-vs-buy.html' },
+      { label: 'The Pivot Story', href: 'pivot.html' },
+      { label: 'Qapitol Labs', href: 'labs.html' },
+    ],
+    'About': [
+      { label: 'Our Team', href: 'about.html#leadership' },
+      { label: 'Careers — 13 Roles', href: 'careers.html', hot: true },
+      { label: 'Partnerships', href: 'partnerships.html' },
+      { label: 'QEN Network', href: 'qen.html' },
+      { label: 'Events & Webinars', href: 'events.html' },
+      { label: 'Community', href: 'community.html' },
+      { label: 'Alumni Network', href: 'alumni.html' },
+      { label: 'Security & Trust', href: 'security-trust.html' },
+    ],
+  };
+
+  function makePills(label) {
+    const items = PILLS[label];
+    if (!items || !items.length) return null;
+    const div = document.createElement('div');
+    div.className = 'mm-pills';
+    items.forEach(item => {
+      const a = document.createElement('a');
+      a.href = item.href;
+      a.className = 'mm-pill' + (item.hot ? ' hot' : '');
+      a.textContent = item.label;
+      div.appendChild(a);
+    });
+    return div;
+  }
+
   /* ─── Helpers ────────────────────────────────────────────────────────── */
   function injectCSS(css) {
     const s = document.createElement('style');
@@ -358,11 +507,23 @@
 
       const label = trigger.textContent.trim();
 
-      // Inject spotlight card into first mega-col
+      // Platforms: 2-column layout + single-row quick-links
+      if (label === 'Platforms') {
+        menu.classList.add('mm-two-col');
+        const pills = makePills(label);
+        if (pills) menu.appendChild(pills);
+      }
+
+      // Inject spotlight card — for Platforms (wide grid) append to menu directly;
+      // for others append inside first mega-col so it sits below the list
       const spotlight = makeSpotlight(label);
       if (spotlight) {
-        const firstCol = menu.querySelector('.mega-col');
-        if (firstCol) firstCol.appendChild(spotlight);
+        if (label === 'Platforms') {
+          menu.appendChild(spotlight); // placed by CSS grid into col 2
+        } else {
+          const firstCol = menu.querySelector('.mega-col');
+          if (firstCol) firstCol.appendChild(spotlight);
+        }
       }
 
       // Inject actions strip
@@ -393,11 +554,11 @@
 
       li.addEventListener('mouseenter', openMenu);
       li.addEventListener('mouseleave', () => {
-        closeTimer = setTimeout(closeMenu, 120);
+        closeTimer = setTimeout(closeMenu, 400);
       });
       menu.addEventListener('mouseenter', () => clearTimeout(closeTimer));
       menu.addEventListener('mouseleave', () => {
-        closeTimer = setTimeout(closeMenu, 120);
+        closeTimer = setTimeout(closeMenu, 400);
       });
 
       // Click toggle for keyboard / touch users
