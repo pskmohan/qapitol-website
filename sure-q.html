@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>SURE-Q Framework · Qapitol</title>
+<meta content="SURE-Q is Qapitol's integrated AI assurance methodology — Qualify, Secure, Utilise, Rely, Evolve. The framework that ties every platform, service, and outcome together." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ── SURE-Q page-specific styles ── */
+    :root {
+      --pillar-q: #4d31f5;
+      --pillar-s: #21a3b2;
+      --pillar-u: #e88721;
+      --pillar-r: #7c5af5;
+      --pillar-e: #22c55e;
+    }
+
+    /* Hero */
+    .qsure-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .qsure-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(77,49,245,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .qsure-hero .kicker {
+      margin-bottom: 20px;
+    }
+    .qsure-hero h1 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      max-width: 820px;
+      margin: 0 auto 24px;
+    }
+    .qsure-hero .sub {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Framework acronym strip */
+    .acronym-strip {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin: 60px 0 0;
+      flex-wrap: wrap;
+    }
+    .acronym-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 28px;
+      border-right: 1px solid var(--border);
+      min-width: 120px;
+    }
+    .acronym-item:last-child { border-right: none; }
+    .acronym-letter {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .acronym-word {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Pillars section */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .pillar-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, border-color .2s;
+    }
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.18);
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+      background: var(--pillar-color);
+    }
+    .pillar-big-letter {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 5.5rem;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--pillar-color);
+      opacity: .15;
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      user-select: none;
+    }
+    .pillar-label {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pillar-tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--pillar-color);
+      margin-bottom: 18px;
+    }
+    .pillar-desc {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .pillar-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .pillar-row-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border: 1px solid;
+      text-decoration: none;
+      transition: opacity .15s;
+    }
+    .badge:hover { opacity: .75; }
+    .pillar-services-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pillar-services-list a {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      transition: color .15s;
+    }
+    .pillar-services-list a:hover { color: #fff; }
+    .pillar-services-list span { color: rgba(255,255,255,.2); }
+
+    /* Layer diagram */
+    .layer-diagram {
+      margin-top: 56px;
+      position: relative;
+    }
+    .layer-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .layer {
+      padding: 22px 36px;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-bottom: none;
+    }
+    .layer:first-child { border-radius: 12px 12px 0 0; }
+    .layer:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 12px 12px; }
+    .layer-num {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      min-width: 64px;
+    }
+    .layer-name {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      min-width: 200px;
+    }
+    .layer-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex: 1;
+    }
+    .layer-tag {
+      font-size: 0.82rem;
+      padding: 5px 14px;
+      border-radius: 100px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .layer-outcomes { background: rgba(77,49,245,.12); border-color: rgba(77,49,245,.3); }
+    .layer-solutions { background: rgba(124,90,245,.08); border-color: rgba(124,90,245,.2); }
+    .layer-services { background: rgba(33,163,178,.08); border-color: rgba(33,163,178,.2); }
+    .layer-platforms { background: rgba(232,135,33,.08); border-color: rgba(232,135,33,.2); }
+    .layer-foundation { background: rgba(34,197,94,.08); border-color: rgba(34,197,94,.2); }
+    .industry-lens {
+      position: absolute;
+      right: -1px;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      background: rgba(77,49,245,.08);
+      border-left: 2px solid rgba(77,49,245,.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .industry-lens span {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+    .layer-diagram-note {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Constellation */
+    .constellation-section {
+      padding: 100px 0;
+    }
+    .constellation-wrap {
+      position: relative;
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .constellation-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .constellation-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s;
+    }
+    .constellation-node:hover { transform: translateY(-4px); }
+    .node-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid;
+      background: var(--surface-2);
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.2;
+      transition: background .2s;
+    }
+    .constellation-node:hover .node-circle {
+      background: rgba(77,49,245,.12);
+    }
+    .node-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .constellation-connector {
+      width: 100%;
+      max-width: 900px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+      position: relative;
+    }
+    .constellation-tagline {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-align: center;
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    /* Outcome Assurance band */
+    .boa-band {
+      padding: 100px 0;
+      background: linear-gradient(135deg, rgba(77,49,245,.15) 0%, rgba(33,163,178,.1) 50%, rgba(77,49,245,.08) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .boa-inner {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 56px;
+    }
+    .boa-inner h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .boa-inner p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .proof-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .proof-card .proof-metric {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-light), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .proof-card .proof-label {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Certification band */
+    .cert-band {
+      padding: 72px 0;
+    }
+    .cert-inner {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .cert-inner h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .cert-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .cert-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: var(--surface-2);
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    .cert-pill .cert-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+    }
+    .cert-note {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Persona section */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .persona-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      position: relative;
+    }
+    .persona-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .persona-card h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .persona-card p {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .persona-pillars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .persona-pillar-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+      border: 1px solid;
+    }
+
+    /* Final CTA */
+    .final-cta {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(77,49,245,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .final-cta p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+
+    /* Utility */
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(77,49,245,.4);
+      color: var(--accent-light);
+      margin-bottom: 20px;
+    }
+    .text-center { text-align: center; }
+    .mt-0 { margin-top: 0; }
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 16px auto 0;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .constellation-grid { grid-template-columns: repeat(3, 1fr); }
+      .constellation-grid .constellation-node:nth-child(4),
+      .constellation-grid .constellation-node:nth-child(5) { grid-column: span 1; }
+      .layer { padding: 16px 20px; }
+      .industry-lens { width: 60px; }
+      .layer-items { padding-right: 68px; }
+      .acronym-item { min-width: 80px; padding: 12px 16px; }
+    }
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="SURE-Q Framework | Qapitol AI" property="og:title"/>
+<meta content="SURE-Q is Qapitol's AI assurance framework — Secure, Utilise, Rely, Evolve, Qualify. Five interconnected disciplines for provable AI quality and governance." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/sure-q.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="SURE-Q Framework | Qapitol AI" name="twitter:title"/>
+<meta content="SURE-Q is Qapitol's AI assurance framework — Secure, Utilise, Rely, Evolve, Qualify. Five disciplines for provable AI quality and governance." name="twitter:description"/>
+  <meta name="description" content="The SURE-Q Framework by Qapitol — a five-pillar AI quality governance model covering Security, Utilisation, Reliability, Evolution, and Qualification for enterprise AI systems.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/sure-q.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/sure-q.html">
+  <meta property="og:title" content="SURE-Q Framework — AI Quality Governance | Qapitol">
+  <meta property="og:description" content="The SURE-Q Framework by Qapitol — a five-pillar AI quality governance model covering Security, Utilisation, Reliability, Evolution, and Qualification for enterprise AI systems.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="SURE-Q Framework — AI Quality Governance | Qapitol">
+  <meta name="twitter:description" content="The SURE-Q Framework by Qapitol — a five-pillar AI quality governance model covering Security, Utilisation, Reliability, Evolution, and Qualification for enterprise AI systems.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qapitol.com/"},
+        {"@type":"ListItem","position":2,"name":"SURE-Q Framework","item":"https://qapitol.com/sure-q.html"}
+    ]
+  }
+  </script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<main>
+<!-- ── HERO ── -->
+<section class="qsure-hero">
+<div class="container">
+<span class="kicker">The SURE-Q Framework</span>
+<h1 class="gradient-text">AI confidence isn’t a destination.<br/>It’s a framework.</h1>
+<p class="sub">SURE-Q is Qapitol’s Business Outcome Assurance methodology — five interconnected disciplines that take you from evaluating AI through securing it, deploying it at scale, relying on it in production, and continuously evolving it. This is how enterprise AI stops being a cost centre and starts delivering provable business value.</p>
+<div class="persona-strip" style="display:flex;align-items:center;flex-wrap:wrap;gap:.45rem;margin:1.25rem 0 1.5rem;padding:.6rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:2rem;width:fit-content">
+<span style="font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.45);margin-right:.2rem;">Built for</span>
+<span style="display:inline-flex;align-items:center;font-size:.76rem;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.09);border-radius:1rem;padding:.22rem .6rem;">CIO / CDO</span>
+<span style="display:inline-flex;align-items:center;font-size:.76rem;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.09);border-radius:1rem;padding:.22rem .6rem;">Chief Risk Officer</span>
+<span style="display:inline-flex;align-items:center;font-size:.76rem;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.09);border-radius:1rem;padding:.22rem .6rem;">Board Sponsor</span>
+</div>
+<div class="hero-ctas">
+<a class="btn btn-primary" href="contact.html">Map Your AI Journey →</a>
+<a class="btn btn-outline" href="insights.html#playbooks">Download Framework Overview</a>
+</div>
+<div class="acronym-strip">
+<div class="acronym-item">
+<span class="acronym-letter" style="color:var(--pillar-s)">S</span>
+<span class="acronym-word">Secure</span>
+</div>
+<div class="acronym-item">
+<span class="acronym-letter" style="color:var(--pillar-u)">U</span>
+<span class="acronym-word">Utilise</span>
+</div>
+<div class="acronym-item">
+<span class="acronym-letter" style="color:var(--pillar-r)">R</span>
+<span class="acronym-word">Rely</span>
+</div>
+<div class="acronym-item">
+<span class="acronym-letter" style="color:var(--pillar-e)">E</span>
+<span class="acronym-word">Evolve</span>
+</div>
+<div class="acronym-item">
+<span class="acronym-letter" style="color:var(--pillar-q)">Q</span>
+<span class="acronym-word">Qualify</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ── FIVE PILLARS ── -->
+<section class="section" id="pillars">
+<div class="container">
+<div class="text-center">
+<span class="section-tag">Five Pillars</span>
+<h2 class="section-title gradient-text mt-0">Every letter earns its place.</h2>
+<p class="section-intro">SURE-Q isn’t a checklist. It’s a lifecycle — five disciplines that work independently and exponentially better together.</p>
+</div>
+<div class="pillars-grid">
+<!-- Q: Qualify -->
+<div class="pillar-card" style="--pillar-color: var(--pillar-q)">
+<span class="pillar-big-letter">Q</span>
+<div class="pillar-label">Qualify</div>
+<div class="pillar-tagline">Evaluate &amp; Baseline AI</div>
+<p class="pillar-desc">Before you trust AI, you must understand it. SURE-Q Qualify gives you the methodology, platforms, and expert practitioners to evaluate any AI system — foundation models, agentic pipelines, or custom LLMs — against rigorous, domain-specific benchmarks. You can’t manage what you haven’t measured.</p>
+<div class="pillar-row">
+<span class="pillar-row-label">Platforms:</span>
+<a class="badge" href="qave.html" style="color:#b5a6ff; border-color:rgba(77,49,245,.5); background:rgba(77,49,245,.1)">QAVE</a>
+<a class="badge" href="nexus.html" style="color:#b5a6ff; border-color:rgba(77,49,245,.5); background:rgba(77,49,245,.1)">Nexus</a>
+<a class="badge" href="qurator.html" style="color:#b5a6ff; border-color:rgba(77,49,245,.5); background:rgba(77,49,245,.1)">Qurator</a>
+</div>
+<div class="pillar-row">
+<span class="pillar-row-label">Services:</span>
+<div class="pillar-services-list">
+<a href="ai-evaluation.html">AI Evaluation (Evals)</a>
+<span>·</span>
+<a href="ai-in-qe.html">Agentic QE</a>
+<span>·</span>
+<a href="digital-reliability.html">Legacy Modernisation Testing</a>
+</div>
+</div>
+</div>
+<!-- S: Secure -->
+<div class="pillar-card" style="--pillar-color: var(--pillar-s)">
+<span class="pillar-big-letter">S</span>
+<div class="pillar-label">Secure</div>
+<div class="pillar-tagline">Compliance &amp; Governance</div>
+<p class="pillar-desc">Regulatory frameworks for AI are no longer optional — they’re existential. SURE-Q Secure maps your AI systems to EU AI Act requirements, ISO 42001, IRDAI, RBI, and sector-specific mandates through CHEQ, our AI compliance platform. Stay ahead of regulators, not behind them.</p>
+<div class="pillar-row">
+<span class="pillar-row-label">Platforms:</span>
+<a class="badge" href="cheq.html" style="color:#7de8f0; border-color:rgba(33,163,178,.5); background:rgba(33,163,178,.1)">CHEQ</a>
+<a class="badge" href="nexus.html" style="color:#7de8f0; border-color:rgba(33,163,178,.5); background:rgba(33,163,178,.1)">Nexus</a>
+</div>
+<div class="pillar-row">
+<span class="pillar-row-label">Services:</span>
+<div class="pillar-services-list">
+<a href="digital-reliability.html#security-testing">Security Testing</a>
+<span>·</span>
+<a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a>
+<span>·</span>
+<a href="ai-engineering.html">AI Governance Frameworks</a>
+</div>
+</div>
+</div>
+<!-- U: Utilise -->
+<div class="pillar-card" style="--pillar-color: var(--pillar-u)">
+<span class="pillar-big-letter">U</span>
+<div class="pillar-label">Utilise</div>
+<div class="pillar-tagline">Put AI to Work</div>
+<p class="pillar-desc">Evaluation and governance are only valuable if AI actually does something for your business. SURE-Q Utilise is where we deploy AI agents, build automation workflows, and integrate AI into your engineering and business processes — with oversight built in from day one.</p>
+<div class="pillar-row">
+<span class="pillar-row-label">Platforms:</span>
+<a class="badge" href="agent-fabric.html" style="color:#ffd499; border-color:rgba(232,135,33,.5); background:rgba(232,135,33,.1)">Agent Fabric</a>
+<a class="badge" href="qave.html" style="color:#ffd499; border-color:rgba(232,135,33,.5); background:rgba(232,135,33,.1)">QAVE</a>
+</div>
+<div class="pillar-row">
+<span class="pillar-row-label">Services:</span>
+<div class="pillar-services-list">
+<a href="workflow-automation.html">AI Workflow Automation</a>
+<span>·</span>
+<a href="intelligent-automation.html#agentic">Agentic Automation</a>
+<span>·</span>
+<a href="intelligent-automation.html#process">Process Automation</a>
+</div>
+</div>
+</div>
+<!-- R: Rely -->
+<div class="pillar-card" style="--pillar-color: var(--pillar-r)">
+<span class="pillar-big-letter">R</span>
+<div class="pillar-label">Rely</div>
+<div class="pillar-tagline">Continuous Assurance</div>
+<p class="pillar-desc">Deploying AI isn’t the finish line — it’s the starting gun. SURE-Q Rely provides the continuous monitoring, performance engineering, and SLA-backed delivery commitments that keep AI systems trustworthy over time. We stake our reputation on your outcomes.</p>
+<div class="pillar-row">
+<span class="pillar-row-label">Platforms:</span>
+<a class="badge" href="nexus.html" style="color:#c4b5fd; border-color:rgba(124,90,245,.5); background:rgba(124,90,245,.1)">Nexus</a>
+<a class="badge" href="qurator.html" style="color:#c4b5fd; border-color:rgba(124,90,245,.5); background:rgba(124,90,245,.1)">Qurator</a>
+</div>
+<div class="pillar-row">
+<span class="pillar-row-label">Services:</span>
+<div class="pillar-services-list">
+<a href="digital-reliability.html">Digital Reliability</a>
+<span>·</span>
+<a href="digital-reliability.html#performance-engineering">Performance Engineering</a>
+<span>·</span>
+<a href="digital-reliability.html#devops-continuous-testing">Continuous Testing</a>
+</div>
+</div>
+</div>
+<!-- E: Evolve -->
+<div class="pillar-card" style="--pillar-color: var(--pillar-e)">
+<span class="pillar-big-letter">E</span>
+<div class="pillar-label">Evolve</div>
+<div class="pillar-tagline">Innovation &amp; Transformation</div>
+<p class="pillar-desc">AI doesn’t stand still, and neither do we. SURE-Q Evolve is our commitment to continuous R&amp;D — through Qapitol Labs, emerging platforms like QGEN, and vertical AI solutions built specifically for regulated industries. We evolve so you stay ahead.</p>
+<div class="pillar-row">
+<span class="pillar-row-label">Platforms:</span>
+<a class="badge" href="labs.html" style="color:#86efac; border-color:rgba(34,197,94,.5); background:rgba(34,197,94,.1)">Qapitol Labs</a>
+<a class="badge" href="platforms.html" style="color:#86efac; border-color:rgba(34,197,94,.5); background:rgba(34,197,94,.1)">QGEN ✦</a>
+</div>
+<div class="pillar-row">
+<span class="pillar-row-label">Services:</span>
+<div class="pillar-services-list">
+<a href="labs.html">Research &amp; Innovation</a>
+<span>·</span>
+<a href="gcc.html">GCC Build &amp; Run</a>
+<span>·</span>
+<a href="talent-services.html">AI Transformation</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── FRAMEWORK DIAGRAM (SVG) ── -->
+<section class="section" id="layers" style="padding-top: 0;">
+<div class="container">
+<div class="text-center">
+<span class="section-tag">Architecture</span>
+<h2 class="section-title gradient-text mt-0">A continuous quality lifecycle.</h2>
+<p class="section-intro">SURE-Q is not sequential — it's circular. Every pillar feeds the next, creating a closed-loop system where AI quality continuously improves. The five pillars operate in concert across every engagement.</p>
+</div>
+<!-- ═══ SURE-Q ARCHITECTURE DIAGRAM ═══ -->
+<div style="width:100%;margin:2.5rem auto 0;max-width:1340px;border-radius:16px;overflow:hidden;box-shadow:0 8px 60px rgba(0,0,0,.5);">
+  <iframe
+    src="sure-q-architecture.html"
+    title="SURE-Q Framework Architecture"
+    style="width:100%;height:820px;border:none;display:block;background:#0a1628;"
+    scrolling="no"
+    loading="lazy">
+  </iframe>
+</div>
+</section>
+<!-- ── PLATFORM CONSTELLATION ── -->
+<section class="constellation-section" id="platforms">
+<div class="container">
+<div class="text-center">
+<span class="section-tag">Platforms</span>
+<h2 class="section-title gradient-text mt-0">The SURE-Q platform constellation.</h2>
+<p class="section-intro">Five platforms. Each one powerful alone. Together, they create an AI assurance fabric that covers your entire AI lifecycle.</p>
+</div>
+<div class="constellation-wrap">
+<div class="constellation-grid">
+<a class="constellation-node" href="qave.html">
+<div class="node-circle" style="border-color:rgba(77,49,245,.6); color:var(--accent-light)">
+<span style="font-size:1.1rem; font-weight:800">QAVE</span>
+</div>
+<span class="node-label">AI Simulation<br/>&amp; Eval Engine</span>
+</a>
+<a class="constellation-node" href="nexus.html">
+<div class="node-circle" style="border-color:rgba(33,163,178,.6); color:#7de8f0">
+<span style="font-size:1.1rem; font-weight:800">Nexus</span>
+</div>
+<span class="node-label">QE<br/>Intelligence</span>
+</a>
+<a class="constellation-node" href="cheq.html">
+<div class="node-circle" style="border-color:rgba(232,135,33,.6); color:#ffd499">
+<span style="font-size:1.1rem; font-weight:800">CHEQ</span>
+</div>
+<span class="node-label">AI Compliance<br/>Platform</span>
+</a>
+<a class="constellation-node" href="agent-fabric.html">
+<div class="node-circle" style="border-color:rgba(124,90,245,.6); color:#c4b5fd">
+<span style="font-size:0.85rem; font-weight:800; text-align:center; line-height:1.2">Agent<br/>Fabric</span>
+</div>
+<span class="node-label">Autonomous<br/>Execution</span>
+</a>
+<a class="constellation-node" href="qurator.html">
+<div class="node-circle" style="border-color:rgba(34,197,94,.6); color:#86efac">
+<span style="font-size:1.1rem; font-weight:800">Qurator</span>
+</div>
+<span class="node-label">Evaluation<br/>Orchestration</span>
+</a>
+</div>
+<div class="constellation-connector"></div>
+<p class="constellation-tagline">Works standalone. Works together. Always under SURE-Q.</p>
+<a class="btn btn-outline" href="platforms.html">Explore All Platforms →</a>
+</div>
+</div>
+</section>
+
+<!-- ── QEN VALIDATION BAND ── -->
+<section style="padding:3.5rem 0;border-top:1px solid rgba(245,158,11,.18);border-bottom:1px solid rgba(245,158,11,.18);background:linear-gradient(135deg,rgba(245,158,11,.07) 0%,rgba(77,49,245,.05) 100%);">
+<div class="container">
+  <div style="text-align:center;margin-bottom:2.5rem;">
+    <span style="font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#f59e0b;">Methodology Integrity</span>
+    <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.4rem,2.5vw,1.85rem);font-weight:800;margin:.6rem 0 .75rem;color:#fff;">SURE-Q is built with domain experts, not just by engineers.</h2>
+    <p style="font-size:.95rem;color:rgba(255,255,255,.55);max-width:640px;margin:0 auto;line-height:1.7;">Every pillar, every benchmark, every evaluation rubric in the SURE-Q framework is reviewed and pressure-tested by practitioners through QEN — our curated network of AI governance, compliance, legal, and engineering SMEs.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:2.5rem;">
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-radius:14px;padding:20px;text-align:center;">
+      <div style="font-size:1.5rem;margin-bottom:8px;">🔬</div>
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:5px;">Framework Research</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.5;">QEN Fellows contribute to benchmark design and evaluation methodology through Qapitol Labs.</div>
+    </div>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-radius:14px;padding:20px;text-align:center;">
+      <div style="font-size:1.5rem;margin-bottom:8px;">📜</div>
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:5px;">Policy Validation</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.5;">Legal and compliance SMEs review every regulatory mapping before it ships in CHEQ's obligation library.</div>
+    </div>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-radius:14px;padding:20px;text-align:center;">
+      <div style="font-size:1.5rem;margin-bottom:8px;">🤖</div>
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:5px;">Model Evaluation</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.5;">RLHF raters and dataset contributors validate AI model outputs across governance and compliance scenarios.</div>
+    </div>
+    <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-radius:14px;padding:20px;text-align:center;">
+      <div style="font-size:1.5rem;margin-bottom:8px;">🗂️</div>
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#fff;margin-bottom:5px;">Golden Datasets</div>
+      <div style="font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.5;">Domain-labelled training and evaluation datasets built by specialists — not crowdsourced, not synthetic-only.</div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap;padding:24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;">
+    <div style="text-align:center;">
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.6rem;color:#f59e0b;line-height:1;">200+</div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-top:3px;">Expert Contributors</div>
+    </div>
+    <div style="width:1px;height:36px;background:rgba(255,255,255,.08);"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.6rem;color:#f59e0b;line-height:1;">18+</div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-top:3px;">Domains Represented</div>
+    </div>
+    <div style="width:1px;height:36px;background:rgba(255,255,255,.08);"></div>
+    <div style="text-align:center;">
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.6rem;color:#f59e0b;line-height:1;">4</div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.35);margin-top:3px;">Expert Tiers — Contributor to Fellow</div>
+    </div>
+    <div style="width:1px;height:36px;background:rgba(255,255,255,.08);"></div>
+    <a href="qen.html" style="background:linear-gradient(135deg,#f59e0b,#fcd34d);color:#000;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.85rem;padding:10px 22px;border-radius:8px;text-decoration:none;white-space:nowrap;">Join QEN →</a>
+  </div>
+</div>
+</section>
+
+<!-- ── BUSINESS OUTCOME ASSURANCE ── -->
+<section class="boa-band" id="outcome-assurance">
+<div class="container">
+<div class="boa-inner">
+<span class="section-tag" style="margin-bottom:24px; display:inline-block">Business Outcome Assurance</span>
+<h2>We don’t just test your AI.<br/>We guarantee what it delivers.</h2>
+<p>Most testing companies tell you what’s broken. Qapitol tells you what works — and backs it with SLA-bound outcome commitments. Business Outcome Assurance means your AI investment has a measurable, contractual return. If we commit to a defect escape rate, a compliance deadline, or a reliability target — we own it.</p>
+</div>
+<div class="proof-grid">
+<div class="proof-card">
+<span class="proof-metric">&lt; 72h</span>
+<span class="proof-label">Speed to compliance readiness for new AI Act requirements</span>
+</div>
+<div class="proof-card">
+<span class="proof-metric">&lt; 0.3%</span>
+<span class="proof-label">Defect escape rate commitment on SLA-backed engagements</span>
+</div>
+<div class="proof-card">
+<span class="proof-metric">99.5%</span>
+<span class="proof-label">AI reliability SLA across monitored production pipelines</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ── CERTIFICATIONS ── -->
+<section class="cert-band section" id="certifications">
+<div class="container">
+<div class="cert-inner">
+<span class="section-tag">Regulatory &amp; Compliance</span>
+<h2>Certified pathways for regulated AI.</h2>
+<p style="color:var(--text-muted); max-width:580px; margin:12px auto 0; font-size:0.97rem; line-height:1.7">Regulated industries can’t afford compliance theatre. SURE-Q Secure maps your AI to the frameworks that matter — with real implementation, not checkbox audits.</p>
+</div>
+<div class="cert-grid">
+<div class="cert-pill">
+<span class="cert-icon">EU</span>
+          EU AI Act Readiness
+        </div>
+<div class="cert-pill">
+<span class="cert-icon">42</span>
+          ISO 42001 Alignment
+        </div>
+<div class="cert-pill">
+<span class="cert-icon">IR</span>
+          IRDAI Compliance
+        </div>
+<div class="cert-pill">
+<span class="cert-icon">RB</span>
+          RBI Framework
+        </div>
+<div class="cert-pill">
+<span class="cert-icon">S2</span>
+          SOC 2 Type II
+        </div>
+<div class="cert-pill">
+<span class="cert-icon">HI</span>
+          HIPAA / HITECH
+        </div>
+</div>
+<p class="cert-note">Certification partnerships with leading audit bodies — ask us about your specific regulatory context.</p>
+</div>
+</section>
+<!-- ── PERSONAS ── -->
+<section class="section" id="who-its-for">
+<div class="container">
+<div class="text-center">
+<span class="section-tag">SURE-Q Works For</span>
+<h2 class="section-title gradient-text mt-0">Built for where you actually are.</h2>
+<p class="section-intro">SURE-Q isn’t one-size-fits-all. Different organisations need different pillars at different intensities — here’s how it maps to the three most common AI journeys.</p>
+</div>
+<div class="persona-grid">
+<div class="persona-card">
+<div class="persona-icon" style="background:rgba(77,49,245,.15); border:1px solid rgba(77,49,245,.3)">
+<span>🚀</span>
+</div>
+<h3>Startups Scaling AI Fast</h3>
+<p>You’re moving quickly, building on foundation models, and need AI that works reliably before you hit regulatory scrutiny. The priority is getting AI qualified and into production with confidence — not getting buried in compliance overhead you don’t need yet.</p>
+<div class="persona-pillars">
+<span class="persona-pillar-tag" style="color:var(--pillar-q); border-color:rgba(77,49,245,.4); background:rgba(77,49,245,.08)">Q — Qualify</span>
+<span class="persona-pillar-tag" style="color:var(--pillar-u); border-color:rgba(232,135,33,.4); background:rgba(232,135,33,.08)">U — Utilise</span>
+<span class="persona-pillar-tag" style="color:var(--pillar-e); border-color:rgba(34,197,94,.4); background:rgba(34,197,94,.08)">E — Evolve</span>
+</div>
+</div>
+<div class="persona-card">
+<div class="persona-icon" style="background:rgba(33,163,178,.15); border:1px solid rgba(33,163,178,.3)">
+<span>🏛️</span>
+</div>
+<h3>Enterprises Governing AI at Scale</h3>
+<p>You have AI in production but are facing increasing regulatory pressure and board-level scrutiny. You need governance infrastructure, continuous monitoring, and the ability to demonstrate compliance — to regulators, to auditors, and to your own leadership.</p>
+<div class="persona-pillars">
+<span class="persona-pillar-tag" style="color:var(--pillar-s); border-color:rgba(33,163,178,.4); background:rgba(33,163,178,.08)">S — Secure</span>
+<span class="persona-pillar-tag" style="color:var(--pillar-r); border-color:rgba(124,90,245,.4); background:rgba(124,90,245,.08)">R — Rely</span>
+<span class="persona-pillar-tag" style="color:var(--pillar-q); border-color:rgba(77,49,245,.4); background:rgba(77,49,245,.08)">Q — Qualify</span>
+</div>
+</div>
+<div class="persona-card">
+<div class="persona-icon" style="background:rgba(232,135,33,.15); border:1px solid rgba(232,135,33,.3)">
+<span>🌏</span>
+</div>
+<h3>GCCs Building AI Capability</h3>
+<p>You’re establishing or scaling a Global Capability Centre with a mandate to build AI competency for your parent organisation. You need the full spectrum — from talent and tooling to governance and delivery frameworks — and you need it to be production-grade from day one.</p>
+<div class="persona-pillars">
+<span class="persona-pillar-tag" style="color:var(--pillar-q); border-color:rgba(77,49,245,.4); background:rgba(77,49,245,.08)">All 5 Pillars</span>
+<span class="persona-pillar-tag" style="color:var(--pillar-e); border-color:rgba(34,197,94,.4); background:rgba(34,197,94,.08)">E — Evolve</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ── GARTNER AI TRiSM ALIGNMENT ── -->
+<section style="padding:4.5rem 0;background:linear-gradient(135deg,#080520 0%,#0d1a35 100%);border-top:1px solid rgba(77,49,245,.2);border-bottom:1px solid rgba(77,49,245,.2);">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;" class="grid-responsive-1">
+    <!-- Left: narrative -->
+    <div>
+      <span style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);">Analyst Framework Alignment</span>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;line-height:1.2;margin:.6rem 0 1rem;color:#fff;">SURE-Q maps 3 of 4 Gartner AI TRiSM layers today — the fourth is in development.</h2>
+      <p style="color:var(--text-muted);font-size:.93rem;line-height:1.75;margin-bottom:1.25rem;">Gartner's AI Trust, Risk and Security Management (AI TRiSM) framework defines four layers every enterprise must address before deploying AI at scale. SURE-Q gives Qapitol managed coverage of Layers 1, 2, and 3 — and we're actively building Layer 4 (Infrastructure & Model Security) into the service.</p>
+      <p style="color:var(--text-muted);font-size:.93rem;line-height:1.75;margin-bottom:1rem;">Where most vendors offer a point tool for one layer, Qapitol provides a unified managed service that spans governance, runtime quality, and information integrity — with model-level security coming next. One partner, one accountability contract, all four layers.</p>
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;color:#e88721;background:rgba(232,135,33,0.08);border:1px solid rgba(232,135,33,0.2);padding:.4rem .9rem;border-radius:99px;margin-bottom:1.25rem;">⚙ Layer 4 capabilities actively in development</div>
+      <a href="contact.html" style="display:inline-flex;align-items:center;gap:.5rem;font-size:.88rem;font-weight:700;color:var(--teal);text-decoration:none;">Get your AI TRiSM readiness map →</a>
+    </div>
+    <!-- Right: 4-layer grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+      <!-- Layer 1 -->
+      <div style="border-radius:10px;padding:1.35rem 1.15rem;background:rgba(33,163,178,0.08);border:1px solid rgba(33,163,178,0.3);">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:.45rem;">Layer 1</div>
+        <div style="font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.5rem;">AI Governance</div>
+        <div style="display:inline-flex;font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.2rem .6rem;border-radius:99px;margin-bottom:.65rem;">✓ SURE-Q E-pillar</div>
+        <p style="color:var(--text-muted);font-size:.78rem;line-height:1.6;margin:0;">Ethics &amp; Governance pillar — risk frameworks, policy compliance, SURE-Q scorecards.</p>
+      </div>
+      <!-- Layer 2 -->
+      <div style="border-radius:10px;padding:1.35rem 1.15rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:.45rem;">Layer 2</div>
+        <div style="font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Runtime Inspection</div>
+        <div style="display:inline-flex;font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.2rem .6rem;border-radius:99px;margin-bottom:.65rem;">✓ SURE-Q S-pillar</div>
+        <p style="color:var(--text-muted);font-size:.78rem;line-height:1.6;margin:0;">Safety &amp; Security pillar — adversarial testing, hallucination detection, agentic QE.</p>
+      </div>
+      <!-- Layer 3 -->
+      <div style="border-radius:10px;padding:1.35rem 1.15rem;background:rgba(77,49,245,0.06);border:1px solid rgba(77,49,245,0.18);">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.45rem;">Layer 3</div>
+        <div style="font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Information Governance</div>
+        <div style="display:inline-flex;font-size:.72rem;font-weight:700;color:var(--text-muted);background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);padding:.2rem .6rem;border-radius:99px;margin-bottom:.65rem;">→ CHEQ + Synthetic Data</div>
+        <p style="color:var(--text-muted);font-size:.78rem;line-height:1.6;margin:0;">DPDP / GDPR, PII traceability, data lineage — via CHEQ and Synthetic Data Management.</p>
+      </div>
+      <!-- Layer 4 — in development -->
+      <div style="border-radius:10px;padding:1.35rem 1.15rem;background:rgba(232,135,33,0.06);border:1px solid rgba(232,135,33,0.22);">
+        <div style="font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#e88721;margin-bottom:.45rem;">Layer 4</div>
+        <div style="font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Infrastructure &amp; Model Security</div>
+        <div style="display:inline-flex;font-size:.72rem;font-weight:700;color:#e88721;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.3);padding:.2rem .6rem;border-radius:99px;margin-bottom:.65rem;">⚙ In Development</div>
+        <p style="color:var(--text-muted);font-size:.78rem;line-height:1.6;margin:0;">Model scanning, adversarial hardening, MLOps supply chain integrity — actively being built into the Qapitol managed service.</p>
+      </div>
+    </div>
+  </div>
+  <p style="text-align:center;color:var(--text-muted);font-size:.78rem;margin-top:2rem;">Source: Gartner, <em>AI Trust, Risk and Security Management</em> (AI TRiSM), 2024. Qapitol is not affiliated with or endorsed by Gartner.</p>
+</div>
+</section>
+<!-- ── FINAL CTA ── -->
+<section class="final-cta section">
+<div class="container">
+<span class="section-tag">Get Started</span>
+<h2 class="gradient-text">Ready to build AI<br/>you can trust?</h2>
+<p>Tell us where you are in your AI journey. We’ll map the SURE-Q pillars that matter most for your context — and show you the fastest path to AI that actually works in production.</p>
+<div class="hero-ctas">
+<a class="btn btn-primary" href="contact.html">Map My AI Journey →</a>
+<a class="btn btn-outline" href="case-studies.html">See It in Action</a>
+</div>
+</div>
+</section>
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

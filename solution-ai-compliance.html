@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI Regulatory Compliance — EU AI Act, NIST &amp; Beyond | Qapitol</title>
+<meta content="Qapitol maps your AI systems to the EU AI Act, NIST AI RMF, RBI guidelines, and ISO/IEC 42001. Gap assessment to compliance roadmap in 4 weeks." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ── Shared utilities ── */
+    .section-kicker{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem}
+    .section-eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem}
+    .eyebrow-line{height:2px;width:28px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .eyebrow-line-amber{height:2px;width:28px;background:linear-gradient(90deg,#f59e0b,transparent)}
+    .section-subtitle{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:680px;margin-top:.75rem}
+
+    /* ── Proof strip ── */
+    .proof-strip{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .proof-strip .ps-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text-muted)}
+    .proof-strip .ps-item strong{font-family:"Inter Tight",sans-serif;font-weight:700;color:#fff;font-size:.9rem}
+    .ps-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-light);flex-shrink:0}
+
+    /* ── Amber accent utilities ── */
+    .amber-kicker{color:#fbbf24 !important}
+    .amber-badge{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(245,158,11,.14);color:#fbbf24;border:1px solid rgba(245,158,11,.28)}
+
+    /* ── Regulatory framework cards ── */
+    .reg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:900px){.reg-grid{grid-template-columns:1fr}}
+
+    .reg-card{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+    .reg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .reg-card.rc-eu::before{background:linear-gradient(90deg,#3b82f6,#93c5fd)}
+    .reg-card.rc-nist::before{background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+    .reg-card.rc-rbi::before{background:linear-gradient(90deg,#f59e0b,#fde68a)}
+    .reg-card.rc-iso::before{background:linear-gradient(90deg,#22c55e,#86efac)}
+    .reg-card:hover{border-color:rgba(255,255,255,.2);box-shadow:0 0 0 1px rgba(77,49,245,.15),0 12px 36px rgba(0,0,0,.3);transform:translateY(-3px)}
+    .reg-icon{font-size:2rem;margin-bottom:.85rem}
+    .reg-framework-tag{display:inline-flex;align-items:center;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.18rem .6rem;border-radius:99px;margin-bottom:.85rem;border:1px solid}
+    .rt-blue{background:rgba(59,130,246,.15);color:#93c5fd;border-color:rgba(59,130,246,.3)}
+    .rt-indigo{background:rgba(77,49,245,.18);color:var(--accent-light);border-color:rgba(77,49,245,.3)}
+    .rt-amber{background:rgba(245,158,11,.15);color:#fbbf24;border-color:rgba(245,158,11,.3)}
+    .rt-green{background:rgba(34,197,94,.15);color:#86efac;border-color:rgba(34,197,94,.3)}
+    .reg-card h3{font-family:"Inter Tight",sans-serif;font-size:1.15rem;font-weight:800;margin-bottom:.4rem}
+    .reg-card .reg-sub{font-size:.8rem;color:var(--text-muted);margin-bottom:.85rem;line-height:1.5}
+    .reg-bullets{font-size:.82rem;color:var(--text-muted);list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;line-height:1.55}
+    .reg-bullets li{display:flex;align-items:flex-start;gap:.45rem}
+    .reg-bullets li::before{content:"›";color:#fbbf24;font-weight:700;flex-shrink:0;margin-top:.02em}
+    .reg-effective{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;padding:.2rem .6rem;border-radius:99px;margin-top:1rem;background:rgba(245,158,11,.1);color:#fbbf24;border:1px solid rgba(245,158,11,.25)}
+
+    /* ── Compliance domains grid ── */
+    .domains-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
+    @media(max-width:1100px){.domains-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.domains-grid{grid-template-columns:1fr}}
+
+    .domain-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .2s,transform .2s}
+    .domain-card:hover{border-color:rgba(245,158,11,.35);transform:translateY(-2px)}
+    .domain-icon{font-size:1.8rem;margin-bottom:.7rem}
+    .domain-card h4{font-family:"Inter Tight",sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.35rem}
+    .domain-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0}
+
+    /* ── 4-step process ── */
+    .process-steps{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;border:1px solid var(--border);border-radius:20px;overflow:hidden}
+    .process-step{display:grid;grid-template-columns:72px 1fr;border-bottom:1px solid var(--border)}
+    .process-step:last-child{border-bottom:none}
+    .step-num{background:var(--surface-2);display:flex;align-items:center;justify-content:center;font-family:"Inter Tight",sans-serif;font-size:1.5rem;font-weight:800;color:rgba(255,255,255,.12);border-right:1px solid var(--border);padding:1.75rem 0}
+    .step-body{padding:1.75rem 2rem}
+    .step-body h4{font-family:"Inter Tight",sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.6rem}
+    .step-badge{display:inline-flex;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.15rem .5rem;border-radius:99px;background:rgba(245,158,11,.14);color:#fbbf24;border:1px solid rgba(245,158,11,.28)}
+    .step-body p{font-size:.875rem;color:var(--text-muted);line-height:1.7;margin:0}
+    .step-output{font-size:.78rem;margin-top:.75rem;padding:.5rem .85rem;border-radius:8px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);color:#fbbf24;display:inline-flex;align-items:center;gap:.4rem}
+
+    /* ── CHEQ platform section ── */
+    .cheq-band{background:linear-gradient(135deg,rgba(245,158,11,.08) 0%,rgba(77,49,245,.07) 100%);border:1px solid rgba(245,158,11,.22);border-radius:24px;padding:3.5rem;position:relative;overflow:hidden}
+    .cheq-band::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.1) 0%,transparent 70%);pointer-events:none}
+    .cheq-band::after{content:'';position:absolute;bottom:-60px;left:-40px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(77,49,245,.1) 0%,transparent 70%);pointer-events:none}
+    .cheq-band h2{font-family:"Inter Tight",sans-serif;font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;margin-bottom:.5rem}
+    .cheq-band .sub{font-size:.97rem;color:var(--text-muted);max-width:640px;margin-bottom:2.25rem;line-height:1.75}
+    .cheq-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem}
+    .cheq-feat{background:rgba(255,255,255,.04);border:1px solid rgba(245,158,11,.14);border-radius:14px;padding:1.35rem}
+    .cheq-feat-icon{font-size:1.5rem;margin-bottom:.55rem}
+    .cheq-feat h4{font-family:"Inter Tight",sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.3rem}
+    .cheq-feat p{font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0}
+
+    /* ── Sectors grid ── */
+    .sectors-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:900px){.sectors-grid{grid-template-columns:1fr}}
+
+    .sector-card{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:border-color .2s,transform .2s}
+    .sector-card:hover{border-color:rgba(245,158,11,.3);transform:translateY(-3px)}
+    .sector-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+    .sector-icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+    .si-amber{background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.25)}
+    .si-blue{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.22)}
+    .si-teal{background:rgba(33,163,178,.12);border:1px solid rgba(33,163,178,.22)}
+    .si-purple{background:rgba(168,85,247,.12);border:1px solid rgba(168,85,247,.22)}
+    .sector-card h3{font-family:"Inter Tight",sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:.2rem}
+    .sector-urgency{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#fbbf24}
+    .sector-card p{font-size:.83rem;color:var(--text-muted);line-height:1.7;margin-bottom:.85rem}
+    .sector-regs{display:flex;flex-wrap:wrap;gap:.35rem}
+    .sector-reg-tag{font-size:.68rem;font-weight:600;padding:.18rem .5rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:rgba(255,255,255,.6)}
+
+    /* ── Proof bar ── */
+    .proof-bar{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;margin:4rem 0}
+    .proof-bar .container{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1.5rem;text-align:center}
+    .pb-stat .pb-num{font-size:2.2rem;font-weight:800;font-family:"Inter Tight",sans-serif;background:linear-gradient(135deg,#f59e0b,#fbbf24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pb-stat p{font-size:.78rem;color:var(--text-muted);margin-top:.2rem;line-height:1.4}
+
+    /* ── CTA band ── */
+    .cta-band{text-align:center;padding:5rem 0 6rem}
+    .cta-band h2{font-family:"Inter Tight",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:.75rem}
+    .cta-sub{font-size:1.05rem;color:var(--text-muted);max-width:580px;margin:0 auto 2rem;line-height:1.7}
+    .cta-cluster{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+
+    @media(max-width:640px){.cheq-band{padding:2rem}.cta-band{padding:3rem 1rem 4rem}.step-body{padding:1.25rem 1.5rem}}
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="AI Regulatory Compliance — EU AI Act, NIST &amp; Beyond | Qapitol" property="og:title"/>
+<meta content="Gap assessment to compliance roadmap in 4 weeks. EU AI Act, NIST AI RMF, RBI guidelines, ISO/IEC 42001. Powered by CHEQ." property="og:description"/>
+<meta content="https://qapitol.com/solution-ai-compliance.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+  <meta name="description" content="Qapitol AI compliance solutions — automated testing against IRDAI, RBI, EU AI Act, DORA, and Solvency II using CHEQ. Reduce compliance risk and audit prep time for financial AI systems.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/solution-ai-compliance.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/solution-ai-compliance.html">
+  <meta property="og:title" content="AI Compliance Solutions | Qapitol">
+  <meta property="og:description" content="Qapitol AI compliance solutions — automated testing against IRDAI, RBI, EU AI Act, DORA, and Solvency II using CHEQ. Reduce compliance risk and audit prep time for financial AI systems.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="AI Compliance Solutions | Qapitol">
+  <meta name="twitter:description" content="Qapitol AI compliance solutions — automated testing against IRDAI, RBI, EU AI Act, DORA, and Solvency II using CHEQ. Reduce compliance risk and audit prep time for financial AI systems.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management</a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Talent overview</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero" style="padding-top:7rem;padding-bottom:5rem">
+<div class="container" style="max-width:960px">
+<nav style="font-size:.78rem;color:var(--text-muted);margin-bottom:2rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+<a href="index.html" style="color:var(--text-muted);text-decoration:none;">Home</a>
+<span style="color:var(--border);">/</span>
+<a href="index.html#solutions" style="color:var(--text-muted);text-decoration:none;">Solutions</a>
+<span style="color:var(--border);">/</span>
+<span style="color:#fbbf24;">AI Regulatory Compliance</span>
+</nav>
+<div class="amber-badge" style="margin-bottom:1.75rem">
+      ⚠️ Regulatory wave · EU AI Act · NIST AI RMF · RBI Guidelines
+    </div>
+<div style="display:inline-flex;align-items:center;gap:.45rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;padding:.22rem .7rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:rgba(255,255,255,.55);margin-bottom:1.25rem;vertical-align:middle;margin-left:.5rem">
+      AI Regulatory Compliance
+    </div>
+<h1 style="font-family:'Inter Tight',sans-serif;font-size:clamp(2.3rem,5.5vw,3.7rem);font-weight:800;line-height:1.08;margin-bottom:1.5rem">
+      Your AI is live.<br/>
+<span style="background:linear-gradient(135deg,#f59e0b 0%,#fbbf24 40%,#fde68a 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Your compliance documentation isn’t.</span>
+</h1>
+<p style="font-size:1.1rem;color:var(--text-muted);max-width:760px;line-height:1.85;margin-bottom:2rem">
+      The EU AI Act is enforceable. The NIST AI RMF is being written into US federal procurement requirements. RBI model risk guidelines are reshaping how banks validate AI in lending and credit decisions. HIPAA now has teeth around clinical AI. Your AI systems are being evaluated on compliance criteria that didn’t exist 18 months ago — and most enterprises have deployed AI without proving any of it complies. Qapitol closes that gap before the audit does it for you.
+    </p>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:2.5rem">
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip">Chief Compliance Officer</span>
+<span class="persona-chip">Chief Risk Officer</span>
+<span class="persona-chip">General Counsel</span>
+<span class="persona-chip">Head of AI</span>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;background:linear-gradient(135deg,#f59e0b,#fbbf24);border-color:#f59e0b;color:#0c0a09">Run a Compliance Gap Assessment →</a>
+<a class="btn btn-secondary" href="#checklist" style="font-size:1rem;padding:.9rem 2rem">Download AI Compliance Checklist</a>
+</div>
+<div class="proof-strip">
+<div class="ps-item"><div class="ps-dot" style="background:#fbbf24;"></div><strong>3</strong> regulatory frameworks mapped</div>
+<div class="ps-item"><div class="ps-dot" style="background:#fbbf24;"></div><strong>60+</strong> compliance checkpoints</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>4-week</strong> assessment to compliance roadmap</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>CHEQ</strong> platform-powered continuous monitoring</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>BFSI · Healthcare · Tech · Gov</strong></div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     THE REGULATORY LANDSCAPE
+════════════════════════════════════════════════════════════ -->
+<section id="frameworks" style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(245,158,11,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line-amber"></div>
+<span class="section-kicker amber-kicker" style="margin-bottom:0">The Regulatory Landscape</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">Four frameworks. All enforceable. All applying to your AI systems right now.</h2>
+<p class="section-subtitle">Ignorance is not a defence. Each of these frameworks carries real consequences — from procurement disqualification to regulatory enforcement action. Knowing which ones apply to your AI systems is the first step to compliance. Qapitol maps them all.</p>
+<div class="reg-grid">
+<!-- EU AI Act -->
+<div class="reg-card rc-eu">
+<div class="reg-icon">🇪🇺</div>
+<div class="reg-framework-tag rt-blue">EU AI Act</div>
+<h3>EU Artificial Intelligence Act</h3>
+<p class="reg-sub">The world’s first comprehensive binding legal framework for AI — and the gold standard other jurisdictions are now emulating.</p>
+<ul class="reg-bullets">
+<li>Risk classification: prohibited, high-risk, limited-risk, and minimal-risk AI systems</li>
+<li>Mandatory conformity assessments for high-risk AI before market placement</li>
+<li>Prohibited AI practices: social scoring, real-time biometric surveillance in public spaces, subliminal manipulation</li>
+<li>High-risk system requirements: human oversight, transparency, robustness, accuracy, and data governance obligations</li>
+<li>Foundation model providers: transparency, adversarial testing, and incident reporting obligations</li>
+</ul>
+<div class="reg-effective">⏰ Effective 2024 – 2026 (phased enforcement)</div>
+</div>
+<!-- NIST AI RMF -->
+<div class="reg-card rc-nist">
+<div class="reg-icon">🇺🇸</div>
+<div class="reg-framework-tag rt-indigo">NIST AI RMF</div>
+<h3>NIST AI Risk Management Framework</h3>
+<p class="reg-sub">Voluntary when launched; now appearing as a mandatory requirement in US federal procurement contracts and enterprise supplier assessments.</p>
+<ul class="reg-bullets">
+<li>Govern — establish AI risk governance policies, accountability structures, and culture</li>
+<li>Map — categorise AI systems by context, capabilities, and risk exposure</li>
+<li>Measure — analyse, assess, and track AI risks using defined metrics and testing protocols</li>
+<li>Manage — prioritise and respond to AI risks with documented treatment plans and controls</li>
+<li>Now referenced in CISA, DOD, and federal agency procurement requirements</li>
+</ul>
+<div class="reg-effective">⏰ Written into US federal procurement (2024 onwards)</div>
+</div>
+<!-- RBI AI Guidelines -->
+<div class="reg-card rc-rbi">
+<div class="reg-icon">🇮🇳</div>
+<div class="reg-framework-tag rt-amber">RBI AI Guidelines</div>
+<h3>RBI AI &amp; Model Risk Guidelines</h3>
+<p class="reg-sub">India’s Reserve Bank of India has moved decisively on AI governance — with direct implications for any bank, NBFC, or fintech using AI in regulated financial processes.</p>
+<ul class="reg-bullets">
+<li>Model Risk Management Circular: validation, documentation, and ongoing monitoring of all AI/ML models</li>
+<li>India-specific guidelines for AI use in credit decisions, fraud detection, and customer-facing applications</li>
+<li>Board-level AI governance requirements for systemically important financial institutions</li>
+<li>SEBI guidance on algorithmic trading and AI use in broking and advisory services</li>
+<li>Anti-discrimination requirements: AI must not produce biased outcomes in lending or insurance</li>
+</ul>
+<div class="reg-effective">⏰ Active — with escalating audit focus in 2025</div>
+</div>
+<!-- ISO/IEC 42001 -->
+<div class="reg-card rc-iso">
+<div class="reg-icon">📋</div>
+<div class="reg-framework-tag rt-green">ISO/IEC 42001</div>
+<h3>ISO/IEC 42001 — AI Management System</h3>
+<p class="reg-sub">The international standard for AI management systems — now appearing as a procurement requirement from large enterprises in regulated sectors who need supplier AI assurance.</p>
+<ul class="reg-bullets">
+<li>AI management system standard: policies, roles, objectives, and continual improvement for AI governance</li>
+<li>Risk and impact assessment requirements for AI systems throughout their lifecycle</li>
+<li>Supplier and third-party AI risk management obligations</li>
+<li>Now required or preferred in procurement by enterprises in financial services, healthcare, and public sector</li>
+<li>Certification pathway available — Qapitol provides gap assessment and remediation support</li>
+</ul>
+<div class="reg-effective">⏰ Now required in enterprise procurement (2024+)</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHAT QAPITOL ASSESSES — COMPLIANCE DOMAINS
+════════════════════════════════════════════════════════════ -->
+<section id="domains" style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line-amber"></div>
+<span class="section-kicker amber-kicker" style="margin-bottom:0">What Qapitol Assesses</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Eight compliance domains. Every AI system evaluated against all of them.</h2>
+<p class="section-subtitle">Regulatory compliance for AI is not a single checkbox — it spans governance, data, models, operations, and oversight. Qapitol assesses across all eight domains in a structured gap register, rated Red / Amber / Green against applicable framework requirements.</p>
+<div class="domains-grid">
+<div class="domain-card">
+<div class="domain-icon">🎯</div>
+<h4>Risk Classification</h4>
+<p>Determine whether your AI systems fall into prohibited, high-risk, or limited-risk categories under EU AI Act and equivalent frameworks. Most organisations get this wrong — and the consequences of misclassification are severe.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">🗄️</div>
+<h4>Data Governance</h4>
+<p>Training data lineage, data quality documentation, sensitive data handling, consent frameworks, and data minimisation requirements. All EU AI Act high-risk systems must demonstrate robust data governance before deployment.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">📄</div>
+<h4>Model Documentation</h4>
+<p>Technical documentation, model cards, capability and limitation statements, performance benchmarks, and version control. Regulators require documentation to exist before an audit — not to be created in response to one.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">⚖️</div>
+<h4>Bias &amp; Fairness Testing</h4>
+<p>Systematic evaluation of AI outputs for discriminatory patterns across protected characteristics. Required under EU AI Act for high-risk systems and under RBI guidelines for credit AI. Qapitol delivers structured bias audit reports with statistical evidence.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">🧑‍💻</div>
+<h4>Human Oversight Mechanisms</h4>
+<p>Controls ensuring humans can monitor, override, and intervene in AI system decisions. EU AI Act mandates meaningful human oversight for all high-risk systems — "human in the loop" must be real, not nominal.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">🚨</div>
+<h4>Incident Response for AI</h4>
+<p>Documented procedures for detecting, reporting, and responding to AI system failures, unintended behaviours, and serious incidents. EU AI Act includes mandatory incident reporting to national authorities for high-risk systems.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">🔍</div>
+<h4>Audit Trail &amp; Explainability</h4>
+<p>Logging infrastructure, decision traceability, and explainability mechanisms sufficient to support regulatory review and legal challenge. Explainability is not aspirational — it is a legal requirement in high-stakes AI contexts.</p>
+</div>
+<div class="domain-card">
+<div class="domain-icon">🤝</div>
+<h4>Third-Party AI Vendor Risk</h4>
+<p>Assessment of compliance obligations when using external AI systems, foundation models, or AI-powered SaaS. EU AI Act downstream obligations mean your vendor’s compliance posture is now your compliance risk.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     PROOF BAR
+════════════════════════════════════════════════════════════ -->
+<div class="proof-bar">
+<div class="container">
+<div class="pb-stat"><div class="pb-num">4</div><p>Regulatory frameworks mapped end-to-end</p></div>
+<div class="pb-stat"><div class="pb-num">60+</div><p>Structured compliance checkpoints</p></div>
+<div class="pb-stat"><div class="pb-num">4 wks</div><p>Assessment to compliance roadmap</p></div>
+<div class="pb-stat"><div class="pb-num">RAG</div><p>Rated gap register — Red / Amber / Green</p></div>
+<div class="pb-stat"><div class="pb-num">CHEQ</div><p>Platform-powered ongoing monitoring</p></div>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════
+     HOW QAPITOL DELIVERS COMPLIANCE — 4-STEP PROCESS
+════════════════════════════════════════════════════════════ -->
+<section id="process" style="padding:5rem 0">
+<div class="container" style="max-width:860px">
+<div class="section-eyebrow">
+<div class="eyebrow-line-amber"></div>
+<span class="section-kicker amber-kicker" style="margin-bottom:0">How Qapitol Delivers Compliance</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:620px;margin-bottom:.5rem">From AI deployed to AI proven compliant. Four structured steps.</h2>
+<p class="section-subtitle" style="max-width:680px">Compliance is not a one-time activity — but it starts with understanding precisely where you stand. Qapitol’s four-step programme takes you from zero documentation to a defensible compliance posture, then keeps you there.</p>
+<div class="process-steps" style="margin-top:2.5rem">
+<div class="process-step">
+<div class="step-num">01</div>
+<div class="step-body">
+<h4>Regulatory Mapping <span class="step-badge">Scope &amp; Discovery</span></h4>
+<p>We begin by identifying precisely which regulatory frameworks apply to your AI systems — based on use case, sector, geography, and risk profile. Not every regulation applies to every system. But misidentifying scope is the most common and most expensive compliance mistake. Qapitol’s regulatory mapping service gives you a documented, defensible scope statement: which frameworks, which articles, which obligations apply — and which don’t.</p>
+<div class="step-output">📋 Output: Regulatory Scope Statement + Framework Obligation Matrix</div>
+</div>
+</div>
+<div class="process-step">
+<div class="step-num">02</div>
+<div class="step-body">
+<h4>Gap Assessment <span class="step-badge">Structured Audit</span></h4>
+<p>A structured audit of your current AI systems, processes, and documentation against applicable framework requirements. We assess across all eight compliance domains — risk classification, data governance, model documentation, bias testing, human oversight, incident response, audit trails, and third-party risk. Every gap is documented, evidenced, and rated using a Red / Amber / Green framework that you can present to your board, your regulator, or your legal team.</p>
+<div class="step-output">🚦 Output: RAG-rated Gap Register — 60+ checkpoints, prioritised by regulatory risk</div>
+</div>
+</div>
+<div class="process-step">
+<div class="step-num">03</div>
+<div class="step-body">
+<h4>Compliance Programme Design <span class="step-badge">Remediation Roadmap</span></h4>
+<p>We translate the gap register into an actionable compliance programme: a prioritised remediation roadmap, documentation templates, controls design, and testing protocols. This includes model cards, technical documentation packs, bias testing frameworks, human oversight specifications, and incident response playbooks — all aligned to the specific frameworks that apply to your systems. Not generic templates. Compliance artefacts built for your AI, your sector, and your regulatory obligations.</p>
+<div class="step-output">📁 Output: Compliance Roadmap + Documentation Pack + Controls Design</div>
+</div>
+</div>
+<div class="process-step">
+<div class="step-num">04</div>
+<div class="step-body">
+<h4>Ongoing Monitoring <span class="step-badge">CHEQ Platform</span></h4>
+<p>Compliance is not a point-in-time activity. Model behaviour changes. Regulations evolve. New AI systems get deployed. Qapitol’s CHEQ platform provides continuous compliance monitoring — automated alerts when model drift triggers a compliance risk, real-time regulatory reporting dashboards, and board-level visibility into your AI compliance posture. Your compliance team gets a live view. Your board gets a quarterly report. Your regulator gets documentation that exists before they ask for it.</p>
+<div class="step-output">📊 Output: Live Compliance Dashboard + Automated Alert System + Regulatory Reports</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     POWERED BY CHEQ
+════════════════════════════════════════════════════════════ -->
+<section id="cheq" style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(245,158,11,.04) 50%,transparent)">
+<div class="container">
+<div class="cheq-band">
+<div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.25rem .75rem;border-radius:99px;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.3);margin-bottom:1.25rem">⚡ Platform</div>
+<h2>CHEQ — Qapitol’s AI Compliance Platform</h2>
+<p class="sub">CHEQ is the operational layer that turns your compliance programme from a one-time audit into a continuous function. It monitors your deployed AI systems in real time, generates the documentation regulators ask for, and gives your board the visibility they need — automatically, on an ongoing basis.</p>
+<div class="cheq-features">
+<div class="cheq-feat">
+<div class="cheq-feat-icon">🤖</div>
+<h4>Automated Compliance Monitoring</h4>
+<p>Continuous scanning of AI model behaviour against your registered compliance obligations. Alerts triggered when drift, degradation, or new outputs breach compliance thresholds — before your regulator notices.</p>
+</div>
+<div class="cheq-feat">
+<div class="cheq-feat-icon">📜</div>
+<h4>Audit Trail Generation</h4>
+<p>Automated, tamper-evident audit trails for all AI system decisions, model versions, and configuration changes. When an auditor asks for evidence, CHEQ produces it in minutes, not weeks.</p>
+</div>
+<div class="cheq-feat">
+<div class="cheq-feat-icon">📊</div>
+<h4>Regulatory Reporting</h4>
+<p>Pre-built reporting templates aligned to EU AI Act, NIST AI RMF, and RBI Model Risk requirements. Compliance reports generated automatically on a schedule — or on demand when your regulator calls.</p>
+</div>
+<div class="cheq-feat">
+<div class="cheq-feat-icon">🛡️</div>
+<h4>Risk Dashboard — Board Visibility</h4>
+<p>A single dashboard showing your organisation’s AI compliance posture — by system, by framework, by domain. Red / Amber / Green status at a glance. Designed for board-level reporting, not just technical teams.</p>
+</div>
+<div class="cheq-feat">
+<div class="cheq-feat-icon">⚠️</div>
+<h4>Drift-Triggered Compliance Alerts</h4>
+<p>When model drift is detected, CHEQ automatically cross-references the changed behaviour against your compliance obligations and raises an alert with the specific framework clauses at risk. Human review triggered before a compliance breach occurs.</p>
+</div>
+<div class="cheq-feat">
+<div class="cheq-feat-icon">🔗</div>
+<h4>Third-Party AI Integration</h4>
+<p>Monitor compliance posture across AI systems from multiple vendors — not just models you built. CHEQ integrates with major LLM API providers and AI SaaS platforms to maintain continuous oversight across your entire AI estate.</p>
+</div>
+</div>
+<div style="margin-top:2rem">
+<a class="btn btn-primary" href="cheq.html" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);border-color:#f59e0b;color:#0c0a09;font-size:.9rem;padding:.7rem 1.6rem">Explore CHEQ Platform →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     SECTORS WHERE THIS IS URGENT
+════════════════════════════════════════════════════════════ -->
+<section id="sectors" style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line-amber"></div>
+<span class="section-kicker amber-kicker" style="margin-bottom:0">Sectors Where This Is Urgent</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Four sectors where AI compliance is no longer optional — and the consequences of non-compliance are immediate.</h2>
+<p class="section-subtitle">Regulatory enforcement is not uniform. These four sectors face the sharpest near-term risk — where an AI audit is not theoretical, it is scheduled.</p>
+<div class="sectors-grid">
+<!-- BFSI -->
+<div class="sector-card">
+<div class="sector-header">
+<div class="sector-icon-wrap si-amber">🏦</div>
+<div>
+<h3>BFSI — Banking, Financial Services &amp; Insurance</h3>
+<div class="sector-urgency">Highest Urgency — Enforcement Active</div>
+</div>
+</div>
+<p>RBI model risk circulars require documented validation and ongoing monitoring for every AI/ML model used in credit decisions, fraud detection, or customer risk assessment. SEBI has issued guidance on AI in broking and algorithmic trading. Anti-discrimination obligations apply to all AI used in lending, insurance underwriting, and credit scoring. The penalty for non-compliance is not a fine — it is a directed remediation order that halts the AI system entirely.</p>
+<div class="sector-regs">
+<span class="sector-reg-tag">RBI Model Risk Circular</span>
+<span class="sector-reg-tag">SEBI AI Guidelines</span>
+<span class="sector-reg-tag">Anti-Discrimination in Lending</span>
+<span class="sector-reg-tag">EU AI Act (if EU operations)</span>
+<span class="sector-reg-tag">ISO/IEC 42001</span>
+</div>
+</div>
+<!-- Healthcare -->
+<div class="sector-card">
+<div class="sector-header">
+<div class="sector-icon-wrap si-blue">🩺</div>
+<div>
+<h3>Healthcare &amp; Life Sciences</h3>
+<div class="sector-urgency">High Urgency — FDA Guidance Active</div>
+</div>
+</div>
+<p>Clinical AI — diagnostic models, treatment recommendation systems, patient risk scoring — must meet regulatory requirements that combine medical device law with AI-specific obligations. The FDA has issued binding guidance on AI/ML-based Software as a Medical Device (SaMD), requiring predetermined change control plans, real-world performance monitoring, and transparency documentation. Under the EU AI Act, clinical AI systems are classified as high-risk and must undergo conformity assessment before deployment. HIPAA obligations now extend to AI systems that process protected health information.</p>
+<div class="sector-regs">
+<span class="sector-reg-tag">FDA AI/ML SaMD Guidance</span>
+<span class="sector-reg-tag">EU AI Act High-Risk</span>
+<span class="sector-reg-tag">HIPAA AI Obligations</span>
+<span class="sector-reg-tag">Clinical Validation Requirements</span>
+<span class="sector-reg-tag">NIST AI RMF</span>
+</div>
+</div>
+<!-- Tech & SaaS -->
+<div class="sector-card">
+<div class="sector-header">
+<div class="sector-icon-wrap si-teal">💻</div>
+<div>
+<h3>Tech &amp; SaaS</h3>
+<div class="sector-urgency">High Urgency — EU Market Access at Risk</div>
+</div>
+</div>
+<p>If you sell a product into the EU — regardless of where it is built or hosted — the EU AI Act applies to you. AI features embedded in SaaS products, HR software, credit scoring tools, or recruitment platforms may meet the threshold for high-risk classification. Non-compliant AI products will not pass the conformity assessment required for EU market access. This is not a future risk — it is an active constraint on your 2025 sales motion into European markets. Compliance is now a product requirement, not a legal function afterthought.</p>
+<div class="sector-regs">
+<span class="sector-reg-tag">EU AI Act (extraterritorial)</span>
+<span class="sector-reg-tag">GDPR AI Interactions</span>
+<span class="sector-reg-tag">ISO/IEC 42001</span>
+<span class="sector-reg-tag">NIST AI RMF (US Federal)</span>
+<span class="sector-reg-tag">Enterprise Procurement Requirements</span>
+</div>
+</div>
+<!-- Government & Defence -->
+<div class="sector-card">
+<div class="sector-header">
+<div class="sector-icon-wrap si-purple">🏛️</div>
+<div>
+<h3>Government &amp; Defence</h3>
+<div class="sector-urgency">High Urgency — Procurement Requirement</div>
+</div>
+</div>
+<p>AI procurement guidelines are now standard across UK, US, and Australian government frameworks. Any technology supplier to government that includes AI components must demonstrate compliance with applicable national AI guidelines and, for EU-connected procurement, the EU AI Act. The US federal government now references NIST AI RMF in procurement language. The UK’s AI Assurance framework is moving from voluntary to contractually required. Suppliers who cannot demonstrate AI compliance posture are being excluded from bids — not at award stage, but at qualification stage.</p>
+<div class="sector-regs">
+<span class="sector-reg-tag">NIST AI RMF (US Federal)</span>
+<span class="sector-reg-tag">UK AI Assurance Framework</span>
+<span class="sector-reg-tag">Australian AI Ethics Principles</span>
+<span class="sector-reg-tag">EU AI Act (Government AI)</span>
+<span class="sector-reg-tag">ISO/IEC 42001</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════════════════════════ -->
+<section class="cta-band" id="checklist" style="background:linear-gradient(180deg,transparent,rgba(245,158,11,.05) 40%,transparent)">
+<div class="container">
+<div class="amber-badge" style="margin-bottom:1.5rem">⚠️ Compliance gap assessment · 4-week turnaround · RAG-rated register</div>
+<h2 style="max-width:720px;margin:0 auto .75rem">Your next regulatory audit will ask about AI.<br/>Will you be ready?</h2>
+<p class="cta-sub">Most enterprises cannot answer basic questions about how their AI systems were validated, what data they were trained on, or what oversight mechanisms are in place. Regulators are starting to ask. Qapitol makes sure you have the answers — before the question is compulsory.</p>
+<div class="cta-cluster">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.95rem 2.25rem;background:linear-gradient(135deg,#f59e0b,#fbbf24);border-color:#f59e0b;color:#0c0a09">Schedule a Compliance Gap Assessment →</a>
+<a class="btn btn-secondary" href="solution-llm-safety.html" style="font-size:1rem;padding:.95rem 2.25rem">LLM Safety &amp; Red Teaming</a>
+<a class="btn btn-secondary" href="solution-bfsi-ai.html" style="font-size:1rem;padding:.95rem 2.25rem">AI Quality for BFSI</a>
+</div>
+<p style="font-size:.82rem;color:var(--text-muted);margin-top:1.75rem;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6">
+      Not ready to commit? <a href="cheq.html" style="color:#fbbf24;text-decoration:none;">Explore the CHEQ platform →</a>  |  <a href="insights.html" style="color:var(--accent-light);text-decoration:none;">Read our AI compliance whitepapers →</a>
+</p>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img alt="Qapitol" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/>
+<p class="footer-tagline">The AI Quality &amp; Delivery Partner for enterprises that can’t afford to get AI wrong.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong> · Hyderabad · Dubai · London · New York</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="testmu.html">Agentic Test Execution</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

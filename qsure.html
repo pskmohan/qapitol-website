@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0;url=sure-q.html">
+  <link rel="canonical" href="https://qapitol.com/sure-q.html">
+  <meta name="robots" content="noindex">
+  <title>Redirecting… | Qapitol AI Technologies</title>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <p>Redirecting to <a href="sure-q.html">SURE-Q Framework</a>…</p>
+  <script>window.location.replace('sure-q.html');</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

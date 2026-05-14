@@ -1,0 +1,1181 @@
+ <!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Cheq · Regulatory Compliance Intelligence · Qapitol</title>
+<meta content="Cheq — AI-powered regulatory compliance intelligence for BFSI. Automated policy checking against IRDAI, RBI, and EU regulatory frameworks with audit-ready Policy Reasoning Traces." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<meta content="website" property="og:type"/>
+<meta content="CHEQ Compliance | Qapitol AI" property="og:title"/>
+<meta content="Compliance-hardened AI for IRDAI, EU AI Act and DPDP. Get a free compliance gap scan within 3 business days." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/cheq.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="CHEQ Compliance | Qapitol AI" name="twitter:title"/>
+<meta content="Compliance-hardened AI for IRDAI, EU AI Act and DPDP. Get a free compliance gap scan within 3 business days." name="twitter:description"/>
+  <meta name="description" content="CHEQ by Qapitol — AI compliance and regulatory testing platform. Maps 1,400+ AI obligations across IRDAI, RBI, EU AI Act, DORA, and Solvency II into automated compliance tests.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/cheq.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/cheq.html">
+  <meta property="og:title" content="CHEQ — AI Compliance Testing Platform | Qapitol">
+  <meta property="og:description" content="CHEQ by Qapitol — AI compliance and regulatory testing platform. Maps 1,400+ AI obligations across IRDAI, RBI, EU AI Act, DORA, and Solvency II into automated compliance tests.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="CHEQ — AI Compliance Testing Platform | Qapitol">
+  <meta name="twitter:description" content="CHEQ by Qapitol — AI compliance and regulatory testing platform. Maps 1,400+ AI obligations across IRDAI, RBI, EU AI Act, DORA, and Solvency II into automated compliance tests.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CHEQ",
+    "description": "AI compliance testing platform mapping 1,400+ regulatory obligations.",
+    "url": "https://qapitol.com/cheq.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher": {"@id": "https://qapitol.com/#organization"}
+  }
+  </script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<div class="crumb"><a href="index.html">Home</a> / <a href="platforms.html">Platforms</a> / Cheq</div>
+<span class="eyebrow">Cheq — Data &amp; Compliance Intelligence</span>
+<h1>Regulation is a moving target.<br/>Cheq keeps you ahead of it.</h1>
+<p class="lead">An AI-native compliance platform that reads regulatory text the way a lawyer does — then checks your policies automatically, continuously, and with an audit trail that survives regulator scrutiny.</p>
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L3 4.5V8c0 2.5 2 4.5 5 5.5C11 12.5 13 10.5 13 8V4.5L8 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.3"></path></svg>Chief Compliance Officer</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L3 4.5V8c0 2.5 2 4.5 5 5.5C11 12.5 13 10.5 13 8V4.5L8 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.3"></path></svg>CISO</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect fill="currentColor" height="4" opacity=".5" rx="1" width="12" x="2" y="10"></rect><path d="M5 10V7a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path><circle cx="8" cy="4" fill="currentColor" r="2"></circle></svg>Risk &amp; Audit Head</span>
+</div>
+<p style="font-size:.78rem;color:var(--accent-light);font-weight:600;margin-top:-.5rem;margin-bottom:1.25rem;letter-spacing:.03em;">✓ Business Outcome Assurance — Compliance isn't a checkbox. It's a business outcome.</p>
+<div class="cta-row"><a class="btn btn-primary" href="contact.html">Book a Cheq Demo</a><a class="btn btn-outline" href="contact.html">Talk to a Compliance Engineer</a></div>
+<div class="proof-strip">
+<span class="proof"><span class="num">IRDAI</span> Insurance regulations &amp; circulars</span>
+<span class="proof"><span class="num">RBI</span> Banking compliance frameworks</span>
+<span class="proof"><span class="num">EU AI Act</span> Solvency II · IDD · DORA</span>
+<span class="proof"><span class="num">On-prem</span> Secure, enterprise-ready</span>
+</div>
+</div>
+</section>
+<!-- ── HYPERSCALER INDEPENDENT EVAL ── -->
+<section style="background:var(--surface-1);padding:5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="container">
+<span class="eyebrow">The Structural Problem</span>
+<h2 class="section-title" style="max-width:760px;">OpenAI is not incentivized to tell you<br>your model is underperforming. We are.</br></h2>
+<p class="lead" style="max-width:640px;margin-top:1rem;">Every enterprise that deploys AI through Azure OpenAI, AWS Bedrock, Google Vertex, or any hyperscaler stack faces the same structural conflict: the provider who sold you the model is not the right entity to tell you when it's failing.</p>
+<!-- The Auditor Analogy -->
+<div style="margin:2.5rem 0;padding:2rem 2.5rem;background:linear-gradient(135deg,rgba(77,49,245,.12),rgba(33,163,178,.08));border:1px solid rgba(77,49,245,.3);border-radius:16px;position:relative;overflow:hidden;">
+<div style="position:absolute;top:-20px;right:-20px;font-size:6rem;opacity:.05;line-height:1;">⚖️</div>
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem;">The Auditor Problem Applied to AI</div>
+<blockquote style="font-family:'Inter Tight',sans-serif;font-size:1.15rem;font-weight:600;line-height:1.6;margin:0 0 1rem;color:rgba(255,255,255,.92);border:none;padding:0;">“Would you trust an auditor employed by the company being audited? The structural conflict is identical. Microsoft sells you Azure OpenAI — Microsoft is not incentivized to surface its own model’s failures. AWS builds Bedrock — AWS is not incentivized to tell you when Claude or Titan underperforms. The model vendor and the eval layer cannot be the same entity.”</blockquote>
+<div style="font-size:.8rem;color:var(--text-muted);">Cheq &amp; QAVE = the independent assurance layer for AI deployed through any hyperscaler stack.</div>
+</div>
+<!-- Three column comparison -->
+<div class="grid-responsive-1" style="display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:1.25rem;margin-top:2.5rem;">
+<!-- Column 1: What hyperscalers give you -->
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:1.25rem;">What hyperscalers give you</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.7);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Model deployment &amp; inference
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.7);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Content filtering (basic safety)
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.7);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Usage analytics &amp; token metrics
+              </div>
+<div style="height:1px;background:rgba(255,255,255,.08);margin:.25rem 0;"></div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);">
+<span style="color:#f87171;font-weight:700;flex-shrink:0;">✗</span> Independent model quality eval
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);">
+<span style="color:#f87171;font-weight:700;flex-shrink:0;">✗</span> Regulatory compliance mapping
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);">
+<span style="color:#f87171;font-weight:700;flex-shrink:0;">✗</span> Drift detection &amp; alerting
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);">
+<span style="color:#f87171;font-weight:700;flex-shrink:0;">✗</span> Domain-specific bias evaluation
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);">
+<span style="color:#f87171;font-weight:700;flex-shrink:0;">✗</span> Audit-grade Policy Reasoning Traces
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);">
+<span style="color:#f87171;font-weight:700;flex-shrink:0;">✗</span> IRDAI / RBI / EU AI Act mapping
+              </div>
+</div>
+</div>
+<!-- Column 2: Independent layer (highlighted) -->
+<div style="background:linear-gradient(135deg,rgba(77,49,245,.2),rgba(33,163,178,.15));border:2px solid rgba(77,49,245,.5);border-radius:16px;padding:2rem;position:relative;">
+<div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--teal));color:#fff;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.25rem .8rem;border-radius:0 0 8px 8px;">Cheq + QAVE Layer</div>
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-light);margin-bottom:1.25rem;margin-top:.75rem;">What the independent layer gives you</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Continuous model quality evaluation
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Domain-specific accuracy benchmarking
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Real-time drift detection &amp; alerts
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Regulatory compliance mapping (IRDAI, RBI, EU AI Act)
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Policy Reasoning Traces for audit
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Bias &amp; fairness evaluation
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Multi-model comparison (swap vendor, keep eval)
+              </div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);">
+<span style="color:#34d399;font-weight:700;flex-shrink:0;">✓</span> Sovereign deployment — your VPC, your data
+              </div>
+</div>
+<div class="cta-row" style="margin-top:1.75rem;">
+<a class="btn btn-primary" href="contact.html" style="font-size:.85rem;padding:.65rem 1.25rem;">Get Cheq Demo →</a>
+</div>
+</div>
+<!-- Column 3: Works with your stack -->
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:1.25rem;">Works above your existing stack</div>
+<div style="display:flex;flex-direction:column;gap:.55rem;">
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+<span style="font-size:1rem;">🔷</span>
+<span style="font-size:.83rem;font-weight:600;">Azure OpenAI Service</span>
+</div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+<span style="font-size:1rem;">🟠</span>
+<span style="font-size:.83rem;font-weight:600;">AWS Bedrock</span>
+</div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+<span style="font-size:1rem;">🔵</span>
+<span style="font-size:.83rem;font-weight:600;">Google Vertex AI</span>
+</div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+<span style="font-size:1rem;">⚫</span>
+<span style="font-size:.83rem;font-weight:600;">OpenAI API (direct)</span>
+</div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+<span style="font-size:1rem;">🟣</span>
+<span style="font-size:.83rem;font-weight:600;">Anthropic Claude</span>
+</div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+<span style="font-size:1rem;">🦙</span>
+<span style="font-size:.83rem;font-weight:600;">Meta LLaMA / Open Source</span>
+</div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(77,49,245,.12);border:1px solid rgba(77,49,245,.25);border-radius:8px;">
+<span style="font-size:1rem;">🔧</span>
+<span style="font-size:.83rem;font-weight:600;color:var(--accent-light);">Custom / Fine-tuned Models</span>
+</div>
+</div>
+<p style="font-size:.77rem;color:var(--text-muted);margin-top:1rem;line-height:1.6;">Cheq sits above the model layer. Change your model provider without changing your compliance and eval infrastructure.</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="container">
+<span class="eyebrow">Why it exists</span>
+<h2 class="section-title">Compliance teams weren’t built for AI-speed regulation.</h2>
+<p class="lead">IRDAI released 47 new circulars in a single year. RBI data localisation rules keep shifting. The EU AI Act enforcement deadline doesn’t care about your backlog. And somewhere in your product portfolio, a policy document is already out of compliance — you just don’t know which one.</p>
+<p class="mt-16">Manual review doesn’t scale. Generic AI tools don’t understand obligation structures. And a non-compliant policy that makes it to market in BFSI doesn’t get a second chance. Cheq closes that gap — by training purpose-built small language models on regulatory corpora and running automated compliance checks against every product document in your portfolio.</p>
+</div>
+</section>
+<section>
+<div class="container">
+<span class="eyebrow">What Cheq does</span>
+<h2 class="section-title">Automated compliance checking. Structured. Continuous. Audit-ready.</h2>
+<p class="section-sub">Four layers that take you from regulatory text to defensible compliance evidence.</p>
+<div class="grid grid-4">
+<div class="card">
+<span class="kicker">Obligation Library</span>
+<h3>Regulatory corpus ingestion</h3>
+<p>Cheq ingests regulatory frameworks — IRDAI Master Circular, Broker Regulations, RBI data localisation rules, EU AI Act articles — and converts them into structured Atomic Compliance Units (ACUs). Each ACU is an unambiguous, checkable obligation.</p>
+</div>
+<div class="card">
+<span class="kicker">SLM Engine</span>
+<h3>Purpose-built compliance SLMs</h3>
+<p>Three small language models work together: an Insurance NER SLM that classifies policy document entities, a Complexity Classifier that flags high-risk provisions, and a Judge SLM that evaluates each clause against the relevant ACU. Trained on regulatory text, not generic corpora.</p>
+</div>
+<div class="card">
+<span class="kicker">Policy Reasoning Traces</span>
+<h3>Audit-defensible evidence trail</h3>
+<p>Every compliance check produces a Policy Reasoning Trace (PRT) — a structured document showing which regulation was checked, which clause was assessed, what the model concluded, and why. PRTs are formatted for regulator submission and internal audit.</p>
+</div>
+<div class="card">
+<span class="kicker">Compliance Dashboard</span>
+<h3>Portfolio-level visibility</h3>
+<p>A compliance analytics dashboard shows score trends, obligation gap heatmaps, and portfolio-level views across all your product documents. Scheduled re-checks trigger automatically when regulatory circulars update.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="band">
+<div class="container">
+<span class="eyebrow">Regulatory coverage</span>
+<h2 class="section-title">One platform. The regulations that matter in your market.</h2>
+<p class="section-sub">Cheq is built around the regulatory frameworks most relevant to Indian and EU enterprise BFSI. Coverage expands via new corpus ingestion sprints.</p>
+<div class="grid grid-3">
+<div class="card">
+<span class="kicker">Insurance / India</span>
+<h3>IRDAI framework</h3>
+<ul class="feature-list mt-8">
+<li>Master Circular on Insurance Products</li>
+<li>Broker Regulations 2018</li>
+<li>Product Filing Procedures</li>
+<li>Customer Service Guidelines</li>
+<li>50+ annotated ACUs across Insurance Obligation Library</li>
+</ul>
+</div>
+<div class="card">
+<span class="kicker">Banking / India</span>
+<h3>RBI compliance</h3>
+<ul class="feature-list mt-8">
+<li>Data localisation requirements</li>
+<li>KYC / AML obligations</li>
+<li>Audit trail and recordkeeping standards</li>
+<li>18/18 RBI compliance rules covered</li>
+<li>Regular circular monitoring and ACU updates</li>
+</ul>
+</div>
+<div class="card">
+<span class="kicker">Financial Services / EU</span>
+<h3>EU regulatory framework</h3>
+<ul class="feature-list mt-8">
+<li>EU AI Act conformity assessment (August 2026 deadline)</li>
+<li>Solvency II &amp; IDD compliance mapping</li>
+<li>DORA operational resilience obligations</li>
+<li>GDPR data governance requirements</li>
+<li>Expansion roadmap: SEBI, HIPAA</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ── BEYOND COMPLIANCE: POLICY PACKS ── -->
+<section style="padding:5.5rem 0;">
+<div class="container">
+  <div style="max-width:760px;margin:0 auto 3.5rem;text-align:center;">
+    <span class="eyebrow">Policy Engine</span>
+    <h2 class="section-title" style="margin-bottom:.75rem;">Regulations are one kind of policy.<br/>CHEQ handles any of them.</h2>
+    <p class="section-sub">CHEQ's engine converts any structured rule set — a government circular, an ISO standard, an internal audit playbook, a clinical guideline — into testable Atomic Compliance Units. The same architecture that checks your AI against IRDAI can check it against your contract playbook, your expense policy, or your ESG reporting standard.</p>
+  </div>
+
+  <!-- Pack categories grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:2rem;">
+
+    <!-- Regulatory Packs -->
+    <div style="background:linear-gradient(135deg,rgba(33,163,178,.1) 0%,rgba(77,49,245,.06) 100%);border:1px solid rgba(33,163,178,.3);border-radius:20px;padding:2rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div style="font-size:1.5rem;">⚖️</div>
+        <span style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:rgba(33,163,178,.2);color:var(--teal);border:1px solid rgba(33,163,178,.3);padding:.2rem .7rem;border-radius:99px;">Pre-built · Live</span>
+      </div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin:0 0 .6rem;color:#fff;">Regulatory Packs</h3>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;margin:0 0 1.1rem;">Government and sector-specific mandates with defined penalties. The highest-urgency use case — where non-compliance means regulatory action.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;">
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--teal);">→</span> IRDAI (1,400+ obligations mapped)</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--teal);">→</span> RBI Digital Lending & Model Risk</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--teal);">→</span> EU AI Act (Articles 9–15, Annex IV)</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--teal);">→</span> DPDP Act, SEBI, DORA, Solvency II</li>
+      </ul>
+    </div>
+
+    <!-- Standards & Audit Packs -->
+    <div style="background:linear-gradient(135deg,rgba(124,90,245,.1) 0%,rgba(77,49,245,.06) 100%);border:1px solid rgba(124,90,245,.3);border-radius:20px;padding:2rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div style="font-size:1.5rem;">🏅</div>
+        <span style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:rgba(124,90,245,.2);color:var(--accent-light);border:1px solid rgba(124,90,245,.3);padding:.2rem .7rem;border-radius:99px;">Pre-built · New</span>
+      </div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin:0 0 .6rem;color:#fff;">Standards &amp; Audit Packs</h3>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;margin:0 0 1.1rem;">International standards and certification frameworks. CHEQ generates the evidence package your certifier or auditor needs — structured to their exact documentation requirements.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;">
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--accent-light);">→</span> ISO 42001 (AI Management System)</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--accent-light);">→</span> ISO 27001 AI controls scope</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--accent-light);">→</span> SOC 2 Type II — AI Trust Services</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:var(--accent-light);">→</span> NIST AI RMF, IIA Audit Standards</li>
+      </ul>
+    </div>
+
+    <!-- Industry Packs -->
+    <div style="background:linear-gradient(135deg,rgba(232,135,33,.1) 0%,rgba(77,49,245,.06) 100%);border:1px solid rgba(232,135,33,.3);border-radius:20px;padding:2rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div style="font-size:1.5rem;">🏥</div>
+        <span style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:rgba(232,135,33,.15);color:#e88721;border:1px solid rgba(232,135,33,.3);padding:.2rem .7rem;border-radius:99px;">Configurable</span>
+      </div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin:0 0 .6rem;color:#fff;">Industry Packs</h3>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;margin:0 0 1.1rem;">Sector-specific standards beyond financial regulation. Deployable in weeks using Qapitol's reusable ACU template library for each domain.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;">
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#e88721;">→</span> Healthcare: WHO / CDSCO clinical guidelines</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#e88721;">→</span> Pharma: GMP / GCP documentation AI</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#e88721;">→</span> ESG: GRI / SASB / TCFD / BRSR reporting</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#e88721;">→</span> Legal tech: Contract playbook adherence</li>
+      </ul>
+    </div>
+
+    <!-- Enterprise Policy Packs -->
+    <div style="background:linear-gradient(135deg,rgba(74,222,128,.08) 0%,rgba(77,49,245,.06) 100%);border:1px solid rgba(74,222,128,.25);border-radius:20px;padding:2rem;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
+        <div style="font-size:1.5rem;">🏢</div>
+        <span style="font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2);padding:.2rem .7rem;border-radius:99px;">Configurable</span>
+      </div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin:0 0 .6rem;color:#fff;">Enterprise Policy Packs</h3>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;margin:0 0 1.1rem;">Internal policies encoded as ACUs. Monitors AI-assisted decisions against your own policy handbook — with the same audit trail quality your external auditors demand.</p>
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;">
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#4ade80;">→</span> Financial controls: expense, PO, invoice, treasury</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#4ade80;">→</span> HR: hiring, compensation, performance AI</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#4ade80;">→</span> Customer comms: contact centre, chatbot, robo-advisory</li>
+        <li style="font-size:.82rem;color:rgba(255,255,255,.75);display:flex;gap:.5rem;"><span style="color:#4ade80;">→</span> Procurement: vendor approval, three-way matching</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- How reusable assets work -->
+  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:2rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
+    <div>
+      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin-bottom:.5rem;">How custom packs work</div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1.15rem;font-weight:700;margin:0 0 .75rem;line-height:1.3;">Your policy. New pack. Deployed in days.</h3>
+      <p style="font-size:.88rem;color:var(--text-muted);line-height:1.7;margin:0;">Qapitol maintains a library of reusable ACU templates across 40+ policy domains. A new custom pack means selecting relevant templates, ingesting your specific rule set, and calibrating the Judge SLM to your context. No rebuild from scratch — typical time from policy document to live checks: 5–10 business days.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.75rem;">
+      <div style="display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.85rem 1.1rem;">
+        <span style="font-size:1.1rem;">📄</span>
+        <div><div style="font-size:.75rem;font-weight:700;color:#fff;">Step 1</div><div style="font-size:.75rem;color:var(--text-muted);">Share your policy document or standard</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.85rem 1.1rem;">
+        <span style="font-size:1.1rem;">⚙️</span>
+        <div><div style="font-size:.75rem;font-weight:700;color:#fff;">Step 2</div><div style="font-size:.75rem;color:var(--text-muted);">Qapitol converts to ACUs using template library</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.85rem 1.1rem;">
+        <span style="font-size:1.1rem;">✅</span>
+        <div><div style="font-size:.75rem;font-weight:700;color:#fff;">Step 3</div><div style="font-size:.75rem;color:var(--text-muted);">Live checks running. Evidence trail from day one.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="contact.html?inquiry=custom-policy-pack" class="btn btn-secondary" style="margin-right:1rem;">Discuss a custom pack →</a>
+    <a href="#cert-readiness" style="font-size:.88rem;color:var(--text-muted);font-weight:600;text-decoration:none;" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--text-muted)'">See certification readiness ↓</a>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<span class="eyebrow">Architecture</span>
+<h2 class="section-title">Enterprise-first. Secure by design.</h2>
+<div class="pillar">
+<div>
+<p class="lead">Cheq runs on-premise or in a dedicated cloud environment — no policy documents leave your perimeter. The production stack runs on Kubernetes with full RBAC, multi-tenancy, and audit logging.</p>
+<p class="mt-16">Client onboarding is self-serve through a Next.js compliance portal. Each new tenant configures their regulatory jurisdiction, uploads product documents, and gets a compliance baseline within a single session.</p>
+<p class="mt-16">Cheq integrates with document management systems (SharePoint, Confluence, Box) and can trigger compliance checks from your CI/CD pipeline when product documentation changes.</p>
+<div class="badge-row mt-24">
+<span class="badge">On-premise / Private cloud</span>
+<span class="badge">Kubernetes + multi-tenancy</span>
+<span class="badge">RBAC + audit logs</span>
+<span class="badge">Self-serve onboarding</span>
+<span class="badge">API-first</span>
+<span class="badge">CI/CD integration</span>
+</div>
+</div>
+<div>
+<div class="steps">
+<div class="step">
+<div class="step-num">1</div>
+<div>
+<h4>Upload policy documents</h4>
+<p>Insurance product docs, terms, broker agreements — any format your compliance team works with.</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div>
+<h4>SLMs run structured analysis</h4>
+<p>NER, classification, and compliance judgment models process each clause against the relevant regulatory ACUs.</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div>
+<h4>Review PRTs &amp; gap heatmaps</h4>
+<p>Policy Reasoning Traces surface every compliance gap with the specific regulation, clause, and recommended remediation.</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div>
+<h4>Continuous re-check on circular updates</h4>
+<p>Cheq monitors regulatory feeds and re-runs affected checks automatically when rules change.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="container">
+<span class="eyebrow">How it fits</span>
+<h2 class="section-title">Cheq in the Qapitol platform stack.</h2>
+<p class="lead">Cheq sits inside the <a class="inline" href="ai-engineering.html">AI Engineering</a> pillar alongside QAVE and QGen. For teams doing full AI system evaluation, Cheq provides the compliance and governance layer that regulators will ask for first — while <a class="inline" href="qave.html">QAVE</a> handles simulation and <a class="inline" href="qurator.html">Qurator</a> handles evaluation scoring.</p>
+<p class="mt-16">For regulated industry QE programs, Cheq can be paired with <a class="inline" href="synthetic-data-management.html">Synthetic Data Management</a> to ensure test data itself meets the data governance rules Cheq is checking for.</p>
+</div>
+</section>
+<!-- IRDAI CIRCULARS REFERENCE -->
+<section style="padding:4rem 0;border-top:1px solid var(--border);">
+<div class="container">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;" class="grid-responsive-1">
+    <div>
+      <span style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);">Regulatory Coverage</span>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.3rem,2.5vw,1.75rem);font-weight:800;margin:.5rem 0 .75rem;color:#fff;">Which specific circulars does CHEQ cover?</h2>
+      <p style="color:var(--text-muted);font-size:.92rem;line-height:1.75;margin-bottom:1.25rem;">CHEQ maps obligations at the clause level — not just regulation-level. When a regulator asks which article you comply with, CHEQ can show the exact policy check, the model output, and the audit trace that proves it.</p>
+      <a href="regulatory-calendar.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.84rem;font-weight:700;color:var(--teal);text-decoration:none;">View full regulatory calendar &amp; deadlines →</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.75rem;">
+      <!-- IRDAI -->
+      <div style="padding:1rem 1.25rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
+          <span style="font-size:.78rem;font-weight:700;color:#21a3b2;">IRDAI — Model Risk Management Guidelines</span>
+          <span style="font-size:.65rem;font-weight:700;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.2);padding:.1rem .5rem;border-radius:99px;">Live coverage</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--text-muted);margin:0;line-height:1.55;">IRDAI/Life/CIR/2024/156 — 87 obligations mapped. Model inventory, pre-deployment validation, risk policy documentation, annual risk reports.</p>
+      </div>
+      <!-- IRDAI Explainability -->
+      <div style="padding:1rem 1.25rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
+          <span style="font-size:.78rem;font-weight:700;color:#21a3b2;">IRDAI — AI Explainability Requirements</span>
+          <span style="font-size:.65rem;font-weight:700;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.2);padding:.1rem .5rem;border-radius:99px;">Live coverage</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--text-muted);margin:0;line-height:1.55;">IRDAI/Tech/CIR/2024/203 — Policyholder-facing AI decision explainability, decision logs, model output traceability.</p>
+      </div>
+      <!-- RBI -->
+      <div style="padding:1rem 1.25rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
+          <span style="font-size:.78rem;font-weight:700;color:#21a3b2;">RBI — Model Risk Management for NBFCs</span>
+          <span style="font-size:.65rem;font-weight:700;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.2);padding:.1rem .5rem;border-radius:99px;">Live coverage</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--text-muted);margin:0;line-height:1.55;">RBI/2025-26/MRM — Model validation, ongoing monitoring, stress testing for credit and fraud detection models. Effective January 2025.</p>
+      </div>
+      <!-- EU AI Act -->
+      <div style="padding:1rem 1.25rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
+          <span style="font-size:.78rem;font-weight:700;color:#21a3b2;">EU AI Act — High-Risk System Requirements</span>
+          <span style="font-size:.65rem;font-weight:700;background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.2);padding:.1rem .5rem;border-radius:99px;">Enforcement Aug 2026</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--text-muted);margin:0;line-height:1.55;">Articles 9–15 — Risk management, data governance, technical documentation, transparency, human oversight, accuracy obligations for high-risk AI systems.</p>
+      </div>
+      <!-- DPDP -->
+      <div style="padding:1rem 1.25rem;background:rgba(77,49,245,0.06);border:1px solid rgba(77,49,245,0.18);border-radius:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem;">
+          <span style="font-size:.78rem;font-weight:700;color:var(--accent-light);">India DPDP Act — AI Data Processing</span>
+          <span style="font-size:.65rem;font-weight:700;background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.2);padding:.1rem .5rem;border-radius:99px;">Live coverage</span>
+        </div>
+        <p style="font-size:.78rem;color:var(--text-muted);margin:0;line-height:1.55;">Consent management obligations, data fiduciary requirements, children's data restrictions, cross-border transfer rules as they apply to AI systems processing personal data.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── GARTNER AI TRiSM MAPPING ── -->
+<section style="padding:4.5rem 0;background:linear-gradient(135deg,#080520 0%,#0d1a35 100%);border-top:1px solid rgba(77,49,245,.2);border-bottom:1px solid rgba(77,49,245,.2);">
+<div class="container">
+  <div style="text-align:center;margin-bottom:2.75rem;">
+    <span style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);">Analyst Framework Alignment</span>
+    <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.4rem,3vw,1.85rem);font-weight:800;margin:.6rem 0 .75rem;color:#fff;">CHEQ covers 2 of 4 Gartner AI TRiSM layers today — 2 more in active development.</h2>
+    <p style="color:var(--text-muted);font-size:.93rem;max-width:600px;margin:0 auto;line-height:1.7;">Gartner's AI Trust, Risk and Security Management (AI TRiSM) framework defines four layers enterprises must address before deploying AI at scale. CHEQ is live on the two layers most regulators ask for first — and we're actively building the remaining two.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;" class="grid-responsive-1">
+    <!-- Layer 1 — covered -->
+    <div style="border-radius:12px;padding:1.6rem 1.35rem;background:rgba(33,163,178,0.08);border:1px solid rgba(33,163,178,0.3);position:relative;">
+      <div style="font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin-bottom:.6rem;">Layer 1 — AI Governance</div>
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.25rem .7rem;border-radius:99px;margin-bottom:1rem;">✓ CHEQ Primary</div>
+      <p style="color:var(--text-muted);font-size:.83rem;line-height:1.65;margin:0;">Policy authoring, 1,400+ regulatory obligation checks, Board-ready audit trails, IRDAI / RBI / EU AI Act compliance.</p>
+    </div>
+    <!-- Layer 2 — in development -->
+    <div style="border-radius:12px;padding:1.6rem 1.35rem;background:rgba(232,135,33,0.05);border:1px solid rgba(232,135,33,0.2);position:relative;">
+      <div style="font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#e88721;margin-bottom:.6rem;">Layer 2 — Runtime Inspection</div>
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;color:#e88721;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.3);padding:.25rem .7rem;border-radius:99px;margin-bottom:1rem;">⚙ In Development</div>
+      <p style="color:var(--text-muted);font-size:.83rem;line-height:1.65;margin:0;">Real-time prompt filtering, output guardrails, agentic chain enforcement — capabilities Qapitol is actively building to complete full-stack AI TRiSM coverage.</p>
+    </div>
+    <!-- Layer 3 — covered -->
+    <div style="border-radius:12px;padding:1.6rem 1.35rem;background:rgba(33,163,178,0.08);border:1px solid rgba(33,163,178,0.3);position:relative;">
+      <div style="font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--teal);margin-bottom:.6rem;">Layer 3 — Information Governance</div>
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.25rem .7rem;border-radius:99px;margin-bottom:1rem;">✓ CHEQ Primary</div>
+      <p style="color:var(--text-muted);font-size:.83rem;line-height:1.65;margin:0;">DPDP / GDPR data handling checks, PII traceability, model data provenance, training data lineage documentation.</p>
+    </div>
+    <!-- Layer 4 — in development -->
+    <div style="border-radius:12px;padding:1.6rem 1.35rem;background:rgba(232,135,33,0.05);border:1px solid rgba(232,135,33,0.2);position:relative;">
+      <div style="font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#e88721;margin-bottom:.6rem;">Layer 4 — Infrastructure &amp; Model Security</div>
+      <div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:700;color:#e88721;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.3);padding:.25rem .7rem;border-radius:99px;margin-bottom:1rem;">⚙ In Development</div>
+      <p style="color:var(--text-muted);font-size:.83rem;line-height:1.65;margin:0;">Model scanning, adversarial hardening, MLOps supply chain integrity — being added to the Qapitol AI security stack as we expand toward full-stack coverage.</p>
+    </div>
+  </div>
+  <div style="margin-top:2rem;padding:1rem 1.5rem;background:rgba(232,135,33,0.07);border:1px solid rgba(232,135,33,0.18);border-radius:10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+    <p style="color:var(--text-muted);font-size:.82rem;line-height:1.6;margin:0;max-width:640px;">Layers marked <strong style="color:#e88721;">⚙ In Development</strong> represent capabilities we are actively building into the Qapitol managed service. If your AI TRiSM roadmap requires full-stack coverage today, talk to us — we will walk you through what's live and what's coming.</p>
+    <a href="contact.html" style="display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:700;color:#e88721;text-decoration:none;white-space:nowrap;">Discuss your TRiSM roadmap →</a>
+  </div>
+  <p style="text-align:center;color:var(--text-muted);font-size:.78rem;margin-top:1.25rem;">Source: Gartner, <em>AI Trust, Risk and Security Management</em> (AI TRiSM), 2024. Qapitol is not affiliated with or endorsed by Gartner.</p>
+</div>
+</section>
+
+<!-- ── CERTIFICATION READINESS ── -->
+<section id="cert-readiness" style="padding:5.5rem 0;background:linear-gradient(135deg,rgba(124,90,245,.08) 0%,rgba(33,163,178,.05) 100%);border-top:1px solid rgba(124,90,245,.2);border-bottom:1px solid rgba(124,90,245,.2);">
+<div class="container">
+  <div style="max-width:700px;margin:0 auto 3.5rem;text-align:center;">
+    <span class="eyebrow">Certification Readiness</span>
+    <h2 class="section-title" style="margin-bottom:.75rem;">CHEQ checks. Your certifier certifies.</h2>
+    <p class="section-sub">We are the technical assessment layer. We generate the evidence. Your chosen certification body — BSI, TÜV SÜD, Bureau Veritas, STQC — reviews that evidence and issues the certificate. This is the same model as financial audits, penetration testing, and ISO quality certifications. Qapitol is building formal partnerships with leading certification bodies; in the meantime, our evidence packages are already structured to meet each body's documentation requirements.</p>
+  </div>
+
+  <!-- The model explained -->
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;margin-bottom:3.5rem;">
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:2rem;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:.75rem;">🔬</div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin:0 0 .5rem;">Qapitol CHEQ</h3>
+      <p style="font-size:.82rem;color:var(--text-muted);line-height:1.6;margin:0;">Runs the technical checks. Generates Policy Reasoning Traces, audit logs, evidence packages — structured to each standard's documentation requirements.</p>
+      <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;">
+        <span style="font-size:.68rem;background:rgba(33,163,178,.15);color:var(--teal);padding:3px 8px;border-radius:6px;">ACU testing</span>
+        <span style="font-size:.68rem;background:rgba(33,163,178,.15);color:var(--teal);padding:3px 8px;border-radius:6px;">Evidence generation</span>
+        <span style="font-size:.68rem;background:rgba(33,163,178,.15);color:var(--teal);padding:3px 8px;border-radius:6px;">Audit trail</span>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:1.5rem;color:var(--text-muted);">→</div>
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:2rem;text-align:center;">
+      <div style="font-size:2rem;margin-bottom:.75rem;">🏅</div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin:0 0 .5rem;">Certification Partner</h3>
+      <p style="font-size:.82rem;color:var(--text-muted);line-height:1.6;margin:0;">Reviews Qapitol's evidence package and issues the certificate or attestation. Separation of assessor and certifier is a requirement of most certification schemes.</p>
+      <div style="margin-top:1rem;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;">
+        <span style="font-size:.68rem;background:rgba(124,90,245,.15);color:var(--accent-light);padding:3px 8px;border-radius:6px;">Independent review</span>
+        <span style="font-size:.68rem;background:rgba(124,90,245,.15);color:var(--accent-light);padding:3px 8px;border-radius:6px;">Certificate issuance</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certification targets -->
+  <h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;text-align:center;color:rgba(255,255,255,.55);margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:.08em;font-size:.75rem;">Certifications our evidence packages are structured for</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:3rem;">
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem;">🤖</span>
+        <strong style="font-family:'Inter Tight',sans-serif;font-size:.9rem;color:#fff;">ISO 42001</strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0 0 .5rem;">AI Management System. CHEQ generates Clause 8–10 evidence: AI risk assessments, monitoring records, performance data, and management review inputs.</p>
+      <span style="font-size:.68rem;font-weight:700;color:#4ade80;">Evidence-ready</span>
+    </div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem;">🇪🇺</span>
+        <strong style="font-family:'Inter Tight',sans-serif;font-size:.9rem;color:#fff;">EU AI Act — Annex IV</strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0 0 .5rem;">Technical documentation for high-risk AI systems. CHEQ produces the Annex IV package: system description, risk management records, performance monitoring, post-market monitoring plan.</p>
+      <span style="font-size:.68rem;font-weight:700;color:#4ade80;">Evidence-ready</span>
+    </div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem;">🔐</span>
+        <strong style="font-family:'Inter Tight',sans-serif;font-size:.9rem;color:#fff;">SOC 2 Type II</strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0 0 .5rem;">AI systems in scope of SOC 2 audits. CHEQ provides continuous monitoring evidence mapped to the Trust Services Criteria — availability, processing integrity, and confidentiality.</p>
+      <span style="font-size:.68rem;font-weight:700;color:#e88721;">In preparation</span>
+    </div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem;">🇮🇳</span>
+        <strong style="font-family:'Inter Tight',sans-serif;font-size:.9rem;color:#fff;">STQC / BIS</strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0 0 .5rem;">India's government AI testing body under MeitY. CHEQ evidence packages are being structured for STQC's emerging AI testing framework — the most relevant certification for Indian regulatory contexts.</p>
+      <span style="font-size:.68rem;font-weight:700;color:#e88721;">Partnership in discussion</span>
+    </div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem;">🔬</span>
+        <strong style="font-family:'Inter Tight',sans-serif;font-size:.9rem;color:#fff;">TÜV SÜD AI Quality Mark</strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0 0 .5rem;">The most recognised independent AI quality certification globally. TÜV SÜD is expected to be a designated EU AI Act notified body. Qapitol is in early-stage partnership discussions.</p>
+      <span style="font-size:.68rem;font-weight:700;color:#e88721;">Partnership in discussion</span>
+    </div>
+
+    <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:1.5rem;">
+      <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;">
+        <span style="font-size:1.1rem;">📋</span>
+        <strong style="font-family:'Inter Tight',sans-serif;font-size:.9rem;color:#fff;">NIST AI RMF</strong>
+      </div>
+      <p style="font-size:.8rem;color:var(--text-muted);line-height:1.6;margin:0 0 .5rem;">The US framework for AI risk management. CHEQ maps its output to GOVERN, MAP, MEASURE, and MANAGE functions — giving US-market enterprise clients a recognised risk documentation format.</p>
+      <span style="font-size:.68rem;font-weight:700;color:#4ade80;">Evidence-ready</span>
+    </div>
+
+  </div>
+
+  <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:280px;">
+      <p style="font-size:.88rem;color:rgba(255,255,255,.75);line-height:1.65;margin:0;"><strong style="color:#fff;">Working towards a certification?</strong> Tell us which standard. We'll show you exactly which CHEQ outputs map to each required documentation item — and what gaps, if any, still need manual work.</p>
+    </div>
+    <a href="contact.html?inquiry=certification-readiness" class="btn btn-secondary" style="white-space:nowrap;flex-shrink:0;">Discuss certification readiness →</a>
+  </div>
+</div>
+</section>
+
+<!-- QEN VALIDATION BAND -->
+<section style="padding:3.5rem 0;background:linear-gradient(135deg,rgba(245,158,11,.07) 0%,rgba(252,211,77,.03) 100%);border-top:1px solid rgba(245,158,11,.18);border-bottom:1px solid rgba(245,158,11,.18);">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:32px;">
+    <div style="flex-shrink:0;text-align:center;min-width:90px;">
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:2rem;color:#f59e0b;line-height:1;">QEN</div>
+      <div style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:3px;">Expert Network</div>
+    </div>
+    <div style="width:1px;height:52px;background:rgba(245,158,11,.2);flex-shrink:0;"></div>
+    <div style="flex:1;min-width:260px;">
+      <div style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:1.05rem;color:#fff;margin-bottom:6px;">Policy packs built and reviewed by practising domain experts</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.65;margin:0;">Every CHEQ regulatory pack, compliance dataset, and ACU library is created with input from our QEN — a curated network of 200+ AI governance practitioners, compliance officers, legal experts, and auditors. Your AI's compliance evidence is validated against real-world domain knowledge, not just regulatory text alone.</p>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;flex-shrink:0;">
+      <div style="text-align:center;">
+        <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.6rem;color:#f59e0b;line-height:1;">1,400+</div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.35);margin-top:3px;">Obligations — QEN reviewed</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.6rem;color:#f59e0b;line-height:1;">200+</div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.35);margin-top:3px;">SMEs in the network</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.6rem;color:#f59e0b;line-height:1;">8+</div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.35);margin-top:3px;">Regulatory domains</div>
+      </div>
+    </div>
+    <a href="qen.html" style="flex-shrink:0;border:1px solid rgba(245,158,11,.4);color:#f59e0b;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.82rem;padding:9px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;transition:background .15s;" onmouseover="this.style.background='rgba(245,158,11,.1)'" onmouseout="this.style.background='transparent'">About QEN →</a>
+  </div>
+</div>
+</section>
+
+<!-- FREE OFFER BAND -->
+<section style="padding:4rem 0;background:linear-gradient(135deg,rgba(232,135,33,0.12) 0%,rgba(77,49,245,0.06) 100%);border-top:1px solid rgba(232,135,33,0.2);border-bottom:1px solid rgba(232,135,33,0.2);">
+<div class="container">
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem;">
+<div style="max-width:600px;">
+<div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem;">
+<span style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#e88721;">Free — No Commitment</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:.75rem;">How exposed is your AI stack to IRDAI or EU AI Act?</h2>
+<p style="color:var(--text-muted);line-height:1.75;font-size:.95rem;margin-bottom:1.5rem;">Submit your AI system inventory and we’ll map it against our 1,400+ regulatory obligation library — IRDAI, RBI, EU AI Act, DORA. You’ll receive a heatmap of compliance gaps and risk priorities within 48 hours. No CHEQ license required.</p>
+<div style="display:flex;flex-wrap:wrap;gap:.65rem;margin-bottom:1rem;">
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.25);color:#fff;">1,400+ obligations checked</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.25);color:#fff;">Gap heatmap in 48 hours</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.25);color:#fff;">IRDAI + EU AI Act + RBI covered</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-start;">
+<div class="what-next"><div class="what-next-label">What happens next</div><ol><li data-n="1">Submit a 10-min intake form describing your AI systems and deployment context.</li><li data-n="2">Our compliance team maps your stack against IRDAI, EU AI Act, or DPDP requirements.</li><li data-n="3">Receive a written gap report with ranked remediation actions within 3 business days.</li></ol></div><a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;white-space:nowrap;">Get Your Gap Scan →</a>
+<p style="font-size:.78rem;color:var(--text-muted);">Confidential. Requires a brief AI inventory form.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="tight">
+<div class="container">
+<div class="cta-banner">
+<div>
+<h2 class="section-title">Ready to automate your compliance checks?</h2>
+<p class="muted">Book a discovery session and we’ll show you Cheq against your regulatory framework and a sample policy document.</p>
+</div>
+<div class="cta-row"><a class="btn btn-primary" href="contact.html">Book a Cheq Demo</a><a class="btn btn-outline" href="contact.html">Talk to a Compliance Engineer</a></div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

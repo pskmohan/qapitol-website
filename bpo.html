@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>BPO &amp; Intelligent Operations | Qapitol AI</title>
+<meta content="AI quality assurance and compliance for BPO transformation. Whether you're a BPO deploying AI agents or an enterprise replacing BPO with AI — Qapitol guarantees the outcomes." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<meta content="website" property="og:type"/>
+<meta content="BPO &amp; Intelligent Operations | Qapitol AI" property="og:title"/>
+<meta content="The AI quality and compliance layer for BPO transformation — whether you're a BPO deploying agents or an enterprise replacing outsourcing with AI." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/bpo.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="BPO &amp; Intelligent Operations | Qapitol AI" name="twitter:title"/>
+<meta content="The AI quality and compliance layer for BPO transformation — whether you're a BPO deploying agents or an enterprise replacing outsourcing with AI." name="twitter:description"/>
+<style>
+    .stat-hero { font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 900; font-family: 'Inter Tight', sans-serif; line-height: 1; color: #fff; }
+    .stat-hero span { color: var(--accent-light); }
+    .two-path { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    @media (max-width: 720px) { .two-path { grid-template-columns: 1fr; } }
+    .path-card { border-radius: var(--radius-lg); padding: 2rem; border: 1px solid var(--border-strong); position: relative; overflow: hidden; }
+    .path-card::before { content: ''; position: absolute; inset: 0; opacity: .04; pointer-events: none; }
+    .path-card.bpo-path { background: linear-gradient(135deg, rgba(77,49,245,.12), rgba(77,49,245,.04)); border-color: rgba(77,49,245,.3); }
+    .path-card.ent-path { background: linear-gradient(135deg, rgba(0,212,180,.08), rgba(0,212,180,.02)); border-color: rgba(0,212,180,.25); }
+    .path-label { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; border-radius: 99px; padding: .28rem .75rem; margin-bottom: 1rem; width: fit-content; }
+    .path-card.bpo-path .path-label { background: rgba(77,49,245,.2); color: var(--accent-light); }
+    .path-card.ent-path .path-label { background: rgba(0,212,180,.15); color: var(--teal); }
+    .path-card h3 { font-size: 1.25rem; font-weight: 800; font-family: 'Inter Tight', sans-serif; margin-bottom: .6rem; line-height: 1.3; }
+    .path-card p { font-size: .9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .path-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: .45rem; }
+    .path-list li { font-size: .85rem; color: rgba(255,255,255,.75); display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5; }
+    .path-list li::before { content: '→'; color: var(--accent-light); flex-shrink: 0; font-weight: 700; }
+    .path-card.ent-path .path-list li::before { color: var(--teal); }
+
+    .disruption-stat { text-align: center; padding: 3rem 2rem; background: rgba(77,49,245,.06); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .usecase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    @media (max-width: 900px) { .usecase-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .usecase-grid { grid-template-columns: 1fr; } }
+    .usecase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; transition: border-color .2s, background .2s; }
+    .usecase-card:hover { border-color: var(--border-glow); background: var(--surface-2); }
+    .uc-icon { font-size: 1.6rem; margin-bottom: .7rem; }
+    .uc-title { font-size: .95rem; font-weight: 700; font-family: 'Inter Tight', sans-serif; margin-bottom: .4rem; }
+    .uc-desc { font-size: .82rem; color: var(--text-muted); line-height: 1.6; }
+    .uc-tag { display: inline-block; margin-top: .7rem; font-size: .68rem; font-weight: 600; color: var(--accent-light); background: rgba(77,49,245,.15); border-radius: 99px; padding: .15rem .55rem; }
+
+    .compliance-row { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }
+    .comp-pill { font-size: .78rem; font-weight: 600; padding: .35rem .85rem; border-radius: 99px; border: 1px solid var(--border-strong); color: var(--text-muted); background: var(--surface); }
+    .comp-pill.hot { border-color: rgba(239,68,68,.35); color: #f87171; background: rgba(239,68,68,.08); }
+
+    .bpo-vertical-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    @media (max-width: 900px) { .bpo-vertical-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 560px) { .bpo-vertical-grid { grid-template-columns: 1fr; } }
+    .vert-card { padding: 1.2rem 1.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+    .vert-icon { font-size: 1.4rem; margin-bottom: .5rem; }
+    .vert-name { font-size: .9rem; font-weight: 700; font-family: 'Inter Tight', sans-serif; margin-bottom: .4rem; }
+    .vert-detail { font-size: .78rem; color: var(--text-muted); line-height: 1.55; }
+
+    .transition-table { width: 100%; border-collapse: collapse; }
+    .transition-table th { text-align: left; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-light); padding: .7rem 1rem; border-bottom: 1px solid var(--border); }
+    .transition-table td { padding: .85rem 1rem; font-size: .87rem; border-bottom: 1px solid rgba(255,255,255,.04); color: rgba(255,255,255,.8); line-height: 1.5; }
+    .transition-table tr:last-child td { border-bottom: none; }
+    .transition-table .risk { color: #f87171; font-size: .78rem; font-weight: 600; display: block; margin-top: .2rem; }
+    .transition-table .solve { color: var(--teal); font-size: .78rem; font-weight: 600; display: block; margin-top: .2rem; }
+
+    .quote-band { background: rgba(77,49,245,.08); border: 1px solid rgba(77,49,245,.2); border-radius: var(--radius-lg); padding: 2rem 2.5rem; margin: 2rem 0; position: relative; }
+    .quote-band::before { content: '"'; position: absolute; top: .5rem; left: 1.2rem; font-size: 4rem; color: var(--accent-light); opacity: .2; font-family: Georgia, serif; line-height: 1; }
+    .quote-text { font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,.85); font-style: italic; padding-left: 1rem; }
+    .quote-source { margin-top: .8rem; font-size: .78rem; color: var(--text-muted); font-style: normal; padding-left: 1rem; }
+
+    .offer-band { background: linear-gradient(135deg, rgba(77,49,245,.15), rgba(0,212,180,.08)); border: 1px solid rgba(77,49,245,.3); border-radius: var(--radius-xl); padding: 2.5rem; margin-top: 3rem; display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+    .offer-band .offer-main { flex: 1; min-width: 260px; }
+    .offer-band h3 { font-size: 1.4rem; font-weight: 800; font-family: 'Inter Tight', sans-serif; margin-bottom: .6rem; }
+    .offer-band p { font-size: .9rem; color: var(--text-muted); line-height: 1.7; }
+    .offer-ctas { display: flex; flex-direction: column; gap: .6rem; min-width: 200px; justify-content: center; }
+  </style>
+  <meta name="description" content="Qapitol AI-augmented BPO — intelligent business process outsourcing with AI-native automation, quality assurance, and governance for BFSI, retail, and logistics enterprises.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/bpo.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/bpo.html">
+  <meta property="og:title" content="AI-Augmented BPO | Qapitol AI Technologies">
+  <meta property="og:description" content="Qapitol AI-augmented BPO — intelligent business process outsourcing with AI-native automation, quality assurance, and governance for BFSI, retail, and logistics enterprises.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="AI-Augmented BPO | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Qapitol AI-augmented BPO — intelligent business process outsourcing with AI-native automation, quality assurance, and governance for BFSI, retail, and logistics enterprises.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- ══════════════ HEADER ══════════════ -->
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu" role="menu">
+<div class="mega-col"><ul>
+<li><a href="ai-evaluation.html">QAVE — AI Evaluation</a></li>
+<li><a href="cheq.html">CHEQ — Compliance</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="agent-fabric.html">Agent Fabric</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul><li><a href="ai-engineering.html">Pillar overview</a></li><li><a href="ai-evaluation.html">AI Evaluation</a></li></ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul><li><a href="intelligent-automation.html">Pillar overview</a></li><li><a href="workflow-automation.html">Workflow Automation</a></li></ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul><li><a href="digital-reliability.html">Pillar overview</a></li></ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul><li><a href="talent-services.html">Pillar overview</a></li><li><a href="gcc.html">GCC Build &amp; Run</a></li></ul></div>
+</div>
+</li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu" role="menu">
+<div class="mega-col"><ul>
+<li><a href="about.html">About Us</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="uae.html">UAE / Middle East</a></li>
+<li><a href="usa.html">USA</a></li>
+</ul></div>
+</div>
+</li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+</div>
+</header>
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" style="padding:4rem 1.5rem 3rem;position:relative;overflow:hidden;">
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 70% 40%,rgba(77,49,245,.2) 0%,transparent 70%);pointer-events:none;"></div>
+<div class="container" style="position:relative;">
+<div class="hero-badge" style="margin-bottom:1rem;">🏭 BPO &amp; Intelligent Operations</div>
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip">
+<svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect fill="currentColor" height="4" opacity=".5" rx="1" width="12" x="2" y="10"></rect><path d="M5 10V7a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path><circle cx="8" cy="4" fill="currentColor" r="2"></circle></svg>
+        BPO / BPM Leaders
+      </span>
+<span class="persona-chip">
+<svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 2v1.5M8 12.5V14M2 8h1.5M12.5 8H14" stroke="currentColor" stroke-linecap="round" stroke-width="1.3"></path></svg>
+        CIO / COO (Outsourcing)
+      </span>
+<span class="persona-chip">
+<svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 5l3 3-3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4"></path></svg>
+        AI Transformation Head
+      </span>
+<span class="persona-chip">
+<svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L10 6H14L11 9L12 13L8 11L4 13L5 9L2 6H6L8 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.3"></path></svg>
+        Head of Intelligent Ops
+      </span>
+</div>
+<h1 style="font-size:clamp(2.2rem,4.5vw,3.6rem);font-weight:900;font-family:'Inter Tight',sans-serif;line-height:1.15;margin:1.2rem 0 1rem;max-width:820px;">
+      The $250B BPO industry is becoming<br/>
+<span style="color:var(--accent-light);">AI-first. Quality has to come with it.</span>
+</h1>
+<p class="hero-sub" style="max-width:640px;margin-bottom:1.8rem;">
+      90% of mature AI adopters are already cutting BPO spend. 60% of BPO agent workloads are being absorbed by AI systems. Whether you're a BPO transforming into intelligent operations, or an enterprise replacing outsourcing with agents — Qapitol is the quality and compliance layer that guarantees the AI works.
+    </p>
+<div class="cta-row">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;">Talk to our BPO Practice Lead →</a>
+<a class="btn btn-outline" href="ai-evaluation.html" style="font-size:1rem;padding:.9rem 2rem;">Free AI Agent Evaluation</a>
+</div>
+<div class="proof-strip" style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;gap:2rem;flex-wrap:wrap;">
+<span class="proof"><span class="num">60%</span> of BPO agent workloads now AI-managed</span>
+<span class="proof"><span class="num">$250B</span> global BPO market shifting to intelligent ops</span>
+<span class="proof"><span class="num">100%</span> interaction coverage vs. 2–5% manual sampling</span>
+<span class="proof"><span class="num">3×</span> cost savings in automated BPO environments</span>
+</div>
+</div>
+</section>
+<!-- ══════════════ DISRUPTION STAT ══════════════ -->
+<section class="disruption-stat">
+<div class="container" style="max-width:860px;text-align:center;">
+<div class="stat-hero" style="margin-bottom:1rem;"><span>90%</span> of mature AI adopters<br/>have cut BPO spend.</div>
+<p style="font-size:1.05rem;color:var(--text-muted);line-height:1.7;max-width:620px;margin:0 auto 1rem;">
+      — Z47 / OpenAI Enterprise Report, 2026. The question isn't whether AI replaces BPO. It's whether the AI replacing it is <em>good enough to be trusted with that responsibility.</em>
+</p>
+<p style="font-size:.88rem;color:var(--accent-light);font-weight:600;">That's the quality gap Qapitol closes.</p>
+</div>
+</section>
+<!-- ══════════════ TWO PATHS ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;">
+<div class="container">
+<p class="kicker">Two sides of the same disruption</p>
+<h2 class="section-title">We serve both sides of<br/>the BPO transformation</h2>
+<p class="section-sub" style="max-width:640px;">The disruption looks different depending on which side you're on. Qapitol's assurance layer is built for both.</p>
+<div class="two-path">
+<!-- BPO companies -->
+<div class="path-card bpo-path">
+<div class="path-label">🏭 If you are a BPO</div>
+<h3>You're deploying AI agents at scale. Your clients' SLAs didn't change.</h3>
+<p>Genpact, WNS, EXL, Tech Mahindra BPS — the world's largest BPOs are integrating agentic AI into their delivery stack. The challenge: your clients still expect zero defects, full compliance, and audit trails. AI systems need a quality layer that matches the rigour humans provided — at 10× the volume.</p>
+<ul class="path-list">
+<li>Evaluate every AI agent interaction — 100% coverage, not 2% sampling</li>
+<li>Validate compliance per client contract: GDPR, HIPAA, PCI-DSS, IRDAI</li>
+<li>Test agentic workflows before they touch your clients' customers</li>
+<li>Generate synthetic training data without exposing client PII</li>
+<li>Production guardrails that stop bad AI responses before delivery</li>
+</ul>
+<div style="margin-top:1.5rem;">
+<a class="btn btn-primary" href="contact.html" style="font-size:.88rem;padding:.7rem 1.4rem;">Talk to our BPO team →</a>
+</div>
+</div>
+<!-- Enterprise replacing BPO -->
+<div class="path-card ent-path">
+<div class="path-label" style="color:var(--teal);background:rgba(0,212,180,.12);">🏢 If you are replacing BPO with AI</div>
+<h3>You're building in-house AI to do what 200 human agents used to do.</h3>
+<p>Enterprises cutting BPO spend are replacing outsourced teams with AI agents handling claims, customer support, back-office processing, and compliance operations. The risk: AI makes errors at a rate and pattern that's entirely different from humans — and without a quality layer, those failures are invisible until they're catastrophic.</p>
+<ul class="path-list" style="--marker-color:var(--teal);">
+<li>Continuous evaluation of your AI agents replacing BPO functions</li>
+<li>Compliance assurance — you now own the regulatory responsibility you outsourced</li>
+<li>Agent reliability testing before go-live: zero-defect rollout</li>
+<li>Workforce transition assurance — quality parity between human and AI delivery</li>
+<li>Board-level reporting on AI performance replacing prior BPO SLAs</li>
+</ul>
+<div style="margin-top:1.5rem;">
+<a class="btn btn-outline" href="ai-evaluation.html" style="font-size:.88rem;padding:.7rem 1.4rem;border-color:rgba(0,212,180,.4);color:var(--teal);">Free AI Agent Evaluation →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════ THE QUALITY GAP ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;background:var(--bg-soft);">
+<div class="container">
+<p class="kicker kicker-teal">The AI Quality Gap in BPO</p>
+<h2 class="section-title">What breaks when humans hand off to AI</h2>
+<p class="section-sub" style="max-width:620px;">Traditional BPO QA was sampling-based, manual, and slow. AI-driven operations need a fundamentally different assurance model.</p>
+<div style="margin-top:2.5rem;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--radius-lg);overflow:hidden;">
+<table class="transition-table">
+<thead>
+<tr>
+<th>BPO Function</th>
+<th>When Humans Did It</th>
+<th>When AI Does It — New Risk</th>
+<th>Qapitol's Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Customer Support</strong><br/><small style="color:var(--text-muted);">Voice, chat, email</small></td>
+<td>2–5% of calls sampled for QA<br/><span class="risk">Miss rate: 95–98%</span></td>
+<td>AI handles 60% of volume; hallucinations, tone failures, non-compliant responses go undetected<br/><span class="risk">Scale amplifies errors 100×</span></td>
+<td>QAVE evaluates 100% of AI interactions — accuracy, tone, compliance, safety in real time<span class="solve">→ 100% coverage, zero sampling gaps</span></td>
+</tr>
+<tr>
+<td><strong>Claims Processing</strong><br/><small style="color:var(--text-muted);">Insurance, healthcare</small></td>
+<td>Human reviewers apply rule books<br/><span class="risk">Slow, inconsistent, expensive</span></td>
+<td>AI agents apply learned patterns — fine for routine claims, catastrophic for edge cases and regulatory grey areas<br/><span class="risk">Regulatory liability now yours</span></td>
+<td>CHEQ validates every AI claims decision against IRDAI, HIPAA, or relevant regulation before it's processed<span class="solve">→ Compliance guaranteed per claim</span></td>
+</tr>
+<tr>
+<td><strong>Back-Office Processing</strong><br/><small style="color:var(--text-muted);">Invoice, payroll, KYC</small></td>
+<td>Human agents with 4-eyes checking<br/><span class="risk">Labour-intensive, costly</span></td>
+<td>AI agents run autonomously — errors compound silently across thousands of records before detection<br/><span class="risk">Reconciliation failures at scale</span></td>
+<td>Agent Fabric tests every workflow branch; production guardrails catch anomalies before they propagate<span class="solve">→ Agentic reliability with human-equivalent audit trail</span></td>
+</tr>
+<tr>
+<td><strong>Compliance Operations</strong><br/><small style="color:var(--text-muted);">GDPR, PCI-DSS, AML</small></td>
+<td>Dedicated compliance teams per client<br/><span class="risk">Cost scales with headcount</span></td>
+<td>Multi-client, multi-regulation AI systems — one model drift affects all clients simultaneously<br/><span class="risk">Cross-client regulatory exposure</span></td>
+<td>CHEQ maps and monitors per-client regulatory requirements — alerts on drift before it becomes a breach<span class="solve">→ Multi-regulation assurance in one layer</span></td>
+</tr>
+<tr>
+<td><strong>Training Data Prep</strong><br/><small style="color:var(--text-muted);">Annotation, labelling</small></td>
+<td>Offshore human annotation teams<br/><span class="risk">Slow, PII exposure risk</span></td>
+<td>AI-generated datasets can perpetuate bias, hallucinate edge cases, or contain PII<br/><span class="risk">Model quality degradation over time</span></td>
+<td>Synthetic data generation — 10K production-faithful records in 48h, PII-free, compliance-validated<span class="solve">→ Faster, safer, higher quality training data</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- ══════════════ USE CASES ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;">
+<div class="container">
+<p class="kicker">Use Cases</p>
+<h2 class="section-title">What Qapitol delivers<br/>across BPO operations</h2>
+<div class="usecase-grid" style="margin-top:2.5rem;">
+<div class="usecase-card">
+<div class="uc-icon">🎧</div>
+<div class="uc-title">AI Agent Interaction Evaluation</div>
+<div class="uc-desc">100% coverage of AI-handled customer interactions — accuracy, tone, empathy, compliance, and hallucination scoring. No more 2% sampling that misses 98% of failures.</div>
+<span class="uc-tag">QAVE Platform</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">⚖️</div>
+<div class="uc-title">Multi-Client Compliance Assurance</div>
+<div class="uc-desc">BPOs serve 10–100+ enterprise clients, each with their own regulatory obligations. CHEQ maps and enforces GDPR, HIPAA, PCI-DSS, IRDAI, and DPDP per client in one governance layer.</div>
+<span class="uc-tag">CHEQ Compliance</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">🤖</div>
+<div class="uc-title">Agentic Workflow Testing</div>
+<div class="uc-desc">Test multi-step agentic workflows — loan processing, claims adjudication, KYC verification — before they go live. Every decision path, every tool call, every escalation rule validated.</div>
+<span class="uc-tag">Agent Fabric</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">🧬</div>
+<div class="uc-title">Privacy-Safe Training Data</div>
+<div class="uc-desc">BPOs handle sensitive client data but can't use it for AI training. Synthetic data generates production-faithful records — schema-matched, PII-free, and compliance-ready — in 48 hours.</div>
+<span class="uc-tag">Synthetic Data</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">🛑</div>
+<div class="uc-title">Production Guardrails</div>
+<div class="uc-desc">Real-time response blocking for non-compliant, harmful, or off-script AI outputs before they reach clients or customers. The safety net that BPO SLAs require — now built into the AI layer.</div>
+<span class="uc-tag">Labs / SURE-Q</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">📊</div>
+<div class="uc-title">Human-AI Handoff Quality</div>
+<div class="uc-desc">When AI escalates to a human agent, the context, accuracy, and compliance status of the handoff matters. Qapitol validates every escalation point — ensuring the human picks up where the AI left off correctly.</div>
+<span class="uc-tag">QAVE + Agent Fabric</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">📋</div>
+<div class="uc-title">Regulatory Audit Trails</div>
+<div class="uc-desc">Full auditability for every AI decision, interaction, and workflow outcome. Board-level compliance dashboards that give your clients the transparency they need — and regulators increasingly demand.</div>
+<span class="uc-tag">CHEQ + SURE-Q</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">🎓</div>
+<div class="uc-title">AI Workforce Transition</div>
+<div class="uc-desc">As BPO teams transition from execution to AI oversight roles, Qapitol provides the quality framework, tooling, and training to ensure the transition preserves — or improves — service standards.</div>
+<span class="uc-tag">Talent Services</span>
+</div>
+<div class="usecase-card">
+<div class="uc-icon">🔬</div>
+<div class="uc-title">Domain-Specific Eval Datasets</div>
+<div class="uc-desc">Pre-built evaluation datasets for BPO-specific AI use cases: BFSI claims, healthcare prior auth, telecom billing disputes, HR payroll queries. Validate model performance against real-world BPO scenarios.</div>
+<span class="uc-tag">Qapitol Labs</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════ BPO VERTICALS ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;background:var(--bg-soft);">
+<div class="container">
+<p class="kicker kicker-teal">BPO Verticals</p>
+<h2 class="section-title">Every BPO vertical has different<br/>AI quality requirements</h2>
+<p class="section-sub" style="max-width:600px;">Qapitol's domain-specific frameworks go deep on the regulations, risk patterns, and quality benchmarks that matter for each vertical.</p>
+<div class="bpo-vertical-grid" style="margin-top:2.5rem;">
+<div class="vert-card">
+<div class="vert-icon">🏦</div>
+<div class="vert-name">BFSI Process Outsourcing</div>
+<div class="vert-detail">Loan origination · Credit decisioning · KYC/AML · Fraud review · Claims adjudication. Compliance: IRDAI, RBI Tech Framework, DPDP Act.</div>
+</div>
+<div class="vert-card">
+<div class="vert-icon">🏥</div>
+<div class="vert-name">Healthcare BPO</div>
+<div class="vert-detail">Medical billing · Prior authorisation · Clinical documentation · Patient support · Revenue cycle management. Compliance: HIPAA, FDA AI/ML guidance.</div>
+</div>
+<div class="vert-card">
+<div class="vert-icon">📡</div>
+<div class="vert-name">Telecom BPO</div>
+<div class="vert-detail">Customer care automation · Billing dispute resolution · Network support agents · Churn prediction AI. Compliance: TRAI, GDPR (EU customers), PCI-DSS.</div>
+</div>
+<div class="vert-card">
+<div class="vert-icon">🛒</div>
+<div class="vert-name">Retail &amp; E-commerce BPO</div>
+<div class="vert-detail">Customer service agents · Returns &amp; refunds AI · Order management · Personalisation engine QA. Compliance: CCPA, GDPR, PCI-DSS.</div>
+</div>
+<div class="vert-card">
+<div class="vert-icon">⚖️</div>
+<div class="vert-name">Legal Process Outsourcing (LPO)</div>
+<div class="vert-detail">Contract review AI · Compliance document checking · eDiscovery · Legal research agents. Compliance: jurisdiction-specific legal standards, privilege protection.</div>
+</div>
+<div class="vert-card">
+<div class="vert-icon">👥</div>
+<div class="vert-name">HR Process Outsourcing (HRO)</div>
+<div class="vert-detail">Payroll AI · Benefits administration · Candidate screening agents · Employee query bots. Compliance: DPDP, GDPR, local labour law, bias/discrimination guardrails.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════ COMPLIANCE MAP ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;">
+<div class="container">
+<p class="kicker">Compliance Landscape</p>
+<h2 class="section-title">BPO AI compliance is<br/>multi-layer, multi-client, and moving fast</h2>
+<p class="section-sub" style="max-width:620px;">A single BPO may serve clients in 10+ countries, each with different AI regulations. Qapitol's CHEQ layer maps and monitors all of them in one framework.</p>
+<div class="compliance-row">
+<span class="comp-pill hot">EU AI Act — High Risk Systems</span>
+<span class="comp-pill hot">IRDAI AI Guidelines</span>
+<span class="comp-pill hot">DPDP Act 2023 (India)</span>
+<span class="comp-pill">GDPR (Article 22 — automated decisions)</span>
+<span class="comp-pill">HIPAA (healthcare BPO)</span>
+<span class="comp-pill">PCI-DSS 4.0 (payment AI)</span>
+<span class="comp-pill">CCPA / CPRA (US customers)</span>
+<span class="comp-pill">NIST AI RMF</span>
+<span class="comp-pill">RBI Technology Framework</span>
+<span class="comp-pill">TRAI Guidelines</span>
+<span class="comp-pill">ISO/IEC 42001 (AI management)</span>
+<span class="comp-pill">SOC 2 Type II</span>
+</div>
+<div class="quote-band" style="margin-top:2.5rem;">
+<div class="quote-text">"Genpact's teams act as guardians of AI agents, integrating guardrails and human oversight to monitor actions, mitigate errors, and maintain compliance. As AI becomes more embedded in enterprise workflows, Responsible AI 2.0 demands transparency, governance and ethical assurance through continuous validation and accountability."</div>
+<div class="quote-source">— Sanjeev Vohra, Chief Technology &amp; Innovation Officer, Genpact · Business Standard, 2025</div>
+</div>
+<p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;margin-top:1rem;">Qapitol's CHEQ platform is built to be that compliance layer — not a consulting engagement, but an always-on assurance system that validates AI decisions against the regulatory stack that applies to each client's geography and industry.</p>
+</div>
+</section>
+<!-- ══════════════ BOA TAG + FREE OFFER ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;background:var(--bg-soft);">
+<div class="container" style="max-width:760px;">
+<p class="kicker">Business Outcome Assurance</p>
+<h2 class="section-title">We don't just evaluate your BPO AI.<br/>We guarantee it performs.</h2>
+<p class="section-sub">Every Qapitol BPO engagement includes outcome SLAs — measurable quality and compliance guarantees that match or exceed the service levels your clients expect. If we don't deliver, we extend at no cost.</p>
+<p style="font-size:.78rem;color:var(--accent-light);font-weight:600;margin:1.5rem 0 .8rem;display:flex;align-items:center;gap:.4rem;">
+<svg fill="none" height="12" viewbox="0 0 12 12" width="12"><path d="M2 6l2.5 2.5L10 3" stroke="#b5a6ff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+      Business Outcome Assurance — AI agent quality and compliance SLAs backed by Qapitol's guarantee.
+    </p>
+<div class="what-next">
+<div class="what-next-label">What happens next</div>
+<ol>
+<li data-n="1">Share your BPO context — which AI agents are live or planned, your client regulatory obligations, and current QA approach (15-min intake form).</li>
+<li data-n="2">Our BPO practice team maps your AI quality gaps against your SLA obligations and the applicable regulatory landscape.</li>
+<li data-n="3">You receive a written BPO AI Assurance Blueprint — coverage gaps, compliance exposures, and a phased remediation plan — within 3 business days.</li>
+</ol>
+</div>
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;margin-top:.5rem;display:inline-flex;">Talk to our BPO Practice Lead →</a>
+</div>
+</section>
+<!-- ══════════════ MARKET CONTEXT ══════════════ -->
+<section class="section" style="padding:4rem 1.5rem;">
+<div class="container">
+<p class="kicker kicker-teal">Market Context</p>
+<h2 class="section-title">The numbers behind the shift</h2>
+<div class="grid grid-3" style="margin-top:2.5rem;gap:1.2rem;">
+<div class="card" style="text-align:center;padding:1.8rem;">
+<div style="font-size:2.8rem;font-weight:900;font-family:'Inter Tight',sans-serif;color:var(--accent-light);line-height:1;">$250B</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-top:.4rem;">Global BPO market in 2025, growing at 8% annually toward $525B by 2030</div>
+</div>
+<div class="card" style="text-align:center;padding:1.8rem;">
+<div style="font-size:2.8rem;font-weight:900;font-family:'Inter Tight',sans-serif;color:var(--accent-light);line-height:1;">$54B</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-top:.4rem;">India's BPO sector alone — 2M employees — being rewired by agentic AI</div>
+</div>
+<div class="card" style="text-align:center;padding:1.8rem;">
+<div style="font-size:2.8rem;font-weight:900;font-family:'Inter Tight',sans-serif;color:var(--accent-light);line-height:1;">78%</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-top:.4rem;">Of businesses plan to increase AI-powered BPO automation investment</div>
+</div>
+<div class="card" style="text-align:center;padding:1.8rem;">
+<div style="font-size:2.8rem;font-weight:900;font-family:'Inter Tight',sans-serif;color:var(--teal);line-height:1;">60%</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-top:.4rem;">Of BPO agent workloads managed by AI systems at leading providers (Tech Mahindra)</div>
+</div>
+<div class="card" style="text-align:center;padding:1.8rem;">
+<div style="font-size:2.8rem;font-weight:900;font-family:'Inter Tight',sans-serif;color:var(--teal);line-height:1;">90%</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-top:.4rem;">Of mature AI adopters have cut BPO spend as AI takes over outsourced functions (Z47/OpenAI)</div>
+</div>
+<div class="card" style="text-align:center;padding:1.8rem;">
+<div style="font-size:2.8rem;font-weight:900;font-family:'Inter Tight',sans-serif;color:var(--teal);line-height:1;">3×</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-top:.4rem;">Cost savings in low-complexity BPO environments with AI — but only with reliable, compliant AI</div>
+</div>
+</div>
+<div style="margin-top:2.5rem;padding:1.5rem;background:rgba(77,49,245,.08);border:1px solid rgba(77,49,245,.2);border-radius:var(--radius);font-size:.88rem;color:var(--text-muted);line-height:1.7;">
+<strong style="color:#fff;">The inflection point:</strong> India's BPO sector — the world's back office — is now positioning itself as the frontrunner in building intelligent operations. But the shift from cost arbitrage to AI-driven delivery requires a quality and governance infrastructure that most BPOs and their enterprise clients have not yet built. That gap is where Qapitol operates.
+      <br/><br/>
+<em>Sources: Business Standard (May 2025), Parloa BPO Report (2025), Nasscom, Z47/OpenAI Enterprise AI Report (2026)</em>
+</div>
+</div>
+</section>
+<!-- ══════════════ RELATED SERVICES ══════════════ -->
+<section class="section" style="padding:3rem 1.5rem;background:var(--bg-soft);border-top:1px solid var(--border);">
+<div class="container">
+<h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1.2rem;font-family:'Inter Tight',sans-serif;">Qapitol capabilities for BPO</h3>
+<div class="grid grid-3" style="gap:1rem;">
+<a class="card" href="ai-evaluation.html" style="text-decoration:none;display:block;padding:1.2rem;">
+<div style="font-size:1.2rem;margin-bottom:.4rem;">🧪</div>
+<div style="font-size:.9rem;font-weight:700;margin-bottom:.25rem;">QAVE — AI Evaluation</div>
+<div style="font-size:.78rem;color:var(--text-muted);">100% AI interaction coverage. Free tier available.</div>
+</a>
+<a class="card" href="cheq.html" style="text-decoration:none;display:block;padding:1.2rem;">
+<div style="font-size:1.2rem;margin-bottom:.4rem;">⚖️</div>
+<div style="font-size:.9rem;font-weight:700;margin-bottom:.25rem;">CHEQ — Compliance</div>
+<div style="font-size:.78rem;color:var(--text-muted);">Multi-regulation, multi-client compliance assurance.</div>
+</a>
+<a class="card" href="agent-fabric.html" style="text-decoration:none;display:block;padding:1.2rem;">
+<div style="font-size:1.2rem;margin-bottom:.4rem;">🤖</div>
+<div style="font-size:.9rem;font-weight:700;margin-bottom:.25rem;">Agent Fabric</div>
+<div style="font-size:.78rem;color:var(--text-muted);">Testing and guardrails for agentic BPO workflows.</div>
+</a>
+<a class="card" href="synthetic-data-management.html" style="text-decoration:none;display:block;padding:1.2rem;">
+<div style="font-size:1.2rem;margin-bottom:.4rem;">🧬</div>
+<div style="font-size:.9rem;font-weight:700;margin-bottom:.25rem;">Synthetic Data</div>
+<div style="font-size:.78rem;color:var(--text-muted);">PII-free training data in 48h. Free 10K-record pilot.</div>
+</a>
+<a class="card" href="workflow-automation.html" style="text-decoration:none;display:block;padding:1.2rem;">
+<div style="font-size:1.2rem;margin-bottom:.4rem;">⚡</div>
+<div style="font-size:.9rem;font-weight:700;margin-bottom:.25rem;">Workflow Automation</div>
+<div style="font-size:.78rem;color:var(--text-muted);">AI-native automation for BPO back-office processes.</div>
+</a>
+<a class="card" href="talent-services.html" style="text-decoration:none;display:block;padding:1.2rem;">
+<div style="font-size:1.2rem;margin-bottom:.4rem;">👥</div>
+<div style="font-size:.9rem;font-weight:700;margin-bottom:.25rem;">AI Talent Services</div>
+<div style="font-size:.78rem;color:var(--text-muted);">AI oversight specialists for the human-AI hybrid BPO model.</div>
+</a>
+</div>
+</div>
+</section>
+<!-- ══════════════ FOOTER ══════════════ -->
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container footer-grid">
+<div class="footer-brand">
+<a href="index.html"><img alt="Qapitol" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="footer-tagline">Business Outcome Assurance for the AI era.</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified"><span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span><span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span><span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span><span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified"><span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span><span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span><span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span><span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified"><span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span><span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span><span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span><span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span></div>
+</div>
+</div>
+<nav class="footer-col">
+<h4>Services</h4>
+<ul>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="workflow-automation.html">Workflow Automation</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="gcc.html">GCC Setup</a></li>
+</ul>
+</nav>
+<nav class="footer-col">
+<h4>Platforms</h4>
+<ul>
+<li><a href="ai-evaluation.html">QAVE</a></li>
+<li><a href="cheq.html">CHEQ</a></li>
+<li><a href="sure-q.html">SURE-Q</a></li>
+<li><a href="agent-fabric.html">Agent Fabric</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data</a></li>
+</ul>
+</nav>
+<nav class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="about.html">About</a></li>
+<li><a href="labs.html">Labs</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="industries.html">Industries</a></li>
+<li><a href="uae.html">UAE</a></li>
+<li><a href="usa.html">USA</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+</div>
+<div class="footer-bottom">
+<span>© 2025 Qapitol AI Technologies Pvt. Ltd.</span>
+<span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

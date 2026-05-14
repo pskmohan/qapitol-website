@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>LLM Safety &amp; Red Teaming — Prove Your AI Before Customers Do | Qapitol</title>
+<meta content="Qapitol runs the red team before your customers do. Hallucination stress testing, jailbreak detection, bias audits, and adversarial input testing — 500+ LLM safety evaluations, 48-hour turnaround." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ── Shared utilities ── */
+    .section-kicker{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem}
+    .section-eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem}
+    .eyebrow-line{height:2px;width:28px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .section-subtitle{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:680px;margin-top:.75rem}
+
+    /* ── Proof strip ── */
+    .proof-strip{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .proof-strip .ps-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text-muted)}
+    .proof-strip .ps-item strong{font-family:"Inter Tight",sans-serif;font-weight:700;color:#fff;font-size:.9rem}
+    .ps-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-light);flex-shrink:0}
+
+    /* ── Failure mode cards ── */
+    .failure-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:860px){.failure-grid{grid-template-columns:1fr}}
+
+    .failure-card{background:var(--surface-2);border:1px solid rgba(248,113,113,.25);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+    .failure-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#f87171,#fca5a5)}
+    .failure-card:hover{border-color:rgba(248,113,113,.45);box-shadow:0 0 0 1px rgba(248,113,113,.15),0 12px 36px rgba(0,0,0,.35);transform:translateY(-3px)}
+    .failure-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .65rem;border-radius:99px;background:rgba(248,113,113,.14);color:#fca5a5;border:1px solid rgba(248,113,113,.3);margin-bottom:1rem}
+    .failure-card h3{font-family:"Inter Tight",sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:.6rem;color:#fff}
+    .failure-card .scenario{font-size:.82rem;color:rgba(248,113,113,.9);font-style:italic;margin-bottom:.85rem;line-height:1.6;padding:.75rem 1rem;background:rgba(248,113,113,.07);border-left:3px solid rgba(248,113,113,.4);border-radius:0 8px 8px 0}
+    .failure-card p{font-size:.84rem;color:var(--text-muted);line-height:1.7}
+    .failure-icon{font-size:2rem;margin-bottom:.85rem}
+
+    /* ── Attack vector grid ── */
+    .attack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
+    @media(max-width:1100px){.attack-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.attack-grid{grid-template-columns:1fr}}
+
+    .attack-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+    .attack-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--teal));opacity:0;transition:opacity .2s}
+    .attack-card:hover{border-color:rgba(77,49,245,.35);transform:translateY(-2px)}
+    .attack-card:hover::after{opacity:1}
+    .attack-card .ac-icon{font-size:1.65rem;margin-bottom:.75rem}
+    .attack-card h4{font-family:"Inter Tight",sans-serif;font-size:.92rem;font-weight:700;margin-bottom:.4rem}
+    .attack-card p{font-size:.79rem;color:var(--text-muted);line-height:1.6;margin:0}
+
+    /* ── Process steps ── */
+    .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;position:relative}
+    .process-steps::before{content:'';position:absolute;top:2.75rem;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,var(--accent),var(--teal));z-index:0}
+    @media(max-width:900px){.process-steps{grid-template-columns:1fr;gap:1rem}.process-steps::before{display:none}}
+
+    .process-step{text-align:center;padding:0 1rem;position:relative;z-index:1}
+    .step-num{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#6366f1);display:flex;align-items:center;justify-content:center;font-family:"Inter Tight",sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin:0 auto 1.25rem;flex-shrink:0;border:3px solid var(--surface)}
+    .process-step h4{font-family:"Inter Tight",sans-serif;font-size:.95rem;font-weight:800;margin-bottom:.5rem;color:#fff}
+    .process-step p{font-size:.81rem;color:var(--text-muted);line-height:1.65;text-align:center}
+
+    /* ── Platform band ── */
+    .platform-band{background:linear-gradient(135deg,rgba(77,49,245,.08) 0%,rgba(33,163,178,.06) 100%);border:1px solid rgba(77,49,245,.2);border-radius:24px;padding:3.5rem;margin-top:2.5rem;position:relative;overflow:hidden}
+    .platform-band::before{content:'';position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(77,49,245,.14) 0%,transparent 70%);pointer-events:none}
+    .platform-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+    @media(max-width:700px){.platform-cards{grid-template-columns:1fr}}
+    .plat-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+    .plat-card h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem}
+    .plat-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.15rem .55rem;border-radius:99px;border:1px solid}
+    .plat-label-indigo{background:rgba(77,49,245,.18);color:var(--accent-light);border-color:rgba(77,49,245,.3)}
+    .plat-label-teal{background:rgba(33,163,178,.18);color:var(--teal);border-color:rgba(33,163,178,.3)}
+    .plat-card .sub{font-size:.78rem;color:var(--accent-light);margin-bottom:.85rem;font-weight:600}
+    .plat-card p{font-size:.84rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem}
+    .plat-bullets{font-size:.8rem;color:var(--text-muted);list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.35rem}
+    .plat-bullets li::before{content:"→ ";color:var(--teal)}
+
+    /* ── Related links ── */
+    .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem}
+    @media(max-width:900px){.related-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.related-grid{grid-template-columns:1fr}}
+    .related-card{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.4rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.5rem;transition:border-color .2s,transform .2s}
+    .related-card:hover{border-color:rgba(77,49,245,.35);transform:translateY(-2px);color:inherit;text-decoration:none}
+    .related-card .rc-kicker{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-light)}
+    .related-card h4{font-family:"Inter Tight",sans-serif;font-size:.9rem;font-weight:700;color:#fff;line-height:1.4}
+    .related-card .rc-desc{font-size:.78rem;color:var(--text-muted);line-height:1.55}
+    .related-card .rc-arrow{font-size:.78rem;color:var(--accent-light);margin-top:auto;padding-top:.25rem}
+
+    /* ── Proof bar ── */
+    .proof-bar{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;margin:4rem 0}
+    .proof-bar .container{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1.5rem;text-align:center}
+    .pb-stat .pb-num{font-size:2.2rem;font-weight:800;font-family:"Inter Tight",sans-serif;background:linear-gradient(135deg,#f87171,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pb-stat p{font-size:.78rem;color:var(--text-muted);margin-top:.2rem;line-height:1.4}
+
+    /* ── CTA band ── */
+    .lls-cta{text-align:center;padding:5rem 0 6rem}
+    .lls-cta h2{font-family:"Inter Tight",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:.75rem}
+    .lls-cta .cta-sub{font-size:1.05rem;color:var(--text-muted);max-width:580px;margin:0 auto 2rem;line-height:1.7}
+    .cta-cluster{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+
+    @media(max-width:640px){.platform-band{padding:2rem}.lls-cta{padding:3rem 1rem 4rem}}
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="LLM Safety &amp; Red Teaming | Qapitol" property="og:title"/>
+<meta content="Qapitol runs the red team before your customers do. 500+ LLM safety evaluations, 40+ attack vectors, 48-hour assessment turnaround." property="og:description"/>
+<meta content="https://qapitol.com/solution-llm-safety.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+  <meta name="description" content="Qapitol LLM safety solutions — adversarial testing, hallucination detection, toxicity screening, and ongoing safety monitoring for enterprise LLM deployments.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/solution-llm-safety.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/solution-llm-safety.html">
+  <meta property="og:title" content="LLM Safety Solutions | Qapitol AI Technologies">
+  <meta property="og:description" content="Qapitol LLM safety solutions — adversarial testing, hallucination detection, toxicity screening, and ongoing safety monitoring for enterprise LLM deployments.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="LLM Safety Solutions | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Qapitol LLM safety solutions — adversarial testing, hallucination detection, toxicity screening, and ongoing safety monitoring for enterprise LLM deployments.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management</a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Talent overview</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero" style="padding-top:7rem;padding-bottom:5rem">
+<div class="container" style="max-width:940px">
+<nav style="font-size:.78rem;color:var(--text-muted);margin-bottom:2rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+<a href="index.html" style="color:var(--text-muted);text-decoration:none;">Home</a>
+<span style="color:var(--border);">/</span>
+<a href="solutions.html" style="color:var(--text-muted);text-decoration:none;">Solutions</a>
+<span style="color:var(--border);">/</span>
+<span style="color:var(--accent-light);">LLM Safety &amp; Red Teaming</span>
+</nav>
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(248,113,113,.13);color:#fca5a5;border:1px solid rgba(248,113,113,.28);margin-bottom:1.75rem;">
+      LLM Safety &amp; Red Teaming
+    </div>
+<h1 style="font-family:'Inter Tight',sans-serif;font-size:clamp(2.2rem,5.2vw,3.6rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem">
+      Your AI passed the demo.<br/>
+<span style="background:linear-gradient(135deg,#f87171 0%,#fca5a5 40%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Now prove it survives the real world.</span>
+</h1>
+<p style="font-size:1.1rem;color:var(--text-muted);max-width:760px;line-height:1.85;margin-bottom:1rem">
+      When your AI hallucinates in a regulated output, gets jailbroken in three conversation turns, or systematically disadvantages a protected class — that is not a product bug. That is a regulatory event, a brand crisis, and a customer trust collapse happening simultaneously.
+    </p>
+<p style="font-size:1.05rem;color:var(--text-muted);max-width:740px;line-height:1.85;margin-bottom:2.5rem">
+      Most AI teams find out from a customer. Or a regulator. Or a journalist. Qapitol runs the red team before your customers do — so you know what breaks, why it breaks, and exactly how to fix it before you ship.
+    </p>
+<div style="margin-bottom:2.5rem">
+<div style="display:flex;align-items:center;gap:.65rem;flex-wrap:wrap">
+<span style="font-size:.78rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;">Built for</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .8rem;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--border);color:rgba(255,255,255,.8);">AI Product Teams</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .8rem;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--border);color:rgba(255,255,255,.8);">CTO</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .8rem;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--border);color:rgba(255,255,255,.8);">Chief Risk Officer</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .8rem;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--border);color:rgba(255,255,255,.8);">AI Compliance Lead</span>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;background:linear-gradient(135deg,#f87171,#ef4444);border-color:#f87171">Run a Red Team Assessment →</a>
+<a class="btn btn-secondary" href="#how-it-works" style="font-size:1rem;padding:.9rem 2rem">See How It Works</a>
+</div>
+<div class="proof-strip">
+<div class="ps-item"><div class="ps-dot" style="background:#fca5a5;"></div><strong>500+</strong> LLM safety evaluations run</div>
+<div class="ps-item"><div class="ps-dot" style="background:#fca5a5;"></div><strong>40+</strong> attack vectors tested per engagement</div>
+<div class="ps-item"><div class="ps-dot" style="background:var(--teal);"></div><strong>48-hour</strong> assessment turnaround</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>NIST AI RMF</strong> &amp; EU AI Act aligned</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHAT FAILURE LOOKS LIKE
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(248,113,113,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line" style="background:linear-gradient(90deg,#f87171,transparent)"></div>
+<span class="section-kicker" style="color:#fca5a5;margin-bottom:0">What Failure Looks Like</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">These aren't hypotheticals. They happen to shipped AI products every week.</h2>
+<p class="section-subtitle" style="max-width:680px">Every one of these failure modes is detectable before launch — if you run a structured red team. Most teams don't, until the incident is already in the news cycle.</p>
+<div class="failure-grid">
+<div class="failure-card">
+<div class="failure-icon">🏦</div>
+<div class="failure-badge">Hallucination at Scale</div>
+<h3>Wrong tax guidance to 50,000 customers</h3>
+<div class="scenario">"A bank's AI financial advisor, deployed to its retail customer base, confidently provides incorrect capital gains tax guidance for a specific instrument class — a variant it hadn't been evaluated on. 50,000 customers receive the output before the error surfaces."</div>
+<p>Hallucinations don't fail silently. In regulated domains — financial advice, healthcare, legal — a hallucinated confident output is a compliance breach, not a UX issue. No amount of disclaimers reassigns the liability once customers act on it. The AI passed every scripted test. It hadn't been stress-tested on adversarial edge cases, rare instrument types, or jurisdictional variants.</p>
+</div>
+<div class="failure-card">
+<div class="failure-icon">🔓</div>
+<div class="failure-badge">Prompt Injection &amp; Jailbreak</div>
+<h3>Proprietary system prompt extracted in 3 turns</h3>
+<div class="scenario">"A competitor sends a series of seemingly innocuous queries to a SaaS vendor's AI assistant. Within three conversation turns, using nested instruction injection, they extract the full system prompt — including proprietary business logic, pricing rules, and internal product roadmap references."</div>
+<p>System prompt leakage is one of the most underestimated attack surfaces in deployed LLM products. The majority of AI SaaS vendors embed proprietary logic, persona rules, and operational constraints in system prompts that are never meant to be user-visible. Standard penetration testing doesn't cover this. Only an LLM-specific red team does.</p>
+</div>
+<div class="failure-card">
+<div class="failure-icon">⚖️</div>
+<div class="failure-badge">Bias in Automated Decisions</div>
+<h3>AI hiring tool systematically disadvantages regional candidates</h3>
+<div class="scenario">"An enterprise deploys an AI-assisted CV screening tool. Over six months, applicants from two specific regions of the country are declined at 3.4x the rate of equivalent applicants from other regions. The model had been trained on historical hiring data — and replicated historical hiring bias at scale and speed."</div>
+<p>Bias in AI isn't always visible in aggregate accuracy metrics. It hides in conditional distributions — who the model gets wrong, and whether those errors are systematically correlated with protected characteristics. A standard eval suite won't surface this. A structured bias audit that slices by demographic subgroup, geography, and language variant will. The difference is whether your AI fails everyone equally or fails specific groups at scale.</p>
+</div>
+<div class="failure-card">
+<div class="failure-icon">🔀</div>
+<div class="failure-badge">Output Inconsistency</div>
+<h3>Same question, different answers — audit is impossible</h3>
+<div class="scenario">"A pharmaceutical company deploys an AI to assist with regulatory documentation queries. An external audit reveals that the same compliance question, phrased in three different ways, produces three materially different answers across sessions — including one that contradicts the others. The audit trail is unauditable."</div>
+<p>Output consistency is not the same as output accuracy. A system that is consistently accurate is deployable. A system that is inconsistently accurate — where the answer depends on phrasing, context, session order, or time of day — cannot be used in any process that requires documented, repeatable decisions. Consistency testing requires systematic variation of input phrasing, temperature probing, and cross-session comparison. It is not part of standard QA.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     PROOF BAR
+════════════════════════════════════════════════════════════ -->
+<div class="proof-bar">
+<div class="container">
+<div class="pb-stat"><div class="pb-num">500+</div><p>LLM safety evaluations completed</p></div>
+<div class="pb-stat"><div class="pb-num">40+</div><p>Attack vectors per engagement</p></div>
+<div class="pb-stat"><div class="pb-num">48 hr</div><p>Standard assessment turnaround</p></div>
+<div class="pb-stat"><div class="pb-num">0</div><p>Post-launch incidents in assessed products</p></div>
+<div class="pb-stat"><div class="pb-num">12+</div><p>Regulatory frameworks covered</p></div>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════
+     WHAT QAPITOL TESTS
+════════════════════════════════════════════════════════════ -->
+<section id="attack-vectors" style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">What Qapitol Tests</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Eight attack categories. Forty-plus vectors. One structured red team report.</h2>
+<p class="section-subtitle" style="max-width:680px">Every engagement runs all eight categories against your specific LLM use case, not a generic model. The attack surface for a customer support bot is different from a financial advisor or a code generation tool — and Qapitol adapts accordingly.</p>
+<div class="attack-grid">
+<div class="attack-card">
+<div class="ac-icon">💉</div>
+<h4>Prompt Injection</h4>
+<p>Direct and indirect instruction injection attacks — including context-switching, role override, and nested instruction patterns that bypass system-level constraints.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">🔐</div>
+<h4>Jailbreaking</h4>
+<p>Systematic attempts to bypass safety filters, persona constraints, and content policies — including multi-turn manipulation, encoded inputs, and role-playing escalation chains.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">🌀</div>
+<h4>Hallucination Stress Testing</h4>
+<p>Edge case inputs, adversarial knowledge probes, and out-of-distribution queries designed to surface false confidence — especially in factual, regulatory, and domain-specific contexts.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">⚖️</div>
+<h4>Bias &amp; Fairness Audits</h4>
+<p>Demographic subgroup performance analysis, protected characteristic testing, geographic and linguistic variation testing — to surface systematic disparate impacts in AI decisions.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">🔍</div>
+<h4>Data Leakage</h4>
+<p>Training data extraction probes, membership inference attacks, system prompt extraction, and PII leakage testing — including indirect leakage through context window manipulation.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">🎭</div>
+<h4>Adversarial Inputs</h4>
+<p>Typographic attacks, homoglyph substitution, token boundary manipulation, and adversarial paraphrasing — inputs that appear normal to humans but systematically confuse model behaviour.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">📋</div>
+<h4>Instruction Following Failures</h4>
+<p>Constraint adherence testing — does the model reliably follow its operational boundaries? Length limits, format requirements, topic restrictions, refusal triggers, and output guardrail bypass.</p>
+</div>
+<div class="attack-card">
+<div class="ac-icon">🔄</div>
+<h4>Output Consistency</h4>
+<p>Cross-session and cross-phrasing consistency analysis — does the model give materially different answers to semantically equivalent questions? Critical for auditable, regulated AI deployments.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- QEN signal -->
+<div style="margin:0;padding:2rem 0;border-top:1px solid rgba(245,158,11,.15);background:linear-gradient(135deg,rgba(245,158,11,.05) 0%,transparent 100%);">
+<div class="container">
+  <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+    <span style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.1rem;color:#f59e0b;flex-shrink:0;">QEN</span>
+    <span style="font-size:.88rem;color:rgba(255,255,255,.6);">Domain-specific red-team scenarios are authored by sector practitioners through our Expert Network — not generic prompt libraries. A financial AI red-team needs someone who knows how IRDAI thinks. <a href="qen.html" style="color:#f59e0b;">About QEN →</a></span>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HOW IT WORKS — 4-STEP PROCESS
+════════════════════════════════════════════════════════════ -->
+<section id="how-it-works" style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(77,49,245,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">The Assessment Process</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">From threat model to remediation playbook in 48 hours.</h2>
+<p class="section-subtitle" style="max-width:680px">A Qapitol red team engagement is not a generic checklist. It maps to your specific LLM use case, attack surface, and regulatory context — then delivers a severity-classified findings report with specific, actionable remediations.</p>
+<div class="process-steps">
+<div class="process-step">
+<div class="step-num">1</div>
+<h4>Threat Model Definition</h4>
+<p>We map the attack surface specific to your LLM deployment — the use case, user personas, input channels, output consumption, data access, and regulatory context. A customer support bot and a clinical decision support tool have completely different threat models. This step ensures we test what matters for you.</p>
+</div>
+<div class="process-step">
+<div class="step-num">2</div>
+<h4>Red Team Execution</h4>
+<p>Specialist AI red teamers execute 40+ attack vectors against your model using Qapitol's QAVE platform for automated eval pipeline execution, combined with expert-led adversarial probing. Both automated scale and human creativity — because models that pass automated tests fail human attackers.</p>
+</div>
+<div class="process-step">
+<div class="step-num">3</div>
+<h4>Risk Classification</h4>
+<p>Every finding is classified by severity (Critical / High / Medium / Low), likelihood of exploitation in your deployment context, and regulatory implication — mapped to relevant frameworks including NIST AI RMF, EU AI Act, OWASP LLM Top 10, and sector-specific requirements such as SR 11-7 and DORA.</p>
+</div>
+<div class="process-step">
+<div class="step-num">4</div>
+<h4>Remediation Playbook</h4>
+<p>Not just a findings list — a playbook. Specific mitigations per finding: prompt hardening patterns, guardrail implementation, fine-tuning recommendations, retrieval layer changes, and ongoing monitoring setup. Every Critical and High finding includes a 30-day remediation timeline and a re-test slot.</p>
+</div>
+</div>
+<!-- Timeline note -->
+<div style="margin-top:3rem;background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem">
+<div>
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.4rem">Day 1</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.3rem">Threat Model Briefing</div>
+<div style="font-size:.8rem;color:var(--text-muted);">90-min call to scope the attack surface and align on regulatory context</div>
+</div>
+<div>
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.4rem">Days 1–2</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.3rem">Red Team Execution</div>
+<div style="font-size:.8rem;color:var(--text-muted);">Automated + expert-led attack execution across all 8 categories</div>
+</div>
+<div>
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:.4rem">Day 2–3</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.3rem">Findings &amp; Classification</div>
+<div style="font-size:.8rem;color:var(--text-muted);">Severity classification, regulatory mapping, written report draft</div>
+</div>
+<div>
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:.4rem">Day 3</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.3rem">Playbook Delivery</div>
+<div style="font-size:.8rem;color:var(--text-muted);">Full remediation playbook delivered with a live walkthrough session</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     POWERED BY CHEQ & QAVE
+════════════════════════════════════════════════════════════ -->
+<section id="platforms" style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line" style="background:linear-gradient(90deg,var(--teal),transparent)"></div>
+<span class="section-kicker" style="color:var(--teal);margin-bottom:0">Platform-Powered Assessments</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Qapitol's red teams don't just run scripts. They run QAVE and CHEQ.</h2>
+<p class="section-subtitle" style="max-width:680px">Every LLM safety engagement is powered by Qapitol's proprietary platforms — giving you automated scale in the attack pipeline and structured, auditable governance reporting from the same assessment.</p>
+<div class="platform-band">
+<div class="platform-cards">
+<div class="plat-card">
+<h3>
+            QAVE
+            <span class="plat-label plat-label-indigo">AI Eval Engine</span>
+</h3>
+<div class="sub">AI Simulation &amp; Evaluation Platform</div>
+<p>QAVE is Qapitol's AI simulation and evaluation engine — the platform that automates the execution of LLM evaluation pipelines at scale. In a red team engagement, QAVE handles the high-volume, systematic attack execution: running hundreds of adversarial prompt variants, recording responses, scoring outputs against defined safety and quality criteria, and surfacing statistical patterns that indicate systemic failure modes.</p>
+<ul class="plat-bullets">
+<li>Automated execution of 40+ attack vector libraries across your deployed model</li>
+<li>Adversarial prompt variant generation and response logging at scale</li>
+<li>Statistical failure pattern detection — not just individual failure instances</li>
+<li>Continuous regression evaluation to verify remediations held post-fix</li>
+<li>Integrates with OpenAI, Anthropic, Azure OpenAI, Bedrock, and self-hosted models</li>
+</ul>
+<div style="margin-top:1.25rem">
+<a href="qave.html" style="font-size:.82rem;color:var(--accent-light);text-decoration:none;font-weight:600">Learn about QAVE →</a>
+</div>
+</div>
+<div class="plat-card" style="border-color:rgba(33,163,178,.25)">
+<h3>
+            CHEQ
+            <span class="plat-label plat-label-teal">Compliance Platform</span>
+</h3>
+<div class="sub" style="color:var(--teal)">AI Governance &amp; Compliance Reporting</div>
+<p>CHEQ is Qapitol's AI governance and compliance platform — the system that turns red team findings into structured, regulator-ready documentation. CHEQ maps every finding to the relevant regulatory framework, generates the audit trail, and produces the evidence package needed for EU AI Act conformity assessments, NIST AI RMF implementations, and enterprise risk committee reporting.</p>
+<ul class="plat-bullets">
+<li>Regulatory framework mapping: EU AI Act, NIST AI RMF, OWASP LLM Top 10, SR 11-7, DORA</li>
+<li>Risk register generation with severity classification and ownership assignment</li>
+<li>Evidence package production for conformity assessments and board-level reporting</li>
+<li>Remediation tracking — links findings to mitigations and records re-test outcomes</li>
+<li>Continuous monitoring dashboards for post-launch AI safety posture</li>
+</ul>
+<div style="margin-top:1.25rem">
+<a href="cheq.html" style="font-size:.82rem;color:var(--teal);text-decoration:none;font-weight:600">Learn about CHEQ →</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHO THIS IS FOR
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;border-top:1px solid var(--border)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Who This Is Built For</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:600px;margin-bottom:2.5rem">If any of these are true, you need a red team. Now.</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.25rem">
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem">
+<div style="font-size:1.6rem;margin-bottom:.75rem">🚀</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem">AI Product Team — Pre-Launch</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65">"We're shipping in six weeks. We've done functional testing. We haven't done adversarial testing. We don't know what happens when a user actively tries to break it — and we're about to find out from 10,000 real users."</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem">
+<div style="font-size:1.6rem;margin-bottom:.75rem">🏛️</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem">Regulated Industry Deployment</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65">"We're deploying AI in BFSI or Healthcare. Our legal team is asking for documented evidence that the model was tested for bias and safety before going into production. We don't have that documentation."</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem">
+<div style="font-size:1.6rem;margin-bottom:.75rem">🛡️</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem">Chief Risk / AI Compliance Officer</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65">"The EU AI Act comes into force. Our board wants a conformity assessment. I need evidence of red team testing, bias audits, and a documented risk register — not just our internal team's evaluation."</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem">
+<div style="font-size:1.6rem;margin-bottom:.75rem">📦</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem">AI SaaS Vendor</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65">"Enterprise procurement teams are asking for our AI security documentation as a condition of contract. We need an independent red team report, not a self-assessment. And we need it before the deal closes."</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem">
+<div style="font-size:1.6rem;margin-bottom:.75rem">🔄</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem">Post-Incident or Model Update</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65">"We had an incident — a hallucinated output reached customers, or a jailbreak was reported publicly. We've made fixes. We need independent verification that the fix held — and that we haven't introduced new failure modes."</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid rgba(248,113,113,.2);border-radius:16px;padding:1.75rem;background:linear-gradient(135deg,var(--surface-2) 0%,rgba(248,113,113,.06) 100%)">
+<div style="font-size:1.6rem;margin-bottom:.75rem">💬</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem">Not sure where to start?</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.25rem">Tell us your AI use case, your go-live timeline, and what's keeping your risk team up at night. We'll scope the right red team engagement in one conversation.</p>
+<a class="btn btn-outline" href="contact.html" style="font-size:.82rem;padding:.5rem 1rem;border-color:rgba(248,113,113,.4);color:#fca5a5">Talk to a Red Teamer →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     RELATED SOLUTIONS
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(77,49,245,.03) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Related Solutions &amp; Platforms</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;max-width:560px;margin-bottom:.5rem">LLM safety connects to a broader AI quality program.</h2>
+<p class="section-subtitle" style="max-width:620px">Red teaming is one component. These are the adjacent services and platforms that enterprises combine with LLM safety to build a complete AI assurance practice.</p>
+<div class="related-grid">
+<a class="related-card" href="solution-ai-compliance.html">
+<div class="rc-kicker">Solution</div>
+<h4>AI Regulatory Compliance</h4>
+<div class="rc-desc">From red team findings to a regulator-ready compliance posture. EU AI Act, NIST AI RMF, sector-specific frameworks.</div>
+<div class="rc-arrow">Explore →</div>
+</a>
+<a class="related-card" href="solution-ai-validation.html">
+<div class="rc-kicker">Solution</div>
+<h4>AI System Validation</h4>
+<div class="rc-desc">Full pre-production validation for AI systems — functional accuracy, edge case coverage, integration reliability, and performance under load.</div>
+<div class="rc-arrow">Explore →</div>
+</a>
+<a class="related-card" href="cheq.html" style="border-color:rgba(33,163,178,.2)">
+<div class="rc-kicker" style="color:var(--teal)">Platform</div>
+<h4>CHEQ — AI Governance</h4>
+<div class="rc-desc">The compliance platform that turns red team findings into audit-ready documentation, risk registers, and board-level reporting.</div>
+<div class="rc-arrow" style="color:var(--teal)">Explore →</div>
+</a>
+<a class="related-card" href="ai-evaluation.html">
+<div class="rc-kicker">Service</div>
+<h4>AI Evaluation (Evals)</h4>
+<div class="rc-desc">Ongoing, systematic AI model evaluation — not just a one-time red team. Build the eval pipelines that keep your AI honest in production.</div>
+<div class="rc-arrow">Explore →</div>
+</a>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     CTA BAND
+════════════════════════════════════════════════════════════ -->
+<section class="lls-cta">
+<div class="container">
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(248,113,113,.12);color:#fca5a5;border:1px solid rgba(248,113,113,.25);margin-bottom:1.5rem">48-hour turnaround · Severity-classified findings · Full remediation playbook</div>
+<h2>Your AI launches in <em style="font-style:normal;background:linear-gradient(135deg,#f87171,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">X weeks.</em><br/>Is it red team ready?</h2>
+<p class="cta-sub">Every week you wait is a week closer to discovering your AI's failure modes from customers, regulators, or the press. Qapitol runs the red team before they do — and delivers a remediation playbook, not just a findings list.</p>
+<div class="cta-cluster">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.95rem 2.25rem;background:linear-gradient(135deg,#f87171,#ef4444);border-color:#f87171">Schedule a Red Team Assessment →</a>
+<a class="btn btn-secondary" href="qave.html" style="font-size:1rem;padding:.95rem 2.25rem">See the QAVE Platform</a>
+<a class="btn btn-secondary" href="cheq.html" style="font-size:1rem;padding:.95rem 2.25rem">See CHEQ Governance</a>
+</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:1.5rem">Already in production? <a href="contact.html" style="color:var(--accent-light);text-decoration:none;">Run a post-launch safety audit →</a></p>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img alt="Qapitol" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/>
+<p class="footer-tagline">The AI Quality &amp; Delivery Partner for enterprises that can’t afford to get AI wrong.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong> · Hyderabad · Dubai · London · New York</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="testmu.html">Agentic Test Execution</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

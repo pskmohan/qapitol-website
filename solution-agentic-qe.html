@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Agentic QE Transformation — From Manual Testing to Autonomous QE | Qapitol</title>
+<meta content="Your QA team can't keep up. Agents can. Qapitol's Agentic QE Transformation deploys autonomous test agents that test continuously, self-heal, and report on outcomes — not headcount." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ── Shared utilities ── */
+    .section-kicker{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem}
+    .section-eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem}
+    .eyebrow-line{height:2px;width:28px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .section-subtitle{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:680px;margin-top:.75rem}
+
+    /* ── Proof strip ── */
+    .proof-strip{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .proof-strip .ps-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text-muted)}
+    .proof-strip .ps-item strong{font-family:"Inter Tight",sans-serif;font-weight:700;color:#fff;font-size:.9rem}
+    .ps-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-light);flex-shrink:0}
+
+    /* ── Gradient text helper ── */
+    .grad-text{background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* ── Gap comparison section ── */
+    .gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:768px){.gap-grid{grid-template-columns:1fr}}
+    .gap-col{border-radius:20px;padding:2.25rem;position:relative;overflow:hidden}
+    .gap-col.gc-legacy{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.1)}
+    .gap-col.gc-agentic{background:linear-gradient(145deg,rgba(77,49,245,.1) 0%,rgba(33,163,178,.08) 100%);border:1px solid rgba(77,49,245,.28)}
+    .gap-col-label{display:inline-flex;align-items:center;gap:.45rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .75rem;border-radius:99px;margin-bottom:1.5rem}
+    .gcl-legacy{background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.12)}
+    .gcl-agentic{background:rgba(77,49,245,.2);color:var(--accent-light);border:1px solid rgba(77,49,245,.35)}
+    .gap-col h3{font-family:"Inter Tight",sans-serif;font-size:1.2rem;font-weight:800;margin-bottom:1.25rem}
+    .gap-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.85rem}
+    .gap-list li{display:flex;align-items:flex-start;gap:.65rem;font-size:.88rem;color:var(--text-muted);line-height:1.6}
+    .gap-icon{flex-shrink:0;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;margin-top:.1rem}
+    .gi-bad{background:rgba(239,68,68,.15);color:#f87171}
+    .gi-good{background:rgba(33,163,178,.18);color:var(--teal)}
+
+    /* ── Capability cards ── */
+    .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:900px){.cap-grid{grid-template-columns:1fr}}
+    .cap-card{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+    .cap-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .cap-card:nth-child(1)::before{background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+    .cap-card:nth-child(2)::before{background:linear-gradient(90deg,var(--teal),#6edfe8)}
+    .cap-card:nth-child(3)::before{background:linear-gradient(90deg,#a855f7,#c084fc)}
+    .cap-card:nth-child(4)::before{background:linear-gradient(90deg,#22c55e,#86efac)}
+    .cap-card:hover{border-color:rgba(255,255,255,.2);box-shadow:0 0 0 1px rgba(77,49,245,.18),0 12px 36px rgba(0,0,0,.3);transform:translateY(-3px)}
+    .cap-icon{font-size:2rem;margin-bottom:1rem}
+    .cap-card h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.5rem}
+    .cap-card p{font-size:.875rem;color:var(--text-muted);line-height:1.72}
+
+    /* ── Timeline / Roadmap ── */
+    .roadmap-track{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;position:relative}
+    .roadmap-track::before{content:'';position:absolute;left:40px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--teal),rgba(255,255,255,.06));z-index:0}
+    @media(max-width:640px){.roadmap-track::before{left:24px}}
+    .rm-phase{display:grid;grid-template-columns:80px 1fr;gap:1.5rem;margin-bottom:2.25rem;align-items:flex-start;position:relative;z-index:1}
+    @media(max-width:640px){.rm-phase{grid-template-columns:48px 1fr;gap:1rem}}
+    .rm-node{width:80px;height:80px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;font-family:"Inter Tight",sans-serif;font-weight:800;font-size:.72rem;text-align:center;line-height:1.3;border:2px solid}
+    @media(max-width:640px){.rm-node{width:48px;height:48px;font-size:.55rem}}
+    .rm-node.rn-1{background:rgba(77,49,245,.15);border-color:rgba(77,49,245,.5);color:var(--accent-light)}
+    .rm-node.rn-2{background:rgba(33,163,178,.12);border-color:rgba(33,163,178,.45);color:var(--teal)}
+    .rm-node.rn-3{background:rgba(168,85,247,.12);border-color:rgba(168,85,247,.45);color:#c084fc}
+    .rm-body{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+    .rm-phase-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+    .rml-1{color:var(--accent-light)}
+    .rml-2{color:var(--teal)}
+    .rml-3{color:#c084fc}
+    .rm-body h3{font-family:"Inter Tight",sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:.6rem}
+    .rm-body p{font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:.85rem}
+    .rm-deliverables{display:flex;flex-wrap:wrap;gap:.4rem}
+    .rm-chip{font-size:.7rem;font-weight:600;padding:.18rem .6rem;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.6)}
+
+    /* ── Platform section ── */
+    .platform-band{background:linear-gradient(135deg,rgba(77,49,245,.08) 0%,rgba(33,163,178,.06) 100%);border:1px solid rgba(77,49,245,.2);border-radius:24px;padding:3.5rem;margin-top:2.5rem;position:relative;overflow:hidden}
+    .platform-band::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(77,49,245,.1) 0%,transparent 70%);pointer-events:none}
+    .platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem}
+    @media(max-width:768px){.platform-grid{grid-template-columns:1fr}}
+    .platform-card{background:rgba(255,255,255,.04);border:1px solid rgba(77,49,245,.18);border-radius:16px;padding:1.75rem}
+    .platform-card h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.5rem}
+    .platform-card .pc-sub{font-size:.75rem;font-weight:600;letter-spacing:.04em;margin-bottom:.9rem}
+    .pcs-fabric{color:var(--accent-light)}
+    .pcs-qave{color:var(--teal)}
+    .platform-card p{font-size:.86rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem}
+    .platform-bullets{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;font-size:.82rem;color:var(--text-muted)}
+    .platform-bullets li::before{content:"→ ";color:var(--accent-light)}
+
+    /* ── Scenario cards ── */
+    .scenario-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+    @media(max-width:1000px){.scenario-grid{grid-template-columns:1fr}}
+    .scenario-card{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+    .scenario-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+    .scenario-card:nth-child(1)::after{background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+    .scenario-card:nth-child(2)::after{background:linear-gradient(90deg,var(--teal),#6edfe8)}
+    .scenario-card:nth-child(3)::after{background:linear-gradient(90deg,#a855f7,#c084fc)}
+    .scenario-card:hover{border-color:rgba(255,255,255,.2);transform:translateY(-3px)}
+    .scenario-icon{font-size:1.8rem;margin-bottom:.9rem}
+    .scenario-card p{font-size:.9rem;color:var(--text-muted);line-height:1.72;font-style:italic}
+    .scenario-card p em{font-style:normal;color:rgba(255,255,255,.85);font-weight:500}
+
+    /* ── CTA ── */
+    .aqe-cta{text-align:center;padding:5.5rem 0 6.5rem;position:relative}
+    .aqe-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 50%,rgba(77,49,245,.07) 0%,transparent 70%);pointer-events:none}
+    .aqe-cta h2{font-family:"Inter Tight",sans-serif;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800;margin-bottom:.75rem}
+    .aqe-cta .cta-sub{font-size:1.05rem;color:var(--text-muted);max-width:560px;margin:0 auto 2rem;line-height:1.75}
+    .cta-cluster{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+
+    /* ── Proof bar ── */
+    .proof-bar{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;margin:4rem 0}
+    .proof-bar .container{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1.5rem;text-align:center}
+    .pb-stat .pb-num{font-size:2.2rem;font-weight:800;font-family:"Inter Tight",sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pb-stat p{font-size:.78rem;color:var(--text-muted);margin-top:.2rem;line-height:1.4}
+
+    @media(max-width:640px){
+      .platform-band{padding:2rem}
+      .aqe-cta{padding:3rem 1rem 4rem}
+      .rm-phase{grid-template-columns:48px 1fr;gap:1rem}
+    }
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="Agentic QE Transformation | Qapitol" property="og:title"/>
+<meta content="Stop hiring to keep up. Deploy autonomous QE agents that test continuously, self-heal, and report on outcomes. Qapitol's Agentic QE Transformation." property="og:description"/>
+<meta content="https://qapitol.com/solution-agentic-qe.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+  <meta name="description" content="Qapitol agentic QE solutions — autonomous test generation, execution, and self-healing for AI-native development teams. Powered by Agent Fabric.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/solution-agentic-qe.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/solution-agentic-qe.html">
+  <meta property="og:title" content="Agentic QE Solutions | Qapitol AI Technologies">
+  <meta property="og:description" content="Qapitol agentic QE solutions — autonomous test generation, execution, and self-healing for AI-native development teams. Powered by Agent Fabric.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="Agentic QE Solutions | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Qapitol agentic QE solutions — autonomous test generation, execution, and self-healing for AI-native development teams. Powered by Agent Fabric.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management</a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Talent overview</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero" style="padding-top:7rem;padding-bottom:5rem">
+<div class="container" style="max-width:960px">
+<nav style="font-size:.78rem;color:var(--text-muted);margin-bottom:2rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+<a href="index.html" style="color:var(--text-muted);text-decoration:none;">Home</a>
+<span style="color:var(--border);">/</span>
+<a href="index.html#solutions" style="color:var(--text-muted);text-decoration:none;">Solutions</a>
+<span style="color:var(--border);">/</span>
+<a href="index.html#solutions" style="color:var(--text-muted);text-decoration:none;">Enterprise Transformation</a>
+<span style="color:var(--border);">/</span>
+<span style="color:var(--accent-light);">Agentic QE Transformation</span>
+</nav>
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(77,49,245,.14);color:var(--accent-light);border:1px solid rgba(77,49,245,.32);margin-bottom:1.75rem;">
+      ✨ Agentic QE Transformation
+    </div>
+<h1 style="font-family:'Inter Tight',sans-serif;font-size:clamp(2.4rem,5.5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:1.5rem">
+      Your QA team can’t keep up.<br/>
+<span style="background:linear-gradient(135deg,var(--accent-light) 0%,#818cf8 40%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Agents can.</span>
+</h1>
+<p style="font-size:1.1rem;color:var(--text-muted);max-width:760px;line-height:1.85;margin-bottom:1.5rem">
+      Manual testing scales with headcount. AI-generated code scales with compute. The gap widens every sprint. Agentic QE is how engineering teams escape the manual testing trap permanently — not by adding headcount, but by deploying autonomous agents that test continuously, adapt to change, and report on outcomes.
+    </p>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:2rem">
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip">VP Engineering</span>
+<span class="persona-chip">Head of QA</span>
+<span class="persona-chip">CTO</span>
+<span class="persona-chip">Engineering Director</span>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem">Start the Transformation →</a>
+<a class="btn btn-secondary" href="contact.html?demo=agentic-qe" style="font-size:1rem;padding:.9rem 2rem">See a Live Demo</a>
+</div>
+<div class="proof-strip">
+<div class="ps-item"><div class="ps-dot"></div><strong>10x</strong> faster regression coverage</div>
+<div class="ps-item"><div class="ps-dot" style="background:var(--teal);"></div><strong>70%</strong> reduction in manual test authoring</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>3 weeks</strong> to first autonomous test suite</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     THE GAP THAT'S WIDENING
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5.5rem 0;background:linear-gradient(180deg,transparent,rgba(77,49,245,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">The Problem</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">The gap that’s widening — every sprint.</h2>
+<p class="section-subtitle">AI writes code at the speed of a prompt. Your QA team writes tests at the speed of a person. These two trajectories can’t converge by hiring. They can only converge by deploying agents.</p>
+<div class="gap-grid">
+<div class="gap-col gc-legacy">
+<div class="gap-col-label gcl-legacy">Traditional QA</div>
+<h3 style="color:rgba(255,255,255,.6)">The model that’s breaking</h3>
+<ul class="gap-list">
+<li>
+<div class="gap-icon gi-bad">✕</div>
+<span><strong style="color:rgba(255,255,255,.75)">Linear scaling</strong> — every new feature needs a new test author. Coverage grows at the pace of headcount.</span>
+</li>
+<li>
+<div class="gap-icon gi-bad">✕</div>
+<span><strong style="color:rgba(255,255,255,.75)">2-week sprint backlogs</strong> — test authoring can’t keep pace with development velocity, so regression suites are perpetually incomplete.</span>
+</li>
+<li>
+<div class="gap-icon gi-bad">✕</div>
+<span><strong style="color:rgba(255,255,255,.75)">Regression debt compounding</strong> — every release skips tests due to time pressure. The skipped tests don’t disappear; they accumulate as unmitigated risk.</span>
+</li>
+<li>
+<div class="gap-icon gi-bad">✕</div>
+<span><strong style="color:rgba(255,255,255,.75)">60% of QA time on authoring</strong> — the majority of your QA team’s capacity is consumed writing and maintaining scripts, not thinking strategically about quality.</span>
+</li>
+<li>
+<div class="gap-icon gi-bad">✕</div>
+<span><strong style="color:rgba(255,255,255,.75)">Brittle test suites</strong> — a UI change or API schema update breaks hundreds of tests. Someone spends a week fixing them instead of finding real bugs.</span>
+</li>
+</ul>
+</div>
+<div class="gap-col gc-agentic">
+<div class="gap-col-label gcl-agentic">✨ Agentic QE</div>
+<h3 style="background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">The model that scales</h3>
+<ul class="gap-list">
+<li>
+<div class="gap-icon gi-good">✓</div>
+<span><strong style="color:rgba(255,255,255,.85)">Autonomous test generation</strong> — agents read your codebase, user stories, and API specs and produce test cases without human authoring.</span>
+</li>
+<li>
+<div class="gap-icon gi-good">✓</div>
+<span><strong style="color:rgba(255,255,255,.85)">Continuous execution</strong> — tests run on every commit, not just before release. Quality feedback arrives in minutes, not days.</span>
+</li>
+<li>
+<div class="gap-icon gi-good">✓</div>
+<span><strong style="color:rgba(255,255,255,.85)">Self-healing test suites</strong> — when the UI or API changes, agents detect the break and repair tests automatically. Zero maintenance backlog.</span>
+</li>
+<li>
+<div class="gap-icon gi-good">✓</div>
+<span><strong style="color:rgba(255,255,255,.85)">QA engineers on strategy</strong> — freed from scripting, your QA team focuses on exploratory testing, risk modelling, and quality architecture.</span>
+</li>
+<li>
+<div class="gap-icon gi-good">✓</div>
+<span><strong style="color:rgba(255,255,255,.85)">Risk-based execution</strong> — agents prioritise test runs based on code change impact, not alphabetical order. The most critical paths run first, every time.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     PROOF BAR
+════════════════════════════════════════════════════════════ -->
+<div class="proof-bar">
+<div class="container">
+<div class="pb-stat"><div class="pb-num">10x</div><p>Faster regression coverage post-transformation</p></div>
+<div class="pb-stat"><div class="pb-num">70%</div><p>Reduction in manual test authoring effort</p></div>
+<div class="pb-stat"><div class="pb-num">3 wks</div><p>To first autonomous test suite in production</p></div>
+<div class="pb-stat"><div class="pb-num">&lt;5 min</div><p>Median defect detection latency post-commit</p></div>
+<div class="pb-stat"><div class="pb-num">0</div><p>Extra headcount required to scale coverage</p></div>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════
+     WHAT AGENTIC QE ACTUALLY MEANS AT QAPITOL
+════════════════════════════════════════════════════════════ -->
+<section id="capabilities" style="padding:5.5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Capabilities</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">What Agentic QE actually means at Qapitol</h2>
+<p class="section-subtitle">Four agent capabilities that replace the manual testing loop — not augment it. Each one addresses a specific point where traditional QA breaks under velocity pressure.</p>
+<div class="cap-grid">
+<div class="cap-card">
+<div class="cap-icon">🧠</div>
+<h3>Autonomous Test Generation</h3>
+<p>AI agents that read your codebase, user stories, and API specs and write test cases without human authoring. Feed the agent a pull request diff or a new Jira story and it returns a full test suite — functional, edge case, and regression — before your developer has finished code review. Coverage follows code, automatically.</p>
+</div>
+<div class="cap-card">
+<div class="cap-icon">🔧</div>
+<h3>Self-Healing Test Suites</h3>
+<p>Agents that detect when the UI or API changes and repair broken tests automatically. When a component re-renders with a new selector, when an API response schema evolves, when a form validation rule shifts — the agent identifies the break, traces the root cause, and applies the fix. Your regression suite stays green without a maintenance sprint.</p>
+</div>
+<div class="cap-card">
+<div class="cap-icon">🎯</div>
+<h3>Continuous Risk-Based Execution</h3>
+<p>Agents that prioritise which tests to run based on code change impact, not just alphabetical order or arbitrary grouping. Every commit is analysed for blast radius — which features, flows, and integrations could be affected. The highest-risk paths run first. Critical defects surface in under five minutes. Low-risk paths run in background cycles, not blocking pipelines.</p>
+</div>
+<div class="cap-card">
+<div class="cap-icon">💬</div>
+<h3>Natural Language Test Orchestration</h3>
+<p>Write test intent in plain English — agents handle the implementation. "Test that a user with an expired subscription cannot access premium features" becomes a working, parametrised, multi-browser test case. No framework expertise required to author coverage. Domain experts, product managers, and business analysts can contribute to the test suite without touching a script editor.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     THE TRANSFORMATION ROADMAP
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5.5rem 0;background:linear-gradient(180deg,transparent,rgba(33,163,178,.04) 50%,transparent)">
+<div class="container" style="max-width:860px">
+<div class="section-eyebrow">
+<div class="eyebrow-line" style="background:linear-gradient(90deg,var(--teal),transparent)"></div>
+<span class="section-kicker" style="color:var(--teal);margin-bottom:0">Transformation Roadmap</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:620px;margin-bottom:.5rem">From where you are today to full agentic mode — in eleven weeks.</h2>
+<p class="section-subtitle">Transformation doesn’t start with a six-month platform migration. It starts with a three-week sprint that shows measurable results before your next board meeting.</p>
+<div class="roadmap-track">
+<div class="rm-phase">
+<div class="rm-node rn-1">
+<span style="font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;">Phase</span>
+<span style="font-size:1.4rem;line-height:1;font-weight:900;">1</span>
+<span style="font-size:.55rem;letter-spacing:.03em;">Wks 1–3</span>
+</div>
+<div class="rm-body">
+<div class="rm-phase-label rml-1">Phase 1 · Weeks 1–3</div>
+<h3>Assessment &amp; Quick Wins</h3>
+<p>We audit your current test suite — coverage gaps, maintenance burden, flakiness rate, and authoring bottlenecks. Automation candidates are identified and ranked by impact. By the end of week three, you have your first agentic test generation sprint in flight: real test cases, generated autonomously, running against your actual codebase. Not a PoC. A working deliverable.</p>
+<div class="rm-deliverables">
+<span class="rm-chip">Test Suite Audit Report</span>
+<span class="rm-chip">Coverage Gap Map</span>
+<span class="rm-chip">Automation Candidate Ranking</span>
+<span class="rm-chip">First Agentic Sprint Output</span>
+<span class="rm-chip">Baseline Metrics Dashboard</span>
+</div>
+</div>
+</div>
+<div class="rm-phase">
+<div class="rm-node rn-2">
+<span style="font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;">Phase</span>
+<span style="font-size:1.4rem;line-height:1;font-weight:900;">2</span>
+<span style="font-size:.55rem;letter-spacing:.03em;">Wks 4–10</span>
+</div>
+<div class="rm-body">
+<div class="rm-phase-label rml-2">Phase 2 · Weeks 4–10</div>
+<h3>Foundation Build</h3>
+<p>Agent Fabric is deployed into your CI/CD pipeline. QAVE is integrated as the evaluation and simulation layer. Autonomous test generation runs in parallel with your existing QA team — not replacing them yet, but running alongside to demonstrate coverage delta. Self-healing is activated. Risk-based execution is calibrated against your change frequency patterns. Your team is trained on agent oversight and exception handling.</p>
+<div class="rm-deliverables">
+<span class="rm-chip">Agent Fabric Deployment</span>
+<span class="rm-chip">QAVE Integration</span>
+<span class="rm-chip">CI/CD Pipeline Hook</span>
+<span class="rm-chip">Self-Healing Activation</span>
+<span class="rm-chip">Parallel Run Report</span>
+<span class="rm-chip">Team Training</span>
+</div>
+</div>
+</div>
+<div class="rm-phase">
+<div class="rm-node rn-3">
+<span style="font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;">Phase</span>
+<span style="font-size:1.4rem;line-height:1;font-weight:900;">3</span>
+<span style="font-size:.55rem;letter-spacing:.03em;">Wk 11+</span>
+</div>
+<div class="rm-body">
+<div class="rm-phase-label rml-3">Phase 3 · Week 11 Onwards</div>
+<h3>Full Agentic Mode</h3>
+<p>Manual testing is reduced to exploratory and edge-case investigation only. Autonomous regression runs continuously, triggered by every commit. Risk-based execution ensures the most critical paths are always covered, regardless of sprint pressure. Monthly outcome reports quantify the coverage improvement, defect detection velocity, and engineering time recovered. Your QA team operates as quality architects, not script maintainers.</p>
+<div class="rm-deliverables">
+<span class="rm-chip">Continuous Autonomous Regression</span>
+<span class="rm-chip">Exploratory-Only Manual QA</span>
+<span class="rm-chip">Monthly Outcome Reports</span>
+<span class="rm-chip">Coverage &amp; Velocity Metrics</span>
+<span class="rm-chip">QA Team Upskill Plan</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     POWERED BY AGENT FABRIC & QAVE
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5.5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Platform Infrastructure</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:620px;margin-bottom:.5rem">Powered by Agent Fabric &amp; QAVE</h2>
+<p class="section-subtitle">Agentic QE Transformation runs on Qapitol’s proprietary platform infrastructure — two platforms built specifically for quality engineering at scale, not repurposed from generic automation tooling.</p>
+<div class="platform-band">
+<div class="platform-grid">
+<div class="platform-card">
+<div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .65rem;border-radius:99px;background:rgba(77,49,245,.18);color:var(--accent-light);border:1px solid rgba(77,49,245,.32);margin-bottom:1rem">Agent Fabric</div>
+<h3>The autonomous test agent orchestration layer</h3>
+<div class="pc-sub pcs-fabric">Autonomous Execution &amp; Orchestration</div>
+<p>Agent Fabric is the orchestration infrastructure that coordinates your autonomous test agents. It manages agent lifecycle, distributes test generation tasks, routes execution across environments, handles failures and retries, and surfaces results to your engineering dashboards. When a commit triggers a test run, Agent Fabric decides which agents fire, in what order, on which environments — all without human coordination.</p>
+<ul class="platform-bullets">
+<li>Multi-agent coordination for parallel test execution</li>
+<li>CI/CD integration — GitHub Actions, GitLab CI, Jenkins, Azure DevOps</li>
+<li>Environment routing — dev, staging, production-mirror</li>
+<li>Agent failure isolation and automatic retry logic</li>
+<li>Real-time execution visibility and audit trail</li>
+</ul>
+</div>
+<div class="platform-card" style="border-color:rgba(33,163,178,.2)">
+<div style="display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.2rem .65rem;border-radius:99px;background:rgba(33,163,178,.15);color:var(--teal);border:1px solid rgba(33,163,178,.32);margin-bottom:1rem">QAVE</div>
+<h3>The evaluation and simulation layer</h3>
+<div class="pc-sub pcs-qave">AI Simulation &amp; Evaluation Engine</div>
+<p>QAVE provides the evaluation intelligence that makes autonomous testing trustworthy. It simulates complex user scenarios, evaluates non-deterministic AI outputs, and benchmarks quality metrics over time. For teams building AI-powered features, QAVE is the only evaluation layer that understands how to test outputs that don’t have a single correct answer — because it was built for AI quality from day one.</p>
+<ul class="platform-bullets">
+<li>AI output evaluation for non-deterministic systems</li>
+<li>User scenario simulation at scale</li>
+<li>Quality metric benchmarking and drift detection</li>
+<li>Synthetic test data generation for edge cases</li>
+<li>Integration with Agent Fabric for closed-loop evaluation</li>
+</ul>
+</div>
+</div>
+<div style="margin-top:2rem;padding-top:2rem;border-top:1px solid rgba(77,49,245,.2);display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between">
+<p style="font-size:.875rem;color:var(--text-muted);max-width:540px;line-height:1.7;margin:0">Both platforms are included in the Agentic QE Transformation engagement. You don’t need to procure, integrate, or manage separate tooling.</p>
+<div style="display:flex;gap:.75rem;flex-wrap:wrap">
+<a class="btn btn-secondary" href="agent-fabric.html" style="font-size:.82rem;padding:.5rem 1.1rem">Explore Agent Fabric</a>
+<a class="btn btn-secondary" href="qave.html" style="font-size:.82rem;padding:.5rem 1.1rem">Explore QAVE</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHO THIS IS FOR
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5.5rem 0;border-top:1px solid var(--border)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Who This Is Built For</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">If any of these sound familiar, the math isn’t going to fix itself.</h2>
+<p class="section-subtitle">Agentic QE Transformation is built for engineering organisations that have hit the ceiling of what manual and semi-automated QA can deliver.</p>
+<div class="scenario-grid">
+<div class="scenario-card">
+<div class="scenario-icon">📊</div>
+<p><em>"We’re a 50-person engineering team with 8 QA engineers, shipping weekly, and regression coverage is at 34%."</em> Your release cadence has outgrown your QA team’s capacity. The 66% of uncovered code is where production defects are hiding. More headcount won’t close a gap that’s structural.</p>
+</div>
+<div class="scenario-card">
+<div class="scenario-icon">🤖</div>
+<p><em>"We’re building AI features and our existing test suite doesn’t know how to test non-deterministic outputs."</em> Traditional test frameworks assume deterministic outputs. AI features don’t produce them. QAVE was built for exactly this gap — evaluating quality in systems where “correct” isn’t a single answer.</p>
+</div>
+<div class="scenario-card">
+<div class="scenario-icon">🚀</div>
+<p><em>"Our QA headcount hasn’t grown in 2 years but our release frequency has tripled."</em> You’ve absorbed the velocity increase by cutting test coverage and skipping regression. Every sprint, the risk accumulates. Agentic QE doesn’t ask you to choose between speed and quality.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     CTA
+════════════════════════════════════════════════════════════ -->
+<section class="aqe-cta">
+<div class="container">
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(77,49,245,.12);color:var(--accent-light);border:1px solid rgba(77,49,245,.28);margin-bottom:1.5rem">✨ 3-week to first autonomous suite · Outcomes guaranteed</div>
+<h2 style="font-family:'Inter Tight',sans-serif">Stop hiring to keep up.<br/>
+<span style="background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Start deploying agents.</span>
+</h2>
+<p class="cta-sub">Your next sprint is already in flight. The test debt is already accumulating. Book a Transformation Assessment and see exactly where agents close your coverage gap — before the next release window.</p>
+<div class="cta-cluster">
+<a class="btn btn-primary" href="contact.html?service=agentic-qe-transformation" style="font-size:1rem;padding:.95rem 2.25rem">Book a Transformation Assessment →</a>
+<a class="btn btn-secondary" href="contact.html?demo=agentic-qe" style="font-size:1rem;padding:.95rem 2.25rem">See a Live Demo</a>
+<a class="btn btn-secondary" href="roi-calculator.html" style="font-size:1rem;padding:.95rem 2.25rem">Calculate Your ROI</a>
+</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:1.75rem">Not ready for a full transformation? <a href="qave-platform.html" style="color:var(--accent-light);text-decoration:none;">Try QAVE free →</a> and see the evaluation layer in your own environment first.</p>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img alt="Qapitol" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/>
+<p class="footer-tagline">The AI Quality &amp; Delivery Partner for enterprises that can’t afford to get AI wrong.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong> · Hyderabad · Dubai · London · New York</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="testmu.html">Agentic Test Execution</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

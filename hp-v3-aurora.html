@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qapitol AI — V3 Aurora</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06060f;--text:#f2f2ff;--dim:rgba(242,242,255,.5);--dim2:rgba(242,242,255,.25);
+  --teal:#2dd4bf;--violet:#8b5cf6;--blue:#3b82f6;--pink:#ec4899;
+  --glass:rgba(255,255,255,.05);--glass-border:rgba(255,255,255,.08);
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+html{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* AMBIENT ORBS — fixed background */
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
+.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(139,92,246,.18),transparent 70%);top:-100px;left:-100px}
+.orb-2{width:700px;height:700px;background:radial-gradient(circle,rgba(45,212,191,.12),transparent 70%);top:200px;right:-200px}
+.orb-3{width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.12),transparent 70%);bottom:0;left:30%}
+
+/* NAV */
+nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  z-index:200;width:calc(100% - 64px);max-width:1100px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;
+  background:rgba(6,6,15,.7);backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid var(--glass-border);border-radius:16px;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;letter-spacing:-.5px}
+.logo-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--violet),var(--teal));
+  display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;
+}
+.nav-pills{display:flex;gap:2px}
+.nav-pills a{font-size:13px;color:var(--dim);padding:7px 14px;border-radius:9px;transition:all .15s;font-weight:500}
+.nav-pills a:hover{color:var(--text);background:var(--glass)}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.btn-ghost-sm{font-size:13px;color:var(--dim);padding:8px 16px;border-radius:9px;border:1px solid var(--glass-border);font-weight:500;transition:all .15s}
+.btn-ghost-sm:hover{color:var(--text);border-color:rgba(255,255,255,.15)}
+.btn-glow{
+  font-size:13px;font-weight:600;
+  padding:8px 18px;border-radius:9px;
+  background:linear-gradient(135deg,var(--violet),var(--blue));
+  color:#fff;transition:opacity .2s;box-shadow:0 0 20px rgba(139,92,246,.35);
+}
+.btn-glow:hover{opacity:.88}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:140px 32px 80px;text-align:center;
+  position:relative;z-index:1;
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:100px;padding:8px 18px;
+  font-size:12px;font-weight:600;color:var(--dim);
+  margin-bottom:36px;letter-spacing:.03em;
+  backdrop-filter:blur(12px);
+}
+.hero-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.hero h1{
+  font-size:clamp(44px,6.5vw,96px);font-weight:800;line-height:1.0;
+  letter-spacing:-3px;max-width:900px;
+}
+.hero h1 .grad{
+  background:linear-gradient(135deg,var(--text) 0%,var(--violet) 40%,var(--teal) 80%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:17px;color:var(--dim);line-height:1.7;
+  max-width:560px;margin:24px auto 44px;font-weight:400;
+}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:64px}
+.btn-primary-lg{
+  font-size:15px;font-weight:700;padding:14px 28px;border-radius:12px;
+  background:linear-gradient(135deg,var(--violet),var(--blue));
+  color:#fff;box-shadow:0 0 30px rgba(139,92,246,.4);
+  transition:transform .2s,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary-lg:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(139,92,246,.55)}
+.btn-secondary-lg{
+  font-size:15px;font-weight:600;padding:14px 28px;border-radius:12px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  color:var(--text);backdrop-filter:blur(12px);
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-secondary-lg:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14)}
+
+/* GLASS METRIC CARDS */
+.metrics-row{
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  max-width:900px;margin:0 auto;
+}
+.metric-glass{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:16px;padding:20px 28px;text-align:center;
+  backdrop-filter:blur(16px);flex:1;min-width:160px;max-width:200px;
+}
+.metric-glass .mn{font-size:32px;font-weight:800;letter-spacing:-1px;color:var(--text)}
+.metric-glass .ml{font-size:12px;color:var(--dim2);margin-top:4px;line-height:1.4}
+
+/* LOGOS ORBIT */
+.logos-section{
+  padding:64px 32px;position:relative;z-index:1;
+  text-align:center;
+}
+.logos-section .lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:28px}
+.logos-flex{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:880px;margin:0 auto}
+.logo-glass{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:12px;padding:10px 20px;
+  font-size:13px;font-weight:600;color:var(--dim);
+  backdrop-filter:blur(8px);transition:all .2s;
+}
+.logo-glass:hover{color:var(--text);border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.07)}
+
+/* PLATFORM CARDS */
+.platforms-section{
+  padding:80px 32px;position:relative;z-index:1;
+  max-width:1200px;margin:0 auto;
+}
+.section-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;text-align:center}
+.section-h2{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;text-align:center;margin-bottom:8px}
+.section-sub{font-size:15px;color:var(--dim);text-align:center;max-width:520px;margin:0 auto 56px;line-height:1.7}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.platform-glass{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:20px;padding:28px;
+  backdrop-filter:blur(20px);
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.platform-glass::before{
+  content:'';position:absolute;inset:0;border-radius:20px;
+  background:linear-gradient(135deg,transparent,transparent);
+  transition:background .25s;
+}
+.platform-glass:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.14);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.pg-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:900;margin-bottom:20px;
+}
+.pg-name{font-size:17px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px}
+.pg-desc{font-size:13px;color:var(--dim);line-height:1.65;margin-bottom:16px}
+.pg-tag{
+  display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 10px;border-radius:6px;
+  background:var(--glass);border:1px solid var(--glass-border);color:var(--dim2);
+}
+.pg-arrow{position:absolute;top:28px;right:28px;font-size:18px;color:var(--dim2);transition:all .2s}
+.platform-glass:hover .pg-arrow{color:var(--text);transform:translate(3px,-3px)}
+
+/* TESTIMONIAL */
+.testimonial-section{
+  padding:80px 32px;position:relative;z-index:1;
+}
+.testimonial-glass{
+  max-width:780px;margin:0 auto;
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:24px;padding:52px 56px;backdrop-filter:blur(24px);text-align:center;
+  position:relative;
+}
+.testimonial-glass::before{
+  content:'"';position:absolute;top:24px;left:40px;
+  font-size:120px;line-height:1;color:rgba(139,92,246,.15);
+  font-family:Georgia,serif;
+}
+.t-quote{font-size:20px;line-height:1.6;color:var(--text);margin-bottom:32px;font-weight:500}
+.t-attr{display:flex;align-items:center;gap:12px;justify-content:center}
+.t-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--teal));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff}
+.t-name{font-size:14px;font-weight:700;color:var(--text)}
+.t-role{font-size:12px;color:var(--dim)}
+
+/* CTA */
+.cta-section{
+  padding:80px 32px;position:relative;z-index:1;text-align:center;
+}
+.cta-glass{
+  max-width:720px;margin:0 auto;
+  background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(45,212,191,.08));
+  border:1px solid rgba(139,92,246,.2);
+  border-radius:28px;padding:64px 48px;
+  backdrop-filter:blur(20px);
+}
+.cta-glass h2{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-2px;margin-bottom:12px}
+.cta-glass p{font-size:15px;color:var(--dim);margin-bottom:36px;line-height:1.7}
+.cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--glass-border);
+  padding:40px 48px;position:relative;z-index:1;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  max-width:1200px;margin:0 auto;
+}
+footer .fl{font-size:13px;color:var(--dim2)}
+footer .fr{display:flex;gap:20px}
+footer .fr a{font-size:13px;color:var(--dim2);transition:color .15s}
+footer .fr a:hover{color:var(--dim)}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<nav>
+  <div class="nav-brand"><div class="logo-icon">Q</div>Qapitol AI</div>
+  <div class="nav-pills">
+    <a href="#">Platforms</a><a href="#">Solutions</a><a href="#">Services</a><a href="#">Insights</a><a href="#">About</a>
+  </div>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost-sm">Sign in</a>
+    <a href="#" class="btn-glow">Get started</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-pill"><span class="dot"></span>SURE-Q Framework · Now Generally Available</div>
+  <h1><span class="grad">AI quality that</span><br>scales with your<br><span class="grad">ambition</span></h1>
+  <p class="hero-sub">Five AI-native platforms unified under one governance framework. Built for CIOs who need to ship fast and answer to regulators.</p>
+  <div class="hero-ctas">
+    <a href="#" class="btn-primary-lg">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Start free with QAVE
+    </a>
+    <a href="#" class="btn-secondary-lg">See how it works →</a>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-glass"><div class="mn">1,400+</div><div class="ml">AI obligations<br>pre-mapped</div></div>
+    <div class="metric-glass"><div class="mn">94.2%</div><div class="ml">Average eval<br>accuracy</div></div>
+    <div class="metric-glass"><div class="mn">80%</div><div class="ml">Reduction in<br>test maintenance</div></div>
+    <div class="metric-glass"><div class="mn">90 days</div><div class="ml">GCC team<br>to full ramp</div></div>
+  </div>
+</div>
+
+<div class="logos-section">
+  <div class="lbl">Trusted by leading global enterprises</div>
+  <div class="logos-flex">
+    <div class="logo-glass">HDFC Bank</div>
+    <div class="logo-glass">ICICI Bank</div>
+    <div class="logo-glass">Axis Bank</div>
+    <div class="logo-glass">Airtel</div>
+    <div class="logo-glass">Lulu Group</div>
+    <div class="logo-glass">GMG</div>
+    <div class="logo-glass">EquiTrust</div>
+    <div class="logo-glass">Panda Retail</div>
+    <div class="logo-glass">Carrefour</div>
+    <div class="logo-glass">Starbucks</div>
+    <div class="logo-glass">Vodafone</div>
+  </div>
+</div>
+
+<div class="platforms-section">
+  <div class="section-eyebrow">Platform Suite</div>
+  <h2 class="section-h2">Everything AI quality needs</h2>
+  <p class="section-sub">From evaluation to compliance to agentic testing — all platforms share a unified data layer and governance model.</p>
+  <div class="cards-grid">
+    <div class="platform-glass">
+      <span class="pg-arrow">↗</span>
+      <div class="pg-icon" style="background:linear-gradient(135deg,rgba(45,212,191,.2),rgba(45,212,191,.05));color:#2dd4bf">QV</div>
+      <div class="pg-name">QAVE</div>
+      <div class="pg-desc">Open LLM evaluation with IRDAI, EU AI Act, and RBI frameworks pre-loaded. 500 free runs monthly.</div>
+      <span class="pg-tag" style="color:#2dd4bf;border-color:rgba(45,212,191,.2)">Freemium</span>
+    </div>
+    <div class="platform-glass">
+      <span class="pg-arrow">↗</span>
+      <div class="pg-icon" style="background:linear-gradient(135deg,rgba(139,92,246,.2),rgba(139,92,246,.05));color:#8b5cf6">NX</div>
+      <div class="pg-name">Nexus</div>
+      <div class="pg-desc">Test intelligence that maps requirements to coverage and scores release readiness in real time.</div>
+      <span class="pg-tag">Enterprise</span>
+    </div>
+    <div class="platform-glass">
+      <span class="pg-arrow">↗</span>
+      <div class="pg-icon" style="background:linear-gradient(135deg,rgba(249,115,22,.2),rgba(249,115,22,.05));color:#f97316">AF</div>
+      <div class="pg-name">Agent Fabric</div>
+      <div class="pg-desc">Agentic platform that autonomously generates, executes, and self-heals tests. 80% less maintenance.</div>
+      <span class="pg-tag" style="color:#f97316;border-color:rgba(249,115,22,.2)">Agentic</span>
+    </div>
+    <div class="platform-glass">
+      <span class="pg-arrow">↗</span>
+      <div class="pg-icon" style="background:linear-gradient(135deg,rgba(59,130,246,.2),rgba(59,130,246,.05));color:#3b82f6">QR</div>
+      <div class="pg-name">Qurator</div>
+      <div class="pg-desc">LLM quality pipelines with drift detection, multi-model benchmarking, and complete audit trails.</div>
+      <span class="pg-tag">LLMOps</span>
+    </div>
+    <div class="platform-glass">
+      <span class="pg-arrow">↗</span>
+      <div class="pg-icon" style="background:linear-gradient(135deg,rgba(236,72,153,.2),rgba(236,72,153,.05));color:#ec4899">CQ</div>
+      <div class="pg-name">CHEQ</div>
+      <div class="pg-desc">Regulatory compliance engine mapping 1,400+ obligations across IRDAI, RBI, EU AI Act, and DORA.</div>
+      <span class="pg-tag" style="color:#ec4899;border-color:rgba(236,72,153,.2)">Compliance</span>
+    </div>
+    <div class="platform-glass" style="background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(45,212,191,.04));border-color:rgba(139,92,246,.15)">
+      <span class="pg-arrow">↗</span>
+      <div class="pg-icon" style="background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(45,212,191,.1));color:var(--text)">SQ</div>
+      <div class="pg-name">SURE-Q Framework</div>
+      <div class="pg-desc">The governance backbone: Secure · Utilise · Rely · Evolve · Qualify. Open standard, free to adopt.</div>
+      <span class="pg-tag" style="color:#8b5cf6;border-color:rgba(139,92,246,.2)">Open Framework</span>
+    </div>
+  </div>
+</div>
+
+<div class="testimonial-section">
+  <div class="testimonial-glass">
+    <div class="t-quote">"Qapitol gave us what no other vendor could — a complete audit trail from requirement to regulatory attestation. CHEQ is now non-negotiable in our AI release process."</div>
+    <div class="t-attr">
+      <div class="t-avatar">R</div>
+      <div>
+        <div class="t-name">Head of AI Risk & Compliance</div>
+        <div class="t-role">Leading BFSI Group, India</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-glass">
+    <h2>Ready to govern<br>your AI stack?</h2>
+    <p>Start with QAVE free. Add platforms as you grow. Every piece integrates natively.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-primary-lg">Get started — free</a>
+      <a href="#" class="btn-secondary-lg">Talk to our team</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">© 2026 Qapitol AI Technologies · Built for AI-native enterprise</div>
+  <div class="fr"><a href="#">Platforms</a><a href="#">Pricing</a><a href="#">Insights</a><a href="#">Privacy</a><a href="#">Contact</a></div>
+</footer>
+
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body></html>

@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Careers — Build AI Quality Engineering's Future | Qapitol</title>
+<meta content="Join Qapitol and build the future of AI quality engineering. Open roles in AI/ML Engineering, QE Platform, GTM, and Delivery. Strong employer brand, great culture, real impact." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    .culture-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;margin-top:2rem}
+    .culture-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem}
+    .culture-icon{font-size:2rem;margin-bottom:.75rem}
+    .culture-card h4{font-family:"Inter Tight",sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem}
+    .culture-card p{font-size:.87rem;color:var(--text-muted);line-height:1.6;margin:0}
+    .jobs-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .jfilter{padding:.45rem 1.1rem;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:.84rem;font-family:inherit;transition:all .2s}
+    .jfilter.active,.jfilter:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+    .job-group{margin-bottom:2.5rem}
+    .job-group-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border)}
+    .job-card{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:.75rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;transition:border-color .2s,box-shadow .2s;cursor:pointer}
+    .job-card:hover{border-color:var(--accent);box-shadow:var(--glow-sm)}
+    .job-card.open-state{border-color:var(--accent-light)}
+    .job-info h4{font-family:"Inter Tight",sans-serif;font-size:1rem;font-weight:700;margin-bottom:.35rem}
+    .job-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+    .jtag{font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted)}
+    .job-apply-btn{flex-shrink:0;padding:.5rem 1.1rem;background:var(--accent);border:none;color:#fff;border-radius:8px;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity .2s}
+    .job-apply-btn:hover{opacity:.85}
+    .job-detail{display:none;border-top:1px solid var(--border);margin-top:1.25rem;padding-top:1.25rem}
+    .job-detail.visible{display:block}
+    .job-detail p{font-size:.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:.75rem}
+    .job-detail ul{font-size:.88rem;color:var(--text-muted);line-height:1.7;padding-left:1.25rem;margin-bottom:.75rem}
+    .benefit-pills{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem}
+    .bpill{display:flex;align-items:flex-start;gap:.75rem;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+    .bpill-icon{font-size:1.5rem;flex-shrink:0}
+    .bpill h5{font-family:"Inter Tight",sans-serif;font-size:.9rem;font-weight:700;margin-bottom:.2rem}
+    .bpill p{font-size:.8rem;color:var(--text-muted);margin:0;line-height:1.5}
+    .apply-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:9500;display:none;align-items:center;justify-content:center;padding:1rem}
+    .apply-modal-overlay.open{display:flex}
+    .apply-modal{background:var(--surface);border:1px solid var(--border-glow);border-radius:24px;padding:2.5rem;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+    .apply-modal h3{font-family:"Inter Tight",sans-serif;font-size:1.4rem;margin-bottom:.25rem}
+    .apply-modal p.modal-sub{font-size:.9rem;color:var(--text-muted);margin-bottom:1.5rem}
+    .modal-close{position:absolute;top:1.25rem;right:1.25rem;background:var(--surface-2);border:1px solid var(--border);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:all .2s}
+    .modal-close:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    @media(max-width:560px){.form-row{grid-template-columns:1fr}}
+    .form-field label{display:block;font-size:.82rem;font-weight:600;color:var(--text-muted);margin-bottom:.35rem}
+    .form-field input,.form-field select,.form-field textarea{width:100%;padding:.7rem 1rem;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:.9rem;outline:none;transition:border .2s;box-sizing:border-box}
+    .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--accent)}
+    .form-field textarea{min-height:90px;resize:vertical}
+    .upload-area{border:2px dashed var(--border);border-radius:10px;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s;font-size:.88rem;color:var(--text-muted)}
+    .upload-area:hover{border-color:var(--accent);color:var(--accent-light)}
+    .submit-btn{width:100%;padding:.85rem;background:linear-gradient(135deg,var(--accent),#7c5af5);border:none;border-radius:10px;color:#fff;font-size:1rem;font-weight:700;cursor:pointer;font-family:"Inter Tight",sans-serif;margin-top:.75rem;transition:opacity .2s}
+    .submit-btn:hover{opacity:.9}
+    .team-testimony{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2rem}
+    .tt-card{background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+    .tt-card blockquote{font-size:.9rem;color:var(--text-muted);line-height:1.7;font-style:italic;margin-bottom:1rem}
+    .tt-person{display:flex;align-items:center;gap:.75rem}
+    .tt-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#7c5af5);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0}
+    .tt-name{font-weight:600;font-size:.85rem}
+    .tt-role{font-size:.78rem;color:var(--text-muted)}
+    .life-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+    @media(max-width:600px){.life-grid{grid-template-columns:1fr 1fr}}
+    .life-tile{border-radius:14px;overflow:hidden;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
+    .life-tile span{position:absolute;bottom:.75rem;left:.75rem;font-size:.75rem;font-weight:600;color:rgba(255,255,255,.9);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="Careers at Qapitol AI" property="og:title"/>
+<meta content="Join 350+ AI specialists shaping the future of AI quality. Remote-first roles across AI evaluation, engineering and compliance." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/careers.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Careers at Qapitol AI" name="twitter:title"/>
+<meta content="Join 350+ AI specialists shaping the future of AI quality. Remote-first roles across AI evaluation, engineering and compliance." name="twitter:description"/>
+  <meta name="description" content="Build the future of AI quality at Qapitol. Open roles in QE, AI engineering, MLOps, sales, and GCC delivery. Join a team working on SURE-Q, QAVE, and enterprise AI governance.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/careers.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/careers.html">
+  <meta property="og:title" content="Careers at Qapitol AI Technologies">
+  <meta property="og:description" content="Build the future of AI quality at Qapitol. Open roles in QE, AI engineering, MLOps, sales, and GCC delivery. Join a team working on SURE-Q, QAVE, and enterprise AI governance.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="Careers at Qapitol AI Technologies">
+  <meta name="twitter:description" content="Build the future of AI quality at Qapitol. Open roles in QE, AI engineering, MLOps, sales, and GCC delivery. Join a team working on SURE-Q, QAVE, and enterprise AI governance.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Careers at Qapitol AI Technologies",
+    "url": "https://qapitol.com/careers.html",
+    "publisher": { "@id": "https://qapitol.com/#organization" },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qapitol.com/"},
+        {"@type":"ListItem","position":2,"name":"Careers","item":"https://qapitol.com/careers.html"}
+      ]
+    }
+  }
+  </script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- HEADER -->
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- HERO -->
+<section class="hero section-geo" style="padding-top:7rem;padding-bottom:5rem;">
+<div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+<div>
+<p class="kicker">We're Hiring</p>
+<h1>Do the work that<br/><span class="gradient-text">defines AI quality.</span></h1>
+<p class="hero-sub" style="margin-left:0;margin-bottom:2rem;">At Qapitol, you'll build the tools, platforms, and methodologies that help the world's most important AI systems be reliable, fair, and compliant. Real problems. Real impact. Real team.</p>
+<div style="display:flex;gap:1rem;flex-wrap:wrap;">
+<a class="btn btn-primary" href="#open-roles">View Open Roles →</a>
+<a class="btn btn-outline" href="#culture">Our Culture</a>
+</div>
+</div>
+<div>
+<div class="life-grid">
+<div class="life-tile" style="background:linear-gradient(135deg,#1e1060,#0c071a);grid-column:span 2;">🧠<span>AI Practice Hack Day</span></div>
+<div class="life-tile" style="background:linear-gradient(135deg,#0a3040,#0c071a);">🏗️<span>Platform Sprint</span></div>
+<div class="life-tile" style="background:linear-gradient(135deg,#1a0a30,#0c071a);">🎉<span>Team Offsite</span></div>
+<div class="life-tile" style="background:linear-gradient(135deg,#002030,#0c071a);">📊<span>QE Conf Talk</span></div>
+<div class="life-tile" style="background:linear-gradient(135deg,#0c071a,#1e1060);grid-column:span 2;">🤝<span>Client Impact Moment</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- STATS BAR -->
+<section class="section" style="padding:2.5rem 0;">
+<div class="container">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.25rem;text-align:center;">
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;">
+<div style="font-size:2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">350+</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem;">Team members</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;">
+<div style="font-size:2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">4.6★</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem;">Glassdoor rating</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;">
+<div style="font-size:2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">94%</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem;">Would recommend</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;">
+<div style="font-size:2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">₹4L</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem;">Learning budget/yr</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;">
+<div style="font-size:2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">45 days</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:.2rem;">Annual leave</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TECH STACK -->
+<section class="section" style="padding:4rem 0;background:linear-gradient(180deg,transparent,rgba(77,49,245,.05) 50%,transparent);">
+<div class="container">
+<p class="kicker">The Stack</p>
+<h2>What you'll actually work with</h2>
+<p style="color:var(--text-muted);max-width:600px;margin-bottom:2.5rem;">We're an AI-native team. You'll work with real AI systems in production for real enterprises — not toy demos.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">🧠</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">LLM / GenAI</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">OpenAI GPT-4o, Anthropic Claude, Gemini, Llama 3, custom fine-tuned models</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">🧪</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">Eval &amp; Testing</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">QAVE (our own), RAGAS, DeepEval, PromptFlow, custom eval harnesses</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">🤖</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">Agentic</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">LangChain, LangGraph, CrewAI, AutoGen, custom agent frameworks</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">⚙️</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">MLOps</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">MLflow, Weights &amp; Biases, DVC, BentoML, Seldon</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">🔄</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">Data &amp; Pipelines</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">Apache Airflow, dbt, Spark, Databricks</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">☁️</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">Infrastructure</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">AWS (SageMaker, Bedrock), Azure ML, GCP Vertex AI, Docker, Kubernetes</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">✅</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">QE &amp; Testing</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">Selenium, Playwright, RestAssured, K6, custom AI test frameworks</p>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <div style="font-size:1.3rem;margin-bottom:.65rem;">🔒</div>
+    <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;color:var(--accent-light);">Governance</h4>
+    <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">CHEQ (our own), regulatory obligation libraries, policy engine</p>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- CULTURE -->
+<section class="section band" id="culture">
+<div class="container">
+<p class="kicker">Our Culture</p>
+<h2>We're building something that matters.<br/>Here's how we do it.</h2>
+<div class="culture-grid">
+<div class="culture-card">
+<div class="culture-icon">🧪</div>
+<h4>AI-native from day one</h4>
+<p>Every team member has access to Claude, GPT-4, Gemini, and our own QAVE and Nexus platforms. We use AI to accelerate our own work — and build products that do the same for our clients.</p>
+</div>
+<div class="culture-card">
+<div class="culture-icon">🎯</div>
+<h4>Craft matters here</h4>
+<p>We care deeply about quality — in our code, our delivery, our thinking. This is a company built by practitioners who take their craft seriously. If that's you, you'll fit right in.</p>
+</div>
+<div class="culture-card">
+<div class="culture-icon">🌍</div>
+<h4>Hybrid-first, async-friendly</h4>
+<p>Work from where you do your best thinking. We have offices in Hyderabad and Bengaluru with flexible hybrid arrangements. Strong async culture with documented decisions and clear context.</p>
+</div>
+<div class="culture-card">
+<div class="culture-icon">📈</div>
+<h4>Grow fast or go deep</h4>
+<p>Qapitol is growing quickly. You can grow fast with it — into leadership, into new practices, into new domains. Or go deep into an area of expertise and become one of the best in the industry.</p>
+</div>
+<div class="culture-card">
+<div class="culture-icon">🤝</div>
+<h4>No nonsense, high trust</h4>
+<p>Low hierarchy, high ownership. We don't micromanage. We set context and let smart people make good decisions. When you mess up, we learn and move on. When you win, it's visible.</p>
+</div>
+<div class="culture-card">
+<div class="culture-icon">🏆</div>
+<h4>Front-row seat at the AI revolution</h4>
+<p>You'll work on real AI systems — eval pipelines, SLM fine-tuning, RLHF, compliance frameworks — before most of the industry understands these exist. It's a remarkable time to be here.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TEAM TESTIMONIALS -->
+<section class="section">
+<div class="container">
+<p class="kicker">From the team</p>
+<h2>What people say about working here</h2>
+<div class="team-testimony">
+<div class="tt-card">
+<blockquote>"I joined Qapitol as a senior SDET and within 18 months I was leading the AI Evaluation pod. The growth trajectory is real — if you're willing to learn, the company will invest in you."</blockquote>
+<div class="tt-person"><div class="tt-avatar">S</div><div><div class="tt-name">Sneha Raghavan</div><div class="tt-role">AI Evaluation Lead, 2 years at Qapitol</div></div></div>
+</div>
+<div class="tt-card">
+<blockquote>"Coming from a traditional QE firm, I was worried about the pace. But Qapitol's culture is genuinely supportive — clear expectations, lots of context, and real mentorship from the practice leads."</blockquote>
+<div class="tt-person"><div class="tt-avatar">A</div><div><div class="tt-name">Arjun Pillai</div><div class="tt-role">Senior SDET, 1.5 years at Qapitol</div></div></div>
+</div>
+<div class="tt-card">
+<blockquote>"Working on CHEQ has been the most intellectually exciting thing I've done. Reading IRDAI guidelines and turning them into machine-checkable obligations — it's genuinely novel work."</blockquote>
+<div class="tt-person"><div class="tt-avatar">D</div><div><div class="tt-name">Divya Krishnamurthy</div><div class="tt-role">Compliance AI Engineer, 2.5 years at Qapitol</div></div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- BENEFITS -->
+<section class="section band">
+<div class="container">
+<p class="kicker">Benefits</p>
+<h2>We take care of our people</h2>
+<div class="benefit-pills">
+<div class="bpill"><div class="bpill-icon">🤖</div><div><h5>Full AI Tool Stack</h5><p>Claude Pro, GPT-4, GitHub Copilot, Cursor — all provided. Plus early access to QAVE, Nexus, and Agent Fabric.</p></div></div>
+<div class="bpill"><div class="bpill-icon">📚</div><div><h5>₹4L Learning Budget</h5><p>Per year for courses, conferences, certifications, and books. No approval process for amounts under ₹25K.</p></div></div>
+<div class="bpill"><div class="bpill-icon">🏡</div><div><h5>Hybrid Working</h5><p>2–3 days in-office (Hyderabad/Bengaluru). Rest remote. Full work-from-home flexibility for deep work weeks.</p></div></div>
+<div class="bpill"><div class="bpill-icon">💰</div><div><h5>Competitive CTC + ESOP</h5><p>Market-leading compensation benchmarked to top-quartile QE/AI firms. ESOP participation for all tech roles from day one.</p></div></div>
+<div class="bpill"><div class="bpill-icon">🏥</div><div><h5>Health Insurance</h5><p>₹10L family floater for employee + spouse + children. Dental and OPD included. No waiting period.</p></div></div>
+<div class="bpill"><div class="bpill-icon">🧘</div><div><h5>Mental Health Support</h5><p>Free access to counselling via YourDOST. No stigma — we talk about this openly and act on it.</p></div></div>
+<div class="bpill"><div class="bpill-icon">✈️</div><div><h5>45 Days Leave</h5><p>25 earned leave + 12 sick days + 8 holidays. Plus maternity (26 weeks), paternity (4 weeks), and adoption leave.</p></div></div>
+<div class="bpill"><div class="bpill-icon">🎓</div><div><h5>Conference Speaking</h5><p>We fund and actively encourage speaking at QE Conf, AI/ML conferences, and industry events. Travel + accommodation included.</p></div></div>
+</div>
+</div>
+</section>
+<!-- OPEN ROLES -->
+<section class="section" id="open-roles">
+<div class="container">
+<p class="kicker">Open Roles</p>
+<h2>Join the team building AI quality engineering's future</h2>
+<p style="color:var(--text-muted);max-width:560px;margin-bottom:2rem;">We're hiring across AI Engineering, Platform, GTM, and Delivery. All roles are hybrid (Hyderabad/Bengaluru) unless marked remote.</p>
+<div class="jobs-filter">
+<button class="jfilter active" data-filter="all">All Roles (13)</button>
+<button class="jfilter" data-filter="ai">AI &amp; Platform</button>
+<button class="jfilter" data-filter="gtm">GTM &amp; Sales</button>
+<button class="jfilter" data-filter="delivery">QE Delivery</button>
+</div>
+<!-- AI & PLATFORM ROLES -->
+<div class="job-group" data-group="ai">
+<div class="job-group-label">🤖 AI Engineering &amp; Platform</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>ML Scientist — SLM Fine-Tuning &amp; Alignment</h4>
+<div class="job-tags"><span class="jtag">Hyderabad</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:var(--accent-light);border-color:var(--accent);">AI Practice</span></div>
+<div class="job-detail">
+<p>We're building domain-specific Small Language Models for insurance, BFSI, and healthcare QE. You'll own the fine-tuning pipeline — from dataset curation through RLHF alignment to production deployment.</p>
+<p><strong>You'll work on:</strong></p>
+<ul><li>Fine-tuning Llama/Mistral/Phi models on domain-specific insurance and BFSI data</li><li>Designing and running RLHF annotation pipelines with domain expert annotators</li><li>Building evaluation frameworks for SLM performance on NER, classification, and reasoning tasks</li><li>Contributing to our Policy Reasoning Traces (PRT) research</li></ul>
+<p><strong>You bring:</strong> 3+ years ML engineering, experience with parameter-efficient fine-tuning (LoRA, QLoRA), strong Python, familiarity with regulatory or legal NLP a strong plus.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('ML Scientist — SLM Fine-Tuning &amp; Alignment')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Senior AI Platform Engineer (QAVE)</h4>
+<div class="job-tags"><span class="jtag">Hyderabad</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:var(--accent-light);border-color:var(--accent);">Platform</span></div>
+<div class="job-detail">
+<p>You'll be a core builder on QAVE — our AI Simulation and Evaluation Engine. This is multi-tenant SaaS on Kubernetes, handling thousands of eval runs per day across LLM models and regulatory frameworks.</p>
+<ul><li>Design and build eval pipeline orchestration (Python, FastAPI, Celery)</li><li>Multi-tenant K8s architecture — performance, isolation, cost efficiency</li><li>Integrate QAVE with external LLM APIs (OpenAI, Anthropic, Gemini, Azure)</li><li>Build the on-prem / VPC deployment path for Enterprise Sovereign AI customers</li></ul>
+<p><strong>You bring:</strong> 5+ years software engineering, strong Python/FastAPI, Kubernetes/Docker, experience with SaaS multi-tenancy, bonus for prior AI/LLM platform work.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Senior AI Platform Engineer (QAVE)')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>DevOps / MLOps Engineer</h4>
+<div class="job-tags"><span class="jtag">Hyderabad</span><span class="jtag">Full-time</span><span class="jtag">Mid–Senior</span><span class="jtag" style="color:var(--accent-light);border-color:var(--accent);">Platform</span></div>
+<div class="job-detail">
+<p>Responsible for the infrastructure powering QAVE, Nexus, and CHEQ. You'll build and maintain the MLOps stack that enables our team to train, evaluate, and deploy AI models safely and at scale.</p>
+<ul><li>CI/CD pipelines for model training and platform deployment (GitHub Actions, ArgoCD)</li><li>ML experiment tracking (MLflow), model registry, and deployment automation</li><li>Monitoring and observability for AI systems in production (Prometheus, Grafana, OpenTelemetry)</li><li>Cost optimization across cloud GPU infrastructure</li></ul>
+<p><strong>You bring:</strong> 4+ years DevOps/SRE, Kubernetes, Terraform, cloud (AWS preferred), experience with ML workload infrastructure a strong plus.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('DevOps / MLOps Engineer')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>AI QE Engineer (Mid-level) × 2</h4>
+<div class="job-tags"><span class="jtag">Hyderabad / Bengaluru</span><span class="jtag">Full-time</span><span class="jtag">Mid-level</span><span class="jtag" style="color:var(--accent-light);border-color:var(--accent);">AI Practice</span></div>
+<div class="job-detail">
+<p>You'll work within our AI Practice pods, contributing to client-facing AI evaluation engagements and building the tooling that makes them repeatable at scale.</p>
+<ul><li>Design and execute AI model evaluation frameworks for client AI systems</li><li>Write automated eval suites using QAVE's API and custom eval tooling</li><li>Contribute to SLM-powered compliance testing and regulatory mapping</li><li>Work directly with clients to understand use cases and translate to eval plans</li></ul>
+<p><strong>You bring:</strong> 2–4 years QE or software engineering, Python proficiency, curiosity about AI systems, willingness to get deep in regulatory and domain context.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('AI QE Engineer (Mid-level)')">Apply Now →</button>
+</div>
+</div>
+</div>
+</div>
+<!-- GTM ROLES -->
+<div class="job-group" data-group="gtm">
+<div class="job-group-label">📈 GTM, Sales &amp; Pre-Sales</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Solutions Engineer — AI Practice</h4>
+<div class="job-tags"><span class="jtag">Bengaluru</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:#e88721;border-color:#e88721;">GTM</span></div>
+<div class="job-detail">
+<p>You'll be the technical voice in our AI Practice sales motion — owning demos, RFP responses, proof-of-concepts, and the technical handoff to delivery. You're as comfortable presenting to a CISO as you are writing eval scripts.</p>
+<ul><li>Own QAVE and CHEQ demo environments and customise for prospects</li><li>Lead technical discovery calls and translate client requirements to platform capabilities</li><li>Write compelling technical sections of proposals and RFP responses</li><li>Run proof-of-concept engagements (2–4 week sprints) that convert to deals</li></ul>
+<p><strong>You bring:</strong> 4+ years QE or AI engineering, strong communication, ability to demo live under pressure, experience in BFSI or regulated tech a plus.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Solutions Engineer — AI Practice')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Regulatory SME — AI Compliance (IRDAI/RBI/EU AI Act)</h4>
+<div class="job-tags"><span class="jtag">Hyderabad / Remote</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:#e88721;border-color:#e88721;">GTM</span></div>
+<div class="job-detail">
+<p>A rare role sitting at the intersection of regulatory compliance and AI engineering. You'll shape CHEQ's obligation library, advise clients on regulatory strategy, and be the face of Qapitol at regulatory and industry forums.</p>
+<ul><li>Maintain and expand CHEQ's obligation library across IRDAI, RBI, EU AI Act, DORA, ISO 42001</li><li>Advise clients on AI compliance strategy and examination preparation</li><li>Write compliance-focused content, whitepapers, and response frameworks</li><li>Represent Qapitol at IRDAI/RBI/IAMAI working groups and industry events</li></ul>
+<p><strong>You bring:</strong> 6+ years in financial services compliance, legal, or regulatory technology. Deep knowledge of IRDAI or RBI frameworks. Interest in AI governance essential.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Regulatory SME — AI Compliance')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Product Manager — QAVE Platform</h4>
+<div class="job-tags"><span class="jtag">Hyderabad</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:#e88721;border-color:#e88721;">Product</span></div>
+<div class="job-detail">
+<p>You'll own the QAVE product roadmap — balancing the needs of free-tier users driving adoption with enterprise customers demanding Sovereign AI deployment and custom compliance frameworks.</p>
+<ul><li>Own QAVE's product strategy, roadmap, and KPIs (MAU, activation, expansion revenue)</li><li>Conduct customer discovery with enterprises, startups, and compliance teams</li><li>Write crisp PRDs and work closely with engineering to ship high-quality features</li><li>Define and track eval quality metrics and iterate on the free-tier onboarding funnel</li></ul>
+<p><strong>You bring:</strong> 4+ years PM at B2B SaaS, technical background (can read code and critique architecture), strong analytical skills, experience with AI/ML products a plus.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Product Manager — QAVE Platform')">Apply Now →</button>
+</div>
+</div>
+</div>
+</div>
+<!-- DELIVERY ROLES -->
+<div class="job-group" data-group="delivery">
+<div class="job-group-label">🛡️ Client Delivery &amp; QE</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Delivery Manager — QE (BFSI)</h4>
+<div class="job-tags"><span class="jtag">Hyderabad / Bengaluru</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:var(--teal);border-color:var(--teal);">Delivery</span></div>
+<div class="job-detail">
+<p>You'll own delivery excellence for 3–5 large BFSI client accounts — managing QE squads, ensuring outcomes, navigating client relationships, and driving expansion. This is a senior client-facing leadership role.</p>
+<ul><li>P&amp;L ownership for your client portfolio (₹2–8Cr ARR)</li><li>Hire, manage, and develop a delivery team of 15–30 QE practitioners</li><li>Drive monthly governance with C-level stakeholders at client organisations</li><li>Lead AI practice adoption within accounts — introduce QAVE, CHEQ where relevant</li></ul>
+<p><strong>You bring:</strong> 8+ years QE delivery, experience managing large client accounts, BFSI domain knowledge, strong executive communication.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Delivery Manager — QE (BFSI)')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Senior SDET — Automation (Playwright / Selenium)</h4>
+<div class="job-tags"><span class="jtag">Hyderabad / Bengaluru</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:var(--teal);border-color:var(--teal);">Delivery</span></div>
+<div class="job-detail">
+<p>You'll work within an embedded QE squad at a fast-growing fintech client, leading automation strategy and building a maintainable, scalable test suite using modern tooling.</p>
+<ul><li>Design and build UI automation with Playwright (TypeScript) and API automation (RestAssured/SuperTest)</li><li>Integrate test execution into GitHub Actions CI/CD pipeline</li><li>Mentor junior SDETs and conduct code reviews</li><li>Explore and pilot AI-assisted test generation using Nexus and Agent Fabric</li></ul>
+<p><strong>You bring:</strong> 4+ years automation engineering, strong Playwright or Selenium, TypeScript/Java, API testing, CI/CD experience.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Senior SDET — Automation')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>Performance Engineering Lead</h4>
+<div class="job-tags"><span class="jtag">Hyderabad</span><span class="jtag">Full-time</span><span class="jtag">Senior</span><span class="jtag" style="color:var(--teal);border-color:var(--teal);">Delivery</span></div>
+<div class="job-detail">
+<p>You'll lead performance engineering across multiple client accounts, owning strategy, execution, and analysis for load, stress, soak, and chaos testing programmes.</p>
+<ul><li>Design performance test strategies for microservices and cloud-native architectures</li><li>Execute load testing with k6, Gatling, or JMeter at scale (100K+ VU)</li><li>Root cause analysis and remediation guidance — not just "here's the report"</li><li>Develop performance testing practice collateral and train delivery teams</li></ul>
+<p><strong>You bring:</strong> 6+ years performance engineering, strong with k6/Gatling, cloud monitoring (Datadog, NewRelic, Grafana), distributed systems understanding.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('Performance Engineering Lead')">Apply Now →</button>
+</div>
+</div>
+</div>
+<div class="job-card" onclick="toggleJob(this)">
+<div class="job-info">
+<h4>AI QE Consultant — Client Delivery</h4>
+<div class="job-tags"><span class="jtag">Bengaluru</span><span class="jtag">Full-time</span><span class="jtag">Mid–Senior</span><span class="jtag" style="color:var(--teal);border-color:var(--teal);">Delivery</span></div>
+<div class="job-detail">
+<p>A client-facing consulting role combining QE expertise with AI practice knowledge. You'll advise clients on their AI testing strategy, design evaluation frameworks, and help them build in-house AI QE capability.</p>
+<ul><li>Lead AI QE maturity assessments and produce roadmaps for client AI testing practices</li><li>Design bespoke evaluation frameworks using QAVE for client-specific AI use cases</li><li>Train and upskill client QE teams on AI evaluation concepts and tooling</li><li>Own deliverables, timelines, and client satisfaction for advisory engagements</li></ul>
+<p><strong>You bring:</strong> 4–7 years QE or advisory, exposure to AI/ML systems, strong deck and document writing, ability to translate technical complexity for business audiences.</p>
+<button class="job-apply-btn" onclick="event.stopPropagation();openApply('AI QE Consultant — Client Delivery')">Apply Now →</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- DAY IN THE LIFE -->
+<section class="section">
+<div class="container">
+<p class="kicker">Employer Brand</p>
+<h2>What Tuesday actually looks like here.</h2>
+<p style="color:var(--text-muted);max-width:600px;margin-bottom:2.5rem;">Not what's on the careers page — what's in Slack at 10am on a random weekday.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+<div style="font-size:1.5rem;margin-bottom:.75rem;">🤖</div>
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;">09:15 — AI Eval team standup</h4>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">Three SDETs and an ML engineer reviewing overnight QAVE results on a new LLM. One hallucination pattern nobody expected. Fifteen minutes of genuine detective work. They file a bug against the model — not the test.</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+<div style="font-size:1.5rem;margin-bottom:.75rem;">📜</div>
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;">11:30 — CHEQ obligation review</h4>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">A compliance engineer is translating three new IRDAI circular paragraphs into machine-checkable obligations. She's on a call with a lawyer at HDFC — live editing a compliance obligation in CHEQ's UI while they talk.</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+<div style="font-size:1.5rem;margin-bottom:.75rem;">⚡</div>
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;">14:00 — Agent Fabric sprint demo</h4>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">The platform team demos an agentic regression runner that cut test suite time by 68%. The PM immediately asks to productise it. A senior engineer is already writing the RFC before the call ends.</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+<div style="font-size:1.5rem;margin-bottom:.75rem;">🌍</div>
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;">16:00 — UAE client onboarding</h4>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">A delivery lead is onboarding a new GCC client from Dubai — walking through DIFC AI regulation mapping in CHEQ for the first time. The client's CTO asks if they can extend the pilot. They can.</p>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+<div style="font-size:1.5rem;margin-bottom:.75rem;">🧪</div>
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;">17:30 — Labs experiment debrief</h4>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">The Labs team is wrapping up a two-week spike on real-time compliance validation — checking requirements against policy as they're written. Works. Writing it up for the product team. Might ship in Q3.</p>
+</div>
+<div style="background:linear-gradient(135deg,rgba(77,49,245,.12),rgba(33,163,178,.08));border:1px solid rgba(77,49,245,.25);border-radius:16px;padding:1.75rem;display:flex;flex-direction:column;justify-content:space-between;">
+<div>
+<div style="font-size:1.5rem;margin-bottom:.75rem;">👀</div>
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.5rem;">Could this be your Tuesday?</h4>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.65;">Real problems. Smart teammates. AI tools to accelerate everything. If this sounds like work you'd enjoy, we'd like to talk.</p>
+</div>
+<button class="btn btn-primary" onclick="openApply('Open Application')" style="margin-top:1.25rem;width:100%;">Apply Now →</button>
+</div>
+</div>
+</div>
+</section>
+<!-- OPEN APPLICATION -->
+<section class="section band">
+<div class="container" style="max-width:700px;text-align:center;">
+<p class="kicker">Don't see your role?</p>
+<h2>Send us an open application</h2>
+<p style="color:var(--text-muted);margin-bottom:2rem;">We sometimes hire for roles before we list them. If you're exceptional at something in AI engineering, QE, or GTM — tell us about yourself.</p>
+<button class="btn btn-primary" onclick="openApply('Open Application')">Submit Open Application →</button>
+</div>
+</section>
+<!-- APPLICATION MODAL — 3-step screening wizard -->
+<style>
+  .apply-modal { max-width: 560px; max-height: 90vh; overflow-y: auto; }
+  .modal-progress { display: flex; align-items: center; gap: 0; margin-bottom: 1.75rem; }
+  .modal-step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .72rem; font-weight: 700; flex-shrink: 0;
+    background: var(--surface-2); border: 2px solid var(--border); color: var(--text-muted);
+    transition: all .25s;
+  }
+  .modal-step-dot.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .modal-step-dot.done { background: #22c55e; border-color: #22c55e; color: #fff; }
+  .modal-step-line { flex: 1; height: 2px; background: var(--border); margin: 0 4px; }
+  .modal-step-line.done { background: #22c55e; }
+  .modal-step-label { font-size: .7rem; text-align: center; color: var(--text-muted); margin-top: .35rem; }
+
+  /* Screen step */
+  .screen-step { display: none; }
+  .screen-step.active { display: block; }
+  .screen-q { margin-bottom: 1.5rem; }
+  .screen-q label { display: block; font-size: .9rem; font-weight: 600; color: #fff; margin-bottom: .65rem; line-height: 1.4; }
+  .screen-options { display: flex; flex-direction: column; gap: .45rem; }
+  .screen-opt {
+    display: flex; align-items: center; gap: .7rem;
+    padding: .65rem 1rem; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface-2);
+    cursor: pointer; transition: border-color .15s, background .15s;
+    font-size: .875rem; color: rgba(255,255,255,.82);
+  }
+  .screen-opt:hover { border-color: var(--accent-light); background: rgba(77,49,245,.08); }
+  .screen-opt input[type=radio], .screen-opt input[type=checkbox] { accent-color: var(--accent); width: 16px; height: 16px; flex-shrink: 0; }
+  .screen-opt.selected { border-color: var(--accent); background: rgba(77,49,245,.12); color: #fff; }
+  .screen-notice { font-size: .78rem; color: var(--text-muted); margin-top: 1rem; padding: .65rem; background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.15); border-radius: 8px; }
+  .modal-nav { display: flex; gap: .75rem; margin-top: 1.5rem; }
+  .modal-nav .btn-back { background: none; border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; padding: .65rem 1.25rem; font-size: .875rem; cursor: pointer; }
+  .modal-nav .btn-back:hover { border-color: rgba(255,255,255,.3); color: #fff; }
+  .modal-nav .btn-next { flex: 1; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: .7rem 1.25rem; font-size: .875rem; font-weight: 700; cursor: pointer; transition: opacity .15s; }
+  .modal-nav .btn-next:hover { opacity: .85; }
+  .disqualify-msg { background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.2); border-radius: 12px; padding: 1.5rem; text-align: center; }
+  .disqualify-msg h4 { color: #f87171; margin-bottom: .5rem; }
+  .disqualify-msg p { font-size: .875rem; color: var(--text-muted); line-height: 1.6; }
+</style>
+<div class="apply-modal-overlay" id="apply-modal-overlay">
+<div class="apply-modal">
+<button class="modal-close" onclick="closeApply()">✕</button>
+<!-- Progress bar -->
+<div class="modal-progress" id="modal-progress">
+<div>
+<div class="modal-step-dot active" id="dot-1">1</div>
+<div class="modal-step-label">Fit check</div>
+</div>
+<div class="modal-step-line" id="line-1"></div>
+<div>
+<div class="modal-step-dot" id="dot-2">2</div>
+<div class="modal-step-label">Details</div>
+</div>
+<div class="modal-step-line" id="line-2"></div>
+<div>
+<div class="modal-step-dot" id="dot-3">3</div>
+<div class="modal-step-label">Apply</div>
+</div>
+</div>
+<h3 id="modal-role-title" style="margin-bottom:.25rem;">Apply</h3>
+<p class="modal-sub" id="modal-role-sub" style="margin-bottom:1.5rem;">3 quick questions, then we're done. Takes about 90 seconds.</p>
+<!-- STEP 1: Screening questions -->
+<div class="screen-step active" id="step-1">
+<div class="screen-q">
+<label>1. Which best describes your primary area of expertise?</label>
+<div class="screen-options" id="q1-opts">
+<label class="screen-opt"><input name="q1" type="radio" value="sdet"/> Quality Engineering / SDET / Test Automation</label>
+<label class="screen-opt"><input name="q1" type="radio" value="ai-eng"/> AI Engineering / ML / LLM Development</label>
+<label class="screen-opt"><input name="q1" type="radio" value="devops"/> DevOps / Platform / SRE</label>
+<label class="screen-opt"><input name="q1" type="radio" value="compliance"/> Compliance / Regulatory / GRC</label>
+<label class="screen-opt"><input name="q1" type="radio" value="pm"/> Product Management</label>
+<label class="screen-opt"><input name="q1" type="radio" value="gtm"/> Sales / Pre-Sales / GTM</label>
+<label class="screen-opt"><input name="q1" type="radio" value="other"/> Other / Not listed</label>
+</div>
+</div>
+<div class="screen-q">
+<label>2. How familiar are you with AI evaluation concepts — things like hallucination detection, bias testing, LLM red-teaming, or IRDAI / EU AI Act compliance?</label>
+<div class="screen-options" id="q2-opts">
+<label class="screen-opt"><input name="q2" type="radio" value="expert"/> I work in this area — it's my day job</label>
+<label class="screen-opt"><input name="q2" type="radio" value="familiar"/> I've read about it and explored the tools</label>
+<label class="screen-opt"><input name="q2" type="radio" value="learning"/> I'm actively upskilling in this area</label>
+<label class="screen-opt"><input name="q2" type="radio" value="new"/> Fairly new to this — but very interested</label>
+</div>
+</div>
+<div class="screen-q">
+<label>3. What's your notice period / earliest start date?</label>
+<div class="screen-options" id="q3-opts">
+<label class="screen-opt"><input name="q3" type="radio" value="immediate"/> Immediate / Serving notice</label>
+<label class="screen-opt"><input name="q3" type="radio" value="30"/> Up to 30 days</label>
+<label class="screen-opt"><input name="q3" type="radio" value="60"/> 30–60 days</label>
+<label class="screen-opt"><input name="q3" type="radio" value="90"/> 60–90 days</label>
+<label class="screen-opt"><input name="q3" type="radio" value="90plus"/> More than 90 days</label>
+</div>
+</div>
+<div class="screen-notice">💡 Your answers help us match you to the right team and fast-track your application. There are no wrong answers.</div>
+<div class="modal-nav">
+<button class="btn-next" onclick="goStep(2)">Continue →</button>
+</div>
+</div>
+<!-- STEP 2: Contact details -->
+<div class="screen-step" id="step-2">
+<div class="form-row">
+<div class="form-field"><label>First Name *</label><input id="app-fname" placeholder="Priya" required="" type="text"/></div>
+<div class="form-field"><label>Last Name *</label><input id="app-lname" placeholder="Sharma" required="" type="text"/></div>
+</div>
+<div class="form-row">
+<div class="form-field"><label>Email *</label><input id="app-email" placeholder="priya@gmail.com" required="" type="email"/></div>
+<div class="form-field"><label>Phone</label><input id="app-phone" placeholder="+91 98765 43210" type="tel"/></div>
+</div>
+<div class="form-row">
+<div class="form-field"><label>Current Company</label><input id="app-company" placeholder="Where you work now" type="text"/></div>
+<div class="form-field"><label>Years of Experience</label>
+<select id="app-exp">
+<option>0–2 years</option><option>2–4 years</option><option>4–7 years</option>
+<option>7–10 years</option><option>10+ years</option>
+</select>
+</div>
+</div>
+<div class="form-field" style="margin-bottom:1rem;">
+<label>LinkedIn / GitHub / Portfolio URL</label>
+<input id="app-link" placeholder="https://linkedin.com/in/yourprofile" type="url">
+</input></div>
+<div class="modal-nav">
+<button class="btn-back" onclick="goStep(1)">← Back</button>
+<button class="btn-next" onclick="goStep(3)">Continue →</button>
+</div>
+</div>
+<!-- STEP 3: Resume + submit -->
+<div class="screen-step" id="step-3">
+<div class="form-field" style="margin-bottom:1rem;">
+<label>Resume / CV *</label>
+<div class="upload-area" id="upload-area" onclick="document.getElementById('app-file').click()">
+          📎 Click to upload your resume (PDF or DOCX, max 5MB)
+          <input accept=".pdf,.doc,.docx" id="app-file" onchange="handleFileUpload(this)" style="display:none" type="file">
+</input></div>
+</div>
+<div class="form-field" style="margin-bottom:1.25rem;">
+<label>What excites you most about this role at Qapitol? <span style="color:var(--text-muted);font-weight:400;">(2–3 sentences)</span></label>
+<textarea id="app-note" placeholder="The work that matters to me is… / I'm excited about Qapitol because… / What I'd bring to this team is…" style="min-height:90px;"></textarea>
+</div>
+<div style="background:rgba(77,49,245,.07);border:1px solid rgba(77,49,245,.2);border-radius:10px;padding:.85rem 1rem;margin-bottom:1.25rem;font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.6;">
+        ✅ <strong style="color:rgba(255,255,255,.85);">What happens next:</strong> We review every application within 3 business days. Shortlisted candidates get a 30-min call with a practice lead — no coding tests at this stage.
+      </div>
+<div class="modal-nav">
+<button class="btn-back" onclick="goStep(2)">← Back</button>
+<button class="btn-next" id="submit-btn" onclick="submitApplication()">Submit Application →</button>
+</div>
+</div>
+<!-- Success -->
+<div id="apply-success" style="display:none;text-align:center;padding:2rem 0;">
+<div style="font-size:3rem;margin-bottom:1rem;">🎉</div>
+<h3 style="margin-bottom:.75rem;">Application received!</h3>
+<p style="color:var(--text-muted);line-height:1.7;">We'll review your application and a practice lead will reach out within <strong style="color:#fff;">3 business days</strong>. No auto-rejection emails — if you don't hear, feel free to nudge us at <a href="mailto:careers@qapitol.com" style="color:var(--accent-light);">careers@qapitol.com</a>.</p>
+<div style="margin-top:1.5rem;padding:1rem;background:var(--surface-2);border-radius:12px;font-size:.82rem;color:var(--text-muted);">
+        While you wait — <a href="insights.html" style="color:var(--accent-light);">read our latest AI quality thinking</a> or <a href="qave-platform.html" style="color:var(--teal);">try QAVE free</a> to see the platform you'd be building on.
+      </div>
+</div>
+</div>
+</div>
+<script>
+  // Multi-step modal logic
+  let currentStep = 1;
+
+  function goStep(n) {
+    // Validate step 2 required fields before advancing
+    if (currentStep === 2 && n === 3) {
+      const fname = document.getElementById('app-fname').value.trim();
+      const email = document.getElementById('app-email').value.trim();
+      if (!fname || !email) {
+        alert('Please fill in First Name and Email before continuing.');
+        return;
+      }
+    }
+    // Hide current step
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    // Update progress dots
+    document.getElementById('dot-' + currentStep).classList.remove('active');
+    document.getElementById('dot-' + currentStep).classList.add('done');
+    document.getElementById('dot-' + currentStep).textContent = '✓';
+    if (currentStep < 3) {
+      document.getElementById('line-' + currentStep).classList.add('done');
+    }
+    currentStep = n;
+    // Show new step
+    document.getElementById('step-' + currentStep).classList.add('active');
+    document.getElementById('dot-' + currentStep).classList.add('active');
+    document.getElementById('dot-' + currentStep).classList.remove('done');
+    if (document.getElementById('dot-' + currentStep).textContent === '✓') {
+      document.getElementById('dot-' + currentStep).textContent = currentStep;
+    }
+    // Update subtitle
+    const subs = {
+      1: '3 quick questions — takes about 90 seconds.',
+      2: 'Your contact details.',
+      3: 'Upload your CV and tell us why this role.'
+    };
+    document.getElementById('modal-role-sub').textContent = subs[n];
+  }
+
+  function submitApplication() {
+    const email = document.getElementById('app-email').value.trim();
+    if (!email) { alert('Please complete your contact details first.'); goStep(2); return; }
+    // Hide form steps and progress
+    document.getElementById('step-3').style.display = 'none';
+    document.getElementById('modal-progress').style.display = 'none';
+    document.getElementById('modal-role-title').style.display = 'none';
+    document.getElementById('modal-role-sub').style.display = 'none';
+    document.getElementById('apply-success').style.display = 'block';
+  }
+
+  // Highlight selected option on click
+  document.querySelectorAll('.screen-options').forEach(group => {
+    group.querySelectorAll('.screen-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const input = opt.querySelector('input');
+        if (input.type === 'radio') {
+          group.querySelectorAll('.screen-opt').forEach(o => o.classList.remove('selected'));
+          opt.classList.add('selected');
+        } else {
+          opt.classList.toggle('selected');
+        }
+      });
+    });
+  });
+</script>
+<!-- WEEK IN THE LIFE -->
+<section class="section" style="padding:5rem 0;border-top:1px solid var(--border);">
+<div class="container">
+<p class="kicker">A Week in the Life</p>
+<h2>What a week looks like for a senior AI engineer at Qapitol</h2>
+<p style="color:var(--text-muted);max-width:600px;margin-bottom:2.5rem;">Not aspirational. This is a representative week drawn from our actual delivery and R&amp;D rhythm.</p>
+<div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:20px;overflow:hidden;">
+  <div style="display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid var(--border);">
+    <div style="padding:1.25rem 1.5rem;background:rgba(77,49,245,.1);display:flex;align-items:center;justify-content:center;text-align:center;border-right:1px solid var(--border);">
+      <div>
+        <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);">Monday</div>
+      </div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;">
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;">Eval run review</h4>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.6;margin:0;">Reviewing QAVE outputs from weekend pipeline runs, tagging failure modes, filing issues against model behaviours — not test scripts.</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid var(--border);">
+    <div style="padding:1.25rem 1.5rem;background:rgba(33,163,178,.08);display:flex;align-items:center;justify-content:center;text-align:center;border-right:1px solid var(--border);">
+      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);">Tuesday</div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;">
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;">Client sprint</h4>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.6;margin:0;">Pair programming with the client engineering team on LLM feature validation — bridging what the model does and what the product needs it to do.</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid var(--border);">
+    <div style="padding:1.25rem 1.5rem;background:rgba(77,49,245,.07);display:flex;align-items:center;justify-content:center;text-align:center;border-right:1px solid var(--border);">
+      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);">Wednesday</div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;">
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;">Internal R&amp;D</h4>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.6;margin:0;">Labs session — working on a new eval methodology or red-teaming technique. Protected time, no client interruptions.</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:100px 1fr;border-bottom:1px solid var(--border);">
+    <div style="padding:1.25rem 1.5rem;background:rgba(232,135,33,.07);display:flex;align-items:center;justify-content:center;text-align:center;border-right:1px solid var(--border);">
+      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#e88721;">Thursday</div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;">
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;">Delivery review</h4>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.6;margin:0;">Presenting an eval report to the client, their CISO, or governance committee. You own the narrative — engineering to boardroom.</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:100px 1fr;">
+    <div style="padding:1.25rem 1.5rem;background:rgba(33,163,178,.06);display:flex;align-items:center;justify-content:center;text-align:center;border-right:1px solid var(--border);">
+      <div style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);">Friday</div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;">
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;">Learning &amp; craft</h4>
+      <p style="font-size:.85rem;color:var(--text-muted);line-height:1.6;margin:0;">Team learning session, architecture review, or publishing to Qapitol Labs blog. We invest in craft — every week, not just quarterly.</p>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- COMPENSATION SIGNALS -->
+<section class="section band" style="padding:5rem 0;">
+<div class="container">
+<p class="kicker">Compensation</p>
+<h2>We pay competitively. Here's what that means.</h2>
+<p style="color:var(--text-muted);max-width:620px;margin-bottom:2.5rem;">We're not going to list numbers on a page — because compensation is contextual. But we'll tell you exactly what our philosophy is, so there are no surprises.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0;">1</div>
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.35rem;">Benchmarked against AI-native firms</h4>
+      <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">We benchmark against top-tier BFSI tech and AI-native startups — not traditional IT services companies.</p>
+    </div>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#6edfe8);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0;">2</div>
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.35rem;">ESOPs for senior hires</h4>
+      <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">ESOP participation available for Band 4 and above. We want the team to own a piece of what we're building.</p>
+    </div>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#f5b853);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0;">3</div>
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.35rem;">Annual review with market adjustment</h4>
+      <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">Not just CPI. We look at market movement and your individual growth. If the market moves, we move with it.</p>
+    </div>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;">
+    <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--teal));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#fff;flex-shrink:0;">4</div>
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.35rem;">No bond agreements</h4>
+      <p style="font-size:.83rem;color:var(--text-muted);line-height:1.6;margin:0;">No bond agreements. No notice period penalties beyond standard. We're confident enough in the work to not trap people.</p>
+    </div>
+  </div>
+</div>
+<div style="margin-top:2rem;padding:1.25rem 1.75rem;background:rgba(77,49,245,.08);border:1px solid rgba(77,49,245,.2);border-radius:12px;text-align:center;">
+  <p style="margin:0;font-size:.95rem;color:rgba(255,255,255,.85);font-style:italic;">"We'll share our bands at the first conversation. No games."</p>
+</div>
+</div>
+</section>
+
+<!-- CURRENT OPENINGS TEASER -->
+<section class="section" style="padding:5rem 0;border-top:1px solid var(--border);">
+<div class="container">
+<p class="kicker">Always Hiring</p>
+<h2>Current openings</h2>
+<p style="color:var(--text-muted);max-width:600px;margin-bottom:2.5rem;">Qapitol is always looking for exceptional people in these areas. These are representative roles — we may have more open by the time you read this. Reach out.</p>
+<div style="display:flex;flex-direction:column;gap:.85rem;margin-bottom:2rem;">
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;">Senior AI/ML Engineer</h4>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">AI Engineering practice</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Hyderabad / Remote</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid rgba(77,49,245,.4);color:var(--accent-light);">Full-time</span>
+      </div>
+    </div>
+    <a href="contact.html?role=Senior-AI-ML-Engineer" class="btn btn-primary" style="font-size:.84rem;padding:.5rem 1.1rem;white-space:nowrap;">Apply →</a>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;">LLM Evaluation Specialist</h4>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Qapitol Labs</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Bengaluru / Remote</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid rgba(77,49,245,.4);color:var(--accent-light);">Full-time</span>
+      </div>
+    </div>
+    <a href="contact.html?role=LLM-Evaluation-Specialist" class="btn btn-primary" style="font-size:.84rem;padding:.5rem 1.1rem;white-space:nowrap;">Apply →</a>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;">AI Governance Analyst</h4>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">CHEQ platform team</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Mumbai / Remote</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid rgba(77,49,245,.4);color:var(--accent-light);">Full-time</span>
+      </div>
+    </div>
+    <a href="contact.html?role=AI-Governance-Analyst" class="btn btn-primary" style="font-size:.84rem;padding:.5rem 1.1rem;white-space:nowrap;">Apply →</a>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;">Agentic QE Lead</h4>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Delivery</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Hyderabad / Client sites</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid rgba(77,49,245,.4);color:var(--accent-light);">Full-time</span>
+      </div>
+    </div>
+    <a href="contact.html?role=Agentic-QE-Lead" class="btn btn-primary" style="font-size:.84rem;padding:.5rem 1.1rem;white-space:nowrap;">Apply →</a>
+  </div>
+  <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.35rem 1.75rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;transition:border-color .2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.3rem;">AI Programme Manager</h4>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem;">
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">GCC practice</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted);">Hyderabad</span>
+        <span style="font-size:.73rem;padding:.2rem .6rem;border-radius:99px;border:1px solid rgba(77,49,245,.4);color:var(--accent-light);">Full-time</span>
+      </div>
+    </div>
+    <a href="contact.html?role=AI-Programme-Manager" class="btn btn-primary" style="font-size:.84rem;padding:.5rem 1.1rem;white-space:nowrap;">Apply →</a>
+  </div>
+</div>
+<div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.75rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+  <p style="margin:0;font-size:.9rem;color:var(--text-muted);">Don't see your role? We're always looking for exceptional people.</p>
+  <a href="contact.html?inquiry=careers" style="color:var(--accent-light);font-size:.9rem;font-weight:700;white-space:nowrap;">Send us your CV →</a>
+</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+<div class="container" style="text-align:center;">
+<h2>Ready to build AI quality engineering's future?</h2>
+<p>13 open roles across AI Engineering, Platform, GTM, and Delivery. Apply today.</p>
+<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+<a class="btn btn-primary" href="#open-roles">See All Roles →</a>
+<a class="btn btn-outline" href="contact.html">Talk to us first</a>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script defer="" src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+<script>
+// Job filter
+document.querySelectorAll(".jfilter").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    document.querySelectorAll(".jfilter").forEach(function(b){b.classList.remove("active")});
+    btn.classList.add("active");
+    var filter=btn.dataset.filter;
+    document.querySelectorAll(".job-group").forEach(function(g){
+      g.style.display=(filter==="all"||g.dataset.group===filter)?"block":"none";
+    });
+  });
+});
+
+// Toggle job detail
+function toggleJob(card){
+  var detail=card.querySelector(".job-detail");
+  if(!detail)return;
+  var isOpen=detail.classList.contains("visible");
+  document.querySelectorAll(".job-detail.visible").forEach(function(d){d.classList.remove("visible")});
+  document.querySelectorAll(".job-card.open-state").forEach(function(c){c.classList.remove("open-state")});
+  if(!isOpen){detail.classList.add("visible");card.classList.add("open-state");}
+}
+
+// Apply modal
+var currentRole="";
+function openApply(role){
+  currentRole=role;
+  document.getElementById("modal-role-title").textContent="Apply: "+role;
+  document.getElementById("modal-role-sub").textContent="Complete the form and we'll be in touch within 3 business days.";
+  document.getElementById("apply-modal-overlay").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+function closeApply(){
+  document.getElementById("apply-modal-overlay").classList.remove("open");
+  document.body.style.overflow="";
+}
+document.getElementById("apply-modal-overlay").addEventListener("click",function(e){
+  if(e.target===this)closeApply();
+});
+
+// File upload
+function handleFileUpload(input){
+  if(input.files&&input.files[0]){
+    document.getElementById("upload-area").innerHTML="✅ "+input.files[0].name+" ("+Math.round(input.files[0].size/1024)+"KB)";
+  }
+}
+
+// Submit
+document.getElementById("application-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var email=document.getElementById("app-email").value.trim();
+  var fname=document.getElementById("app-fname").value.trim();
+  if(!email||!fname){return;}
+  this.style.display="none";
+  document.getElementById("apply-success").style.display="block";
+  console.log("[Job Application]",{role:currentRole,name:fname,email:email});
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

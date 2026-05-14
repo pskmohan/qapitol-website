@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" fill="none">
+  <rect width="140" height="40" rx="8" fill="#1a1a1a"/>
+  <path d="M14 28 L20 12 L26 12 L32 28 L28 28 L23 16 L18 28 Z" fill="#d4a574"/>
+  <text x="38" y="25" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#ffffff">Anthropic</text>
+</svg>

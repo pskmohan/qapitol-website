@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Turn Your India GCC Into an AI Powerhouse — Qapitol AI GCC AI Practice</title>
+<!-- Conversion pixel placeholder -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0e1a;
+    --surface: #12131f;
+    --surface2: #1a1d35;
+    --teal: #21a3b2;
+    --teal-light: #2bc5d8;
+    --accent: #4d31f5;
+    --orange: #e88721;
+    --text: #f0f2ff;
+    --text-muted: #8b90b8;
+    --border: rgba(255,255,255,0.08);
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: 16px; line-height: 1.6; min-height: 100vh; }
+  a { color: var(--teal); text-decoration: none; }
+  .logo-bar { padding: 20px 0 16px; }
+  .logo-bar img { height: 36px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 420px; gap: 48px; align-items: start; padding: 40px 0 40px; }
+  .eyebrow { display: inline-block; background: rgba(33,163,178,0.12); color: var(--teal); border: 1px solid rgba(33,163,178,0.35); border-radius: 100px; padding: 6px 16px; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 20px; }
+  h1 { font-family: 'Inter Tight', sans-serif; font-size: clamp(28px, 4vw, 42px); font-weight: 800; line-height: 1.15; color: #fff; margin-bottom: 20px; }
+  h1 span { background: linear-gradient(90deg, var(--teal), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .sub { font-size: 17px; color: var(--text-muted); line-height: 1.7; margin-bottom: 28px; max-width: 560px; }
+  .section-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+
+  /* Problem cards */
+  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .problem-card .p-title { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 700; color: var(--orange); margin-bottom: 8px; }
+  .problem-card .p-body { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+  /* What we build checklist */
+  .build-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .build-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--text); }
+  .build-list li::before { content: "✓"; font-weight: 700; flex-shrink: 0; margin-top: 2px; background: linear-gradient(90deg, var(--teal), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* Timeline */
+  .timeline { display: flex; gap: 0; overflow: hidden; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 32px; }
+  .tl-step { flex: 1; padding: 16px 12px; background: var(--surface); border-right: 1px solid var(--border); position: relative; }
+  .tl-step:last-child { border-right: none; }
+  .tl-phase { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; background: linear-gradient(90deg, var(--teal), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .tl-title { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .tl-arrow { position: absolute; right: -8px; top: 50%; transform: translateY(-50%); color: var(--teal); font-size: 14px; z-index: 1; }
+
+  /* Stats band */
+  .stats-band { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 8px; }
+  .stat-item { background: var(--surface); padding: 20px 16px; text-align: center; }
+  .stat-number { font-family: 'Inter Tight', sans-serif; font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 4px; background: linear-gradient(90deg, var(--teal), var(--orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .stat-label { font-size: 12px; color: var(--text-muted); }
+
+  /* Form */
+  .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px; position: sticky; top: 24px; }
+  .form-card h2 { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .form-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+  .form-group input { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; font-size: 15px; color: var(--text); font-family: 'Source Sans 3', sans-serif; outline: none; transition: border-color 0.2s; }
+  .form-group input:focus { border-color: var(--teal); }
+  .form-group input::placeholder { color: #4a4f70; }
+  .btn-primary { width: 100%; background: linear-gradient(90deg, var(--teal), var(--orange)); color: #fff; border: none; border-radius: 8px; padding: 14px 24px; font-size: 16px; font-weight: 700; font-family: 'Inter Tight', sans-serif; cursor: pointer; transition: opacity 0.2s, transform 0.1s; margin-top: 8px; }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .trust-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; line-height: 1.5; }
+  .trust-badges { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+  .trust-badge { border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; text-align: center; }
+  .trust-badge .badge-title { font-size: 10px; font-weight: 700; color: var(--teal); letter-spacing: 0.05em; }
+  .trust-badge .badge-sub { font-size: 9px; color: var(--text-muted); }
+  .assessment-note { background: rgba(33,163,178,0.08); border: 1px solid rgba(33,163,178,0.2); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--teal); font-weight: 600; text-align: center; margin-top: 16px; }
+  .copyright { text-align: center; padding: 24px 0; font-size: 12px; color: #3a3f60; border-top: 1px solid var(--border); margin-top: 48px; }
+
+  @media (max-width: 800px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .form-card { position: static; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .timeline { flex-direction: column; }
+    .tl-step { border-right: none; border-bottom: 1px solid var(--border); }
+    .tl-step:last-child { border-bottom: none; }
+    .tl-arrow { display: none; }
+    .stats-band { grid-template-columns: 1fr; }
+  }
+
+  .client-logo-strip { display:flex; align-items:center; justify-content:flex-start; flex-wrap:wrap; gap:20px; margin:16px 0 4px; }
+  .client-logo-strip img { height:28px; width:auto; max-width:100px; object-fit:contain; opacity:.55; filter:grayscale(1) brightness(2); transition:opacity .2s,filter .2s; }
+  .client-logo-strip img:hover { opacity:1; filter:grayscale(0) brightness(1); }
+
+
+  .client-logo-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;margin:4px 4px 4px 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:8px;font-family:'Inter Tight',sans-serif;font-size:12px;font-weight:700;letter-spacing:.01em;color:rgba(255,255,255,.5);white-space:nowrap;flex-shrink:0;}
+  .logo-pill-dot{width:6px;height:6px;border-radius:50%;background:var(--dot);flex-shrink:0;opacity:.85;}
+  .client-logo-strip{display:flex;flex-wrap:wrap;gap:4px;margin:12px 0 4px;}
+  </style>
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="container">
+  <div class="logo-bar">
+    <a href="index.html">
+      <img src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" alt="Qapitol AI">
+    </a>
+  <span class="client-logo-pill" style="--dot:#CC0000"><span class="logo-pill-dot"></span>Lulu Group</span><span class="client-logo-pill" style="--dot:#B8962E"><span class="logo-pill-dot"></span>GMG</span><span class="client-logo-pill" style="--dot:#003B8E"><span class="logo-pill-dot"></span>EquiTrust</span><span class="client-logo-pill" style="--dot:#00873C"><span class="logo-pill-dot"></span>Panda Retail</span></div>
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <span class="eyebrow">GCC AI Practice Build</span>
+      <h1>Your India GCC is running QE and dev. <span>It should be running AI.</span></h1>
+      <p class="sub">Most GCCs were set up for cost arbitrage. Qapitol helps you evolve them into genuine AI capability centres — with the right roles, the right AI stack, and the governance to match your enterprise AI ambitions.</p>
+
+      <p class="section-label">The problem with GCCs and AI</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="p-title">"GCC talent ≠ AI talent"</div>
+          <div class="p-body">Your existing GCC team is strong at delivery. AI practice requires a different skillset, toolchain, and operating model entirely.</div>
+        </div>
+        <div class="problem-card">
+          <div class="p-title">"No AI playbook"</div>
+          <div class="p-body">Most GCCs have no AI roadmap, no eval framework, no LLMOps practice, and no red teaming capability. Starting from zero.</div>
+        </div>
+        <div class="problem-card">
+          <div class="p-title">"Risk of shadow AI"</div>
+          <div class="p-body">Without a governed AI practice, your GCC engineers will build AI anyway — ungoverned, untested, and unaudited.</div>
+        <span class="client-logo-pill" style="--dot:#CC0000"><span class="logo-pill-dot"></span>Lulu Group</span><span class="client-logo-pill" style="--dot:#B8962E"><span class="logo-pill-dot"></span>GMG</span><span class="client-logo-pill" style="--dot:#003B8E"><span class="logo-pill-dot"></span>EquiTrust</span><span class="client-logo-pill" style="--dot:#00873C"><span class="logo-pill-dot"></span>Panda Retail</span></div>
+      </div>
+
+      <p class="section-label">What we build inside your GCC</p>
+      <ul class="build-list">
+        <li>AI practice charter &amp; operating model</li>
+        <li>Hire and embed: ML Engineers, LLMOps, AI Red Teamers, AI PMs</li>
+        <li>LLMOps pipeline setup (CI/CD for models)</li>
+        <li>AI quality framework — evals, red teaming, drift monitoring</li>
+        <li>Governance: AI risk committee setup, audit readiness, IRDAI/EU AI Act alignment</li>
+        <li>Quarterly AI maturity benchmarks</li>
+      </ul>
+
+      <p class="section-label">Delivery timeline</p>
+      <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-phase">Month 1</div>
+          <div class="tl-title">Assessment &amp; Charter</div>
+          <span class="tl-arrow">›</span>
+        </div>
+        <div class="tl-step">
+          <div class="tl-phase">Month 2–3</div>
+          <div class="tl-title">Hire &amp; Tool Setup</div>
+          <span class="tl-arrow">›</span>
+        </div>
+        <div class="tl-step">
+          <div class="tl-phase">Month 3–4</div>
+          <div class="tl-title">First AI Practice Delivery</div>
+          <span class="tl-arrow">›</span>
+        </div>
+        <div class="tl-step">
+          <div class="tl-phase">Month 5+</div>
+          <div class="tl-title">Governed, Autonomous AI Practice</div>
+        </div>
+      </div>
+
+      <div class="stats-band">
+        <div class="stat-item">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">GCCs supported</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3-4 mo</div>
+          <div class="stat-label">To first AI practice delivery</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Engagements include governance framework</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="form-card">
+        <h2>Book a Free GCC AI Readiness Assessment</h2>
+        <p>We'll map your GCC's current AI maturity and show you exactly how to build a governed AI practice in 90 days.</p>
+        <div data-fs-success style="display:none;padding:32px 20px;text-align:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#21a3b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 12px"><polyline points="20 6 9 17 4 12"/></svg><p style="font-size:17px;font-weight:700;color:#f0f0ff;margin:0 0 6px">You're on the list!</p><p style="font-size:13px;color:rgba(240,240,255,.5);margin:0">We'll be in touch within one business day.</p></div>
+<div data-fs-error-global style="display:none;padding:10px 14px;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.3);border-radius:8px;color:#e88721;font-size:13px;margin-bottom:12px;"></div>
+<form action="https://formspree.io/f/xnjwrzen" method="POST" data-ajax>
+  <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+  <input type="hidden" name="_subject" value="New enquiry — gcc-ai-practice">
+          <input type="hidden" name="page_source" value="lp-gcc-ai-practice">
+          <input type="hidden" name="utm_source" id="utm_source">
+          <input type="hidden" name="utm_medium" id="utm_medium">
+          <input type="hidden" name="utm_campaign" id="utm_campaign">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Ravi Kumar" required>
+          </div>
+          <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" placeholder="Your Company" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Work Email</label>
+            <input type="email" id="email" name="email" placeholder="ravi@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone (optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210">
+          </div>
+          <button type="submit" class="btn-primary">Book a Free GCC AI Readiness Assessment →</button>
+        </form>
+        <p class="trust-note">No spam. Response within 24 hours. Your data is safe with us.</p>
+        <div class="assessment-note">Free readiness assessment — 15+ GCCs transformed</div>
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <div class="badge-title">ISO 9001</div>
+            <div class="badge-sub">Certified</div>
+          </div>
+          <div class="trust-badge">
+            <div class="badge-title">ISO 27001</div>
+            <div class="badge-sub">Certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="copyright">
+  &copy; 2025 Qapitol AI. All rights reserved.
+</div>
+
+<script>
+  const p = new URLSearchParams(window.location.search);
+  document.getElementById('utm_source').value = p.get('utm_source') || '';
+  document.getElementById('utm_medium').value = p.get('utm_medium') || '';
+  document.getElementById('utm_campaign').value = p.get('utm_campaign') || '';
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+</body>
+</html>

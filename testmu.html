@@ -1,0 +1,1226 @@
+ <!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Agentic Test Execution — AI-Powered Quality Engineering | Qapitol</title>
+<meta content="Qapitol partners with TestMu AI and QApilot to deliver enterprise-grade autonomous testing. World-class agentic infrastructure, wrapped in professional quality engineering services." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+        /* ---- Partnership page extras ---- */
+        .partner-badge {
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 10px 18px;
+          background: rgba(255,255,255,0.04);
+          border: 1px solid var(--border-strong);
+          border-radius: 999px;
+          font-family: "Inter Tight", sans-serif;
+          font-size: 0.85rem; font-weight: 600;
+          color: var(--text-muted);
+          letter-spacing: 0.01em;
+        }
+        .partner-badge .dot {
+          width: 8px; height: 8px; border-radius: 50%;
+          flex-shrink: 0;
+        }
+        .dot-accent { background: var(--accent); box-shadow: 0 0 6px rgba(77,49,245,0.8); }
+        .dot-teal   { background: var(--teal);   box-shadow: 0 0 6px rgba(33,163,178,0.8); }
+        .dot-orange { background: var(--orange);  box-shadow: 0 0 6px rgba(232,135,33,0.8); }
+        .badge-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+
+        .philosophy-box {
+          background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+          border: 1px solid var(--border-strong);
+          border-radius: var(--radius-xl);
+          padding: 48px 52px;
+          position: relative; overflow: hidden;
+        }
+        .philosophy-box::after {
+          content: "";
+          position: absolute; top: 0; left: 0; right: 0; height: 2px;
+          background: linear-gradient(90deg, var(--accent), var(--teal));
+          border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        .stack-row {
+          display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;
+          margin-top: 36px;
+        }
+        @media (max-width: 760px) { .stack-row { grid-template-columns: 1fr; } }
+        .stack-col {
+          background: rgba(255,255,255,0.03);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-lg);
+          padding: 24px 28px;
+        }
+        .stack-col h4 {
+          font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+          color: var(--accent-light); margin-bottom: 12px; font-weight: 800;
+        }
+        .stack-col ul li {
+          font-size: 0.9rem; color: var(--text-muted);
+          padding: 5px 0; border-bottom: 1px solid var(--border);
+          display: flex; align-items: center; gap: 8px;
+        }
+        .stack-col ul li:last-child { border-bottom: none; }
+        .stack-col ul li::before {
+          content: ""; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+          background: var(--accent-light); opacity: 0.6;
+        }
+        .stack-plus {
+          font-family: "Inter Tight", sans-serif; font-size: 2rem; font-weight: 300;
+          color: var(--border-strong); text-align: center;
+        }
+
+        /* ---- Capability split cards ---- */
+        .cap-section-label {
+          display: inline-flex; align-items: center; gap: 10px;
+          font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+          font-weight: 800; margin-bottom: 28px;
+        }
+        .cap-section-label .line {
+          flex: 1; height: 1px; background: var(--border);
+        }
+
+        .split-card {
+          background: linear-gradient(145deg, var(--surface) 0%, rgba(24,16,58,0.9) 100%);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          transition: border-color .25s, transform .25s, box-shadow .25s;
+          display: flex; flex-direction: column;
+        }
+        .split-card:hover { border-color: var(--border-glow); transform: translateY(-4px); box-shadow: var(--glow-sm); }
+
+        .split-card-head {
+          padding: 24px 24px 18px;
+          border-bottom: 1px solid var(--border);
+        }
+        .split-card-head .icon {
+          width: 40px; height: 40px; border-radius: 10px;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.2rem; margin-bottom: 14px;
+          background: var(--accent-soft);
+        }
+        .split-card-head h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .split-card-head p  { font-size: 0.88rem; }
+
+        .split-card-add {
+          padding: 18px 24px;
+          background: rgba(77,49,245,0.06);
+          border-top: 1px solid rgba(77,49,245,0.15);
+          flex: 1;
+        }
+        .split-card-add .add-label {
+          font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+          color: var(--accent-light); font-weight: 800; margin-bottom: 10px;
+        }
+        .split-card-add ul li {
+          font-size: 0.85rem; color: var(--text-muted);
+          padding: 4px 0;
+          display: flex; gap: 8px; align-items: flex-start;
+        }
+        .split-card-add ul li::before {
+          content: "+"; color: var(--accent-light); font-weight: 700;
+          flex-shrink: 0; margin-top: 1px;
+        }
+
+        /* teal variant for QApilot */
+        .split-card.teal-accent .split-card-add {
+          background: rgba(33,163,178,0.06);
+          border-top-color: rgba(33,163,178,0.2);
+        }
+        .split-card.teal-accent .split-card-add .add-label { color: var(--teal); }
+        .split-card.teal-accent .split-card-add ul li::before { color: var(--teal); }
+
+        /* ---- Comparison matrix ---- */
+        .matrix-wrap {
+          overflow-x: auto;
+        }
+        .matrix {
+          width: 100%; border-collapse: collapse; min-width: 700px;
+        }
+        .matrix th, .matrix td {
+          padding: 14px 20px;
+          border: 1px solid var(--border);
+          font-size: 0.9rem;
+          text-align: left;
+        }
+        .matrix thead th {
+          background: var(--surface-2);
+          font-family: "Inter Tight", sans-serif;
+          font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+          color: var(--text-muted); font-weight: 700;
+        }
+        .matrix thead th:first-child { border-radius: var(--radius) 0 0 0; }
+        .matrix thead th:last-child  { border-radius: 0 var(--radius) 0 0; }
+        .matrix thead th.col-accent  { color: var(--accent-light); background: rgba(77,49,245,0.12); }
+        .matrix thead th.col-teal    { color: var(--teal);         background: rgba(33,163,178,0.1); }
+        .matrix thead th.col-orange  { color: var(--orange);       background: rgba(232,135,33,0.1); }
+        .matrix tbody tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+        .matrix tbody td:first-child { font-weight: 600; color: var(--text); }
+        .matrix tbody td.col-accent  { color: var(--accent-light); }
+        .matrix tbody td.col-teal    { color: #62dae6; }
+        .matrix tbody td.col-orange  { color: #f0b56a; }
+
+        /* ---- Use case cards ---- */
+        .usecase-card {
+          background: linear-gradient(145deg, var(--surface) 0%, var(--surface-2) 100%);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-lg);
+          padding: 32px 28px;
+          position: relative; overflow: hidden;
+          transition: border-color .25s, box-shadow .25s;
+        }
+        .usecase-card:hover { border-color: var(--border-glow); box-shadow: var(--glow-sm); }
+        .usecase-tag {
+          display: inline-block; padding: 4px 12px;
+          border-radius: 999px; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px;
+        }
+        .tag-accent { background: var(--accent-soft); color: var(--accent-light); }
+        .tag-teal   { background: rgba(33,163,178,0.12); color: var(--teal); }
+        .tag-orange { background: rgba(232,135,33,0.12); color: var(--orange); }
+        .usecase-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+        .usecase-card p  { font-size: 0.9rem; }
+        .usecase-card .detail {
+          margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border);
+          display: flex; gap: 20px; flex-wrap: wrap;
+        }
+        .usecase-card .kpi {
+          display: flex; flex-direction: column;
+        }
+        .usecase-card .kpi .val {
+          font-family: "Inter Tight", sans-serif; font-weight: 800;
+          font-size: 1.5rem; color: var(--text);
+        }
+        .usecase-card .kpi .lbl { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ---- Engage options ---- */
+        .engage-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-lg);
+          padding: 32px;
+          transition: border-color .25s, transform .25s, box-shadow .25s;
+        }
+        .engage-card:hover { border-color: var(--border-glow); transform: translateY(-3px); box-shadow: var(--glow-sm); }
+        .engage-num {
+          font-family: "Inter Tight", sans-serif; font-size: 2.8rem; font-weight: 800;
+          color: var(--border-strong); line-height: 1; margin-bottom: 14px;
+        }
+        .engage-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+        .engage-card p  { font-size: 0.9rem; }
+
+        /* ---- Analyst badges ---- */
+        .analyst-strip {
+          display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px;
+        }
+        .analyst-badge {
+          display: inline-flex; align-items: center; gap: 10px;
+          padding: 12px 18px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          font-size: 0.82rem; color: var(--text-muted);
+        }
+        .analyst-badge strong { color: var(--text); font-weight: 600; }
+
+        /* ---- CTA banner ---- */
+        .cta-banner {
+          background: linear-gradient(135deg, var(--surface-2) 0%, rgba(77,49,245,0.15) 50%, var(--surface) 100%);
+          border: 1px solid var(--border-strong);
+          border-radius: var(--radius-xl);
+          padding: 56px 52px;
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 32px; flex-wrap: wrap;
+          position: relative; overflow: hidden;
+        }
+        .cta-banner::before {
+          content: "";
+          position: absolute; top: 0; left: 0; right: 0; height: 2px;
+          background: linear-gradient(90deg, var(--accent), var(--teal), var(--orange));
+        }
+
+        /* misc helpers */
+        .mt-8  { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+        .mt-24 { margin-top: 24px; }
+        .mt-32 { margin-top: 32px; }
+        .mb-48 { margin-bottom: 48px; }
+        .muted { color: var(--text-muted); }
+        .section-divider {
+          height: 1px; background: var(--border);
+          margin: 0 28px;
+        }
+        .crumb { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 20px; }
+        .crumb a { color: var(--text-dim); }
+        .crumb a:hover { color: var(--accent-light); }
+  
+    /* ── Persona Strip ── */
+    .persona-strip{display:flex;align-items:center;flex-wrap:wrap;gap:.45rem;margin:1.25rem 0 1.5rem;padding:.6rem 1rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);border-radius:2rem;width:fit-content;max-width:100%}
+    .persona-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:rgba(255,255,255,.45);margin-right:.2rem;white-space:nowrap}
+    .persona-chip{display:inline-flex;align-items:center;gap:.3rem;font-size:.76rem;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.09);border-radius:1rem;padding:.22rem .6rem;white-space:nowrap}
+    .persona-chip svg{width:13px;height:13px;opacity:.75;flex-shrink:0}
+    </style>
+<meta content="website" property="og:type"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" property="og:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/testmu.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" name="twitter:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." name="twitter:description"/>
+  <meta name="description" content="TestMu by Qapitol — the AI quality engineering conference. Learn from practitioners on agentic testing, LLM safety, governance, and the future of software quality.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/testmu.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/testmu.html">
+  <meta property="og:title" content="TestMu Conference | Qapitol AI Technologies">
+  <meta property="og:description" content="TestMu by Qapitol — the AI quality engineering conference. Learn from practitioners on agentic testing, LLM safety, governance, and the future of software quality.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="TestMu Conference | Qapitol AI Technologies">
+  <meta name="twitter:description" content="TestMu by Qapitol — the AI quality engineering conference. Learn from practitioners on agentic testing, LLM safety, governance, and the future of software quality.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<main>
+<!-- ===== HERO ===== -->
+<section class="hero">
+<div class="container">
+<div class="crumb"><a href="index.html">Home</a> / <a href="ai-engineering.html">AI Engineering</a> / Agentic Test Execution</div>
+<div class="badge-row">
+<span class="partner-badge"><span class="dot dot-accent"></span>TestMu AI — Preferred Infrastructure Partner</span>
+<span class="partner-badge"><span class="dot dot-teal"></span>QApilot.io — Mobile Testing Partner</span>
+</div>
+<span class="eyebrow">Agentic Test Execution</span>
+<h1>Ship faster. Test smarter.<br/><span class="gradient-text">Let agents do the heavy lifting.</span></h1>
+<p class="lead">Qapitol delivers enterprise-grade agentic test execution — autonomous test generation, self-healing coverage, and AI-driven quality assurance at scale. Powered by TestMu AI and QApilot, configured and operated by our professional QE teams so your engineers can focus on product, not pipelines.</p>
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polyline points="4,6 2,8 4,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><polyline points="12,6 14,8 12,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="9" x2="7" y1="3" y2="13"></line></svg>QA Lead / SDET</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polyline points="4,6 2,8 4,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><polyline points="12,6 14,8 12,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="9" x2="7" y1="3" y2="13"></line></svg>Test Architect</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L10 6H14L11 9L12 13L8 11L4 13L5 9L2 6H6L8 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.3"></path></svg>DevEx / Platform Owner</span>
+</div>
+<div class="cta-row">
+<a class="btn btn-primary" href="contact.html">Talk to our partnership lead →</a>
+<a class="btn btn-outline" href="partnerships.html">All partnerships</a>
+</div>
+<div class="analyst-strip">
+<div class="analyst-badge">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16"><circle cx="8" cy="8" r="7.5" stroke="var(--accent-light)" stroke-width="1"></circle><path d="M5 8l2 2 4-4" stroke="var(--accent-light)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span><strong>Gartner Magic Quadrant</strong> — AI-Augmented Software Testing</span>
+</div>
+<div class="analyst-badge">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16"><circle cx="8" cy="8" r="7.5" stroke="var(--accent-light)" stroke-width="1"></circle><path d="M5 8l2 2 4-4" stroke="var(--accent-light)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span><strong>Forrester Wave</strong> — Autonomous Testing Q4 2025</span>
+</div>
+<div class="analyst-badge">
+<svg fill="none" height="16" viewbox="0 0 16 16" width="16"><circle cx="8" cy="8" r="7.5" stroke="var(--teal)" stroke-width="1"></circle><path d="M5 8l2 2 4-4" stroke="var(--teal)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<span><strong>QApilot</strong> — Trusted by WIO Bank, Orange Group, Royal Enfield</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== PHILOSOPHY ===== -->
+<section>
+<div class="container">
+<span class="eyebrow">Partnership philosophy</span>
+<h2 class="section-title">Best-of-breed infrastructure.<br/>Enterprise-grade services wrapper.</h2>
+<p class="section-sub">Great testing platforms create leverage. But enterprise teams need more than platform access — they need strategy, governance, and accountability. Qapitol is the quality engineering layer that makes agentic testing infrastructure production-ready at scale.</p>
+<div class="philosophy-box">
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+<div>
+<h4 style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-light); font-weight:800; margin-bottom:12px;">What the platforms provide</h4>
+<p style="font-size:0.95rem; margin-bottom:16px;">TestMu AI delivers world-class cloud execution infrastructure — KaneAI generates tests, HyperExecute orchestrates at scale, and the Real Device Cloud spans 10,000+ devices. QApilot autonomously maps your mobile app and runs zero-touch sanity suites.</p>
+<p style="font-size:0.95rem;">These platforms are genuinely transformative. They automate what used to take weeks. They self-heal. They scale instantly. They are the engine.</p>
+</div>
+<div>
+<h4 style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); font-weight:800; margin-bottom:12px;">What Qapitol layers on top</h4>
+<p style="font-size:0.95rem; margin-bottom:16px;">Autonomous agents still require QE strategy, test design authority, coverage governance, risk-based prioritization, and outcome accountability. Qapitol’s practitioners govern the quality program while the platforms execute it.</p>
+<p style="font-size:0.95rem;">We are the human-in-the-loop governance layer that turns agentic capabilities into enterprise-grade quality programs with SLA-backed outcomes.</p>
+</div>
+</div>
+<div class="stack-row">
+<div class="stack-col">
+<h4>TestMu AI &amp; QApilot provide</h4>
+<ul>
+<li>AI test generation from natural language</li>
+<li>Autonomous mobile app crawling</li>
+<li>Ultra-fast parallel test orchestration</li>
+<li>10,000+ real device &amp; browser coverage</li>
+<li>Self-healing test execution</li>
+<li>Voice &amp; chatbot A2A testing</li>
+</ul>
+</div>
+<div class="stack-plus">+</div>
+<div class="stack-col" style="border-color: rgba(77,49,245,0.3);">
+<h4 style="color:var(--accent-light);">Qapitol layers on top</h4>
+<ul>
+<li>QE strategy &amp; test architecture design</li>
+<li>Coverage governance &amp; risk-based prioritization</li>
+<li>AI-generated test review &amp; maintenance</li>
+<li>Domain-specific scoring rubrics (AI evals)</li>
+<li>CI/CD pipeline integration &amp; shift-left advisory</li>
+<li>Outcome guarantees &amp; SLA accountability</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== TESTMU AI CAPABILITIES ===== -->
+<section style="padding-top:0;">
+<div class="container">
+<div class="cap-section-label" style="color:var(--accent-light);">
+          TestMu AI (formerly LambdaTest)  <span class="line"></span>
+</div>
+<h2 class="section-title">World’s first agentic quality engineering platform</h2>
+<p class="section-sub">Rebranded in January 2026, TestMu AI delivers fully autonomous testing — from natural-language test creation through orchestrated cloud execution across every device and browser.</p>
+<div class="grid grid-4">
+<div class="split-card">
+<div class="split-card-head">
+<div class="icon">🧠</div>
+<h3>KaneAI</h3>
+<p>GenAI-powered test agent. Write and run tests from plain English. Self-healing execution adapts to UI changes without manual intervention.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Practitioner review of AI-generated test logic</li>
+<li>Suite governance &amp; long-term maintainability</li>
+<li>Test strategy alignment to business risk</li>
+</ul>
+</div>
+</div>
+<div class="split-card">
+<div class="split-card-head">
+<div class="icon">⚡</div>
+<h3>HyperExecute</h3>
+<p>Ultra-fast test orchestration — 70% faster than traditional grids. AI-driven auto-grouping, auto-retry, and parallel execution across Selenium, Cypress, and Playwright.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>YAML pipeline configuration &amp; optimization</li>
+<li>CI/CD integration across GitHub, GitLab, Azure</li>
+<li>Failure triage &amp; flakiness root-cause analysis</li>
+</ul>
+</div>
+</div>
+<div class="split-card">
+<div class="split-card-head">
+<div class="icon">📱</div>
+<h3>Real Device Cloud</h3>
+<p>10,000+ real devices. 3,000+ browsers. Live interactive testing and automated runs across every major platform, OS version, and screen configuration.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Risk-based device matrix selection</li>
+<li>Coverage mapping to your user demographics</li>
+<li>Cross-platform regression governance</li>
+</ul>
+</div>
+</div>
+<div class="split-card">
+<div class="split-card-head">
+<div class="icon">🤖</div>
+<h3>A2A &amp; Voice Testing</h3>
+<p>Agent-to-Agent testing for voice AI, chatbots, and conversational interfaces. Purpose-built infrastructure for the next generation of agentic applications.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Domain-specific AI evaluation rubrics</li>
+<li>Conversation flow coverage design</li>
+<li>Hallucination &amp; safety scoring overlays</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mt-24" style="padding: 20px 24px; background: rgba(77,49,245,0.07); border: 1px solid rgba(77,49,245,0.2); border-radius: var(--radius); display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+<span style="font-size:0.82rem; font-weight:700; color:var(--accent-light); letter-spacing:0.1em; text-transform:uppercase;">HyperExecute MCP Server</span>
+<span style="color:var(--text-muted); font-size:0.88rem; flex:1;">AI-native IDE integration — understands your codebase, generates HyperExecute YAML configs directly inside your IDE. Qapitol’s engineers configure, validate, and maintain these pipelines as part of your QE program.</span>
+</div>
+</div>
+</section>
+<!-- ===== QAPILOT CAPABILITIES ===== -->
+<section style="padding-top: 0;">
+<div class="container">
+<div class="cap-section-label" style="color:var(--teal);">
+          QApilot.io  <span class="line"></span>
+</div>
+<h2 class="section-title">AI-powered mobile testing,<br/><span class="gradient-text-teal">zero-touch sanity</span></h2>
+<p class="section-sub">QApilot autonomously crawls your iOS and Android app, builds a Knowledge Graph of every screen and flow, then executes self-healing sanity suites without a single line of test script.</p>
+<div class="grid grid-4">
+<div class="split-card teal-accent">
+<div class="split-card-head">
+<div class="icon" style="background:rgba(33,163,178,0.12);">🗺</div>
+<h3>Autonomous Crawler</h3>
+<p>Explores every reachable screen of your app — iOS &amp; Android — building a complete Knowledge Graph of UI states, transitions, and interactive elements.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Business-flow coverage prioritization</li>
+<li>Crawl scope governance &amp; boundary definition</li>
+<li>Knowledge Graph review &amp; gap analysis</li>
+</ul>
+</div>
+</div>
+<div class="split-card teal-accent">
+<div class="split-card-head">
+<div class="icon" style="background:rgba(33,163,178,0.12);">🧬</div>
+<h3>Knowledge Graph + Sanity</h3>
+<p>From the graph, QApilot generates and runs zero-touch sanity test suites. Self-healing adapts to UI changes automatically — no manual script updates required.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Release-gate criteria design &amp; sign-off</li>
+<li>Sanity scope review for each sprint</li>
+<li>Defect triage &amp; severity classification</li>
+</ul>
+</div>
+</div>
+<div class="split-card teal-accent">
+<div class="split-card-head">
+<div class="icon" style="background:rgba(33,163,178,0.12);">📦</div>
+<h3>Flutter &amp; React Native</h3>
+<p>First-class support for cross-platform mobile frameworks. Works across native iOS, native Android, Flutter, and React Native without framework-specific plugins.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Cross-platform parity test strategy</li>
+<li>Framework-specific performance baselines</li>
+<li>CI/CD integration for mobile release pipelines</li>
+</ul>
+</div>
+</div>
+<div class="split-card teal-accent">
+<div class="split-card-head">
+<div class="icon" style="background:rgba(33,163,178,0.12);">🔗</div>
+<h3>TestMu + QApilot Cloud</h3>
+<p>QApilot executes on both LambdaTest and BrowserStack real device clouds, giving Qapitol clients maximum device coverage with a single mobile QE program.</p>
+</div>
+<div class="split-card-add">
+<div class="add-label">Qapitol adds</div>
+<ul>
+<li>Full project management &amp; delivery ownership</li>
+<li>Outcome guarantees &amp; quality SLAs</li>
+<li>Stakeholder reporting &amp; board-level metrics</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== BETTER TOGETHER MATRIX ===== -->
+<section>
+<div class="container">
+<span class="eyebrow">Better together</span>
+<h2 class="section-title">Three layers. One quality program.</h2>
+<p class="section-sub">The partnership is structured as complementary layers — each doing what it does best, with no gaps and no overlap in accountability.</p>
+<div class="matrix-wrap">
+<table class="matrix">
+<thead>
+<tr>
+<th>Capability area</th>
+<th class="col-accent">TestMu AI — Infrastructure</th>
+<th class="col-orange">Qapitol — Services &amp; Governance</th>
+<th class="col-teal">QApilot — Mobile Intelligence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test creation</td>
+<td class="col-accent">KaneAI generates from natural language</td>
+<td class="col-orange">Practitioners review, refine, and approve</td>
+<td class="col-teal">Crawler auto-generates from app graph</td>
+</tr>
+<tr>
+<td>Execution speed</td>
+<td class="col-accent">HyperExecute — 70% faster than grids</td>
+<td class="col-orange">Pipeline design, optimization, shift-left</td>
+<td class="col-teal">Parallel execution on real device clouds</td>
+</tr>
+<tr>
+<td>Device &amp; browser coverage</td>
+<td class="col-accent">3,000+ browsers, real device cloud</td>
+<td class="col-orange">Risk-based coverage matrix selection</td>
+<td class="col-teal">10,000+ devices, iOS &amp; Android</td>
+</tr>
+<tr>
+<td>Self-healing</td>
+<td class="col-accent">AI-driven locator healing</td>
+<td class="col-orange">Healing review &amp; drift governance</td>
+<td class="col-teal">Auto-adapts to UI changes without rescripts</td>
+</tr>
+<tr>
+<td>AI &amp; voice app testing</td>
+<td class="col-accent">A2A testing infrastructure</td>
+<td class="col-orange">Domain rubrics, evals, safety scoring</td>
+<td class="col-teal">—</td>
+</tr>
+<tr>
+<td>Mobile-first crawling</td>
+<td class="col-accent">—</td>
+<td class="col-orange">Scope governance &amp; outcome sign-off</td>
+<td class="col-teal">Autonomous app exploration + graph</td>
+</tr>
+<tr>
+<td>CI/CD integration</td>
+<td class="col-accent">HyperExecute MCP, native connectors</td>
+<td class="col-orange">Full pipeline engineering &amp; advisory</td>
+<td class="col-teal">Pre-built CI/CD connectors</td>
+</tr>
+<tr>
+<td>Quality governance</td>
+<td class="col-accent">Platform dashboards &amp; reporting</td>
+<td class="col-orange">SLA accountability, risk-based QE strategy</td>
+<td class="col-teal">Sanity coverage reporting</td>
+</tr>
+<tr>
+<td>Project management</td>
+<td class="col-accent">—</td>
+<td class="col-orange">Full ownership, delivery guarantee</td>
+<td class="col-teal">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- ===== USE CASES ===== -->
+<section style="padding-top:0;">
+<div class="container">
+<span class="eyebrow">Use cases</span>
+<h2 class="section-title">Partnership in practice</h2>
+<p class="section-sub">How Qapitol combines TestMu AI and QApilot to deliver measurable outcomes across industries.</p>
+<div class="grid grid-3">
+<div class="usecase-card">
+<span class="usecase-tag tag-accent">BFSI — Digital Banking</span>
+<h3>Zero-touch mobile regression for a neobank release cycle</h3>
+<p>A neobank running weekly releases needed sanity coverage across 200+ screens on 40 device/OS combinations with zero manual effort. QApilot’s Knowledge Graph auto-generated the suite; HyperExecute ran it in under 12 minutes. Qapitol governed scope, signed off releases, and reported to engineering leadership.</p>
+<div class="detail">
+<div class="kpi"><span class="val" style="color:var(--accent-light);">12 min</span><span class="lbl">Full regression runtime</span></div>
+<div class="kpi"><span class="val" style="color:var(--accent-light);">40+</span><span class="lbl">Device configurations</span></div>
+<div class="kpi"><span class="val" style="color:var(--accent-light);">0</span><span class="lbl">Manual scripts written</span></div>
+</div>
+</div>
+<div class="usecase-card">
+<span class="usecase-tag tag-orange">Telecom — AI Assistant</span>
+<h3>AI evaluation for a conversational IVR &amp; chatbot platform</h3>
+<p>A telecom operator deploying an AI-powered IVR and web chatbot needed structured quality assurance beyond functional testing. TestMu AI’s A2A infrastructure generated thousands of conversation scenarios; Qapitol’s AI Evaluation practice applied domain-specific rubrics for response quality, safety, and regulatory compliance.</p>
+<div class="detail">
+<div class="kpi"><span class="val" style="color:var(--orange);">5,000+</span><span class="lbl">Conversation scenarios tested</span></div>
+<div class="kpi"><span class="val" style="color:var(--orange);">8</span><span class="lbl">Custom eval dimensions</span></div>
+<div class="kpi"><span class="val" style="color:var(--orange);">94%</span><span class="lbl">Compliance score achieved</span></div>
+</div>
+</div>
+<div class="usecase-card">
+<span class="usecase-tag tag-teal">Automotive — Connected Mobility</span>
+<h3>Cross-platform mobile QE for a connected vehicle app</h3>
+<p>A connected vehicle platform needed continuous quality across iOS, Android, and in-vehicle displays with Flutter. QApilot’s autonomous crawler mapped 300+ screens; KaneAI generated feature-level regression tests; HyperExecute ran the full suite in parallel. Qapitol delivered weekly quality reports and release recommendations.</p>
+<div class="detail">
+<div class="kpi"><span class="val" style="color:var(--teal);">300+</span><span class="lbl">Screens auto-mapped</span></div>
+<div class="kpi"><span class="val" style="color:var(--teal);">3</span><span class="lbl">Platforms (iOS, Android, HMI)</span></div>
+<div class="kpi"><span class="val" style="color:var(--teal);">70%</span><span class="lbl">Faster release cycle</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== QAPITOL AGENT FABRIC CONNECTOR ===== -->
+<section style="padding-top:0;">
+<div class="container">
+<div style="background: linear-gradient(135deg, var(--surface-2) 0%, rgba(77,49,245,0.1) 100%); border: 1px solid var(--border-strong); border-radius: var(--radius-xl); padding: 48px 52px; display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+<div>
+<span class="eyebrow">Agent Fabric integration</span>
+<h2 class="section-title" style="font-size: clamp(1.5rem, 2.5vw, 2rem);">Qapitol’s agents work <em>alongside</em> TestMu — not instead</h2>
+<p style="font-size:0.95rem;">Qapitol’s Agent Fabric orchestrates quality workflows — routing test signals, aggregating coverage data, triggering reviews, and escalating anomalies. It connects to KaneAI and HyperExecute as execution endpoints while Qapitol’s agents maintain oversight, governance, and outcome accountability.</p>
+<div class="cta-row mt-24">
+<a class="btn btn-outline" href="agent-fabric.html">Explore Agent Fabric →</a>
+</div>
+</div>
+<div>
+<div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px;">
+<div style="font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent-light); font-weight:800; margin-bottom:16px;">Agent Fabric connects to</div>
+<div style="display:flex; flex-direction:column; gap:10px;">
+<div style="display:flex; align-items:center; gap:12px; padding: 10px 14px; background:rgba(77,49,245,0.07); border-radius:10px; border: 1px solid rgba(77,49,245,0.15);">
+<span style="font-size:1.2rem;">🧠</span>
+<div><div style="font-weight:600; font-size:0.9rem;">KaneAI</div><div style="font-size:0.78rem; color:var(--text-dim);">Test generation trigger &amp; review loop</div></div>
+</div>
+<div style="display:flex; align-items:center; gap:12px; padding: 10px 14px; background:rgba(77,49,245,0.07); border-radius:10px; border: 1px solid rgba(77,49,245,0.15);">
+<span style="font-size:1.2rem;">⚡</span>
+<div><div style="font-weight:600; font-size:0.9rem;">HyperExecute</div><div style="font-size:0.78rem; color:var(--text-dim);">Orchestration signals &amp; failure routing</div></div>
+</div>
+<div style="display:flex; align-items:center; gap:12px; padding: 10px 14px; background:rgba(33,163,178,0.07); border-radius:10px; border: 1px solid rgba(33,163,178,0.15);">
+<span style="font-size:1.2rem;">🧬</span>
+<div><div style="font-weight:600; font-size:0.9rem;">QApilot</div><div style="font-size:0.78rem; color:var(--text-dim);">Mobile coverage graph &amp; sanity triggers</div></div>
+</div>
+<div style="display:flex; align-items:center; gap:12px; padding: 10px 14px; background:rgba(255,255,255,0.03); border-radius:10px; border: 1px solid var(--border);">
+<span style="font-size:1.2rem;">📋</span>
+<div><div style="font-weight:600; font-size:0.9rem;">Qapitol Nexus</div><div style="font-size:0.78rem; color:var(--text-dim);">QE intelligence &amp; stakeholder reporting</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== HOW TO ENGAGE ===== -->
+<section>
+<div class="container">
+<span class="eyebrow">How to engage</span>
+<h2 class="section-title">Three ways to start</h2>
+<p class="section-sub">Whether you already have TestMu AI or QApilot licenses, are evaluating platforms, or want a fully managed service, Qapitol has an engagement model that fits.</p>
+<div class="grid grid-3">
+<div class="engage-card">
+<div class="engage-num">01</div>
+<h3>Platform + Governance</h3>
+<p class="mt-8">You already have TestMu AI or QApilot. Qapitol wraps your existing licenses with QE strategy, governance, practitioner oversight, and outcome accountability — without replacing anything you have.</p>
+<div class="mt-16"><span style="font-size:0.82rem; color:var(--text-dim);">Best for: teams with platform access but no QE program</span></div>
+</div>
+<div class="engage-card" style="border-color: rgba(77,49,245,0.3);">
+<div class="engage-num" style="color: rgba(77,49,245,0.4);">02</div>
+<h3>Managed Partnership Bundle</h3>
+<p class="mt-8">Qapitol procures and manages TestMu AI and QApilot on your behalf, delivers a unified QE program, and provides a single outcome-based contract. You get best-of-breed infrastructure with full service accountability.</p>
+<div class="mt-16"><span style="font-size:0.82rem; color:var(--text-dim);">Best for: enterprise teams wanting a single vendor SLA</span></div>
+</div>
+<div class="engage-card">
+<div class="engage-num">03</div>
+<h3>Platform Evaluation &amp; PoC</h3>
+<p class="mt-8">Not sure which platform fits your stack? Qapitol runs a structured proof-of-concept with TestMu AI and QApilot on your actual codebase, then delivers a recommendation with TCO analysis and roadmap.</p>
+<div class="mt-16"><span style="font-size:0.82rem; color:var(--text-dim);">Best for: teams actively evaluating agentic testing platforms</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ===== RELATED CAPABILITIES ===== -->
+<section style="padding-top:0;">
+<div class="container">
+<span class="eyebrow">Related from Qapitol</span>
+<h2 class="section-title">The broader ecosystem</h2>
+<div class="grid grid-4">
+<a class="card" href="ai-in-qe.html">
+<h3>Agentic QE</h3>
+<p>How Qapitol operationalizes AI agents inside quality engineering programs, beyond platform tooling.</p>
+<span class="arrow">Explore →</span>
+</a>
+<a class="card" href="ai-evaluation.html">
+<h3>AI Evaluation</h3>
+<p>Domain-specific evaluation rubrics for AI products — the practice behind our A2A testing overlay.</p>
+<span class="arrow">Explore →</span>
+</a>
+<a class="card" href="agent-fabric.html">
+<h3>QE Agents</h3>
+<p>Qapitol’s Agent Fabric — autonomous execution that connects to TestMu AI and QApilot as execution nodes.</p>
+<span class="arrow">Explore →</span>
+</a>
+<a class="card" href="digital-reliability.html#devops-continuous-testing">
+<h3>Continuous Testing</h3>
+<p>DevOps-embedded testing practice: shift-left advisory, CI/CD pipeline QE, and release gate design.</p>
+<span class="arrow">Explore →</span>
+</a>
+</div>
+</div>
+</section>
+<!-- ===== CTA BANNER ===== -->
+<section class="tight">
+<div class="container">
+<div class="cta-banner">
+<div>
+<span class="eyebrow">Ready to start?</span>
+<h2 class="section-title" style="margin-bottom:10px;">Bring agentic testing infrastructure<br/>under enterprise quality governance.</h2>
+<p class="muted">Talk to Qapitol’s TestMu AI &amp; QApilot partnership lead — we’ll map the right engagement model to your current stack and delivery targets.</p>
+</div>
+<div class="cta-row" style="flex-shrink:0;">
+<a class="btn btn-primary" href="contact.html">Talk to our partnership lead →</a>
+<a class="btn btn-outline" href="partnerships.html">All partnerships</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

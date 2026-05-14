@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Insights — AI QE Blog, Whitepapers &amp; Research | Qapitol</title>
+<meta content="Deep-dive resources on AI quality engineering, regulatory compliance, SLMs, Sovereign AI, and modern QE practices from the Qapitol team." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    .insight-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+    .itab{padding:.55rem 1.3rem;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:.88rem;font-family:inherit;transition:all .2s}
+    .itab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+    .content-panel{display:none}.content-panel.active{display:block}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.75rem}
+    .blog-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+    .blog-card:hover{transform:translateY(-4px);box-shadow:var(--glow-sm)}
+    .blog-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem}
+    .blog-body{padding:1.5rem;flex:1;display:flex;flex-direction:column}
+    .blog-meta{display:flex;gap:.75rem;align-items:center;margin-bottom:.75rem}
+    .blog-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--accent-light);background:rgba(77,49,245,.12);border-radius:99px;padding:.25rem .7rem}
+    .blog-date,.blog-read{font-size:.78rem;color:var(--text-muted)}
+    .blog-card h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.6rem;line-height:1.35}
+    .blog-card p{font-size:.88rem;color:var(--text-muted);line-height:1.65;flex:1}
+    .blog-link{display:inline-flex;align-items:center;gap:.3rem;margin-top:1.25rem;font-size:.85rem;font-weight:600;color:var(--accent-light);text-decoration:none;cursor:pointer}
+    .blog-link:hover{text-decoration:underline}
+    .article-body{max-width:760px;margin:0 auto}
+    .article-body h2{font-family:"Inter Tight",sans-serif;font-size:1.6rem;margin:2rem 0 .75rem}
+    .article-body p{color:var(--text-muted);line-height:1.8;margin-bottom:1rem}
+    .callout{background:var(--surface-2);border:1px solid var(--border-glow);border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0}
+    .callout p{margin:0;color:var(--text);font-size:.92rem}
+    .wp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+    .wp-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;display:flex;flex-direction:column;gap:1rem}
+    .wp-cover{width:56px;height:72px;background:linear-gradient(135deg,var(--accent),#7c5af5);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+    .wp-card h3{font-family:"Inter Tight",sans-serif;font-size:1rem;font-weight:700;line-height:1.35}
+    .wp-card p{font-size:.85rem;color:var(--text-muted);line-height:1.6;flex:1}
+    .wp-meta{font-size:.78rem;color:var(--text-muted)}
+    .dl-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.25rem;background:var(--surface-3);border:1px solid var(--border);border-radius:8px;font-size:.85rem;font-weight:600;color:var(--accent-light);text-decoration:none;transition:all .2s}
+    .dl-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .dl-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
+    .dl-item{display:flex;align-items:center;gap:1.25rem;background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;transition:border-color .2s}
+    .dl-item:hover{border-color:var(--accent)}
+    .dl-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#7c5af5);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .dl-info{flex:1}
+    .dl-info h4{font-family:"Inter Tight",sans-serif;font-size:.98rem;font-weight:700;margin-bottom:.2rem}
+    .dl-info p{font-size:.82rem;color:var(--text-muted);margin:0}
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" property="og:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/insights.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" name="twitter:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." name="twitter:description"/>
+  <meta name="description" content="Qapitol Insights — articles, research, and guides on AI quality engineering, LLM safety, governance, and enterprise AI transformation from the Qapitol team.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/insights.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/insights.html">
+  <meta property="og:title" content="Insights | Qapitol AI Technologies">
+  <meta property="og:description" content="Qapitol Insights — articles, research, and guides on AI quality engineering, LLM safety, governance, and enterprise AI transformation from the Qapitol team.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="Insights | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Qapitol Insights — articles, research, and guides on AI quality engineering, LLM safety, governance, and enterprise AI transformation from the Qapitol team.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qapitol.com/"},
+        {"@type":"ListItem","position":2,"name":"Insights","item":"https://qapitol.com/insights.html"}
+    ]
+  }
+  </script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<section class="hero section-geo" style="padding-top:7rem;padding-bottom:4rem;text-align:center;">
+<div class="container" style="max-width:720px;">
+<p class="kicker">Knowledge Hub</p>
+<h1>Insights that move <span class="gradient-text">AI quality</span> forward</h1>
+<p class="hero-sub" style="margin:0 auto;">Deep research, practical playbooks, and opinionated takes on AI evaluation, regulatory compliance, and modern QE.</p>
+</div>
+</section>
+<section class="section" style="padding-top:0;">
+<div class="container">
+<div class="insight-tabs">
+<button class="itab active" data-panel="blogs">📝 Blog Posts</button>
+<button class="itab" data-panel="whitepapers">📄 Whitepapers</button>
+<button class="itab" data-panel="research">🔬 Research</button>
+<button class="itab" data-panel="downloads">⬇️ Downloads</button>
+</div>
+<!-- BLOGS -->
+<div class="content-panel active" id="panel-blogs">
+<div class="blog-grid">
+<article class="blog-card">
+<div class="blog-thumb" style="background:linear-gradient(135deg,#0c071a,#1e1060);">🤖</div>
+<div class="blog-body">
+<div class="blog-meta"><span class="blog-tag">Agentic QE</span><span class="blog-date">Apr 2025</span><span class="blog-read">8 min</span></div>
+<h3>Why Agentic QE Is the Next Frontier — and How to Get There Without Blowing Up Your Pipeline</h3>
+<p>AI agents don't just run tests — they reason about them. Here's what Agentic QE means in practice, and how leading teams are already deploying it.</p>
+<a class="blog-link" onclick="openArticle('ba1')">Read article →</a>
+</div>
+</article>
+<article class="blog-card">
+<div class="blog-thumb" style="background:linear-gradient(135deg,#0c071a,#0a3040);">⚖️</div>
+<div class="blog-body">
+<div class="blog-meta"><span class="blog-tag" style="color:var(--teal);background:rgba(33,163,178,.12);">Compliance</span><span class="blog-date">Mar 2025</span><span class="blog-read">10 min</span></div>
+<h3>IRDAI's AI Guidelines: What Every Insurer's Technology Team Must Do Before the Audit Clock Runs Out</h3>
+<p>IRDAI's 2024 AI Guidelines are a regime change. Insurers that treat this as a tick-box exercise will face examination findings. Here's the practical framework your teams need now.</p>
+<a class="blog-link" onclick="openArticle('ba2')">Read article →</a>
+</div>
+</article>
+<article class="blog-card">
+<div class="blog-thumb" style="background:linear-gradient(135deg,#0c071a,#1a0a30);">🧠</div>
+<div class="blog-body">
+<div class="blog-meta"><span class="blog-tag" style="color:#e88721;background:rgba(232,135,33,.12);">SLMs</span><span class="blog-date">Mar 2025</span><span class="blog-read">7 min</span></div>
+<h3>SLMs vs LLMs for Enterprise QE: Why Smaller Models Win When You're Serious About Quality</h3>
+<p>Everyone wants GPT-4. Few have thought through the compliance, latency, cost, and accuracy implications for quality-critical use cases. SLMs offer a radically better trade-off.</p>
+<a class="blog-link" onclick="openArticle('ba3')">Read article →</a>
+</div>
+</article>
+<article class="blog-card">
+<div class="blog-thumb" style="background:linear-gradient(135deg,#0c071a,#002030);">🔒</div>
+<div class="blog-body">
+<div class="blog-meta"><span class="blog-tag" style="color:var(--teal);background:rgba(33,163,178,.12);">Sovereign AI</span><span class="blog-date">Feb 2025</span><span class="blog-read">9 min</span></div>
+<h3>Sovereign AI: Why Indian Banks and Insurers Can't Afford to Send Their Models Abroad</h3>
+<p>When your AI models process customer financial data, every inference call is a potential data sovereignty event. Here's why Sovereign AI is non-negotiable for regulated Indian enterprises.</p>
+<a class="blog-link" onclick="openArticle('ba4')">Read article →</a>
+</div>
+</article>
+<article class="blog-card">
+<div class="blog-thumb" style="background:linear-gradient(135deg,#0c071a,#1e1060);">🔄</div>
+<div class="blog-body">
+<div class="blog-meta"><span class="blog-tag">AI Engineering</span><span class="blog-date">Feb 2025</span><span class="blog-read">6 min</span></div>
+<h3>RLHF in Production: The Gap Between Research Paper and Real Eval Pipeline Is Bigger Than You Think</h3>
+<p>Deploying RLHF in a production evaluation pipeline exposes challenges that papers rarely discuss: annotator disagreement, reward hacking, distribution shift, and more.</p>
+<a class="blog-link" onclick="openArticle('ba5')">Read article →</a>
+</div>
+</article>
+<article class="blog-card">
+<div class="blog-thumb" style="background:linear-gradient(135deg,#0c071a,#1a2040);">📊</div>
+<div class="blog-body">
+<div class="blog-meta"><span class="blog-tag" style="color:#e88721;background:rgba(232,135,33,.12);">SDM</span><span class="blog-date">Jan 2025</span><span class="blog-read">8 min</span></div>
+<h3>Synthetic Data Management Is Not a Data Problem — It's a Quality Problem</h3>
+<p>Most teams think synthetic data is about getting more data faster. The teams winning use it as a quality control lever. The shift in framing changes everything.</p>
+<a class="blog-link" onclick="openArticle('ba6')">Read article →</a>
+</div>
+</article>
+</div>
+<!-- ARTICLE 1 -->
+<div class="blog-article-full" id="ba1" style="display:none;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);">
+<div class="article-body">
+<p class="kicker">Agentic QE • April 2025 • 8 min read</p>
+<h1 style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-family:'Inter Tight',sans-serif;margin-bottom:1.5rem;">Why Agentic QE Is the Next Frontier</h1>
+<p>Quality engineering has always been reactive. We write tests after code is written. We run those tests after changes are made. We fix what breaks. This model worked when software changed slowly. It is breaking under AI-powered development, where code generation accelerates faster than human testers can adapt.</p>
+<p>Agentic QE flips this model. Instead of humans writing tests that machines run, machines reason about quality end-to-end — generating test cases from requirements, executing them autonomously, adapting when the application under test changes, and surfacing insights that humans act on. The human role shifts from execution to judgment.</p>
+<h2>What makes a QE system "agentic"?</h2>
+<p>An agentic system has three properties: autonomy (it can take actions without per-step human instruction), goal-directedness (it pursues a defined objective across multiple steps), and adaptability (it updates its plan based on what it observes). Most test automation tools have none of these. They run a predefined script and report pass or fail.</p>
+<div class="callout"><p>💡 <strong>Key insight:</strong> The value of agentic QE is not speed — it's coverage. Agents explore application state spaces that humans never would, finding edge cases that matter precisely because they don't share human assumptions about what "normal" looks like.</p></div>
+<h2>The architecture</h2>
+<p>Our Agent Fabric platform separates concerns into three layers: the reasoning layer (an LLM/SLM that plans and decides), the execution layer (tools for browser control, API calls, DB queries, CI/CD integration), and the evaluation layer (QAVE, which assesses whether outputs meet quality and compliance standards). Each layer can be replaced or upgraded independently.</p>
+<h2>Where teams go wrong</h2>
+<p>The most common mistake is trying to automate 100% of test execution immediately. Agentic QE works best when introduced incrementally — starting with regression suites, then expanding to exploratory testing, then spec-to-test generation. Teams that "big bang" the transition end up with complex systems they can't debug.</p>
+<a class="btn btn-primary" href="contact.html" style="margin-top:1.5rem;">Talk to our Agentic QE team →</a>
+</div>
+</div>
+<!-- ARTICLE 2 -->
+<div class="blog-article-full" id="ba2" style="display:none;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);">
+<div class="article-body">
+<p class="kicker">Compliance • March 2025 • 10 min read</p>
+<h1 style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-family:'Inter Tight',sans-serif;margin-bottom:1.5rem;">IRDAI's AI Guidelines: A Practical Compliance Guide</h1>
+<p>IRDAI's 2024 AI governance guidelines are not advisory — they carry examination implications. The guidelines cover five domains: fairness and non-discrimination, explainability, accountability, data governance, and operational resilience. Each domain has specific obligations that must be mapped to specific AI systems in production.</p>
+<h2>The fairness challenge</h2>
+<p>For underwriting and claims AI, fairness is the most immediate concern. The guidelines require that AI systems do not systematically disadvantage policyholders based on protected characteristics. The challenge is that fairness metrics are contested — a system can be statistically fair by one metric and unfair by another.</p>
+<div class="callout"><p>⚖️ <strong>Critical point:</strong> "We used a third-party model" is not an acceptable compliance defence. IRDAI holds insurers accountable for every AI system in their stack, regardless of who built it.</p></div>
+<h2>Explainability requirements</h2>
+<p>The guidelines require that AI decisions affecting policyholders be explainable in terms customers understand. Our recommendation is a two-level approach: technical explainability (SHAP values, policy reasoning traces for internal audit) and customer explainability (plain-language summary for customer communication).</p>
+<h2>What to do now</h2>
+<p>First, inventory every AI system touching a policyholder decision. Second, map each system against the IRDAI obligation library. Third, run a gap assessment and prioritize remediation by risk level. QAVE's CHEQ platform automates steps two and three, generating obligation-level scorecards with evidence ready for examiners.</p>
+<a class="btn btn-primary" href="cheq.html" style="margin-top:1.5rem;">Explore CHEQ Compliance Platform →</a>
+</div>
+</div>
+<!-- ARTICLE 3 -->
+<div class="blog-article-full" id="ba3" style="display:none;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);">
+<div class="article-body">
+<p class="kicker">SLMs • March 2025 • 7 min read</p>
+<h1 ,sans-serif;margin-bottom:1.5rem;"="" style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-family:'Inter Tight">SLMs vs LLMs for Enterprise QE</h1>
+<p>The instinct to use the largest, most capable model available is understandable. This logic breaks down in enterprise QE contexts where cost, latency, compliance, and auditability are not afterthoughts.</p>
+<h2>What SLMs are good at</h2>
+<p>Small Language Models (1B–13B parameters) are faster, cheaper, and more controllable than frontier LLMs. For well-defined tasks with structured outputs — extracting test steps from a user story, classifying a defect, checking API response schemas — fine-tuned SLMs routinely outperform larger models. They've been trained on domain-specific data and tuned to produce exact output formats.</p>
+<div class="callout"><p>🏆 <strong>Benchmark:</strong> Our Insurance NER SLM achieves 94.2% F1 on policy documents vs 81.3% for GPT-4o zero-shot. It runs in 40ms vs 2.8s for the API call. Cost: 99% lower.</p></div>
+<h2>When to use LLMs</h2>
+<p>LLMs win when tasks require broad knowledge, complex multi-step reasoning, or handling highly varied inputs. Exploratory test generation from unstructured product descriptions and cross-domain analysis are cases where a large model's breadth matters more than a small model's efficiency.</p>
+<h2>The recommendation</h2>
+<p>Use a hybrid architecture: LLMs for planning and reasoning, SLMs for execution and judgment. The LLM designs the eval framework; the SLM runs it at scale.</p>
+<a class="btn btn-primary" href="ai-engineering.html" style="margin-top:1.5rem;">Explore our SLM capabilities →</a>
+</div>
+</div>
+<!-- ARTICLE 4 -->
+<div class="blog-article-full" id="ba4" style="display:none;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);">
+<div class="article-body">
+<p class="kicker">Sovereign AI • February 2025 • 9 min read</p>
+<h1 style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-family:'Inter Tight',sans-serif;margin-bottom:1.5rem;">Sovereign AI: Why Regulated Enterprises Can't Send Models Abroad</h1>
+<p>Every time your LLM application calls an external API, it sends data to servers outside your control, potentially outside your country's jurisdiction, and definitely outside your data governance framework. For regulated BFSI and healthcare in India, this is increasingly unacceptable.</p>
+<h2>The regulatory landscape</h2>
+<p>RBI guidelines on outsourcing, IRDAI's data localisation requirements, and India's DPDP Act collectively require regulated entities to know where their customer data is processed, stored, and who has access. AI inference is data processing under these frameworks.</p>
+<div class="callout"><p>🔒 <strong>Architecture principle:</strong> Sovereign AI doesn't mean building your own foundation model. It means deploying a foundation model within infrastructure that meets your data governance requirements, wrapped with the observability and compliance controls regulators expect.</p></div>
+<h2>The Qapitol approach</h2>
+<p>Our Sovereign AI framework combines open-weight model deployment (Llama, Mistral, or domain-fine-tuned SLMs), private Kubernetes infrastructure, QAVE evaluation on-premise, and CHEQ compliance monitoring — all within the client's VPC. Clients retain full control over models, data, and audit logs.</p>
+<a class="btn btn-primary" href="contact.html" style="margin-top:1.5rem;">Explore Sovereign AI deployment →</a>
+</div>
+</div>
+<!-- ARTICLE 5 -->
+<div class="blog-article-full" id="ba5" style="display:none;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);">
+<div class="article-body">
+<p class="kicker">AI Engineering • February 2025 • 6 min read</p>
+<h1 style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-family:'Inter Tight',sans-serif;margin-bottom:1.5rem;">RLHF in Production: The Gap Between Paper and Pipeline</h1>
+<p>RLHF is the technique that makes LLMs helpful rather than just capable. The research literature makes it sound tractable. The production reality involves annotator disagreement, reward model overfitting, distribution shift, and the uncomfortable reality that "human preference" is not a stable objective function.</p>
+<h2>The annotation problem</h2>
+<p>RLHF requires human annotators to compare model outputs. In practice, annotators disagree dramatically depending on their background and interpretation. For domain-specific applications like insurance, annotators need to be domain experts — making labelling expensive and slow.</p>
+<div class="callout"><p>📊 <strong>Finding:</strong> In our RLHF pipeline for insurance document QA, inter-annotator agreement (Cohen's kappa) was 0.67 with trained QE engineers but only 0.41 with general-purpose annotation services. The difference in downstream model quality was significant.</p></div>
+<h2>The reward hacking problem</h2>
+<p>The reward model is an approximation of human judgment — and the RL process is very good at finding outputs that score highly on the reward model without actually reflecting human preferences. This requires active monitoring and periodic reward model retraining.</p>
+<a class="btn btn-primary" href="ai-evaluation.html" style="margin-top:1.5rem;">Explore our AI Evaluation capabilities →</a>
+</div>
+</div>
+<!-- ARTICLE 6 -->
+<div class="blog-article-full" id="ba6" style="display:none;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);">
+<div class="article-body">
+<p class="kicker">Synthetic Data Management • January 2025 • 8 min read</p>
+<h1 style="font-size:clamp(1.8rem,3.5vw,2.4rem);font-family:'Inter Tight',sans-serif;margin-bottom:1.5rem;">Synthetic Data Management Is a Quality Problem</h1>
+<p>The standard pitch for synthetic data: "You can have as much test data as you want, without privacy risk." True. But it misses the harder question: how do you know the synthetic data is any good? Quantity is not quality. A test environment flooded with unrealistic synthetic data produces misleading test results.</p>
+<h2>What makes synthetic data good?</h2>
+<p>Good synthetic data has three properties: statistical fidelity (distributions match real data), referential integrity (relationships between entities are maintained), and edge case coverage (includes extreme cases that matter most). Achieving all three requires deliberate design — not just pressing "generate."</p>
+<div class="callout"><p>🔑 <strong>Key distinction:</strong> Random data is not synthetic data. Synthetic data is statistically modelled from real data — it should be as realistic as real data, without being real data. The validation pipeline is what separates the two.</p></div>
+<h2>The validation pipeline</h2>
+<p>Every synthetic dataset should pass through: statistical validation (KS tests, Wasserstein distance), business rule validation (domain constraints), and test effectiveness validation (would tests on synthetic data catch the same defects as tests on real data?). Qapitol's SDM practice, powered by GenRocket, delivers this complete stack with privacy guarantees.</p>
+<a class="btn btn-primary" href="synthetic-data-management.html" style="margin-top:1.5rem;">Explore our SDM practice →</a>
+</div>
+</div>
+</div>
+<!-- WHITEPAPERS -->
+<div class="content-panel" id="panel-whitepapers">
+<div class="wp-grid">
+<div class="wp-card">
+<div style="display:flex;gap:1rem;align-items:flex-start;">
+<div class="wp-cover">📋</div>
+<div><h3>The Enterprise AI Evaluation Playbook: From Model Selection to Regulatory Signoff</h3><p class="wp-meta">Qapitol Research • 2025 • 42 pages</p></div>
+</div>
+<p>A comprehensive framework for establishing an AI evaluation practice in a regulated enterprise. Covers eval design, metric selection, SLM vs LLM trade-offs, RLHF pipelines, compliance documentation, and board-level AI governance.</p>
+<div><p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.75rem;">Topics: Eval Design · Regulatory Compliance · AI Governance · SLMs · RLHF</p><a class="dl-btn" href="contact.html?download=ai-eval-playbook">⬇ Download Free (Email required)</a></div>
+</div>
+<div class="wp-card">
+<div style="display:flex;gap:1rem;align-items:flex-start;">
+<div class="wp-cover">🏛️</div>
+<div><h3>IRDAI AI Guidelines 2024: A Technical Compliance Guide for Insurance Technology Teams</h3><p class="wp-meta">Qapitol &amp; Cheq Research • 2025 • 38 pages</p></div>
+</div>
+<p>Obligation-by-obligation breakdown of IRDAI's AI framework. Includes technical implementation guidance, evidence collection templates, SLM-powered obligation mapping, and a 90-day compliance roadmap.</p>
+<div><p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.75rem;">Topics: IRDAI · Compliance · Insurance AI · Obligation Library · Audit Readiness</p><a class="dl-btn" href="contact.html?download=irdai-guide">⬇ Download Free (Email required)</a></div>
+</div>
+<div class="wp-card">
+<div style="display:flex;gap:1rem;align-items:flex-start;">
+<div class="wp-cover">🤖</div>
+<div><h3>Agentic QE: Designing Autonomous Quality Engineering Systems for the Modern SDLC</h3><p class="wp-meta">Qapitol AI Practice • 2025 • 34 pages</p></div>
+</div>
+<p>Technical blueprint for building agentic QE systems. Covers agent architecture, tool use, planning algorithms, self-healing test design, human-in-the-loop patterns, and CI/CD integration.</p>
+<div><p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.75rem;">Topics: Agentic QE · LLM Agents · Automation Architecture · Self-Healing · DevOps</p><a class="dl-btn" href="contact.html?download=agentic-qe-blueprint">⬇ Download Free (Email required)</a></div>
+</div>
+<div class="wp-card">
+<div style="display:flex;gap:1rem;align-items:flex-start;">
+<div class="wp-cover">🔒</div>
+<div><h3>Sovereign AI in BFSI: Architecture Patterns for Data-Resident AI Deployment</h3><p class="wp-meta">Qapitol Architecture Practice • 2025 • 28 pages</p></div>
+</div>
+<p>Reference architectures for deploying AI within regulated financial institutions. Covers VPC isolation, open-weight model deployment, inference infrastructure, compliance monitoring, and data residency requirements.</p>
+<div><p style="font-size:.8rem;color:var(--text-muted);margin-bottom:.75rem;">Topics: Sovereign AI · Data Residency · BFSI · Private Deployment · Compliance</p><a class="dl-btn" href="contact.html?download=sovereign-ai-bfsi">⬇ Download Free (Email required)</a></div>
+</div>
+</div>
+</div>
+<!-- RESEARCH -->
+<div class="content-panel" id="panel-research">
+<div class="wp-grid">
+<div class="wp-card">
+<div style="display:flex;gap:1rem;align-items:flex-start;">
+<div class="wp-cover">🔬</div>
+<div><h3>Insurance-NER: A Domain-Specific Named Entity Recognition Model for Indian Insurance Documents</h3><p class="wp-meta">Qapitol AI Research • 2025 • Technical Paper</p></div>
+</div>
+<p>We present Insurance-NER, a fine-tuned language model for NER in Indian insurance documents. The model achieves 94.2% F1 on a held-out test set, outperforming GPT-4o by 12.9 percentage points. Model: Fine-tuned LLaMA 3.1 8B · Dataset: 280K annotated document spans.</p>
+<a class="dl-btn" href="contact.html?download=insurance-ner-paper">⬇ Download Paper</a>
+</div>
+<div class="wp-card">
+<div style="display:flex;gap:1rem;align-items:flex-start;">
+<div class="wp-cover">📊</div>
+<div><h3>PolicyTrace: Explainable AI Obligation Reasoning via Policy Reasoning Traces in Regulated Domains</h3><p class="wp-meta">Qapitol AI Research &amp; CHEQ Team • 2025 • Technical Paper</p></div>
+</div>
+<p>We introduce Policy Reasoning Traces (PRTs), a method for generating human-readable audit trails explaining how an AI system's behaviour maps to specific regulatory obligations. Achieves 91% alignment with expert legal review at 1/40th the cost.</p>
+<a class="dl-btn" href="contact.html?download=policytrace-paper">⬇ Download Paper</a>
+</div>
+</div>
+</div>
+<!-- DOWNLOADS -->
+<div class="content-panel" id="panel-downloads">
+<p style="color:var(--text-muted);max-width:560px;margin-bottom:2rem;">Free resources to accelerate your AI quality engineering journey.</p>
+<div class="dl-list">
+<div class="dl-item"><div class="dl-icon">📋</div><div class="dl-info"><h4>AI QE Maturity Assessment Checklist</h4><p>Excel workbook assessing your team's AI QE maturity across 6 dimensions, with scoring and recommended next steps.</p></div><a class="dl-btn" href="contact.html?download=maturity-checklist">⬇ Free</a></div>
+<div class="dl-item"><div class="dl-icon">⚖️</div><div class="dl-info"><h4>EU AI Act Compliance Checklist for Tech Teams</h4><p>Plain-language breakdown of EU AI Act obligations by risk level. Practical checklist for engineering and compliance teams.</p></div><a class="dl-btn" href="contact.html?download=eu-ai-act-checklist">⬇ Free</a></div>
+<div class="dl-item"><div class="dl-icon">🤖</div><div class="dl-info"><h4>LLM Evaluation Metrics Reference Card</h4><p>One-page reference for the 20 most important LLM eval metrics — BLEU, ROUGE, BERTScore, hallucination rate, toxicity, and more.</p></div><a class="dl-btn" href="contact.html?download=llm-metrics-card">⬇ Free</a></div>
+<div class="dl-item"><div class="dl-icon">🎯</div><div class="dl-info"><h4>Agentic QE Starter Template (GitHub)</h4><p>Open-source starter for building an agentic test runner using LangGraph and Playwright. MIT licensed.</p></div><a class="dl-btn" href="contact.html?download=agentic-starter">⬇ Get Link</a></div>
+<div class="dl-item"><div class="dl-icon">📊</div><div class="dl-info"><h4>Synthetic Data Quality Scorecard</h4><p>Framework for evaluating synthetic test data across statistical fidelity, business rule compliance, and privacy guarantees.</p></div><a class="dl-btn" href="contact.html?download=sdm-scorecard">⬇ Free</a></div>
+<div class="dl-item"><div class="dl-icon">🔒</div><div class="dl-info"><h4>IRDAI AI Self-Assessment Template</h4><p>Template used by insurance technology teams to prepare for IRDAI AI examination. Obligation mapping + examiner-facing summary.</p></div><a class="dl-btn" href="contact.html?download=irdai-self-assessment">⬇ Email required</a></div>
+<div class="dl-item"><div class="dl-icon">🏗️</div><div class="dl-info"><h4>Sovereign AI Deployment Architecture Diagrams</h4><p>Reference architecture diagrams (draw.io / Lucidchart) for VPC-isolated AI deployments on AWS, Azure, and GCP.</p></div><a class="dl-btn" href="contact.html?download=sovereign-ai-diagrams">⬇ Email required</a></div>
+</div>
+</div>
+</div>
+</section>
+<section class="cta-banner">
+<div class="container" style="text-align:center;">
+<h2>Get the AI QE Playbook — free</h2>
+<p>Monthly deep-dives on AI evaluation, regulatory compliance, and quality engineering. Read by 2,000+ engineering leaders.</p>
+<div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;max-width:480px;margin-left:auto;margin-right:auto;">
+<input id="nl-email" placeholder="your@company.com" style="flex:1;padding:.75rem 1rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;color:#fff;font-family:inherit;font-size:.95rem;min-width:200px;" type="email"/>
+<button onclick="subscribeNL()" style="padding:.75rem 1.5rem;background:#fff;color:var(--accent);border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">Subscribe →</button>
+</div>
+<p id="nl-confirm" style="display:none;margin-top:1rem;color:rgba(255,255,255,.8);font-size:.9rem;">🎉 You're in! Check your inbox for the first edition.</p>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script defer="" src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+<script>
+document.querySelectorAll(".itab").forEach(function(tab){
+  tab.addEventListener("click",function(){
+    document.querySelectorAll(".itab").forEach(function(t){t.classList.remove("active")});
+    document.querySelectorAll(".content-panel").forEach(function(p){p.classList.remove("active")});
+    tab.classList.add("active");
+    document.getElementById("panel-"+tab.dataset.panel).classList.add("active");
+  });
+});
+(function(){
+  var hash=location.hash.replace("#","");
+  var map={blogs:"blogs",whitepapers:"whitepapers",playbooks:"whitepapers",research:"research",downloads:"downloads"};
+  if(map[hash]){
+    document.querySelectorAll(".itab").forEach(function(t){t.classList.remove("active")});
+    document.querySelectorAll(".content-panel").forEach(function(p){p.classList.remove("active")});
+    document.querySelector("[data-panel='"+map[hash]+"']").classList.add("active");
+    document.getElementById("panel-"+map[hash]).classList.add("active");
+  }
+})();
+function openArticle(id){
+  document.querySelectorAll(".blog-article-full").forEach(function(a){a.style.display="none"});
+  var el=document.getElementById(id);
+  if(el){el.style.display="block";setTimeout(function(){el.scrollIntoView({behavior:"smooth",block:"start"})},100)}
+}
+function subscribeNL(){
+  var email=document.getElementById("nl-email").value.trim();
+  if(!email||!email.includes("@"))return;
+  document.getElementById("nl-confirm").style.display="block";
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

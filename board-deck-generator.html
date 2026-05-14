@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Board Deck Generator | Qapitol AI</title>
+<style>
+  :root {
+    --accent: #4d31f5; --accent2: #7c5ff8; --accent-light: #b5a6ff;
+    --teal: #00d4b4; --bg: #07060f; --surface: rgba(255,255,255,.05);
+    --border: rgba(255,255,255,.1); --text: #e8e4ff; --muted: rgba(255,255,255,.5);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* ─── FORM SCREEN ─── */
+  .generator-wrap { max-width: 680px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+  .gen-header { text-align: center; margin-bottom: 2.5rem; }
+  .gen-header .badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-light); background: rgba(77,49,245,.14); border: 1px solid rgba(77,49,245,.28); border-radius: 99px; padding: .3rem .85rem; margin-bottom: 1rem; }
+  .gen-header h1 { font-size: 2.2rem; font-weight: 800; line-height: 1.2; background: linear-gradient(135deg,#fff 20%,var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .gen-header p { margin-top: .7rem; color: var(--muted); font-size: 1rem; }
+
+  .form-card { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+  .form-row { margin-bottom: 1.4rem; }
+  label { display: block; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-light); margin-bottom: .5rem; }
+  input, select, textarea {
+    width: 100%; background: rgba(255,255,255,.05); border: 1px solid var(--border);
+    border-radius: 8px; padding: .75rem 1rem; color: #fff; font-size: .95rem;
+    font-family: inherit; outline: none; transition: border-color .2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent-light); }
+  select option { background: #1a1530; }
+  textarea { resize: vertical; min-height: 80px; }
+
+  .maturity-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: .5rem; margin-top: .4rem; }
+  .maturity-opt { cursor: pointer; }
+  .maturity-opt input[type="radio"] { display: none; }
+  .maturity-opt .mat-card {
+    text-align: center; padding: .7rem .3rem; border-radius: 8px;
+    border: 1px solid var(--border); background: rgba(255,255,255,.03);
+    transition: all .2s; cursor: pointer;
+  }
+  .maturity-opt input:checked + .mat-card { border-color: var(--accent-light); background: rgba(77,49,245,.18); }
+  .mat-card .lv { font-size: 1.2rem; margin-bottom: .2rem; }
+  .mat-card .ln { font-size: .65rem; color: var(--muted); line-height: 1.3; }
+  .maturity-opt input:checked + .mat-card .ln { color: var(--accent-light); }
+
+  .gen-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 10px; color: #fff; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 1.5rem; transition: opacity .2s, transform .2s; display: flex; align-items: center; justify-content: center; gap: .5rem; }
+  .gen-btn:hover { opacity: .9; transform: translateY(-1px); }
+  .gen-btn.loading { opacity: .7; pointer-events: none; }
+
+  .progress-bar { width: 0%; height: 3px; background: linear-gradient(90deg, var(--accent), var(--teal)); border-radius: 3px; transition: width .4s ease; margin-top: 1rem; }
+  .progress-wrap { background: rgba(255,255,255,.06); border-radius: 3px; overflow: hidden; margin-top: 1rem; display: none; }
+
+  /* ─── DECK SCREEN ─── */
+  #deck-screen { display: none; }
+  .deck-toolbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(7,6,15,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: .8rem 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .deck-toolbar .brand { font-weight: 800; font-size: 1rem; background: linear-gradient(135deg,#fff,var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .deck-toolbar .slide-nav { display: flex; align-items: center; gap: .5rem; margin-left: auto; }
+  .deck-toolbar .slide-nav button { background: rgba(255,255,255,.08); border: 1px solid var(--border); color: #fff; padding: .4rem .9rem; border-radius: 6px; cursor: pointer; font-size: .85rem; }
+  .deck-toolbar .slide-nav button:hover { background: rgba(255,255,255,.14); }
+  .slide-counter { font-size: .82rem; color: var(--muted); min-width: 60px; text-align: center; }
+  .print-btn { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; color: #fff; padding: .45rem 1.1rem; border-radius: 6px; font-size: .85rem; font-weight: 600; cursor: pointer; }
+  .back-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: .45rem .9rem; border-radius: 6px; font-size: .85rem; cursor: pointer; }
+
+  .slides-container { padding-top: 60px; }
+  .slide { display: none; min-height: calc(100vh - 60px); padding: 3rem 2rem; max-width: 960px; margin: 0 auto; animation: slideIn .35s ease; }
+  .slide.active { display: flex; flex-direction: column; justify-content: center; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Slide elements */
+  .slide-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-light); background: rgba(77,49,245,.14); border: 1px solid rgba(77,49,245,.28); border-radius: 99px; padding: .28rem .75rem; margin-bottom: 1.1rem; width: fit-content; }
+  .slide h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+  .slide h2 .accent { color: var(--accent-light); }
+  .slide .subtitle { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 640px; margin-bottom: 2rem; }
+  .slide-grid { display: grid; gap: 1rem; }
+  .slide-grid.cols-3 { grid-template-columns: repeat(3,1fr); }
+  .slide-grid.cols-2 { grid-template-columns: repeat(2,1fr); }
+  @media (max-width: 640px) { .slide-grid.cols-3, .slide-grid.cols-2 { grid-template-columns: 1fr; } }
+  .slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; }
+  .slide-card .icon { font-size: 1.6rem; margin-bottom: .7rem; }
+  .slide-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+  .slide-card p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+  .slide-card .stat { font-size: 2rem; font-weight: 800; color: var(--accent-light); line-height: 1; margin-bottom: .3rem; }
+
+  .cover-slide { text-align: center; align-items: center; }
+  .cover-slide h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg,#fff 20%,var(--accent-light) 60%,var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem; }
+  .cover-slide .tagline { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; }
+  .cover-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+  .cover-meta span { font-size: .82rem; color: rgba(255,255,255,.45); background: rgba(255,255,255,.05); border: 1px solid var(--border); border-radius: 99px; padding: .3rem .8rem; }
+
+  .timeline { display: flex; flex-direction: column; gap: .8rem; }
+  .tl-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 1.2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .tl-dot { min-width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .85rem; flex-shrink: 0; }
+  .tl-body h4 { font-size: .95rem; font-weight: 700; margin-bottom: .25rem; }
+  .tl-body p { font-size: .83rem; color: var(--muted); line-height: 1.5; }
+
+  .roi-table { width: 100%; border-collapse: collapse; }
+  .roi-table th { text-align: left; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent-light); padding: .6rem 1rem; border-bottom: 1px solid var(--border); }
+  .roi-table td { padding: .75rem 1rem; font-size: .9rem; border-bottom: 1px solid rgba(255,255,255,.05); }
+  .roi-table tr:last-child td { border-bottom: none; }
+  .roi-table .highlight { color: var(--teal); font-weight: 700; }
+
+  .next-step-row { display: flex; gap: 1rem; margin-top: .5rem; flex-wrap: wrap; }
+  .ns-card { flex: 1; min-width: 180px; background: rgba(77,49,245,.1); border: 1px solid rgba(77,49,245,.28); border-radius: 10px; padding: 1.1rem; }
+  .ns-card h4 { font-size: .9rem; font-weight: 700; margin-bottom: .35rem; color: #fff; }
+  .ns-card p { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+  .ns-card .cta-small { display: inline-block; margin-top: .7rem; font-size: .78rem; font-weight: 600; color: var(--accent-light); text-decoration: none; }
+
+  .slide-footer { margin-top: auto; padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; font-size: .75rem; color: rgba(255,255,255,.25); border-top: 1px solid rgba(255,255,255,.06); }
+  .slide-num { font-size: .75rem; color: rgba(255,255,255,.2); margin-left: auto; }
+
+  /* Print */
+  @media print {
+    .deck-toolbar { display: none !important; }
+    .slides-container { padding-top: 0; }
+    .slide { display: flex !important; min-height: 100vh; page-break-after: always; }
+    body { background: #07060f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+
+<!-- ═══════════════ FORM SCREEN ═══════════════ -->
+<div id="form-screen">
+  <div class="generator-wrap">
+    <div class="gen-header">
+      <div class="badge">⚡ AI-Powered</div>
+      <h1>Generate Your Board Deck</h1>
+      <p>5 inputs. Instant board-ready pitch. Powered by Qapitol AI.</p>
+    </div>
+
+    <div class="form-card">
+      <div class="form-row">
+        <label>Company / Organisation Name</label>
+        <input type="text" id="f-company" placeholder="e.g. Acme Financial Services" />
+      </div>
+
+      <div class="form-row">
+        <label>Industry</label>
+        <select id="f-industry">
+          <option value="">Select your industry…</option>
+          <option value="BFSI">BFSI (Banking, Financial Services & Insurance)</option>
+          <option value="Healthcare">Healthcare & Life Sciences</option>
+          <option value="Retail & E-commerce">Retail & E-commerce</option>
+          <option value="Technology">Technology / SaaS</option>
+          <option value="Manufacturing">Manufacturing & Supply Chain</option>
+          <option value="Telecom">Telecom & Media</option>
+          <option value="Government & Public Sector">Government & Public Sector</option>
+          <option value="Energy & Utilities">Energy & Utilities</option>
+          <option value="Logistics">Logistics & Transportation</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Primary AI / Quality Challenge</label>
+        <select id="f-challenge">
+          <option value="">Select your main challenge…</option>
+          <option value="ai-hallucinations">AI hallucinations causing incorrect outputs in production</option>
+          <option value="compliance-gaps">Compliance gaps with AI Act / IRDAI / DPDP / NIST</option>
+          <option value="slow-releases">Slow release cycles — QA bottleneck delaying AI features</option>
+          <option value="poor-eval">No structured AI evaluation — flying blind on model quality</option>
+          <option value="agent-reliability">Agentic AI reliability — agents taking wrong autonomous actions</option>
+          <option value="data-quality">Synthetic / training data quality blocking model improvements</option>
+          <option value="cost-optimisation">AI testing cost too high — need better ROI on QE investment</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Team / Headcount (AI & QE roles)</label>
+        <select id="f-headcount">
+          <option value="">Select size…</option>
+          <option value="1-10">1–10 (startup / early AI team)</option>
+          <option value="11-50">11–50 (scaling AI function)</option>
+          <option value="51-200">51–200 (enterprise AI division)</option>
+          <option value="200+">200+ (large-scale AI operations)</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Current QE Maturity Level</label>
+        <div class="maturity-grid">
+          <label class="maturity-opt"><input type="radio" name="maturity" value="1"><div class="mat-card"><div class="lv">🌱</div><div class="ln">Ad-hoc<br>Level 1</div></div></label>
+          <label class="maturity-opt"><input type="radio" name="maturity" value="2"><div class="mat-card"><div class="lv">🔧</div><div class="ln">Defined<br>Level 2</div></div></label>
+          <label class="maturity-opt"><input type="radio" name="maturity" value="3"><div class="mat-card"><div class="lv">⚙️</div><div class="ln">Managed<br>Level 3</div></div></label>
+          <label class="maturity-opt"><input type="radio" name="maturity" value="4"><div class="mat-card"><div class="lv">📊</div><div class="ln">Measured<br>Level 4</div></div></label>
+          <label class="maturity-opt"><input type="radio" name="maturity" value="5"><div class="mat-card"><div class="lv">🚀</div><div class="ln">Optimised<br>Level 5</div></div></label>
+        </div>
+      </div>
+
+      <button class="gen-btn" id="gen-btn" onclick="generateDeck()">
+        <span>⚡</span> Generate My Board Deck
+      </button>
+      <div class="progress-wrap" id="progress-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ DECK SCREEN ═══════════════ -->
+<div id="deck-screen">
+  <div class="deck-toolbar">
+    <span class="brand">Q·AI Board Deck</span>
+    <button class="back-btn" onclick="goBack()">← Edit</button>
+    <div class="slide-nav">
+      <button onclick="prevSlide()">‹ Prev</button>
+      <span class="slide-counter" id="slide-counter">1 / 8</span>
+      <button onclick="nextSlide()">Next ›</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨 Save as PDF</button>
+  </div>
+
+  <div class="slides-container" id="slides-container">
+    <!-- Slides injected by JS -->
+  </div>
+</div>
+
+<script>
+let currentSlide = 0;
+let totalSlides = 8;
+
+const CHALLENGE_MAP = {
+  "ai-hallucinations": {
+    title: "AI Hallucinations in Production",
+    risk: "Every undetected hallucination is a compliance event, a customer trust failure, or a regulatory fine waiting to happen.",
+    solution: "QAVE continuous evaluation catches hallucinations before users do — with accuracy SLAs and automated red-teaming.",
+    stat: "94%", statLabel: "hallucination detection rate across production LLMs",
+    roi: [
+      ["Incident reduction", "~60% fewer AI-related production incidents"],
+      ["Compliance cost avoidance", "$2M–$8M per regulatory event avoided"],
+      ["Eval cycle time", "From 2 weeks → 60 seconds per model version"],
+    ]
+  },
+  "compliance-gaps": {
+    title: "AI Compliance Risk Exposure",
+    risk: "Unvalidated AI systems face fines up to 3% of global revenue under EU AI Act. IRDAI and DPDP enforcement is accelerating.",
+    solution: "CHEQ maps your AI stack against applicable regulations and delivers a written remediation roadmap within 3 business days.",
+    stat: "100%", statLabel: "of enterprise AI deployments have at least one compliance gap",
+    roi: [
+      ["Regulatory fine avoidance", "Up to €30M or 3% global turnover (EU AI Act)"],
+      ["Audit readiness", "Board-level compliance dashboard in 6 weeks"],
+      ["Gap scan to remediation", "Average 8-week compliance sprint with Qapitol"],
+    ]
+  },
+  "slow-releases": {
+    title: "QA Bottleneck Slowing AI Releases",
+    risk: "Manual QA gates are incompatible with weekly AI model updates. Every delayed release is lost competitive ground.",
+    solution: "Intelligent automation and AI-native QA pipelines cut cycle time by 70% while improving coverage.",
+    stat: "70%", statLabel: "average release cycle reduction with Qapitol AI-native QA",
+    roi: [
+      ["Releases per month", "From 2 → 8+ with automated pipelines"],
+      ["QA engineering cost", "40–55% reduction via AI-powered test generation"],
+      ["Time-to-market", "3–4 week advantage per major feature"],
+    ]
+  },
+  "poor-eval": {
+    title: "No Structured AI Evaluation",
+    risk: "Shipping AI models without evaluation is like releasing software without testing. The failures are invisible until they're public.",
+    solution: "QAVE provides structured evaluation across accuracy, safety, fairness and compliance — starting free in 90 seconds.",
+    stat: "0", statLabel: "% of teams have adequate AI eval coverage without a dedicated framework",
+    roi: [
+      ["First eval report", "In 60 seconds — free, no credit card"],
+      ["Coverage dimension", "Accuracy, safety, bias, hallucination, compliance"],
+      ["Model improvement velocity", "2× faster with eval-driven iteration loops"],
+    ]
+  },
+  "agent-reliability": {
+    title: "Agentic AI Reliability Risk",
+    risk: "Autonomous agents taking wrong actions cause irreversible business harm — from wrong transactions to data leaks.",
+    solution: "Agent Fabric provides a testing harness and production guardrails for multi-agent systems at enterprise scale.",
+    stat: "3×", statLabel: "more likely to catch agent failures in staging vs. production discovery",
+    roi: [
+      ["Agent failure in production", "$500K–$5M average incident cost"],
+      ["Testing coverage", "100% of agent decision paths covered"],
+      ["Guardrail deployment", "Production safety layer live in 2 weeks"],
+    ]
+  },
+  "data-quality": {
+    title: "Synthetic Data Bottleneck",
+    risk: "Models trained on incomplete or PII-contaminated data create liability and performance ceilings. Real data takes months to prepare.",
+    solution: "Qapitol delivers 10,000 production-faithful synthetic records in 48 hours — privacy-safe, schema-matched, compliance-ready.",
+    stat: "48h", statLabel: "to first production-quality synthetic dataset — free pilot",
+    roi: [
+      ["Data preparation time", "From 3 months → 48 hours"],
+      ["PII / privacy risk", "Zero — fully synthetic, DPDP compliant"],
+      ["Model quality uplift", "18–35% accuracy improvement vs. data-starved baselines"],
+    ]
+  },
+  "cost-optimisation": {
+    title: "AI Testing ROI Gap",
+    risk: "Manual QA teams scale linearly with AI complexity. Without automation, the cost of quality doubles every 18 months.",
+    solution: "Qapitol's managed AI QE model delivers 40–60% cost reduction with outcome SLAs — pay for results, not headcount.",
+    stat: "55%", statLabel: "average QE cost reduction across Qapitol managed accounts",
+    roi: [
+      ["Headcount efficiency", "1 Qapitol AI engineer = 3× manual QA output"],
+      ["GCC model (India)", "60–70% cost vs. equivalent US/UK QE team"],
+      ["Outcome SLA", "Fixed-fee, guaranteed deliverables — not T&M"],
+    ]
+  },
+};
+
+const INDUSTRY_RISKS = {
+  "BFSI": "AI errors in BFSI trigger IRDAI enforcement, RBI oversight and reputational collapse. Every AI decision touching credit, fraud or KYC must be auditable.",
+  "Healthcare": "AI diagnostic errors carry patient safety liability, HIPAA exposure and clinical trial invalidation. FDA AI/ML guidance requires continuous monitoring.",
+  "Retail & E-commerce": "Recommendation bias, pricing algorithm failures and returns prediction errors compound across millions of daily decisions.",
+  "Technology": "AI-native products ship faster than QA teams can validate. Technical debt in eval infrastructure becomes a product liability at scale.",
+  "Manufacturing": "Predictive maintenance failures and supply chain AI errors cause downtime costing $260K/hour on average.",
+  "Telecom": "Network AI and customer experience models face TRAI oversight. Bias in pricing or routing models creates regulatory exposure.",
+  "Government & Public Sector": "Public-sector AI must meet EU AI Act high-risk system requirements. Unvalidated systems face procurement bans and public scrutiny.",
+  "Energy & Utilities": "AI-controlled grid and asset management systems have safety-critical failure modes. IEC 62443 and OT security alignment is essential.",
+  "Logistics": "Route optimisation and demand forecasting AI errors cascade — one bad model update affects thousands of shipments daily.",
+};
+
+const MATURITY_NEXT = {
+  "1": "Start with a free AI Evaluation to establish your baseline. We'll benchmark every model and process against industry norms within 48 hours.",
+  "2": "Your processes are defined but not yet measured. Qapitol's SURE-Q framework will instrument every quality touchpoint with automated scoring.",
+  "3": "You have management discipline — now automate it. AI-native test generation and continuous eval will cut your overhead by 40%.",
+  "4": "Measured teams unlock the highest ROI from AI. Qapitol will help you move from measurement to prediction — proactive quality before incidents.",
+  "5": "World-class teams partner with Qapitol for frontier challenges: agentic AI reliability, compliance automation and Labs research programmes.",
+};
+
+function getField(id) { return document.getElementById(id)?.value || ''; }
+function getMaturity() { return document.querySelector('input[name="maturity"]:checked')?.value || '3'; }
+
+function generateDeck() {
+  const company = getField('f-company') || 'Your Organisation';
+  const industry = getField('f-industry');
+  const challenge = getField('f-challenge');
+  const headcount = getField('f-headcount') || '11-50';
+  const maturity = getMaturity();
+
+  if (!industry || !challenge) {
+    alert('Please select your industry and primary challenge to generate your deck.');
+    return;
+  }
+
+  const btn = document.getElementById('gen-btn');
+  btn.classList.add('loading');
+  btn.innerHTML = '<span>⏳</span> Generating your deck…';
+  const pw = document.getElementById('progress-wrap');
+  const pb = document.getElementById('progress-bar');
+  pw.style.display = 'block';
+
+  let prog = 0;
+  const iv = setInterval(() => {
+    prog = Math.min(prog + Math.random() * 18, 92);
+    pb.style.width = prog + '%';
+  }, 120);
+
+  setTimeout(() => {
+    clearInterval(iv);
+    pb.style.width = '100%';
+    setTimeout(() => {
+      buildDeck(company, industry, challenge, headcount, maturity);
+      document.getElementById('form-screen').style.display = 'none';
+      document.getElementById('deck-screen').style.display = 'block';
+      currentSlide = 0;
+      showSlide(0);
+    }, 300);
+  }, 1800);
+}
+
+function buildDeck(company, industry, challenge, headcount, maturity) {
+  const ch = CHALLENGE_MAP[challenge] || CHALLENGE_MAP['poor-eval'];
+  const industryRisk = INDUSTRY_RISKS[industry] || 'AI quality failures compound across your operations at scale.';
+  const maturityNote = MATURITY_NEXT[maturity] || MATURITY_NEXT['3'];
+  const today = new Date().toLocaleDateString('en-GB', {month:'long', year:'numeric'});
+  const matLabel = ['','Ad-hoc','Defined','Managed','Measured','Optimised'][+maturity];
+
+  const slides = [
+    // SLIDE 1 — COVER
+    `<div class="slide cover-slide active" id="slide-0">
+      <div class="slide-badge">🎯 Board Briefing — Confidential</div>
+      <h1>AI Quality &amp; Business Outcome Assurance<br>for ${company}</h1>
+      <div class="tagline">Prepared by Qapitol AI — ${today}</div>
+      <div class="cover-meta">
+        <span>📍 Industry: ${industry}</span>
+        <span>👥 Team: ${headcount} people</span>
+        <span>📊 QE Maturity: Level ${maturity} — ${matLabel}</span>
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">1 / 8</span></div>
+    </div>`,
+
+    // SLIDE 2 — THE PROBLEM
+    `<div class="slide" id="slide-1">
+      <div class="slide-badge">📌 The Challenge</div>
+      <h2>The <span class="accent">${ch.title}</span> problem is costing you more than you think</h2>
+      <p class="subtitle">${ch.risk}</p>
+      <div class="slide-grid cols-3">
+        <div class="slide-card"><div class="icon">⚠️</div><h3>Business Risk</h3><p>${industryRisk}</p></div>
+        <div class="slide-card"><div class="stat">${ch.stat}</div><div style="font-size:.75rem;color:var(--muted);margin-top:.3rem">${ch.statLabel}</div></div>
+        <div class="slide-card"><div class="icon">📉</div><h3>Current Gap</h3><p>At QE Maturity Level ${maturity} (${matLabel}), your team has limited automated coverage for AI-specific quality failure modes.</p></div>
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">2 / 8</span></div>
+    </div>`,
+
+    // SLIDE 3 — THE AI QUALITY LANDSCAPE
+    `<div class="slide" id="slide-2">
+      <div class="slide-badge">🌐 Market Context</div>
+      <h2>The AI quality gap is <span class="accent">widening fast</span> across ${industry}</h2>
+      <p class="subtitle">Organisations that establish an AI quality layer now will compound that advantage as AI complexity grows.</p>
+      <div class="slide-grid cols-2">
+        <div class="slide-card"><div class="icon">🔴</div><h3>Without AI Quality Assurance</h3><p>Ad-hoc testing · Manual red-teaming · No compliance audit trail · Release delays · Reputational risk from model failures</p></div>
+        <div class="slide-card"><div class="icon">🟢</div><h3>With Qapitol Business Outcome Assurance</h3><p>Continuous eval · Automated compliance mapping · Full auditability · 70% faster releases · SLA-backed quality guarantees</p></div>
+        <div class="slide-card"><div class="icon">📋</div><h3>Regulatory Landscape</h3><p>EU AI Act (2026) · IRDAI AI Guidelines · DPDP Act · NIST AI RMF · ${industry === 'Healthcare' ? 'FDA AI/ML Guidance' : industry === 'BFSI' ? 'RBI Technology Framework' : 'ISO/IEC 42001 AI Management'}</p></div>
+        <div class="slide-card"><div class="icon">⏱️</div><h3>Urgency</h3><p>EU AI Act high-risk system compliance deadlines begin August 2026. Enforcement fines of up to €30M or 3% of global turnover.</p></div>
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">3 / 8</span></div>
+    </div>`,
+
+    // SLIDE 4 — SOLUTION
+    `<div class="slide" id="slide-3">
+      <div class="slide-badge">💡 The Solution</div>
+      <h2>Qapitol's <span class="accent">Business Outcome Assurance</span> layer</h2>
+      <p class="subtitle">${ch.solution}</p>
+      <div class="slide-grid cols-3">
+        <div class="slide-card"><div class="icon">🧪</div><h3>QAVE Platform</h3><p>Continuous AI evaluation — accuracy, safety, bias, hallucination and compliance scoring across every model version.</p></div>
+        <div class="slide-card"><div class="icon">🛡️</div><h3>SURE-Q Framework</h3><p>6-pillar quality architecture: Qualify · Utilise · Assure · Secure · Adapt · Recognise — applied to your AI estate.</p></div>
+        <div class="slide-card"><div class="icon">⚖️</div><h3>CHEQ Compliance</h3><p>AI compliance mapping against IRDAI, EU AI Act, DPDP and NIST — with written remediation plans and audit trails.</p></div>
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">4 / 8</span></div>
+    </div>`,
+
+    // SLIDE 5 — ROI
+    `<div class="slide" id="slide-4">
+      <div class="slide-badge">📈 Business Case</div>
+      <h2>Projected ROI for <span class="accent">${company}</span></h2>
+      <p class="subtitle">Based on ${headcount} team size, ${industry} industry norms and Level ${maturity} QE maturity. Conservative estimates only.</p>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.2rem;">
+        <table class="roi-table">
+          <thead><tr><th>Metric</th><th>Expected Outcome</th></tr></thead>
+          <tbody>
+            ${ch.roi.map(([k,v]) => `<tr><td>${k}</td><td class="highlight">${v}</td></tr>`).join('')}
+            <tr><td>Time to first value</td><td class="highlight">48–72 hours from kickoff</td></tr>
+            <tr><td>Typical payback period</td><td class="highlight">4–6 months</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:.8rem;color:var(--muted)">* Estimates based on Qapitol client data across 25+ enterprise AI programmes. Actual results vary by scope and starting maturity.</p>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">5 / 8</span></div>
+    </div>`,
+
+    // SLIDE 6 — ENGAGEMENT MODEL
+    `<div class="slide" id="slide-5">
+      <div class="slide-badge">🤝 Engagement Model</div>
+      <h2>How we work with <span class="accent">${company}</span></h2>
+      <p class="subtitle">Three phases from zero to full Business Outcome Assurance coverage. No long lock-ins.</p>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot">1</div><div class="tl-body"><h4>Weeks 1–2 — Assess &amp; Baseline</h4><p>Free AI evaluation + compliance gap scan. We map your current quality posture, identify top 5 risk areas, and deliver a scored baseline report.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">2</div><div class="tl-body"><h4>Weeks 3–8 — Deploy &amp; Automate</h4><p>QAVE continuous evaluation pipeline live · SURE-Q framework instrumented across your AI estate · First compliance remediation sprint complete.</p></div></div>
+        <div class="tl-item"><div class="tl-dot">3</div><div class="tl-body"><h4>Week 9+ — Operate &amp; Optimise</h4><p>Managed AI QE service · Monthly board-level quality reports · SLA-backed outcome guarantees · Ongoing eval as models evolve.</p></div></div>
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">6 / 8</span></div>
+    </div>`,
+
+    // SLIDE 7 — WHY QAPITOL
+    `<div class="slide" id="slide-6">
+      <div class="slide-badge">🏆 Why Qapitol AI</div>
+      <h2>Built specifically for <span class="accent">AI-era quality</span></h2>
+      <p class="subtitle">Not a generic QA firm that bolted on "AI services." Qapitol was built from the ground up for the AI quality challenge.</p>
+      <div class="slide-grid cols-3">
+        <div class="slide-card"><div class="stat">350+</div><div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">AI quality specialists</div></div>
+        <div class="slide-card"><div class="stat">25+</div><div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">Unicorns and large enterprises served</div></div>
+        <div class="slide-card"><div class="stat">$50M+</div><div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">In business outcomes assured</div></div>
+        <div class="slide-card"><div class="icon">🌏</div><h3>India · UAE · USA</h3><p>Global delivery. Onshore leads, India-based scale. 60–70% cost advantage vs. comparable US/UK providers.</p></div>
+        <div class="slide-card"><div class="icon">🔬</div><h3>Qapitol Labs</h3><p>Dedicated research division for compliance validation, eval datasets, and in-production AI guardrails.</p></div>
+        <div class="slide-card"><div class="icon">📜</div><h3>Compliance-Native</h3><p>IRDAI · EU AI Act · DPDP · NIST AI RMF · ISO 42001 · HIPAA · SOC 2 — all in one team.</p></div>
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies — Confidential</span><span class="slide-num">7 / 8</span></div>
+    </div>`,
+
+    // SLIDE 8 — NEXT STEPS
+    `<div class="slide" id="slide-7">
+      <div class="slide-badge">🚀 Next Steps</div>
+      <h2>From this deck to <span class="accent">your first result</span> in 48 hours</h2>
+      <p class="subtitle">${maturityNote}</p>
+      <div class="next-step-row">
+        <div class="ns-card"><h4>🎯 Free AI Evaluation</h4><p>Connect your model or upload a prompt set. Get accuracy, safety and compliance scores in 60 seconds — no credit card.</p><a href="https://qapitol.com/ai-evaluation.html" class="cta-small">Start free eval →</a></div>
+        <div class="ns-card"><h4>📋 Compliance Gap Scan</h4><p>10-minute intake form. Our compliance team maps your stack against applicable regulations and delivers a written gap report in 3 days.</p><a href="https://qapitol.com/cheq.html" class="cta-small">Get gap scan →</a></div>
+        <div class="ns-card"><h4>📞 Board Briefing Call</h4><p>30 minutes with a Qapitol principal. We'll walk through this deck, answer questions, and scope a pilot programme for ${company}.</p><a href="https://qapitol.com/contact.html" class="cta-small">Book now →</a></div>
+      </div>
+      <div style="margin-top:1.5rem;padding:1rem 1.25rem;background:rgba(0,212,180,.08);border:1px solid rgba(0,212,180,.2);border-radius:10px;font-size:.85rem;color:rgba(255,255,255,.75)">
+        <strong style="color:var(--teal)">Business Outcome Assurance commitment:</strong> If Qapitol does not deliver measurable quality improvement within 60 days of engagement, we extend the programme at no additional cost.
+      </div>
+      <div class="slide-footer"><span>Qapitol AI Technologies · contact@qapitol.com · qapitol.com</span><span class="slide-num">8 / 8</span></div>
+    </div>`,
+  ];
+
+  document.getElementById('slides-container').innerHTML = slides.join('\n');
+  totalSlides = slides.length;
+}
+
+function showSlide(n) {
+  document.querySelectorAll('.slide').forEach((s,i) => s.classList.toggle('active', i === n));
+  document.getElementById('slide-counter').textContent = `${n+1} / ${totalSlides}`;
+}
+function nextSlide() { if (currentSlide < totalSlides-1) { currentSlide++; showSlide(currentSlide); } }
+function prevSlide() { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } }
+function goBack() {
+  document.getElementById('deck-screen').style.display = 'none';
+  document.getElementById('form-screen').style.display = 'block';
+  const btn = document.getElementById('gen-btn');
+  btn.classList.remove('loading');
+  btn.innerHTML = '<span>⚡</span> Regenerate Deck';
+  document.getElementById('progress-wrap').style.display = 'none';
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (document.getElementById('deck-screen').style.display === 'block') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  }
+});
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

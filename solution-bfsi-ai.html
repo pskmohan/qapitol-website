@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>AI Quality Engineering for BFSI &amp; Payments — NPCI, UPI &amp; Beyond | Qapitol</title>
+<meta content="NPCI is building an Agentic AI layer for UPI compliance. Banks and fintechs need to build, validate, and certify their own compliance agents. Qapitol is the quality layer between your AI and the consequences of it being wrong." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ── Shared utilities ── */
+    .section-kicker{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem}
+    .section-eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem}
+    .eyebrow-line{height:2px;width:28px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .section-subtitle{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:680px;margin-top:.75rem}
+
+    /* ── BFSI accent overrides ── */
+    .bfsi-kicker{color:#fbbf24 !important}
+    .bfsi-eyebrow-line{background:linear-gradient(90deg,#f59e0b,transparent) !important}
+
+    /* ── Proof strip ── */
+    .proof-strip{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .proof-strip .ps-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text-muted)}
+    .proof-strip .ps-item strong{font-family:"Inter Tight",sans-serif;font-weight:700;color:#fff;font-size:.9rem}
+    .ps-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-light);flex-shrink:0}
+
+    /* ── Persona strip ── */
+    .persona-strip{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .persona-label{font-size:.75rem;color:var(--text-muted);font-weight:600}
+    .persona-chip{font-size:.72rem;font-weight:600;padding:.25rem .7rem;border-radius:99px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24}
+
+    /* ── The BFSI Moment — context cards ── */
+    .moment-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-top:2.5rem}
+    .moment-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+    .moment-card:hover{border-color:rgba(251,191,36,.3);transform:translateY(-3px)}
+    .moment-card .mc-icon{font-size:1.8rem;margin-bottom:.85rem}
+    .moment-card h3{font-family:"Inter Tight",sans-serif;font-size:1rem;font-weight:800;margin-bottom:.4rem;color:#fff}
+    .moment-card p{font-size:.84rem;color:var(--text-muted);line-height:1.7;margin:0}
+    .moment-card .mc-signal{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .55rem;border-radius:99px;margin-bottom:.85rem;background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.25)}
+
+    /* ── Failure mode cards ── */
+    .failure-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:860px){.failure-grid{grid-template-columns:1fr}}
+    .failure-card{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s,box-shadow .2s}
+    .failure-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ef4444,#fca5a5)}
+    .failure-card:hover{border-color:rgba(239,68,68,.3);box-shadow:0 8px 32px rgba(239,68,68,.1)}
+    .failure-card .fc-label{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .6rem;border-radius:99px;background:rgba(239,68,68,.13);color:#fca5a5;border:1px solid rgba(239,68,68,.3);margin-bottom:1rem}
+    .failure-card h3{font-family:"Inter Tight",sans-serif;font-size:1.05rem;font-weight:800;margin-bottom:.65rem;color:#fff}
+    .failure-card p{font-size:.84rem;color:var(--text-muted);line-height:1.7;margin:0}
+
+    /* ── Capability cards ── */
+    .capability-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+    @media(max-width:1100px){.capability-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.capability-grid{grid-template-columns:1fr}}
+    .cap-card{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+    .cap-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:.9}
+    .cap-card.cc-gold::before{background:linear-gradient(90deg,#f59e0b,#fde68a)}
+    .cap-card.cc-teal::before{background:linear-gradient(90deg,var(--teal),#6edfe8)}
+    .cap-card.cc-indigo::before{background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+    .cap-card.cc-amber2::before{background:linear-gradient(90deg,#d97706,#f59e0b)}
+    .cap-card.cc-green::before{background:linear-gradient(90deg,#22c55e,#86efac)}
+    .cap-card:hover{border-color:rgba(251,191,36,.25);box-shadow:0 0 0 1px rgba(245,158,11,.15),0 12px 40px rgba(0,0,0,.3);transform:translateY(-4px)}
+    .cap-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.2rem .6rem;border-radius:99px;margin-bottom:1rem;border:1px solid}
+    .cb-gold{background:rgba(245,158,11,.15);color:#fbbf24;border-color:rgba(245,158,11,.3)}
+    .cb-teal{background:rgba(33,163,178,.18);color:var(--teal);border-color:rgba(33,163,178,.3)}
+    .cb-indigo{background:rgba(77,49,245,.18);color:var(--accent-light);border-color:rgba(77,49,245,.3)}
+    .cb-amber2{background:rgba(217,119,6,.15);color:#fde68a;border-color:rgba(217,119,6,.3)}
+    .cb-green{background:rgba(34,197,94,.15);color:#86efac;border-color:rgba(34,197,94,.3)}
+    .cap-icon{font-size:2rem;margin-bottom:.85rem}
+    .cap-card h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.5rem;color:#fff}
+    .cap-card .cap-sub{font-size:.75rem;color:#fbbf24;font-weight:600;margin-bottom:.8rem;letter-spacing:.03em}
+    .cap-card p{font-size:.84rem;color:var(--text-muted);line-height:1.7;flex:1;margin-bottom:1rem}
+    .cap-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:auto}
+    .cap-tag{font-size:.7rem;font-weight:600;padding:.2rem .55rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:rgba(255,255,255,.65)}
+
+    /* ── NPCI callout ── */
+    .npci-band{background:linear-gradient(135deg,rgba(245,158,11,.09) 0%,rgba(33,163,178,.06) 60%,rgba(77,49,245,.07) 100%);border:1px solid rgba(245,158,11,.25);border-radius:24px;padding:3.5rem;margin-top:2.5rem;position:relative;overflow:hidden}
+    .npci-band::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.14) 0%,transparent 70%);pointer-events:none}
+    .npci-band::after{content:'';position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(33,163,178,.1) 0%,transparent 70%);pointer-events:none}
+    .npci-band h2{font-family:"Inter Tight",sans-serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin-bottom:.65rem;color:#fff}
+    .npci-band .npci-sub{font-size:.97rem;color:var(--text-muted);max-width:700px;line-height:1.8;margin-bottom:2.5rem}
+    .npci-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+    .npci-col{background:rgba(255,255,255,.045);border:1px solid rgba(245,158,11,.18);border-radius:14px;padding:1.5rem}
+    .npci-col h4{font-family:"Inter Tight",sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.4rem;color:#fbbf24;display:flex;align-items:center;gap:.45rem}
+    .npci-col p{font-size:.83rem;color:var(--text-muted);line-height:1.65;margin:0}
+    .npci-timeline{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:2.25rem;padding-top:2rem;border-top:1px solid rgba(245,158,11,.2)}
+    .ntl-item{display:flex;flex-direction:column;align-items:center;gap:.35rem;flex:1;min-width:120px;text-align:center}
+    .ntl-num{font-family:"Inter Tight",sans-serif;font-size:2rem;font-weight:800;background:linear-gradient(135deg,#f59e0b,#fde68a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+    .ntl-label{font-size:.75rem;color:var(--text-muted);line-height:1.4}
+    .ntl-arrow{font-size:1.4rem;color:rgba(245,158,11,.4);flex-shrink:0}
+
+    /* ── Regulatory frameworks ── */
+    .reg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+    @media(max-width:860px){.reg-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.reg-grid{grid-template-columns:1fr}}
+    .reg-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.6rem;transition:border-color .2s}
+    .reg-card:hover{border-color:rgba(251,191,36,.3)}
+    .reg-card .reg-icon{font-size:1.6rem;margin-bottom:.7rem}
+    .reg-card h4{font-family:"Inter Tight",sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.3rem;color:#fff}
+    .reg-card .reg-scope{font-size:.7rem;font-weight:600;color:#fbbf24;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.55rem}
+    .reg-card p{font-size:.82rem;color:var(--text-muted);line-height:1.65;margin:0}
+
+    /* ── Proof bar ── */
+    .proof-bar{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;margin:4rem 0}
+    .proof-bar .container{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1.5rem;text-align:center}
+    .pb-stat .pb-num{font-size:2.2rem;font-weight:800;font-family:"Inter Tight",sans-serif;background:linear-gradient(135deg,#f59e0b,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pb-stat p{font-size:.78rem;color:var(--text-muted);margin-top:.2rem;line-height:1.4}
+
+    /* ── Final CTA ── */
+    .bfsi-cta{text-align:center;padding:5rem 0 6rem;position:relative;overflow:hidden}
+    .bfsi-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(245,158,11,.06) 0%,transparent 70%);pointer-events:none}
+    .bfsi-cta h2{font-family:"Inter Tight",sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:.75rem;position:relative}
+    .bfsi-cta .cta-sub{font-size:1.05rem;color:var(--text-muted);max-width:600px;margin:0 auto 2rem;line-height:1.7;position:relative}
+    .cta-cluster{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;position:relative}
+
+    @media(max-width:640px){
+      .npci-band{padding:2rem}
+      .bfsi-cta{padding:3rem 1rem 4rem}
+    }
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="AI Quality for BFSI &amp; Payments | Qapitol" property="og:title"/>
+<meta content="NPCI is deploying agents. Banks need to certify them. Qapitol is the quality layer between your AI and the consequences of it being wrong." property="og:description"/>
+<meta content="https://qapitol.com/solution-bfsi-ai.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+  <meta name="description" content="Qapitol BFSI AI solutions — AI quality engineering, compliance testing, and governance for banks, insurers, and fintech companies operating under IRDAI, RBI, and EU AI Act mandates.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/solution-bfsi-ai.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/solution-bfsi-ai.html">
+  <meta property="og:title" content="BFSI AI Solutions | Qapitol AI Technologies">
+  <meta property="og:description" content="Qapitol BFSI AI solutions — AI quality engineering, compliance testing, and governance for banks, insurers, and fintech companies operating under IRDAI, RBI, and EU AI Act mandates.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="BFSI AI Solutions | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Qapitol BFSI AI solutions — AI quality engineering, compliance testing, and governance for banks, insurers, and fintech companies operating under IRDAI, RBI, and EU AI Act mandates.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management</a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Talent overview</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero" style="padding-top:7rem;padding-bottom:5rem">
+<div class="container" style="max-width:960px">
+<nav style="font-size:.78rem;color:var(--text-muted);margin-bottom:2rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+<a href="index.html" style="color:var(--text-muted);text-decoration:none;">Home</a>
+<span style="color:var(--border);">/</span>
+<a href="#solutions" style="color:var(--text-muted);text-decoration:none;">Solutions</a>
+<span style="color:var(--border);">/</span>
+<a href="#solutions" style="color:var(--text-muted);text-decoration:none;">Sector-Specific</a>
+<span style="color:var(--border);">/</span>
+<span style="color:#fbbf24;">AI Quality for BFSI &amp; Payments</span>
+</nav>
+<!-- Eyebrow pill -->
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(245,158,11,.13);color:#fbbf24;border:1px solid rgba(245,158,11,.28);margin-bottom:1.75rem;">
+      AI Quality · BFSI &amp; Payments
+    </div>
+<h1 style="font-family:'Inter Tight',sans-serif;font-size:clamp(2.2rem,5.5vw,3.6rem);font-weight:800;line-height:1.08;margin-bottom:1.5rem">
+      NPCI is deploying agents.<br/>
+<span style="background:linear-gradient(135deg,#f59e0b 0%,#fde68a 45%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Your bank needs to certify them.</span>
+</h1>
+<p style="font-size:1.1rem;color:var(--text-muted);max-width:760px;line-height:1.85;margin-bottom:2rem">
+      NPCI’s move to Agentic AI for UPI compliance is a signal — the entire financial ecosystem is going AI-native, and every AI system in BFSI now needs independent validation, red teaming, and compliance certification before it touches a customer transaction or a regulatory checkpoint. Qapitol is the quality layer between your AI and the consequences of it being wrong.
+    </p>
+<!-- Persona -->
+<div style="margin-bottom:2.25rem">
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip">CTO</span>
+<span class="persona-chip">Chief Risk Officer</span>
+<span class="persona-chip">Head of Digital Banking</span>
+<span class="persona-chip">AI/ML Engineering Lead</span>
+<span class="persona-chip">CISO</span>
+</div>
+</div>
+<!-- CTAs -->
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.75rem">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;background:linear-gradient(135deg,#f59e0b,#d97706);border-color:#f59e0b;color:#000;font-weight:700">Talk to a BFSI AI Specialist →</a>
+<a class="btn btn-secondary" href="contact.html?asset=bfsi-risk-checklist" style="font-size:1rem;padding:.9rem 2rem">Download BFSI AI Risk Checklist</a>
+</div>
+<!-- Proof strip -->
+<div class="proof-strip">
+<div class="ps-item"><div class="ps-dot" style="background:#fbbf24;"></div><strong>9+</strong> years BFSI delivery</div>
+<div class="ps-item"><div class="ps-dot" style="background:#fbbf24;"></div><strong>25+</strong> financial services clients</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>3</strong> regulatory frameworks mapped</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>NPCI · RBI · SEBI</strong> aligned</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>India · UAE · UK</strong></div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     THE BFSI AI MOMENT
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5.5rem 0;background:linear-gradient(180deg,transparent,rgba(245,158,11,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line bfsi-eyebrow-line"></div>
+<span class="section-kicker bfsi-kicker" style="margin-bottom:0">The BFSI AI Moment</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">The sector is AI-native now. The quality gap is widening.</h2>
+<p class="section-subtitle" style="max-width:760px">
+      BFSI is not cautiously piloting AI. It is building AI into the infrastructure of money — payments, credit, insurance, advice. Every one of these deployments creates new vectors for failure, regulatory exposure, and customer harm if not independently validated. Here is what is driving the demand.
+    </p>
+<div class="moment-grid">
+<div class="moment-card">
+<div class="mc-signal">Live Signal</div>
+<div class="mc-icon" style="color:#fbbf24;">🏠</div>
+<h3>NPCI Agentic AI for UPI Compliance</h3>
+<p>NPCI is actively building an Agent-to-Agent (A2A) compliance layer for UPI certification — targeting a compression from 60-day cycles to 10 days. The FiMI (Finance Model for India) LLM is being paired with this infrastructure. Every bank and fintech participant in UPI will need their own certified AI compliance agent to connect. The certification process itself is becoming AI-driven.</p>
+</div>
+<div class="moment-card">
+<div class="mc-signal">Regulatory Signal</div>
+<div class="mc-icon" style="color:#60a5fa;">📜</div>
+<h3>RBI Model Risk Circular</h3>
+<p>The Reserve Bank of India’s model risk management guidelines now require documented validation, ongoing monitoring, and explainability for AI/ML models used in credit, fraud detection, and customer-facing decisions. Banks without a formal model risk management programme for AI are accumulating audit exposure with every deployment cycle.</p>
+</div>
+<div class="moment-card">
+<div class="mc-signal">Ethics &amp; Legal Signal</div>
+<div class="mc-icon" style="color:#86efac;">⚖️</div>
+<h3>AI in Lending — Anti-Discrimination Risk</h3>
+<p>AI-driven credit scoring and loan underwriting are under increasing scrutiny for discriminatory outputs across demographic, geographic, and income segments. A model that systematically disadvantages applicants from certain regions or income brackets — even without explicit bias in its design — creates both regulatory and reputational exposure that is difficult to quantify until an examiner asks the question.</p>
+</div>
+<div class="moment-card">
+<div class="mc-signal">Customer Risk Signal</div>
+<div class="mc-icon" style="color:#c084fc;">💬</div>
+<h3>LLM-Based Customer Service at Scale</h3>
+<p>Banks deploying LLM-based conversational AI — for account queries, product recommendations, dispute handling — face a new category of risk: confident, fluent, incorrect. An AI that hallucinates product terms, misquotes interest rates, or gives erroneous tax guidance to HNI customers at scale is both a regulatory event and a brand crisis. Volume amplifies every failure mode.</p>
+</div>
+<div class="moment-card">
+<div class="mc-signal">Operational Signal</div>
+<div class="mc-icon" style="color:#fbbf24;">🔎</div>
+<h3>Fraud Detection AI — Continuous Validation Gap</h3>
+<p>Fraud detection models are among the most critical and most volatile AI systems in BFSI. Transaction patterns shift; attacker behaviour evolves; model performance degrades silently. A fraud model that was 94% accurate at deployment may be running at 81% six months later — with no alert, no retraining trigger, and no audit trail. The cost of that gap is measured in fraud losses and in missed detections.</p>
+</div>
+<div class="moment-card">
+<div class="mc-signal">Infrastructure Signal</div>
+<div class="mc-icon" style="color:var(--teal);">📈</div>
+<h3>Insurance AI — Underwriting &amp; Claims Automation</h3>
+<p>Insurers are automating underwriting decisions and claims adjudication with AI. The models are fast — but they are being built and deployed faster than their validation frameworks. A claims model that consistently undervalues or rejects certain claim types creates both customer detriment and regulatory exposure under IRDAI guidelines. Quality engineering for insurance AI is not optional; it is the policy basis for deploying these systems at all.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHERE BFSI AI FAILS WITHOUT QUALITY ENGINEERING
+════════════════════════════════════════════════════════════ -->
+<section id="failure-modes" style="padding:5rem 0;border-top:1px solid var(--border)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line" style="background:linear-gradient(90deg,#ef4444,transparent)"></div>
+<span class="section-kicker" style="color:#fca5a5;margin-bottom:0">Failure Modes</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">Where BFSI AI fails without quality engineering.</h2>
+<p class="section-subtitle" style="max-width:760px">
+      These are not theoretical risks. They are patterns that occur at scale in financial AI deployments when independent validation, adversarial testing, and monitoring are absent. Every scenario below has a measurable financial and regulatory consequence.
+    </p>
+<div class="failure-grid">
+<div class="failure-card">
+<div class="fc-label">Model Drift</div>
+<h3>Silent drift in credit scoring</h3>
+<p>A lending model trained on pre-2024 transaction data now systematically underscores applicants in growing income brackets — because spending patterns, digital payment ratios, and EMI behaviour have shifted materially. The model was validated at deployment. Nobody has re-validated it since. Credit decisions are being made on a model that no longer reflects the population it is scoring. The bank has no monitoring alert, no retraining trigger, and no documentation that explains the individual rejections it is generating. An RBI examiner asks how the model works. The answer is incomplete.</p>
+</div>
+<div class="failure-card">
+<div class="fc-label">LLM Hallucination</div>
+<h3>Wealth advisory chatbot gives wrong tax guidance</h3>
+<p>An LLM-based investment advisory assistant, deployed for HNI customers, confidently recommends a tax-saving instrument that was discontinued in the last Finance Act. The model has no access to the updated regulation — it is operating from its training cut-off. The customer acts on the recommendation. The bank did not run hallucination testing before deployment, did not implement knowledge-grounding guardrails, and has no audit trail of what the system told the customer. The outcome is a customer dispute, a potential SEBI inquiry, and a brand incident.</p>
+</div>
+<div class="failure-card">
+<div class="fc-label">Agent Certification Failure</div>
+<h3>Compliance agent fails NPCI certification</h3>
+<p>A bank builds an AI compliance agent to automate UPI certification submissions against NPCI’s new A2A framework. The agent passes internal testing with standard transaction patterns. In NPCI’s certification environment, the agent encounters edge-case transaction flows — split-payment scenarios, dispute reversal chains, UPI Lite thresholds — that were never included in the bank’s internal test library. The agent fails. The certification cycle resets. Sixty days of delay in a product launch, plus the engineering cost of rebuilding the test coverage from scratch.</p>
+</div>
+<div class="failure-card">
+<div class="fc-label">Regulatory Audit Exposure</div>
+<h3>AI-driven underwriting with no audit trail</h3>
+<p>A bank’s mortgage underwriting process uses an AI model to triage applications and make preliminary accept/decline recommendations. The model is accurate — but it operates as a black box. When an RBI examiner conducts a fair lending audit and requests an explanation for 200 specific loan decisions, the bank cannot produce one. The AI system was never built with explainability as a requirement. There is no human oversight log, no model decision trace, and no documentation that satisfies the examiner’s request for evidence of non-discrimination. The consequence is a finding that requires remediation and delays new product approvals.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHAT QAPITOL PROVIDES FOR BFSI AI
+════════════════════════════════════════════════════════════ -->
+<section id="capabilities" style="padding:5.5rem 0;background:linear-gradient(180deg,transparent,rgba(245,158,11,.035) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line bfsi-eyebrow-line"></div>
+<span class="section-kicker bfsi-kicker" style="margin-bottom:0">What Qapitol Provides</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">Five capabilities. All built for BFSI AI.</h2>
+<p class="section-subtitle" style="max-width:760px">
+      Every capability maps to a specific failure mode in financial AI — and to a specific regulatory or business consequence of getting it wrong. This is not generic AI testing applied to BFSI. It is AI quality engineering designed for the risk profile of financial services.
+    </p>
+<div class="capability-grid">
+<!-- AI Agent Certification Prep -->
+<div class="cap-card cc-gold">
+<div class="cap-badge cb-gold">NPCI · UPI · A2A</div>
+<div class="cap-icon">🏅</div>
+<h3>AI Agent Certification Prep</h3>
+<div class="cap-sub">NPCI / Regulatory Agent Validation</div>
+<p>Validate your AI compliance agents against NPCI specifications, A2A protocol requirements, and UPI edge-case transaction libraries before you submit for certification. We build the test environment that mirrors NPCI’s certification infrastructure, construct the edge-case corpus that your internal team hasn’t mapped, and run adversarial certification simulations so your agent passes the first time — not the third.</p>
+<div class="cap-tags">
+<span class="cap-tag">NPCI A2A Protocol</span>
+<span class="cap-tag">UPI Compliance Testing</span>
+<span class="cap-tag">Edge-Case Corpus</span>
+<span class="cap-tag">Certification Simulation</span>
+<span class="cap-tag">FiMI Readiness</span>
+</div>
+</div>
+<!-- LLM Red Teaming -->
+<div class="cap-card cc-teal">
+<div class="cap-badge cb-teal">Red Teaming · Safety</div>
+<div class="cap-icon">🛡️</div>
+<h3>LLM Red Teaming for Financial AI</h3>
+<div class="cap-sub">Adversarial Testing · BFSI Scenarios</div>
+<p>Test your financial AI systems for hallucination, jailbreaks, and adversarial inputs in BFSI-specific scenarios. This includes fraud prompt injection, regulatory bypass attempts, product misrepresentation under adversarial questioning, and identity manipulation in customer service flows. We run structured red-team exercises against your LLM deployments and deliver a BFSI AI Safety Report with prioritised remediation recommendations.</p>
+<div class="cap-tags">
+<span class="cap-tag">Hallucination Testing</span>
+<span class="cap-tag">Fraud Prompt Injection</span>
+<span class="cap-tag">Regulatory Bypass</span>
+<span class="cap-tag">Jailbreak Probing</span>
+<span class="cap-tag">CHEQ Platform</span>
+</div>
+</div>
+<!-- Model Risk Management -->
+<div class="cap-card cc-indigo">
+<div class="cap-badge cb-indigo">RBI · MRM · Ongoing</div>
+<div class="cap-icon">📊</div>
+<h3>Model Risk Management</h3>
+<div class="cap-sub">Model Monitoring · Drift Detection · MRM Docs</div>
+<p>Ongoing performance monitoring, statistical drift detection, and MRM documentation for AI/ML models used in credit scoring, fraud detection, and customer decisions. We build the monitoring pipelines, set the alerting thresholds, produce the model validation reports, and maintain the documentation trail that satisfies an RBI examiner when they ask: "How do you know your model is still performing as intended?" Because not knowing is no longer acceptable.</p>
+<div class="cap-tags">
+<span class="cap-tag">Drift Detection</span>
+<span class="cap-tag">Performance Monitoring</span>
+<span class="cap-tag">MRM Documentation</span>
+<span class="cap-tag">RBI Circular Alignment</span>
+<span class="cap-tag">Retraining Triggers</span>
+</div>
+</div>
+<!-- AI Bias Auditing -->
+<div class="cap-card cc-amber2">
+<div class="cap-badge cb-amber2">Fair Lending · IRDAI · Equity</div>
+<div class="cap-icon">⚖️</div>
+<h3>AI Bias Auditing</h3>
+<div class="cap-sub">Lending · Insurance · Scoring AI</div>
+<p>Systematic testing of lending, insurance, and scoring AI for discriminatory outputs across demographic, geographic, income, and linguistic segments. We apply statistical disparity testing, adverse impact analysis, and counterfactual probing to surface bias that the model’s developers did not intend — but that a regulator or a class action plaintiff will find before you do. Audit reports are structured to satisfy both internal governance and external examiner standards.</p>
+<div class="cap-tags">
+<span class="cap-tag">Adverse Impact Analysis</span>
+<span class="cap-tag">Demographic Segmentation</span>
+<span class="cap-tag">Counterfactual Testing</span>
+<span class="cap-tag">Fair Lending Reporting</span>
+<span class="cap-tag">IRDAI Alignment</span>
+</div>
+</div>
+<!-- Agentic QE for BFSI Engineering -->
+<div class="cap-card cc-green">
+<div class="cap-badge cb-green">Agentic QE · Fintech</div>
+<div class="cap-icon">🤖</div>
+<h3>Agentic QE for BFSI Engineering</h3>
+<div class="cap-sub">Autonomous Testing · Payment Systems · Banking Apps</div>
+<p>Autonomous testing for fintech platforms, payment systems, banking applications, and API-first financial infrastructure. Our QE agents run continuous regression, integration, and performance test suites — covering transaction flows, reconciliation logic, payment gateway integrations, and core banking API contracts — without manual orchestration. Built for the release velocity that digital banking now demands, with the coverage depth that financial systems require.</p>
+<div class="cap-tags">
+<span class="cap-tag">Payment Flow Testing</span>
+<span class="cap-tag">Core Banking APIs</span>
+<span class="cap-tag">Reconciliation Validation</span>
+<span class="cap-tag">Autonomous Regression</span>
+<span class="cap-tag">UPI / IMPS / NEFT</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     NPCI AGENTIC COMPLIANCE — DEDICATED CALLOUT
+════════════════════════════════════════════════════════════ -->
+<section id="npci-agentic" style="padding:5rem 0;border-top:1px solid var(--border)">
+<div class="container">
+<div class="npci-band">
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(245,158,11,.18);color:#fbbf24;border:1px solid rgba(245,158,11,.35);margin-bottom:1.5rem;">
+        Live Market Signal · India Payments Infrastructure
+      </div>
+<h2>NPCI Agentic Compliance —<br/>What It Means for Your Bank.</h2>
+<p class="npci-sub">
+        NPCI is building an Agent-to-Agent (A2A) compliance layer for UPI, paired with FiMI — their domain-specific financial language model. The objective: compress the 60-day UPI certification cycle to 10 days using AI agents that communicate directly with NPCI’s compliance infrastructure. Banks and fintechs that want to connect to this infrastructure will need AI agents of their own — agents that speak the A2A protocol, pass NPCI’s certification checks, and operate reliably within the regulatory specifications of India’s payments system. Building the agent is the easy part. Certifying it is where most institutions will struggle — because certification requires test coverage of edge cases that internal teams have not mapped and adversarial inputs that internal QA has not considered. Qapitol helps you build, validate, and certify your compliance agents before they connect to NPCI’s infrastructure. We shorten your own certification cycle and reduce the risk of failed submissions — protecting both your launch timeline and your regulatory standing.
+      </p>
+<div class="npci-cols">
+<div class="npci-col">
+<h4>🏠 What NPCI is Building</h4>
+<p>An Agentic AI layer that replaces manual certification submissions with automated Agent-to-Agent protocol checks. FiMI, NPCI’s financial LLM, validates compliance documents, transaction edge cases, and mandate adherence — in minutes, not weeks. It is live in pilot and moving toward mainstream rollout.</p>
+</div>
+<div class="npci-col">
+<h4>🏭 What Banks Now Need</h4>
+<p>A compliant AI agent — built to the A2A specification — that can communicate with NPCI’s infrastructure, submit certification data in the required format, and handle the full range of UPI transaction patterns including edge cases, dispute flows, Lite thresholds, and mandate revocations.</p>
+</div>
+<div class="npci-col">
+<h4>💡 Where the Risk Lives</h4>
+<p>An agent that fails certification on edge-case transactions resets the 10-day clock. An agent that passes certification but behaves unexpectedly in production creates a different — and far more consequential — problem. Both risks require independent validation before submission. Neither can be adequately addressed by the team that built the agent.</p>
+</div>
+<div class="npci-col">
+<h4>✅ What Qapitol Does</h4>
+<p>We build the edge-case transaction library that NPCI’s environment tests but your team hasn’t mapped. We run adversarial certification simulations. We validate A2A protocol compliance. And we monitor your certified agent in production so it stays compliant as the regulatory specifications evolve — because they will.</p>
+</div>
+</div>
+<div class="npci-timeline">
+<div class="ntl-item">
+<div class="ntl-num">60</div>
+<div class="ntl-label">days — current manual UPI certification cycle</div>
+</div>
+<div class="ntl-arrow">➞</div>
+<div class="ntl-item">
+<div class="ntl-num">10</div>
+<div class="ntl-label">days — NPCI Agentic A2A target cycle</div>
+</div>
+<div class="ntl-arrow">➞</div>
+<div class="ntl-item">
+<div class="ntl-num">1×</div>
+<div class="ntl-label">submission — Qapitol’s first-pass certification goal</div>
+</div>
+<div class="ntl-arrow">➞</div>
+<div class="ntl-item">
+<div class="ntl-num">0</div>
+<div class="ntl-label">failed submissions — what your CTO needs to report</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     PROOF BAR
+════════════════════════════════════════════════════════════ -->
+<div class="proof-bar">
+<div class="container">
+<div class="pb-stat"><div class="pb-num">9+</div><p>Years BFSI delivery experience</p></div>
+<div class="pb-stat"><div class="pb-num">25+</div><p>Financial services clients served</p></div>
+<div class="pb-stat"><div class="pb-num">3</div><p>Regulatory frameworks mapped</p></div>
+<div class="pb-stat"><div class="pb-num">6</div><p>BFSI AI capability tracks</p></div>
+<div class="pb-stat"><div class="pb-num">Day 1</div><p>BFSI domain-trained on deployment</p></div>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════
+     REGULATORY FRAMEWORKS
+════════════════════════════════════════════════════════════ -->
+<section id="frameworks" style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line bfsi-eyebrow-line"></div>
+<span class="section-kicker bfsi-kicker" style="margin-bottom:0">Regulatory Frameworks</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Frameworks we map to. Examiners we prepare you for.</h2>
+<p class="section-subtitle" style="max-width:740px">
+      Every Qapitol BFSI AI engagement is structured against the regulatory frameworks that will govern your AI systems — now and as they evolve. Validation reports are formatted to satisfy examiner requests. Documentation trails are built to survive audit cycles.
+    </p>
+<div class="reg-grid">
+<div class="reg-card">
+<div class="reg-icon">🇮🇳</div>
+<h4>RBI Model Risk Circular</h4>
+<div class="reg-scope">India · Banking AI · Credit &amp; Fraud</div>
+<p>The RBI’s model risk management guidelines require documented validation, ongoing performance monitoring, explainability, and human oversight for AI/ML models used in regulated banking activities. Qapitol builds the MRM programme, produces the validation documentation, and maintains the evidence trail required for supervisory review.</p>
+</div>
+<div class="reg-card">
+<div class="reg-icon">🏠</div>
+<h4>NPCI / UPI Technical Standards</h4>
+<div class="reg-scope">India · Payments · A2A Agent Compliance</div>
+<p>NPCI’s technical specifications for UPI participation, including the emerging A2A protocol for Agentic compliance certification. Qapitol maps your AI agents and compliance pipelines to NPCI’s current and forthcoming certification requirements, including FiMI-aligned documentation and edge-case transaction coverage.</p>
+</div>
+<div class="reg-card">
+<div class="reg-icon">📈</div>
+<h4>RBI FLDG Guidelines</h4>
+<div class="reg-scope">India · Lending · Fintech Partnerships</div>
+<p>First Loss Default Guarantee guidelines require that AI-assisted credit decisioning in bank-fintech co-lending arrangements meets specific risk disclosure and model governance standards. Qapitol validates the AI models in these pipelines against the documentation and explainability requirements that FLDG compliance demands.</p>
+</div>
+<div class="reg-card">
+<div class="reg-icon">💵</div>
+<h4>SEBI Guidelines on AI in Broking</h4>
+<div class="reg-scope">India · Securities · Algo &amp; Advisory AI</div>
+<p>SEBI’s evolving framework for AI in stock broking — covering algorithmic trading oversight, AI-driven advisory disclaimers, and suitability assessment automation — creates new quality requirements for AI systems in wealth management and retail broking. Qapitol tests for compliance with the current guidelines and monitors regulatory developments.</p>
+</div>
+<div class="reg-card">
+<div class="reg-icon">🇪🇺</div>
+<h4>EU AI Act</h4>
+<div class="reg-scope">Europe · High-Risk AI · Cross-Border BFSI</div>
+<p>For banks and financial institutions with European operations or European counterparties, the EU AI Act classifies credit scoring, insurance risk assessment, and financial advisory AI as high-risk — requiring conformity assessments, transparency documentation, and human oversight mechanisms. Qapitol structures validation programmes that satisfy Article 9 and Annex III requirements.</p>
+</div>
+<div class="reg-card">
+<div class="reg-icon">🌎</div>
+<h4>NIST AI RMF &amp; ISO/IEC 42001</h4>
+<div class="reg-scope">Global · Enterprise AI Governance · Certification</div>
+<p>The NIST AI Risk Management Framework and ISO/IEC 42001 (AI Management Systems) provide the international baseline for enterprise AI governance. Qapitol maps BFSI AI deployments to both frameworks — enabling institutions to demonstrate structured AI risk management to international partners, investors, and regulators who require evidence beyond domestic compliance.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FINAL CTA
+════════════════════════════════════════════════════════════ -->
+<section class="bfsi-cta" style="border-top:1px solid var(--border)">
+<div class="container">
+<div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .85rem;border-radius:99px;background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.25);margin-bottom:1.75rem;position:relative;">
+      BFSI AI Quality Specialists · 9+ Years in Financial Services
+    </div>
+<h2 style="max-width:820px;margin:0 auto .85rem">
+      Your AI is running financial decisions.<br/>
+<span style="background:linear-gradient(135deg,#f59e0b 0%,#fde68a 45%,var(--teal) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">It needs to be certified before it runs yours.</span>
+</h2>
+<p class="cta-sub">
+      NPCI is building the infrastructure. Regulators are raising the bar. The window to build quality in — rather than patch it in after an audit finding — is now. Let’s talk about what your BFSI AI stack needs before it scales.
+    </p>
+<div class="cta-cluster">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.95rem 2.25rem;background:linear-gradient(135deg,#f59e0b,#d97706);border-color:#f59e0b;color:#000;font-weight:700">Talk to a BFSI AI Specialist →</a>
+<a class="btn btn-secondary" href="solution-ai-compliance.html" style="font-size:1rem;padding:.95rem 2.25rem">AI Regulatory Compliance</a>
+<a class="btn btn-secondary" href="solution-llm-safety.html" style="font-size:1rem;padding:.95rem 2.25rem">LLM Safety &amp; Red Teaming</a>
+</div>
+<p style="font-size:.8rem;color:var(--text-muted);margin-top:1.75rem;position:relative">
+      Not ready to talk? <a href="contact.html?asset=bfsi-risk-checklist" style="color:#fbbf24;text-decoration:none;">Download our BFSI AI Risk Checklist →</a>
+</p>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div class="footer-brand">
+<img alt="Qapitol" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/>
+<p class="footer-tagline">The AI Quality &amp; Delivery Partner for enterprises that can’t afford to get AI wrong.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong> · Hyderabad · Dubai · London · New York</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="ai-talent.html" style="color:#fbbf24;">AI-Native Talent ⭐</a></li>
+<li><a href="testmu.html">Agentic Test Execution</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SURE-Q Architecture Framework — Qapitol.AI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a1628;
+    font-family: 'Inter', sans-serif;
+    min-height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 28px 20px;
+    margin: 0;
+  }
+
+  .canvas {
+    width: 100%;
+    max-width: 1340px;
+    min-height: 760px;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(33,163,178,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 50%, rgba(77,49,245,0.06) 0%, transparent 50%),
+      linear-gradient(135deg, #0d1f35 0%, #0a1628 50%, #0d1a30 100%);
+    border-radius: 12px;
+    position: relative;
+    padding: 36px 40px 40px;
+    overflow: hidden;
+  }
+
+  /* subtle grid texture */
+  .canvas::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* ── Wordmark ────────────────────────────── */
+  .wordmark {
+    position: absolute;
+    top: 28px; left: 40px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    color: #fff;
+    z-index: 10;
+  }
+  .wordmark span { color: #21a3b2; }
+
+  /* ── Main grid ───────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: 230px 1fr 250px;
+    gap: 24px;
+    margin-top: 48px;
+    align-items: stretch;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Panel ────────────────────────────────── */
+  .panel {
+    border: 1.5px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    padding: 24px 20px;
+    background: rgba(255,255,255,.025);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .panel-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 18px;
+    letter-spacing: -.4px;
+  }
+
+  /* ── Left platform chips ──────────────────── */
+  .plat-chip {
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: .01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .plat-sub {
+    font-size: 10px;
+    font-weight: 400;
+    opacity: .75;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-top: 1px;
+    display: block;
+  }
+
+  /* ── Center stack ─────────────────────────── */
+  .center-panel {
+    border: 1.5px solid rgba(255,255,255,.12);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    background: rgba(255,255,255,.02);
+    position: relative;
+  }
+  .center-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .stack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .layer-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: -4px;
+  }
+
+  .slab {
+    flex: 1;
+    border-radius: 10px;
+    position: relative;
+  }
+  .slab-top {
+    border-radius: 10px 10px 0 0;
+    padding: 12px 20px 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  .slab-front {
+    height: 10px;
+    border-radius: 0 0 8px 8px;
+    margin-top: -1px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .layer-letter {
+    font-size: 28px;
+    font-weight: 900;
+    color: rgba(255,255,255,.9);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+  }
+  .layer-info { flex: 1; }
+  .layer-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -.2px;
+  }
+  .layer-sub {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,.55);
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    margin-top: 1px;
+  }
+  .layer-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 3px 7px;
+    border: 1px solid;
+    letter-spacing: .04em;
+  }
+
+  .layer-cap .slab-top  { background: linear-gradient(90deg, #9ca3af 0%, #6b7280 100%); }
+  .layer-cap .slab-front { background: #4b5563; }
+
+  .layer-q .slab-top   { background: linear-gradient(90deg, #7c5af5 0%, #6344e0 100%); }
+  .layer-q .slab-front  { background: #4c31c9; }
+
+  .layer-s .slab-top   { background: linear-gradient(90deg, #21a3b2 0%, #178a97 100%); }
+  .layer-s .slab-front  { background: #0e6b77; }
+
+  .layer-u .slab-top   { background: linear-gradient(90deg, #e88721 0%, #cc6f10 100%); }
+  .layer-u .slab-front  { background: #a3570e; }
+
+  .layer-r .slab-top   { background: linear-gradient(90deg, #8b5cf6 0%, #7c3aed 100%); }
+  .layer-r .slab-front  { background: #5b21b6; }
+
+  .layer-e .slab-top   { background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%); }
+  .layer-e .slab-front  { background: #166534; }
+
+  .layer-base .slab-top  { background: linear-gradient(90deg, #374151 0%, #1f2937 100%); }
+  .layer-base .slab-front { background: #111827; }
+
+  /* ── Right panel ──────────────────────────── */
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .right-box {
+    border: 1.5px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    padding: 20px 16px;
+    background: rgba(255,255,255,.025);
+    flex: 1;
+  }
+  .right-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .right-chip {
+    border: 1.5px solid rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,.8);
+    text-align: center;
+    margin-bottom: 8px;
+    background: rgba(255,255,255,.03);
+  }
+
+  /* ── Bottom tagline ───────────────────────── */
+  .bottom-tagline {
+    text-align: center;
+    margin-top: 28px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,.25);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+  .bottom-tagline span { color: rgba(33,163,178,.6); }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+
+  <div class="wordmark">Qapitol<span>.AI</span></div>
+
+  <div class="grid">
+
+    <!-- LEFT PANEL -->
+    <div class="panel">
+      <div class="panel-title">Platforms</div>
+      <div class="plat-chip" style="background:rgba(124,90,245,.25); border:1.5px solid rgba(124,90,245,.4);">
+        QAVE<span class="plat-sub">AI Evaluation</span>
+      </div>
+      <div class="plat-chip" style="background:rgba(33,163,178,.22); border:1.5px solid rgba(33,163,178,.4);">
+        CHEQ<span class="plat-sub">Compliance Engine</span>
+      </div>
+      <div class="plat-chip" style="background:rgba(232,135,33,.22); border:1.5px solid rgba(232,135,33,.4);">
+        Agent Fabric<span class="plat-sub">Agentic AI</span>
+      </div>
+      <div class="plat-chip" style="background:rgba(139,92,246,.22); border:1.5px solid rgba(139,92,246,.4);">
+        Nexus<span class="plat-sub">Observability</span>
+      </div>
+      <div class="plat-chip" style="background:rgba(244,114,182,.2); border:1.5px solid rgba(244,114,182,.35);">
+        Qurator<span class="plat-sub">AI Curation</span>
+      </div>
+      <div class="plat-chip" style="background:rgba(34,197,94,.18); border:1.5px solid rgba(34,197,94,.35);">
+        QGEN ✦<span class="plat-sub">AI Trainer · Labs</span>
+      </div>
+    </div>
+
+    <!-- CENTER PANEL -->
+    <div class="center-panel">
+
+      <div style="display:flex; justify-content:center; margin-bottom:24px; position:relative;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0;position:absolute;top:-56px;left:50%;transform:translateX(-50%);">
+          <div style="background:#1e3a5f;border:1.5px solid rgba(33,163,178,.5);border-radius:6px;padding:4px 16px;font-size:11px;font-weight:700;color:#7de8f0;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;">DEPLOY</div>
+          <div style="width:2px;height:16px;background:rgba(33,163,178,.4);"></div>
+          <div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid rgba(33,163,178,.5);"></div>
+        </div>
+      </div>
+
+      <div class="center-title">SURE-Q Framework</div>
+
+      <div class="stack">
+
+        <!-- CAP -->
+        <div class="layer-wrap layer-cap">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div style="font-size:22px;font-weight:900;color:rgba(255,255,255,.85);width:32px;text-align:center;flex-shrink:0;">✦</div>
+              <div style="flex:1;"><div class="layer-name">AI Trust Outcomes</div><div class="layer-sub">Governance · Evidence · Certification</div></div>
+              <div class="layer-badges">
+                <span class="badge" style="color:#e5e7eb;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.1);">ISO 42001</span>
+                <span class="badge" style="color:#e5e7eb;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.1);">EU AI Act</span>
+              </div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+          <div style="position:absolute;right:-36px;top:50%;transform:translateY(-50%);display:flex;align-items:center;">
+            <div style="width:30px;height:2px;background:rgba(255,255,255,.2);"></div>
+            <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid rgba(255,255,255,.25);"></div>
+          </div>
+        </div>
+
+        <div style="height:6px;"></div>
+
+        <!-- S -->
+        <div class="layer-wrap layer-s">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div class="layer-letter">S</div>
+              <div class="layer-info"><div class="layer-name">Secure</div><div class="layer-sub">Compliance &amp; Governance</div></div>
+              <div class="layer-badges">
+                <span class="badge" style="color:#7de8f0;border-color:rgba(33,163,178,.5);background:rgba(33,163,178,.15);">CHEQ</span>
+                <span class="badge" style="color:#7de8f0;border-color:rgba(33,163,178,.5);background:rgba(33,163,178,.15);">Nexus</span>
+              </div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+        </div>
+
+        <div style="height:6px;"></div>
+
+        <!-- U -->
+        <div class="layer-wrap layer-u">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div class="layer-letter">U</div>
+              <div class="layer-info"><div class="layer-name">Utilise</div><div class="layer-sub">Agentic AI Deployment</div></div>
+              <div class="layer-badges">
+                <span class="badge" style="color:#ffd499;border-color:rgba(232,135,33,.5);background:rgba(232,135,33,.15);">Agent Fabric</span>
+                <span class="badge" style="color:#ffd499;border-color:rgba(232,135,33,.5);background:rgba(232,135,33,.15);">QAVE</span>
+              </div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+        </div>
+
+        <div style="height:6px;"></div>
+
+        <!-- R -->
+        <div class="layer-wrap layer-r">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div class="layer-letter">R</div>
+              <div class="layer-info"><div class="layer-name">Rely</div><div class="layer-sub">Continuous Assurance &amp; Reliability</div></div>
+              <div class="layer-badges">
+                <span class="badge" style="color:#ddd6fe;border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.15);">Nexus</span>
+                <span class="badge" style="color:#ddd6fe;border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.15);">Qurator</span>
+              </div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+        </div>
+
+        <div style="height:6px;"></div>
+
+        <!-- E -->
+        <div class="layer-wrap layer-e">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div class="layer-letter">E</div>
+              <div class="layer-info"><div class="layer-name">Evolve</div><div class="layer-sub">Innovation, R&amp;D &amp; Emerging AI</div></div>
+              <div class="layer-badges">
+                <span class="badge" style="color:#86efac;border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.15);">Qapitol Labs</span>
+                <span class="badge" style="color:#86efac;border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.15);">QGEN ✦</span>
+              </div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+        </div>
+
+        <div style="height:6px;"></div>
+
+        <!-- Q -->
+        <div class="layer-wrap layer-q">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div class="layer-letter">Q</div>
+              <div class="layer-info"><div class="layer-name">Qualify</div><div class="layer-sub">Baseline &amp; Evaluate AI Systems</div></div>
+              <div class="layer-badges">
+                <span class="badge" style="color:#c4b5fd;border-color:rgba(124,90,245,.5);background:rgba(124,90,245,.15);">QAVE</span>
+                <span class="badge" style="color:#c4b5fd;border-color:rgba(124,90,245,.5);background:rgba(124,90,245,.15);">Nexus</span>
+                <span class="badge" style="color:#c4b5fd;border-color:rgba(124,90,245,.5);background:rgba(124,90,245,.15);">Qurator</span>
+              </div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+        </div>
+
+        <div style="height:6px;"></div>
+
+        <!-- BASE -->
+        <div class="layer-wrap layer-base">
+          <div class="slab" style="flex:1;">
+            <div class="slab-top" style="border-radius:10px 10px 0 0;">
+              <div style="font-size:20px;font-weight:900;color:rgba(255,255,255,.5);width:32px;text-align:center;flex-shrink:0;">⬡</div>
+              <div style="flex:1;"><div class="layer-name" style="color:rgba(255,255,255,.7);">AI Cloud &amp; Data Foundation</div><div class="layer-sub">Secure Infrastructure · Multi-cloud · On-premise</div></div>
+            </div>
+            <div class="slab-front"></div>
+          </div>
+          <div style="position:absolute;right:-36px;top:50%;transform:translateY(-50%);display:flex;align-items:center;">
+            <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right:7px solid rgba(255,255,255,.2);"></div>
+            <div style="width:23px;height:2px;background:rgba(255,255,255,.18);"></div>
+            <div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:7px solid rgba(255,255,255,.2);"></div>
+          </div>
+        </div>
+
+      </div><!-- /stack -->
+    </div><!-- /center-panel -->
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="right-box" style="flex:1.2;">
+        <div class="right-title">Productized<br>Services</div>
+        <div class="right-chip">AI Quality Engineering</div>
+        <div class="right-chip">Compliance Assurance</div>
+        <div class="right-chip">Digital Reliability</div>
+        <div class="right-chip">AI Transformation</div>
+      </div>
+      <div class="right-box" style="flex:1;">
+        <div class="right-title" style="font-size:17px;">Pre-Integrated<br>Platform</div>
+        <div class="right-chip">Enterprise</div>
+        <div class="right-chip">Regulated Industries</div>
+        <div class="right-chip">SME / Mid-Market</div>
+      </div>
+    </div>
+
+  </div><!-- /grid -->
+
+  <div class="bottom-tagline">
+    <span>Control.</span> Clarity. <span>Confidence.</span> &nbsp;·&nbsp; qapitol.com
+  </div>
+
+</div><!-- /canvas -->
+</body>
+</html>

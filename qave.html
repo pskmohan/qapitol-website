@@ -1,0 +1,940 @@
+ <!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>QAVE · Qapitol</title>
+<meta content="AI simulation &amp; evaluation engine — the foundation for structured AI validation." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<meta content="website" property="og:type"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" property="og:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/qave.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" name="twitter:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." name="twitter:description"/>
+  <meta name="description" content="QAVE by Qapitol — the open AI evaluation platform. Automated LLM testing, IRDAI, RBI, EU AI Act compliance evals, and multi-model benchmarking. Free tier available.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/qave.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/qave.html">
+  <meta property="og:title" content="QAVE — Open AI Evaluation Platform | Qapitol">
+  <meta property="og:description" content="QAVE by Qapitol — the open AI evaluation platform. Automated LLM testing, IRDAI, RBI, EU AI Act compliance evals, and multi-model benchmarking. Free tier available.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="QAVE — Open AI Evaluation Platform | Qapitol">
+  <meta name="twitter:description" content="QAVE by Qapitol — the open AI evaluation platform. Automated LLM testing, IRDAI, RBI, EU AI Act compliance evals, and multi-model benchmarking. Free tier available.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "QAVE",
+    "description": "AI evaluation and compliance testing platform for LLMs and AI systems.",
+    "url": "https://qapitol.com/qave.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "publisher": {"@id": "https://qapitol.com/#organization"}
+  }
+  </script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="container">
+<div class="crumb"><a href="index.html">Home</a> / <a href="platforms.html">Platforms</a> / QAVE</div>
+<span class="eyebrow">QAVE</span>
+<h1>Simulate the chaos before production does.</h1>
+<p class="lead">The simulation and data intelligence layer for AI evaluation. Generate realistic scenarios, simulate users, surface failure modes — before they reach customers.</p>
+<div class="persona-strip">
+<span class="persona-label">Built for</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 2L10 6H14L11 9L12 13L8 11L4 13L5 9L2 6H6L8 2Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.3"></path></svg>AI Product Manager</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polyline points="4,6 2,8 4,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><polyline points="12,6 14,8 12,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="9" x2="7" y1="3" y2="13"></line></svg>ML Engineer</span>
+<span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polyline points="4,6 2,8 4,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><polyline points="12,6 14,8 12,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="9" x2="7" y1="3" y2="13"></line></svg>SDET / QA Architect</span>
+</div>
+<div class="cta-row"><a class="btn btn-primary" href="contact.html">Book a QAVE demo</a></div>
+</div>
+</section>
+<section>
+<div class="container">
+<span class="eyebrow">Why it exists</span>
+<h2 class="section-title">AI systems break in ways you didn’t plan for.</h2>
+<p class="lead">Hallucinations. Inconsistent answers. Unsafe outputs. Edge cases nobody thought to write a test for. The job of QAVE is to plan for them — to generate the scenarios, simulate the user behaviour, and surface the failure modes before your customers do.</p>
+</div>
+</section>
+<!-- ── SECTION F: OUTCOME STATS BAR ── -->
+<section style="padding:3rem 0;background:var(--surface-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="container">
+<div class="proof-strip">
+<span class="proof"><span class="num">+40%</span> defect catch rate before prod</span>
+<span class="proof"><span class="num">-60%</span> post-launch AI incidents</span>
+<span class="proof"><span class="num">500+</span> eval scenario templates</span>
+<span class="proof"><span class="num">15 min</span> setup time</span>
+</div>
+</div>
+</section>
+
+<!-- ── SECTION A: THE INDEPENDENCE PROBLEM ── -->
+<section style="background:var(--surface-1);padding:5rem 0;border-bottom:1px solid var(--border);">
+<div class="container">
+<span class="eyebrow">The Independence Problem</span>
+<h2 class="section-title" style="max-width:760px;">OpenAI is not incentivized to tell you<br/>your model is underperforming. QAVE is.</h2>
+<p class="lead" style="max-width:640px;margin-top:1rem;">Every enterprise that deploys AI through Azure OpenAI, AWS Bedrock, Google Vertex, or any foundation model provider faces the same structural conflict: the vendor who sold you the model is not the right entity to evaluate whether it&rsquo;s failing your users.</p>
+
+<div style="margin:2.5rem 0;padding:2rem 2.5rem;background:linear-gradient(135deg,rgba(77,49,245,.12),rgba(33,163,178,.08));border:1px solid rgba(77,49,245,.3);border-radius:16px;position:relative;overflow:hidden;">
+<div style="position:absolute;top:-20px;right:-20px;font-size:6rem;opacity:.05;line-height:1;">&#x2696;</div>
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem;">The Auditor Problem Applied to AI Evaluation</div>
+<blockquote style="font-family:'Inter Tight',sans-serif;font-size:1.15rem;font-weight:600;line-height:1.6;margin:0 0 1rem;color:rgba(255,255,255,.92);border:none;padding:0;">&ldquo;Would you trust an auditor employed by the company being audited? The structural conflict is identical. OpenAI builds the model &mdash; OpenAI is not incentivized to surface its own model&rsquo;s failures. Microsoft sells you Azure OpenAI &mdash; Microsoft is not incentivized to tell you when it underperforms your domain expectations. AWS builds Bedrock &mdash; AWS is not incentivized to benchmark Claude or Titan against your specific use case and call out drift. The model vendor and the eval layer cannot be the same entity.&rdquo;</blockquote>
+<div style="font-size:.8rem;color:var(--text-muted);">QAVE = the independent assurance layer for AI deployed through any model provider or hyperscaler stack.</div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:1.25rem;margin-top:2.5rem;" class="grid-responsive-1">
+
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:1.25rem;">What model providers give you</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.7);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Model inference &amp; API access</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.7);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Basic safety filtering</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.7);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Token usage analytics</div>
+<div style="height:1px;background:rgba(255,255,255,.08);margin:.25rem 0;"></div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);"><span style="color:#f87171;font-weight:700;flex-shrink:0;">&#x2717;</span> Independent model quality evaluation</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);"><span style="color:#f87171;font-weight:700;flex-shrink:0;">&#x2717;</span> Adversarial scenario generation</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);"><span style="color:#f87171;font-weight:700;flex-shrink:0;">&#x2717;</span> Domain-specific failure mode detection</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);"><span style="color:#f87171;font-weight:700;flex-shrink:0;">&#x2717;</span> Regulatory compliance evaluation</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);"><span style="color:#f87171;font-weight:700;flex-shrink:0;">&#x2717;</span> CI/CD eval gates before deployment</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,100,100,.7);"><span style="color:#f87171;font-weight:700;flex-shrink:0;">&#x2717;</span> Multi-turn conversation stress testing</div>
+</div>
+</div>
+
+<div style="background:linear-gradient(135deg,rgba(77,49,245,.2),rgba(33,163,178,.15));border:2px solid rgba(77,49,245,.5);border-radius:16px;padding:2rem;position:relative;">
+<div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--teal));color:#fff;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.25rem .8rem;border-radius:0 0 8px 8px;">QAVE Independent Eval Layer</div>
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-light);margin-bottom:1.25rem;margin-top:.75rem;">What the independent layer gives you</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Adversarial scenario generation at scale</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Multi-turn conversation simulation</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> 18 failure mode classifiers</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Multi-metric scoring: accuracy, safety, faithfulness</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Regulatory framework evaluation (IRDAI, EU AI Act, RBI)</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> CI/CD eval gates before every deployment</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Versioned datasets &amp; ground truth management</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:rgba(255,255,255,.9);"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Swap model providers without losing eval baseline</div>
+</div>
+<div class="cta-row" style="margin-top:1.75rem;">
+<a class="btn btn-primary" href="contact.html" style="font-size:.85rem;padding:.65rem 1.25rem;">Get QAVE Demo &rarr;</a>
+</div>
+</div>
+
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:1.25rem;">Works above your existing model stack</div>
+<div style="display:flex;flex-direction:column;gap:.55rem;">
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;"><span style="font-size:1rem;">&#x1F537;</span><span style="font-size:.83rem;font-weight:600;">Azure OpenAI Service</span></div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;"><span style="font-size:1rem;">&#x1F7E0;</span><span style="font-size:.83rem;font-weight:600;">AWS Bedrock</span></div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;"><span style="font-size:1rem;">&#x1F535;</span><span style="font-size:.83rem;font-weight:600;">Google Vertex AI</span></div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;"><span style="font-size:1rem;">&#x26AB;</span><span style="font-size:.83rem;font-weight:600;">OpenAI API (direct)</span></div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;"><span style="font-size:1rem;">&#x1F999;</span><span style="font-size:.83rem;font-weight:600;">Open Source / Fine-tuned Models</span></div>
+<div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;background:rgba(77,49,245,.12);border:1px solid rgba(77,49,245,.25);border-radius:8px;"><span style="font-size:1rem;">&#x1F527;</span><span style="font-size:.83rem;font-weight:600;color:var(--accent-light);">Custom / Internal Models</span></div>
+</div>
+<p style="font-size:.77rem;color:var(--text-muted);margin-top:1rem;line-height:1.6;">QAVE sits above the model layer. Change your model provider without changing your evaluation infrastructure or baseline.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ── SECTION C: CAPABILITY DEEP-DIVE (6 rich cards) ── -->
+<section>
+<div class="container">
+<span class="eyebrow">What it does</span><h2 class="section-title">Simulation-driven AI validation.</h2><p class="section-sub">Six capability layers that take you from chaos simulation to deployment-ready confidence.</p>
+<div class="grid grid-3">
+
+<div class="card">
+<span class="kicker">Adversarial Inputs</span>
+<h3>Adversarial scenario generation</h3>
+<p>Edge cases, boundary inputs, and adversarial prompts generated systematically by role and risk category. Covers injection attacks, semantic drift, context manipulation, and domain-specific failure patterns your team hasn&rsquo;t thought to write yet.</p>
+<div style="margin-top:1rem;padding:.65rem .9rem;background:rgba(33,163,178,.08);border:1px solid rgba(33,163,178,.2);border-radius:8px;font-size:.8rem;color:var(--teal);"><strong>What you get:</strong> 500+ scenario templates across 12 risk dimensions.</div>
+<span class="arrow">Know more &rarr;</span>
+</div>
+
+<div class="card">
+<span class="kicker">User Simulation</span>
+<h3>Multi-turn conversation simulation</h3>
+<p>Realistic user journeys across 40+ persona archetypes. Journey stress testing and context drift detection expose how your AI degrades across extended interactions &mdash; the kind of failure only visible after turn 8 of a customer support conversation.</p>
+<div style="margin-top:1rem;padding:.65rem .9rem;background:rgba(33,163,178,.08);border:1px solid rgba(33,163,178,.2);border-radius:8px;font-size:.8rem;color:var(--teal);"><strong>What you get:</strong> Journey libraries for BFSI, Healthcare, SaaS, and Retail.</div>
+<span class="arrow">Know more &rarr;</span>
+</div>
+
+<div class="card">
+<span class="kicker">Failure Detection</span>
+<h3>Failure mode detection</h3>
+<p>Hallucination scoring, inconsistency detection, unsafe output flagging, and refusal rate analysis run simultaneously across your eval suite. Each classifier is tunable to your risk tolerance &mdash; tighter thresholds for regulated domains, wider for exploratory products.</p>
+<div style="margin-top:1rem;padding:.65rem .9rem;background:rgba(33,163,178,.08);border:1px solid rgba(33,163,178,.2);border-radius:8px;font-size:.8rem;color:var(--teal);"><strong>What you get:</strong> 18 failure mode classifiers with tunable thresholds.</div>
+<span class="arrow">Know more &rarr;</span>
+</div>
+
+<div class="card">
+<span class="kicker">Scoring Engine</span>
+<h3>Evaluation scoring engine</h3>
+<p>Multi-metric scoring across accuracy, relevance, faithfulness, safety, and consistency. LLM-as-judge and rule-based scoring run side by side so you can compare verdicts, catch judge bias, and build a trustworthy score you can defend to a regulator or product lead.</p>
+<div style="margin-top:1rem;padding:.65rem .9rem;background:rgba(33,163,178,.08);border:1px solid rgba(33,163,178,.2);border-radius:8px;font-size:.8rem;color:var(--teal);"><strong>What you get:</strong> Pluggable metric registry. Bring your own judge model.</div>
+<span class="arrow">Know more &rarr;</span>
+</div>
+
+<div class="card">
+<span class="kicker">Data Management</span>
+<h3>Dataset management</h3>
+<p>Versioned eval datasets, ground truth management, and annotation workflows purpose-built for AI evaluation cycles. Track which dataset version was used for every eval run so regressions are traceable and audit requests are answerable in minutes, not days.</p>
+<div style="margin-top:1rem;padding:.65rem .9rem;background:rgba(33,163,178,.08);border:1px solid rgba(33,163,178,.2);border-radius:8px;font-size:.8rem;color:var(--teal);"><strong>What you get:</strong> Native HuggingFace, S3, and local dataset connectors.</div>
+<span class="arrow">Know more &rarr;</span>
+</div>
+
+<div class="card">
+<span class="kicker">CI/CD Integration</span>
+<h3>CI/CD integration &amp; eval gates</h3>
+<p>GitHub Actions, Jenkins, and GitLab CI integrations ship eval gates directly into your deployment pipeline. Block releases that fail quality thresholds before a single user is exposed. Configurable per environment so staging gates are stricter than canary.</p>
+<div style="margin-top:1rem;padding:.65rem .9rem;background:rgba(33,163,178,.08);border:1px solid rgba(33,163,178,.2);border-radius:8px;font-size:.8rem;color:var(--teal);"><strong>What you get:</strong> Fail-fast eval gates with configurable thresholds.</div>
+<span class="arrow">Know more &rarr;</span>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- QEN trust signal -->
+<section style="padding:2.5rem 0;border-top:1px solid rgba(245,158,11,.15);border-bottom:1px solid rgba(245,158,11,.15);background:linear-gradient(135deg,rgba(245,158,11,.05) 0%,transparent 100%);">
+<div class="container">
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <div style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:1.3rem;color:#f59e0b;flex-shrink:0;">QEN</div>
+    <div style="width:1px;height:36px;background:rgba(245,158,11,.2);flex-shrink:0;"></div>
+    <div style="flex:1;min-width:240px;">
+      <span style="font-weight:700;color:#fff;font-size:.9rem;">Benchmarks designed with domain experts, not just engineers.</span>
+      <span style="font-size:.88rem;color:rgba(255,255,255,.5);margin-left:8px;">QAVE's eval scenarios, scoring rubrics, and regulatory mappings are co-authored with 200+ practitioners through the Qapitol Expert Network. A benchmark only means something if the people who understand the domain helped write it.</span>
+    </div>
+    <a href="qen.html" style="flex-shrink:0;font-size:.8rem;font-weight:700;color:#f59e0b;border:1px solid rgba(245,158,11,.3);padding:7px 14px;border-radius:7px;text-decoration:none;white-space:nowrap;">About QEN →</a>
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION B: EVAL FRAMEWORK LIBRARY ── -->
+<section class="band">
+<div class="container">
+<span class="eyebrow">Regulatory coverage</span>
+<h2 class="section-title">One eval engine. The frameworks that matter in your market.</h2>
+<p class="section-sub">QAVE evaluates against regulatory standards and responsible AI benchmarks. Coverage expands via new framework ingestion sprints.</p>
+<div class="grid grid-4">
+
+<div class="card">
+<span class="kicker" style="color:#e88721;border-color:rgba(232,135,33,.3);background:rgba(232,135,33,.08);">Insurance / India</span>
+<h3>IRDAI AI Guidelines</h3>
+<p>Evaluates AI outputs against IRDAI guidance for automated decision-making in insurance products, customer communication, and underwriting systems.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#4d31f5;border-color:rgba(77,49,245,.3);background:rgba(77,49,245,.08);">EU Regulation</span>
+<h3>EU AI Act High-Risk</h3>
+<p>Conformity assessment evaluation for high-risk AI systems under the EU AI Act. Covers transparency, accuracy, robustness, and human oversight requirements.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#e88721;border-color:rgba(232,135,33,.3);background:rgba(232,135,33,.08);">Banking / India</span>
+<h3>RBI AI Framework</h3>
+<p>Evaluation against RBI guidelines for AI use in banking &mdash; explainability, data localisation, model risk management, and audit trail standards.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#4d31f5;border-color:rgba(77,49,245,.3);background:rgba(77,49,245,.08);">Financial Services / EU</span>
+<h3>DORA</h3>
+<p>Digital Operational Resilience Act evaluation covering AI-dependent operational processes, ICT risk management, and incident reporting obligations.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#4d31f5;border-color:rgba(77,49,245,.3);background:rgba(77,49,245,.08);">Insurance / EU</span>
+<h3>Solvency II</h3>
+<p>Evaluation of AI models used in solvency calculations, risk modelling, and capital adequacy reporting for EU insurance entities.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#21a3b2;border-color:rgba(33,163,178,.3);background:rgba(33,163,178,.08);">Custom Frameworks</span>
+<h3>Custom eval suites</h3>
+<p>Define your own evaluation criteria, metric weights, and pass/fail thresholds. Map internal AI policy documents to structured eval rules QAVE can run automatically.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#21a3b2;border-color:rgba(33,163,178,.3);background:rgba(33,163,178,.08);">AI Ethics</span>
+<h3>Responsible AI benchmarks</h3>
+<p>Fairness, bias, and equity evaluation across demographic dimensions. Evaluation against published responsible AI benchmarks including BBQ, WinoBias, and ToxiGen.</p>
+</div>
+
+<div class="card">
+<span class="kicker" style="color:#21a3b2;border-color:rgba(33,163,178,.3);background:rgba(33,163,178,.08);">Model Safety</span>
+<h3>Safety &amp; alignment eval</h3>
+<p>Red-team style safety evaluation &mdash; jailbreak resistance, prompt injection detection, refusal rate analysis, and alignment with your system prompt instructions under adversarial pressure.</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- LLM Compatibility + Deployment -->
+<section style="background:var(--surface-1);padding:5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="container">
+  <span style="font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);">Works With Your Stack</span>
+  <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin:.5rem 0 .75rem;color:#fff;">Test the LLMs you're actually using. Deploy where your data lives.</h2>
+  <p style="color:var(--text-muted);font-size:.95rem;line-height:1.75;max-width:660px;margin-bottom:2.5rem;">QAVE connects to your existing LLM providers via API, runs inside your cloud environment if needed, and integrates with your CI/CD pipeline in under an hour. No vendor lock-in. No data egress if you don't want it.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;" class="grid-responsive-1">
+    <!-- LLM matrix -->
+    <div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1.25rem;color:#fff;">LLM Provider Support</h3>
+      <div style="display:flex;flex-direction:column;gap:.55rem;">
+        <!-- Row macro -->
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:.65rem 1rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:8px;">
+          <div><span style="font-weight:700;font-size:.9rem;color:#fff;">OpenAI</span><span style="font-size:.78rem;color:var(--text-muted);margin-left:.6rem;">GPT-4o · GPT-4 Turbo · o1 · o3</span></div>
+          <span style="font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.15rem .55rem;border-radius:99px;">Full support</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:.65rem 1rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:8px;">
+          <div><span style="font-weight:700;font-size:.9rem;color:#fff;">Anthropic</span><span style="font-size:.78rem;color:var(--text-muted);margin-left:.6rem;">Claude 3.5 Sonnet · Opus · Haiku</span></div>
+          <span style="font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.15rem .55rem;border-radius:99px;">Full support</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:.65rem 1rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:8px;">
+          <div><span style="font-weight:700;font-size:.9rem;color:#fff;">Google</span><span style="font-size:.78rem;color:var(--text-muted);margin-left:.6rem;">Gemini 1.5 Pro · Flash · Ultra</span></div>
+          <span style="font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.15rem .55rem;border-radius:99px;">Full support</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:.65rem 1rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.2);border-radius:8px;">
+          <div><span style="font-weight:700;font-size:.9rem;color:#fff;">Meta / Llama</span><span style="font-size:.78rem;color:var(--text-muted);margin-left:.6rem;">Llama 3.1 70B · 8B · Llama 2</span></div>
+          <span style="font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.15rem .55rem;border-radius:99px;">Full support</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:.65rem 1rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;">
+          <div><span style="font-weight:700;font-size:.9rem;color:#fff;">Azure OpenAI · AWS Bedrock</span><span style="font-size:.78rem;color:var(--text-muted);margin-left:.6rem;">Enterprise-hosted</span></div>
+          <span style="font-size:.72rem;font-weight:700;color:#21a3b2;background:rgba(33,163,178,0.12);border:1px solid rgba(33,163,178,0.3);padding:.15rem .55rem;border-radius:99px;">Full support</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:.65rem 1rem;background:rgba(77,49,245,0.06);border:1px solid rgba(77,49,245,0.2);border-radius:8px;">
+          <div><span style="font-weight:700;font-size:.9rem;color:#fff;">Custom / Fine-tuned</span><span style="font-size:.78rem;color:var(--text-muted);margin-left:.6rem;">HuggingFace · ONNX · vLLM · Ollama</span></div>
+          <span style="font-size:.72rem;font-weight:700;color:var(--accent-light);background:rgba(77,49,245,0.12);border:1px solid rgba(77,49,245,0.3);padding:.15rem .55rem;border-radius:99px;">Enterprise</span>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:var(--text-muted);margin-top:.9rem;">Don't see yours? <a href="integrations.html" style="color:var(--teal);">See full integrations list →</a></p>
+    </div>
+
+    <!-- Deployment options -->
+    <div>
+      <h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1.25rem;color:#fff;">Deployment Options</h3>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="padding:1.25rem;background:rgba(33,163,178,0.06);border:1px solid rgba(33,163,178,0.25);border-radius:10px;">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+            <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);">SaaS</span>
+            <span style="font-size:.65rem;background:rgba(33,163,178,0.15);color:var(--teal);border:1px solid rgba(33,163,178,0.3);padding:.1rem .5rem;border-radius:99px;font-weight:700;">Fastest setup</span>
+          </div>
+          <p style="font-size:.83rem;color:var(--text-muted);margin:0;line-height:1.6;">Hosted on AWS Mumbai. Connect via API key. Zero infrastructure to manage. Live in under an hour.</p>
+        </div>
+        <div style="padding:1.25rem;background:rgba(77,49,245,0.06);border:1px solid rgba(77,49,245,0.2);border-radius:10px;">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+            <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);">VPC</span>
+            <span style="font-size:.65rem;background:rgba(77,49,245,0.15);color:var(--accent-light);border:1px solid rgba(77,49,245,0.3);padding:.1rem .5rem;border-radius:99px;font-weight:700;">Most popular for enterprise</span>
+          </div>
+          <p style="font-size:.83rem;color:var(--text-muted);margin:0;line-height:1.6;">QAVE deployed inside your AWS/Azure/GCP account. Data never leaves your perimeter. Required for regulated data environments.</p>
+        </div>
+        <div style="padding:1.25rem;background:rgba(232,135,33,0.05);border:1px solid rgba(232,135,33,0.18);border-radius:10px;">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;">
+            <span style="font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#e88721;">On-Premise</span>
+          </div>
+          <p style="font-size:.83rem;color:var(--text-muted);margin:0;line-height:1.6;">Full air-gap deployment for sovereign environments. Available for Defence, Government, and regulated BFSI. 4-week deployment engagement.</p>
+        </div>
+      </div>
+      <div style="margin-top:1.25rem;">
+        <a href="security-trust.html" style="font-size:.82rem;color:var(--teal);text-decoration:none;">View security &amp; data handling details →</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION D: FREE vs PAID COMPARISON TABLE ── -->
+<section style="padding:5rem 0;background:var(--surface-1);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="container">
+<span class="eyebrow">Pricing</span>
+<h2 class="section-title">Start free. Scale when you need to.</h2>
+<p class="section-sub">No credit card required for Free tier. Upgrade when your eval volume or regulatory requirements demand it.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;margin-top:2.5rem;align-items:start;" class="grid-responsive-1">
+
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:.5rem;">Free Tier</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:2rem;font-weight:800;margin-bottom:.25rem;">$0</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem;">No card required</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> 500 eval runs / month</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> IRDAI + EU AI Act frameworks</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> 3 projects</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Core failure mode detectors</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Python SDK access</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text-muted);"><span style="color:var(--text-muted);font-weight:700;flex-shrink:0;">&mdash;</span> API access</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text-muted);"><span style="color:var(--text-muted);font-weight:700;flex-shrink:0;">&mdash;</span> Custom eval suites</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text-muted);"><span style="color:var(--text-muted);font-weight:700;flex-shrink:0;">&mdash;</span> CI/CD integration</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text-muted);"><span style="color:var(--text-muted);font-weight:700;flex-shrink:0;">&mdash;</span> On-prem / VPC deployment</div>
+</div>
+<a href="qave-platform.html" class="btn btn-outline" style="width:100%;text-align:center;display:block;">Try Free &rarr;</a>
+</div>
+
+<div style="background:linear-gradient(135deg,rgba(77,49,245,.2),rgba(33,163,178,.15));border:2px solid rgba(77,49,245,.5);border-radius:16px;padding:2rem;position:relative;">
+<div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent),var(--teal));color:#fff;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:.25rem .8rem;border-radius:0 0 8px 8px;">Most popular</div>
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-light);margin-bottom:.5rem;margin-top:.75rem;">Pro</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:2rem;font-weight:800;margin-bottom:.25rem;">$499<span style="font-size:1rem;font-weight:500;opacity:.7;"> /mo</span></div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem;">Billed monthly</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Unlimited eval runs</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> All 8 regulatory frameworks</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> 20 projects</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Full API access</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Custom metrics &amp; judge models</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> CI/CD integration (GitHub, Jenkins, GitLab)</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Custom eval suites</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text-muted);"><span style="color:var(--text-muted);font-weight:700;flex-shrink:0;">&mdash;</span> On-prem / VPC deployment</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;color:var(--text-muted);"><span style="color:var(--text-muted);font-weight:700;flex-shrink:0;">&mdash;</span> SSO &amp; enterprise SLA</div>
+</div>
+<a href="contact.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Get Pro &rarr;</a>
+</div>
+
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+<div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:.5rem;">Enterprise</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:2rem;font-weight:800;margin-bottom:.25rem;">Custom</div>
+<div style="font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem;">Annual contracts</div>
+<div style="display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.75rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Unlimited everything</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> On-prem / VPC deployment</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> SSO &amp; RBAC</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> 99.9% uptime SLA</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Dedicated support engineer</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Custom framework ingestion</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Audit-ready evidence export</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Unlimited projects &amp; teams</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.85rem;"><span style="color:#34d399;font-weight:700;flex-shrink:0;">&#x2713;</span> Executive compliance dashboards</div>
+</div>
+<a href="contact.html" class="btn btn-outline" style="width:100%;text-align:center;display:block;">Talk to Sales &rarr;</a>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ── SECTION E: INTEGRATION BADGES ── -->
+<section style="padding:4rem 0;">
+<div class="container">
+<span class="eyebrow">Integrations</span>
+<h2 class="section-title">Works with your existing stack.</h2>
+<p class="section-sub">QAVE plugs into the tools your team already uses. No rip-and-replace required.</p>
+<div style="display:flex;flex-wrap:wrap;gap:.65rem;margin-top:2rem;">
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);">AWS Bedrock</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);">Azure OpenAI</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);">Google Vertex AI</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);">OpenAI API</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.3);color:var(--teal);">LangChain</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.3);color:var(--teal);">LlamaIndex</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.3);color:var(--teal);">Hugging Face</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.3);color:var(--accent-light);">GitHub Actions</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.3);color:var(--accent-light);">Jenkins</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.3);color:var(--accent-light);">GitLab CI</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);">Pytest</span>
+<span style="font-size:.82rem;font-weight:600;padding:.45rem 1rem;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);">Python SDK</span>
+</div>
+</div>
+</section>
+
+<section>
+<div class="container">
+<span class="eyebrow">One thing to be clear about</span>
+<h2 class="section-title">QAVE is not SDM.</h2>
+<p class="lead">QAVE is our internal end-to-end AI evaluation engine. For broader synthetic data generation across QE, AI training, performance, and analytics, see our independent <a href="synthetic-data-management.html" style="color:var(--accent);">Synthetic Data Management</a> offering, powered by the GenRocket partnership. Both are deployable independently. Either can lead.</p>
+</div>
+</section>
+<section class="tight">
+<div class="container">
+<div class="cta-banner">
+<div>
+<h2 class="section-title">Validate AI systems with structured simulation.</h2>
+<p class="muted">Book a focused QAVE demo to see scenario generation, simulation, and failure mode detection in action.</p>
+</div>
+<div class="cta-row"><a class="btn btn-primary" href="contact.html">Book a QAVE Demo</a></div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 44" fill="none">
+  <rect width="160" height="44" fill="transparent"/>
+  
+  <text x="8" y="28"
+        font-family="Inter Tight,Inter,sans-serif"
+        font-size="15"
+        font-weight="600"
+        letter-spacing="0em"
+        fill="rgba(255,255,255,0.75)">smallcase</text>
+</svg>

@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>QEN Portal — Contributor Dashboard | Qapitol Expert Network</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:          #0a1628;
+  --bg2:         #0e1e38;
+  --sidebar-bg:  #091220;
+  --card-bg:     #0f1f35;
+  --card-hover:  #132540;
+  --border:      rgba(255,255,255,.08);
+  --border-lit:  rgba(255,255,255,.14);
+  --text:        #eaf0f8;
+  --text-muted:  rgba(234,240,248,.5);
+  --text-dim:    rgba(234,240,248,.32);
+  --teal:        #21a3b2;
+  --teal-light:  #3fc6d6;
+  --accent:      #4d31f5;
+  --accent-light:#7c5af5;
+  --gold:        #f59e0b;
+  --gold-light:  #fcd34d;
+  --green:       #22c55e;
+  --red:         #ef4444;
+  --orange:      #f97316;
+  --radius:      14px;
+  --sidebar-w:   240px;
+}
+html { font-size: 16px; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ── Concept banner ── */
+.concept-banner {
+  background: linear-gradient(90deg, rgba(124,90,245,.18), rgba(33,163,178,.18));
+  border-bottom: 1px solid rgba(124,90,245,.3);
+  text-align: center;
+  padding: 10px 20px;
+  font-size: .8rem;
+  color: rgba(255,255,255,.7);
+  letter-spacing: .04em;
+}
+.concept-banner strong { color: var(--gold); }
+
+/* ── App shell ── */
+.app-shell {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar-logo {
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-logo-mark {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--teal), var(--accent));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800;
+  font-size: .95rem;
+  color: #fff;
+}
+.sidebar-logo-text {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.sidebar-logo-text span { color: var(--gold); }
+.sidebar-logo-sub {
+  font-size: .65rem;
+  color: var(--text-muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* tier badge in sidebar */
+.sidebar-tier {
+  margin: 14px 16px;
+  background: linear-gradient(135deg, rgba(245,158,11,.15), rgba(252,211,77,.08));
+  border: 1px solid rgba(245,158,11,.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.sidebar-tier-label {
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.sidebar-tier-name {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gold);
+}
+.sidebar-tier-progress {
+  margin-top: 10px;
+  height: 4px;
+  background: rgba(255,255,255,.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.sidebar-tier-bar {
+  height: 100%;
+  width: 62%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius: 4px;
+}
+.sidebar-tier-next {
+  font-size: .7rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+.sidebar-tier-next strong { color: rgba(255,255,255,.6); }
+
+/* nav items */
+.nav-section {
+  padding: 16px 16px 0;
+}
+.nav-section-label {
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  padding-left: 8px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: .9rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  margin-bottom: 2px;
+  position: relative;
+}
+.nav-item:hover { background: rgba(255,255,255,.05); color: var(--text); }
+.nav-item.active {
+  background: rgba(33,163,178,.12);
+  color: var(--teal-light);
+  font-weight: 600;
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 18px;
+  background: var(--teal);
+  border-radius: 0 3px 3px 0;
+}
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; }
+.nav-badge {
+  margin-left: auto;
+  background: var(--teal);
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 2px 7px;
+  min-width: 20px;
+  text-align: center;
+}
+.nav-badge.gold { background: var(--gold); color: #000; }
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 16px;
+  border-top: 1px solid var(--border);
+}
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: .85rem;
+  color: #fff;
+  flex-shrink: 0;
+}
+.sidebar-user-name {
+  font-size: .85rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.sidebar-user-role {
+  font-size: .7rem;
+  color: var(--text-muted);
+}
+
+/* ── Main content ── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* top bar */
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.topbar-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.topbar-greeting {
+  font-size: .85rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.topbar-credit {
+  background: rgba(245,158,11,.12);
+  border: 1px solid rgba(245,158,11,.25);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.notif-btn {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: .95rem;
+  position: relative;
+}
+.notif-dot {
+  position: absolute;
+  top: 6px; right: 7px;
+  width: 7px; height: 7px;
+  background: var(--red);
+  border-radius: 50%;
+  border: 1.5px solid var(--bg2);
+}
+
+/* content area */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Stat cards row ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.stat-card.sc-earn::after  { background: linear-gradient(90deg, var(--green), #4ade80); }
+.stat-card.sc-tasks::after { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+.stat-card.sc-qual::after  { background: linear-gradient(90deg, var(--gold), var(--gold-light)); }
+.stat-card.sc-cred::after  { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+.stat-icon {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.stat-label {
+  font-size: .73rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.stat-value {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.stat-card.sc-earn  .stat-value { color: var(--green); }
+.stat-card.sc-tasks .stat-value { color: var(--teal-light); }
+.stat-card.sc-qual  .stat-value { color: var(--gold); }
+.stat-card.sc-cred  .stat-value { color: var(--accent-light); }
+.stat-delta {
+  font-size: .75rem;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+.stat-delta.up { color: var(--green); }
+.stat-delta.warn { color: var(--gold); }
+
+/* ── Two-column layout ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* ── Section header ── */
+.section-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .count {
+  background: rgba(33,163,178,.15);
+  color: var(--teal-light);
+  border-radius: 20px;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+}
+.section-link {
+  font-size: .8rem;
+  color: var(--teal);
+  cursor: pointer;
+}
+.section-link:hover { text-decoration: underline; }
+
+/* ── Task feed ── */
+.task-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.task-filter {
+  font-size: .78rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all .15s;
+  background: transparent;
+}
+.task-filter.active {
+  background: rgba(33,163,178,.15);
+  border-color: rgba(33,163,178,.4);
+  color: var(--teal-light);
+  font-weight: 600;
+}
+.task-filter:hover:not(.active) {
+  border-color: var(--border-lit);
+  color: var(--text);
+}
+
+.task-list { display: flex; flex-direction: column; gap: 10px; }
+.task-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.task-card:hover {
+  border-color: var(--border-lit);
+  background: var(--card-hover);
+  transform: translateY(-1px);
+}
+.task-type-dot {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.td-data    { background: rgba(33,163,178,.15); }
+.td-policy  { background: rgba(124,90,245,.15); }
+.td-rlhf    { background: rgba(245,158,11,.12); }
+.td-audit   { background: rgba(34,197,94,.12); }
+.td-red     { background: rgba(239,68,68,.12); }
+.td-bench   { background: rgba(249,115,22,.12); }
+
+.task-body { flex: 1; min-width: 0; }
+.task-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: .95rem;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.task-meta {
+  display: flex;
+  gap: 12px;
+  font-size: .78rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.task-meta span { display: flex; align-items: center; gap: 4px; }
+.task-tags-mini {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.task-tag {
+  font-size: .68rem;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 7px;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.45);
+  letter-spacing: .04em;
+}
+.task-right {
+  flex-shrink: 0;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+.task-pay {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--green);
+  white-space: nowrap;
+}
+.task-difficulty {
+  font-size: .7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.diff-low  { background: rgba(34,197,94,.12);  color: #4ade80; }
+.diff-med  { background: rgba(245,158,11,.12); color: var(--gold); }
+.diff-high { background: rgba(239,68,68,.12);  color: #f87171; }
+.task-deadline {
+  font-size: .7rem;
+  color: var(--text-dim);
+}
+.task-new-badge {
+  font-size: .65rem;
+  background: rgba(33,163,178,.2);
+  color: var(--teal-light);
+  border: 1px solid rgba(33,163,178,.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+/* ── Right column cards ── */
+.panel-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.panel-card:last-child { margin-bottom: 0; }
+
+/* tier progress panel */
+.tier-track {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+.tier-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .83rem;
+}
+.tier-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 2px solid var(--border);
+}
+.tier-dot.done  { background: var(--green); border-color: var(--green); color: #fff; }
+.tier-dot.curr  { background: var(--gold); border-color: var(--gold); color: #000; font-weight: 800; }
+.tier-dot.next  { background: transparent; border-color: var(--border-lit); color: var(--text-dim); }
+.tier-step-label { flex: 1; }
+.tier-step.done-step .tier-step-label { color: rgba(255,255,255,.5); text-decoration: line-through; }
+.tier-step.curr-step .tier-step-label { font-weight: 700; color: var(--gold); }
+.tier-step.next-step .tier-step-label { color: var(--text-dim); }
+.tier-step-req {
+  font-size: .7rem;
+  color: var(--text-dim);
+  text-align: right;
+}
+.tier-connector {
+  width: 2px;
+  height: 14px;
+  background: var(--border);
+  margin: 0 auto;
+  margin-left: 13px;
+}
+.tier-connector.done { background: var(--green); opacity: .4; }
+
+.progress-ring-wrap {
+  text-align: center;
+  margin: 16px 0 12px;
+}
+.progress-ring-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+.progress-ring-sub {
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+.prog-bar-wrap { margin: 8px 0; }
+.prog-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: .72rem;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+.prog-bar {
+  height: 6px;
+  background: rgba(255,255,255,.06);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.prog-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+}
+.prog-bar-fill.teal { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+.prog-bar-fill.purple { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+.prog-bar-fill.green { background: linear-gradient(90deg, var(--green), #4ade80); }
+
+/* quality score */
+.qs-meter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 12px 0;
+}
+.qs-circle {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  background: conic-gradient(var(--green) 0% 87%, rgba(255,255,255,.07) 87% 100%);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.qs-circle::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  background: var(--card-bg);
+  border-radius: 50%;
+}
+.qs-num {
+  position: relative; z-index: 1;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--green);
+}
+.qs-breakdown { flex: 1; }
+.qs-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: .75rem;
+  margin-bottom: 5px;
+  color: var(--text-muted);
+}
+.qs-row .qs-val { font-weight: 600; color: var(--text); }
+
+/* activity feed */
+.act-feed { display: flex; flex-direction: column; gap: 0; }
+.act-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .83rem;
+}
+.act-item:last-child { border-bottom: none; }
+.act-dot {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.act-complete { background: rgba(34,197,94,.12); }
+.act-review   { background: rgba(245,158,11,.12); }
+.act-badge    { background: rgba(124,90,245,.15); }
+.act-payout   { background: rgba(34,197,94,.15); }
+.act-body { flex: 1; }
+.act-desc { line-height: 1.4; color: rgba(255,255,255,.8); }
+.act-time { font-size: .7rem; color: var(--text-dim); margin-top: 2px; }
+.act-amount {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+/* ── Community panel ── */
+.community-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+.community-item:last-child { border-bottom: none; }
+.community-item:hover .comm-title { color: var(--teal-light); }
+.comm-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: #fff;
+}
+.ca-1 { background: linear-gradient(135deg,#21a3b2,#4d31f5); }
+.ca-2 { background: linear-gradient(135deg,#f59e0b,#ef4444); }
+.ca-3 { background: linear-gradient(135deg,#22c55e,#21a3b2); }
+.ca-4 { background: linear-gradient(135deg,#7c5af5,#f59e0b); }
+.comm-body { flex: 1; min-width: 0; }
+.comm-title {
+  font-size: .83rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: var(--text);
+  transition: color .15s;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.comm-meta { font-size: .7rem; color: var(--text-dim); }
+.comm-replies {
+  font-size: .7rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+}
+
+/* ── Announcements ── */
+.ann-item {
+  display: flex;
+  gap: 12px;
+  background: rgba(33,163,178,.06);
+  border: 1px solid rgba(33,163,178,.15);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+  font-size: .83rem;
+}
+.ann-item:last-child { margin-bottom: 0; }
+.ann-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.ann-body { flex: 1; }
+.ann-title { font-weight: 700; margin-bottom: 3px; }
+.ann-desc { color: var(--text-muted); line-height: 1.5; font-size: .8rem; }
+.ann-date { font-size: .68rem; color: var(--text-dim); margin-top: 4px; }
+
+/* ── Bottom CTA row ── */
+.cta-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.cta-tile {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.cta-tile:hover {
+  border-color: var(--border-lit);
+  background: var(--card-hover);
+  transform: translateY(-2px);
+}
+.cta-tile-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.ci-teal  { background: rgba(33,163,178,.15); }
+.ci-gold  { background: rgba(245,158,11,.12); }
+.ci-purple{ background: rgba(124,90,245,.15); }
+.cta-tile-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: .92rem;
+  margin-bottom: 2px;
+}
+.cta-tile-sub {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.cta-tile-arrow {
+  margin-left: auto;
+  font-size: 1rem;
+  color: var(--text-dim);
+  transition: transform .15s;
+}
+.cta-tile:hover .cta-tile-arrow { transform: translateX(3px); color: var(--text-muted); }
+
+/* ── No-sidebar notice on small screens ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; }
+  .cta-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- concept banner -->
+<div class="concept-banner">
+  <strong>🧪 Concept Preview</strong> — This is a design mock-up of the QEN Contributor Portal. Data shown is illustrative.
+  &nbsp;·&nbsp; <a href="qen.html" style="color:var(--teal-light); text-decoration:underline;">← Enrollment page</a>
+</div>
+
+<div class="app-shell">
+
+  <!-- ══════ Sidebar ══════ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-mark">Q</div>
+      <div>
+        <div class="sidebar-logo-text"><span>QEN</span> Portal</div>
+        <div class="sidebar-logo-sub">Qapitol Expert Network</div>
+      </div>
+    </div>
+
+    <!-- tier -->
+    <div class="sidebar-tier">
+      <div class="sidebar-tier-label">Current Tier</div>
+      <div class="sidebar-tier-name">⭐ Reviewer</div>
+      <div class="sidebar-tier-progress"><div class="sidebar-tier-bar"></div></div>
+      <div class="sidebar-tier-next">62% to <strong>Lead Expert</strong></div>
+    </div>
+
+    <!-- nav -->
+    <div class="nav-section">
+      <div class="nav-section-label">Workspace</div>
+      <div class="nav-item active"><span class="nav-icon">🏠</span> Dashboard</div>
+      <div class="nav-item">
+        <span class="nav-icon">📋</span> Available Tasks
+        <span class="nav-badge">14</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">🔄</span> My Assignments
+        <span class="nav-badge">3</span>
+      </div>
+      <div class="nav-item"><span class="nav-icon">✅</span> Completed</div>
+      <div class="nav-item"><span class="nav-icon">📊</span> My Performance</div>
+    </div>
+
+    <div class="nav-section" style="margin-top:10px;">
+      <div class="nav-section-label">Earnings</div>
+      <div class="nav-item"><span class="nav-icon">💰</span> Earnings & Payouts</div>
+      <div class="nav-item">
+        <span class="nav-icon">🏅</span> Credits
+        <span class="nav-badge gold">840</span>
+      </div>
+      <div class="nav-item"><span class="nav-icon">🎓</span> Certifications</div>
+    </div>
+
+    <div class="nav-section" style="margin-top:10px;">
+      <div class="nav-section-label">Community</div>
+      <div class="nav-item"><span class="nav-icon">💬</span> Expert Forum</div>
+      <div class="nav-item"><span class="nav-icon">📰</span> AI Governance Digest</div>
+      <div class="nav-item"><span class="nav-icon">📅</span> Events & Cohorts</div>
+    </div>
+
+    <div class="nav-section" style="margin-top:10px;">
+      <div class="nav-section-label">Account</div>
+      <div class="nav-item"><span class="nav-icon">⚙️</span> Settings</div>
+      <div class="nav-item"><span class="nav-icon">🔗</span> Refer an Expert</div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">RP</div>
+        <div>
+          <div class="sidebar-user-name">Riya Patel</div>
+          <div class="sidebar-user-role">AI Policy · Mumbai</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════ Main ══════ -->
+  <main class="main">
+
+    <!-- top bar -->
+    <div class="topbar">
+      <div>
+        <span class="topbar-title">Good morning, Riya 👋</span>
+        <span class="topbar-greeting">— 3 tasks match your profile today</span>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-credit">🪙 840 credits</div>
+        <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+        <div class="sidebar-avatar" style="width:34px;height:34px;font-size:.8rem;cursor:pointer;">RP</div>
+      </div>
+    </div>
+
+    <div class="content-area">
+
+      <!-- ── Stat row ── -->
+      <div class="stat-row">
+        <div class="stat-card sc-earn">
+          <div class="stat-icon">💰</div>
+          <div class="stat-label">Earnings this month</div>
+          <div class="stat-value">₹18,400</div>
+          <div class="stat-delta up">↑ ₹3,200 vs last month</div>
+        </div>
+        <div class="stat-card sc-tasks">
+          <div class="stat-icon">✅</div>
+          <div class="stat-label">Tasks completed</div>
+          <div class="stat-value">47</div>
+          <div class="stat-delta up">↑ 12 this month</div>
+        </div>
+        <div class="stat-card sc-qual">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-label">Quality score</div>
+          <div class="stat-value">87%</div>
+          <div class="stat-delta warn">↑ 2pts — near Lead Expert threshold</div>
+        </div>
+        <div class="stat-card sc-cred">
+          <div class="stat-icon">🏅</div>
+          <div class="stat-label">QEN Credits</div>
+          <div class="stat-value">840</div>
+          <div class="stat-delta">Redeem for certifications & tools</div>
+        </div>
+      </div>
+
+      <!-- ── Two-column layout ── -->
+      <div class="two-col">
+
+        <!-- LEFT: task feed -->
+        <div>
+          <div class="section-hdr">
+            <div class="section-title">
+              Available Tasks
+              <span class="count">14 open</span>
+            </div>
+            <div class="section-link">Browse all →</div>
+          </div>
+
+          <!-- filters -->
+          <div class="task-filters">
+            <div class="task-filter active">All</div>
+            <div class="task-filter">🗂️ Dataset</div>
+            <div class="task-filter">📜 Policy Review</div>
+            <div class="task-filter">🤖 RLHF Rating</div>
+            <div class="task-filter">🔍 Audit Support</div>
+            <div class="task-filter">🧪 Benchmarking</div>
+          </div>
+
+          <div class="task-list">
+
+            <!-- Task 1 -->
+            <div class="task-card">
+              <div class="task-type-dot td-rlhf">🤖</div>
+              <div class="task-body">
+                <div class="task-title">Rate AI model responses — EU AI Act compliance scenarios</div>
+                <div class="task-meta">
+                  <span>🏢 CHEQ Product Team</span>
+                  <span>⏱ ~45 min</span>
+                  <span>📦 25 items</span>
+                </div>
+                <div class="task-tags-mini">
+                  <span class="task-tag">RLHF</span>
+                  <span class="task-tag">EU AI Act</span>
+                  <span class="task-tag">Compliance</span>
+                </div>
+              </div>
+              <div class="task-right">
+                <div class="task-pay">₹850</div>
+                <div class="task-difficulty diff-med">Medium</div>
+                <div class="task-deadline">Closes in 2d</div>
+                <div class="task-new-badge">NEW</div>
+              </div>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="task-card">
+              <div class="task-type-dot td-data">🗂️</div>
+              <div class="task-body">
+                <div class="task-title">Label governance dataset — BFSI sector AI use-cases (India)</div>
+                <div class="task-meta">
+                  <span>🏢 Qapitol Labs</span>
+                  <span>⏱ ~2 hrs</span>
+                  <span>📦 80 samples</span>
+                </div>
+                <div class="task-tags-mini">
+                  <span class="task-tag">Golden Dataset</span>
+                  <span class="task-tag">BFSI</span>
+                  <span class="task-tag">India Regulation</span>
+                </div>
+              </div>
+              <div class="task-right">
+                <div class="task-pay">₹2,200</div>
+                <div class="task-difficulty diff-high">Advanced</div>
+                <div class="task-deadline">Closes in 5d</div>
+              </div>
+            </div>
+
+            <!-- Task 3 -->
+            <div class="task-card">
+              <div class="task-type-dot td-policy">📜</div>
+              <div class="task-body">
+                <div class="task-title">Review AI Use Policy pack — Healthcare sector mapping</div>
+                <div class="task-meta">
+                  <span>🏢 CHEQ Policy Engine</span>
+                  <span>⏱ ~1 hr</span>
+                  <span>📦 12 policies</span>
+                </div>
+                <div class="task-tags-mini">
+                  <span class="task-tag">Policy Review</span>
+                  <span class="task-tag">Healthcare</span>
+                  <span class="task-tag">ISO 42001</span>
+                </div>
+              </div>
+              <div class="task-right">
+                <div class="task-pay">₹1,400</div>
+                <div class="task-difficulty diff-med">Medium</div>
+                <div class="task-deadline">Closes in 3d</div>
+                <div class="task-new-badge">NEW</div>
+              </div>
+            </div>
+
+            <!-- Task 4 -->
+            <div class="task-card">
+              <div class="task-type-dot td-audit">🔍</div>
+              <div class="task-body">
+                <div class="task-title">Assess AI system evidence against ISO 42001 Annex A controls</div>
+                <div class="task-meta">
+                  <span>🏢 Client Audit (NDA)</span>
+                  <span>⏱ ~3 hrs</span>
+                  <span>📦 6 control areas</span>
+                </div>
+                <div class="task-tags-mini">
+                  <span class="task-tag">ISO 42001</span>
+                  <span class="task-tag">Audit</span>
+                  <span class="task-tag">Evidence Review</span>
+                  <span class="task-tag">Lead Expert+</span>
+                </div>
+              </div>
+              <div class="task-right">
+                <div class="task-pay">₹6,500</div>
+                <div class="task-difficulty diff-high">Expert</div>
+                <div class="task-deadline">Closes in 7d</div>
+              </div>
+            </div>
+
+            <!-- Task 5 -->
+            <div class="task-card">
+              <div class="task-type-dot td-bench">🧪</div>
+              <div class="task-body">
+                <div class="task-title">Benchmark hallucination rate in RAG outputs — Legal domain</div>
+                <div class="task-meta">
+                  <span>🏢 QGEN Team</span>
+                  <span>⏱ ~1.5 hrs</span>
+                  <span>📦 40 outputs</span>
+                </div>
+                <div class="task-tags-mini">
+                  <span class="task-tag">Benchmarking</span>
+                  <span class="task-tag">RAG</span>
+                  <span class="task-tag">Legal AI</span>
+                  <span class="task-tag">Hallucination</span>
+                </div>
+              </div>
+              <div class="task-right">
+                <div class="task-pay">₹1,800</div>
+                <div class="task-difficulty diff-med">Medium</div>
+                <div class="task-deadline">Closes in 4d</div>
+              </div>
+            </div>
+
+            <!-- Task 6 — recommended -->
+            <div class="task-card" style="border-color:rgba(33,163,178,.28); background:rgba(33,163,178,.04);">
+              <div class="task-type-dot td-rlhf">⭐</div>
+              <div class="task-body">
+                <div class="task-title">Rate fine-tuned SURE-Q model responses — Policy Q&A set</div>
+                <div class="task-meta">
+                  <span>🏢 Qapitol Labs</span>
+                  <span>⏱ ~30 min</span>
+                  <span>📦 15 pairs</span>
+                </div>
+                <div class="task-tags-mini">
+                  <span class="task-tag">RLHF</span>
+                  <span class="task-tag">SURE-Q</span>
+                  <span class="task-tag">Fine-tuning</span>
+                  <span class="task-tag" style="background:rgba(33,163,178,.12);color:var(--teal-light);">Recommended</span>
+                </div>
+              </div>
+              <div class="task-right">
+                <div class="task-pay">₹600</div>
+                <div class="task-difficulty diff-low">Easy</div>
+                <div class="task-deadline">Closes in 1d</div>
+                <div class="task-new-badge">NEW</div>
+              </div>
+            </div>
+
+          </div><!-- /task-list -->
+        </div><!-- /left -->
+
+        <!-- RIGHT column -->
+        <div>
+
+          <!-- Tier progress -->
+          <div class="panel-card">
+            <div class="section-hdr" style="margin-bottom:12px;">
+              <div class="section-title">🏆 Tier Progress</div>
+              <div class="section-link">Details →</div>
+            </div>
+
+            <div class="prog-bar-wrap">
+              <div class="prog-bar-label">
+                <span>To Lead Expert</span>
+                <span style="color:var(--gold);font-weight:700;">62%</span>
+              </div>
+              <div class="prog-bar"><div class="prog-bar-fill" style="width:62%"></div></div>
+            </div>
+
+            <div class="tier-track">
+              <div class="tier-step done-step">
+                <div class="tier-dot done">✓</div>
+                <div class="tier-step-label">Contributor</div>
+                <div class="tier-step-req">Completed</div>
+              </div>
+              <div class="tier-connector done"></div>
+              <div class="tier-step curr-step">
+                <div class="tier-dot curr">★</div>
+                <div class="tier-step-label">Reviewer</div>
+                <div class="tier-step-req">Current</div>
+              </div>
+              <div class="tier-connector"></div>
+              <div class="tier-step next-step">
+                <div class="tier-dot next">3</div>
+                <div class="tier-step-label">Lead Expert</div>
+                <div class="tier-step-req">90% quality + 60 tasks</div>
+              </div>
+              <div class="tier-connector"></div>
+              <div class="tier-step next-step">
+                <div class="tier-dot next">4</div>
+                <div class="tier-step-label">Fellow</div>
+                <div class="tier-step-req">Invite only</div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:.78rem;color:var(--text-muted);">
+              You need <strong style="color:var(--text);">13 more tasks</strong> + maintain <strong style="color:var(--text);">90%+ quality</strong> for Lead Expert unlock
+            </div>
+          </div>
+
+          <!-- Quality score -->
+          <div class="panel-card">
+            <div class="section-hdr" style="margin-bottom:12px;">
+              <div class="section-title">🎯 Quality Score</div>
+            </div>
+            <div class="qs-meter">
+              <div class="qs-circle">
+                <div class="qs-num">87%</div>
+              </div>
+              <div class="qs-breakdown">
+                <div class="qs-row"><span>Agreement rate</span><span class="qs-val">91%</span></div>
+                <div class="qs-row"><span>Completion rate</span><span class="qs-val">94%</span></div>
+                <div class="qs-row"><span>On-time rate</span><span class="qs-val">88%</span></div>
+                <div class="qs-row"><span>Flag accuracy</span><span class="qs-val">83%</span></div>
+              </div>
+            </div>
+            <div style="font-size:.75rem;color:var(--text-muted);padding-top:10px;border-top:1px solid var(--border);">
+              Tip: Flag accuracy drives your score most — focus on consistent reasoning in RLHF tasks.
+            </div>
+          </div>
+
+          <!-- Recent activity -->
+          <div class="panel-card">
+            <div class="section-hdr" style="margin-bottom:4px;">
+              <div class="section-title">📅 Recent Activity</div>
+              <div class="section-link">All →</div>
+            </div>
+            <div class="act-feed">
+              <div class="act-item">
+                <div class="act-dot act-payout">💸</div>
+                <div class="act-body">
+                  <div class="act-desc">Payout processed — May batch</div>
+                  <div class="act-time">Today, 9:14 AM</div>
+                </div>
+                <div class="act-amount">₹14,200</div>
+              </div>
+              <div class="act-item">
+                <div class="act-dot act-complete">✅</div>
+                <div class="act-body">
+                  <div class="act-desc">Completed: RLHF rating — CHEQ EU Act v2 (25 items)</div>
+                  <div class="act-time">Yesterday</div>
+                </div>
+                <div class="act-amount">+₹850</div>
+              </div>
+              <div class="act-item">
+                <div class="act-dot act-badge">🏅</div>
+                <div class="act-body">
+                  <div class="act-desc">Earned badge: <strong style="color:var(--accent-light);">Policy Pro</strong></div>
+                  <div class="act-time">2 days ago</div>
+                </div>
+                <div class="act-amount">+50 cr</div>
+              </div>
+              <div class="act-item">
+                <div class="act-dot act-review">🔄</div>
+                <div class="act-body">
+                  <div class="act-desc">Review complete — BFSI dataset (80 samples)</div>
+                  <div class="act-time">3 days ago</div>
+                </div>
+                <div class="act-amount">+₹2,200</div>
+              </div>
+              <div class="act-item">
+                <div class="act-dot act-complete">✅</div>
+                <div class="act-body">
+                  <div class="act-desc">Completed: Policy review — Healthcare pack (8 docs)</div>
+                  <div class="act-time">5 days ago</div>
+                </div>
+                <div class="act-amount">+₹1,200</div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /right -->
+      </div><!-- /two-col -->
+
+      <!-- ── Community + Announcements ── -->
+      <div class="two-col">
+        <!-- Forum highlights -->
+        <div class="panel-card">
+          <div class="section-hdr">
+            <div class="section-title">💬 Expert Forum — Recent Threads</div>
+            <div class="section-link">Join forum →</div>
+          </div>
+          <div class="act-feed">
+            <div class="community-item">
+              <div class="comm-avatar ca-1">SK</div>
+              <div class="comm-body">
+                <div class="comm-title">How should RLHF raters handle ambiguous "high risk" AI system classifications under EU AI Act?</div>
+                <div class="comm-meta">Siddharth K · AI Policy · 4 hours ago</div>
+              </div>
+              <div class="comm-replies">💬 14</div>
+            </div>
+            <div class="community-item">
+              <div class="comm-avatar ca-2">AM</div>
+              <div class="comm-body">
+                <div class="comm-title">Tips for labelling "prohibited" vs "limited" use cases in the Indian AI governance framework</div>
+                <div class="comm-meta">Anita M · Data Governance · 1 day ago</div>
+              </div>
+              <div class="comm-replies">💬 8</div>
+            </div>
+            <div class="community-item">
+              <div class="comm-avatar ca-3">PR</div>
+              <div class="comm-body">
+                <div class="comm-title">Sharing: my approach to scoring hallucination in RAG outputs — scoring rubric template</div>
+                <div class="comm-meta">Priya R · ML Engineer · 2 days ago</div>
+              </div>
+              <div class="comm-replies">💬 22</div>
+            </div>
+            <div class="community-item">
+              <div class="comm-avatar ca-4">VN</div>
+              <div class="comm-body">
+                <div class="comm-title">ISO 42001 Lead Auditor cohort — Q3 batch applications open (limited spots)</div>
+                <div class="comm-meta">Vicky N · Qapitol Labs · 3 days ago</div>
+              </div>
+              <div class="comm-replies">💬 31</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div>
+          <div class="section-hdr" style="margin-bottom:12px;">
+            <div class="section-title">📢 Announcements</div>
+          </div>
+          <div class="ann-item">
+            <div class="ann-icon">🚀</div>
+            <div class="ann-body">
+              <div class="ann-title">New task category: Agentic AI Red-Teaming</div>
+              <div class="ann-desc">Help stress-test agentic AI systems for compliance failures. Higher pay rate — Lead Expert tier and above.</div>
+              <div class="ann-date">May 12, 2026</div>
+            </div>
+          </div>
+          <div class="ann-item" style="background:rgba(245,158,11,.05);border-color:rgba(245,158,11,.2);">
+            <div class="ann-icon">🎓</div>
+            <div class="ann-body">
+              <div class="ann-title">Certification cohort — ISO 42001 Lead Auditor</div>
+              <div class="ann-desc">Subsidised access for QEN Reviewers &amp; above. 6-week cohort, July intake. Apply by June 20.</div>
+              <div class="ann-date">May 10, 2026</div>
+            </div>
+          </div>
+          <div class="ann-item" style="background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.15);">
+            <div class="ann-icon">💰</div>
+            <div class="ann-body">
+              <div class="ann-title">Pay rates updated — Policy Review +15%</div>
+              <div class="ann-desc">Policy review and compliance mapping tasks now carry a 15% premium effective June 1. Rate cards updated in task view.</div>
+              <div class="ann-date">May 8, 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Quick-action tiles ── -->
+      <div class="cta-row">
+        <div class="cta-tile">
+          <div class="cta-tile-icon ci-teal">📊</div>
+          <div>
+            <div class="cta-tile-title">View full performance report</div>
+            <div class="cta-tile-sub">Accuracy, speed, agreement rates across all task types</div>
+          </div>
+          <div class="cta-tile-arrow">→</div>
+        </div>
+        <div class="cta-tile">
+          <div class="cta-tile-icon ci-gold">🧪</div>
+          <div>
+            <div class="cta-tile-title">Apply for a project assignment</div>
+            <div class="cta-tile-sub">Longer-term consulting projects for Lead Expert tier</div>
+          </div>
+          <div class="cta-tile-arrow">→</div>
+        </div>
+        <div class="cta-tile">
+          <div class="cta-tile-icon ci-purple">🤝</div>
+          <div>
+            <div class="cta-tile-title">Refer an expert, earn credits</div>
+            <div class="cta-tile-sub">Earn 200 credits for each approved referral who completes 5 tasks</div>
+          </div>
+          <div class="cta-tile-arrow">→</div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div style="text-align:center;padding:20px 0 8px;font-size:.75rem;color:var(--text-dim);">
+        QEN Portal · Qapitol Expert Network · <a href="qen.html" style="color:var(--teal);text-decoration:underline;">Enrollment page</a>
+        &nbsp;·&nbsp; <a href="index.html" style="color:var(--teal);text-decoration:underline;">Qapitol.ai</a>
+      </div>
+
+    </div><!-- /content-area -->
+  </main><!-- /main -->
+</div><!-- /app-shell -->
+
+<script>
+// Filter tab interactivity
+document.querySelectorAll('.task-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.task-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+// Nav item interactivity
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// Task card hover text feedback
+document.querySelectorAll('.task-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const title = card.querySelector('.task-title').textContent;
+    const originalPay = card.querySelector('.task-pay').textContent;
+    // brief pulse animation
+    card.style.boxShadow = '0 0 0 2px rgba(33,163,178,.4)';
+    setTimeout(() => card.style.boxShadow = '', 600);
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>GCC as AI Innovation Engine — Build, Run &amp; Govern at Scale | Qapitol</title>
+<meta content="83% of GCCs are deploying GenAI. 58% are investing in Agentic AI. Qapitol is the platform partner that builds your GCC and governs everything it ships — QAVE, CHEQ, Agent Fabric, Nexus and more." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ── Hero proof strip ── */
+    .proof-strip{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+    .proof-strip .ps-item{display:flex;align-items:center;gap:.55rem;font-size:.82rem;color:var(--text-muted)}
+    .proof-strip .ps-item strong{font-family:"Inter Tight",sans-serif;font-weight:700;color:#fff;font-size:.9rem}
+    .ps-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-light);flex-shrink:0}
+
+    /* ── Section-level layout ── */
+    .section-kicker{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem}
+    .section-eyebrow{display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem}
+    .eyebrow-line{height:2px;width:28px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .section-subtitle{font-size:1.05rem;color:var(--text-muted);line-height:1.75;max-width:640px;margin-top:.75rem}
+
+    /* ── Problem cards ── */
+    .problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem}
+    .problem-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+    .problem-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e88721,transparent)}
+    .problem-icon{font-size:2.2rem;margin-bottom:1rem}
+    .problem-card h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.6rem}
+    .problem-card p{font-size:.875rem;color:var(--text-muted);line-height:1.7}
+
+    /* ── Advantage cards ── */
+    .advantage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:2.5rem}
+    .advantage-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;transition:border-color .2s,transform .2s}
+    .advantage-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+    .adv-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(77,49,245,.25),rgba(33,163,178,.15));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.25rem}
+    .advantage-card h3{font-family:"Inter Tight",sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+    .advantage-card p{font-size:.85rem;color:var(--text-muted);line-height:1.7}
+
+    /* ── Engagement model cards ── */
+    .engagement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.75rem;margin-top:2.5rem}
+    .eng-card{border:1px solid var(--border);border-radius:20px;padding:2.25rem;background:var(--surface-2);position:relative;overflow:hidden}
+    .eng-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .eng-card.orange::after{background:linear-gradient(90deg,var(--orange),#f5b853)}
+    .eng-card.indigo::after{background:linear-gradient(90deg,var(--accent),var(--accent-light))}
+    .eng-card.teal::after{background:linear-gradient(90deg,var(--teal),#6edfe8)}
+    .eng-badge{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .65rem;border-radius:99px;margin-bottom:1.25rem}
+    .eng-badge.orange{background:rgba(232,135,33,.18);color:var(--orange);border:1px solid rgba(232,135,33,.3)}
+    .eng-badge.indigo{background:rgba(77,49,245,.18);color:var(--accent-light);border:1px solid rgba(77,49,245,.3)}
+    .eng-badge.teal{background:rgba(33,163,178,.18);color:var(--teal);border:1px solid rgba(33,163,178,.3)}
+    .eng-card h3{font-family:"Inter Tight",sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:.75rem}
+    .eng-card p{font-size:.875rem;color:var(--text-muted);line-height:1.7;margin-bottom:1.25rem}
+    .eng-card .eng-ideal{font-size:.78rem;color:var(--text-muted);border-top:1px solid var(--border);padding-top:1rem;margin-top:.5rem}
+    .eng-card .eng-ideal strong{color:#fff}
+
+    /* ── Talent spectrum ── */
+    .talent-section{background:var(--surface-2);border-radius:24px;border:1px solid var(--border);padding:3rem;margin-top:2.5rem}
+    .track-block{margin-bottom:2.5rem}
+    .track-block:last-child{margin-bottom:0}
+    .track-label{font-family:"Inter Tight",sans-serif;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:1rem;display:flex;align-items:center;gap:.75rem}
+    .track-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .role-pills{display:flex;flex-wrap:wrap;gap:.5rem}
+    .role-pill{font-size:.8rem;font-weight:600;padding:.35rem .85rem;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:rgba(255,255,255,.8);transition:background .2s,border-color .2s}
+    .role-pill:hover{background:rgba(77,49,245,.15);border-color:var(--accent);color:#fff}
+
+    /* ── Why India stats ── */
+    .india-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem}
+    .india-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem}
+    .india-card .stat-num{font-family:"Inter Tight",sans-serif;font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:.5rem}
+    .india-card h3{font-family:"Inter Tight",sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem}
+    .india-card p{font-size:.85rem;color:var(--text-muted);line-height:1.65}
+
+    /* ── Journey flow ── */
+    .journey-wrap{margin-top:2.5rem;position:relative}
+    .journey-track{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+    .journey-track::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--accent),var(--teal));z-index:0}
+    .journey-step{text-align:center;position:relative;z-index:1;padding:0 .5rem}
+    .journey-node{width:56px;height:56px;border-radius:50%;border:2px solid var(--accent);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin:0 auto 1rem;position:relative;z-index:2}
+    .journey-step h4{font-family:"Inter Tight",sans-serif;font-size:.82rem;font-weight:700;margin-bottom:.3rem;line-height:1.3}
+    .journey-step p{font-size:.72rem;color:var(--text-muted);line-height:1.4}
+    .journey-quote{text-align:center;margin-top:2.5rem;font-size:1.05rem;color:var(--text-muted);font-style:italic;max-width:600px;margin-left:auto;margin-right:auto;padding:1.5rem;border:1px solid var(--border);border-radius:12px;background:var(--surface-2)}
+    @media(max-width:768px){.journey-track{grid-template-columns:1fr;gap:1.5rem}.journey-track::before{display:none}.journey-node{margin-bottom:.75rem}}
+
+    /* ── CTA band ── */
+    .gcc-cta-band{background:linear-gradient(135deg,rgba(77,49,245,.18) 0%,rgba(33,163,178,.12) 100%);border:1px solid rgba(77,49,245,.3);border-radius:24px;padding:4rem 3rem;text-align:center;margin-top:5rem}
+    .gcc-cta-band h2{font-family:"Inter Tight",sans-serif;font-size:2.2rem;font-weight:800;margin-bottom:.75rem}
+    .gcc-cta-band p{color:var(--text-muted);font-size:1rem;max-width:560px;margin:0 auto 2rem}
+    .cta-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-bottom:1.5rem}
+    .gcc-note{font-size:.8rem;color:var(--text-muted)}
+
+    /* ── Global proof band ── */
+    .kpi-band{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;margin:4rem 0}
+    .kpi-band .container{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1.5rem;text-align:center}
+    .kpi-item .kpi-num{font-size:2.4rem;font-weight:800;font-family:"Inter Tight",sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .kpi-item p{font-size:.78rem;color:var(--text-muted);margin-top:.2rem;line-height:1.4}
+
+    @media(max-width:640px){.proof-strip{gap:.75rem 1.5rem}.talent-section{padding:1.75rem}.eng-card{padding:1.75rem}.gcc-cta-band{padding:2.5rem 1.5rem}.gcc-cta-band h2{font-size:1.6rem}}
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="GCC as AI Innovation Engine | Qapitol" property="og:title"/>
+<meta content="58% of GCCs are deploying Agentic AI. Your GCC is your AI delivery engine — Qapitol builds it and governs everything it ships." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/gcc.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="GCC as AI Innovation Engine | Qapitol" name="twitter:title"/>
+<meta content="58% of GCCs are deploying Agentic AI. Your GCC is your AI delivery engine — Qapitol builds it and governs everything it ships." name="twitter:description"/>
+  <meta name="description" content="Qapitol GCC services — build, staff, and operate your Global Capability Centre in India with AI-native talent, governance frameworks, and proven ramp models for BFSI and tech enterprises.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/gcc.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/gcc.html">
+  <meta property="og:title" content="GCC Build & Operate | Qapitol AI Technologies">
+  <meta property="og:description" content="Qapitol GCC services — build, staff, and operate your Global Capability Centre in India with AI-native talent, governance frameworks, and proven ramp models for BFSI and tech enterprises.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="GCC Build & Operate | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Qapitol GCC services — build, staff, and operate your Global Capability Centre in India with AI-native talent, governance frameworks, and proven ramp models for BFSI and tech enterprises.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://qapitol.com/"},
+        {"@type":"ListItem","position":2,"name":"Services","item":"https://qapitol.com/services.html"},
+        {"@type":"ListItem","position":3,"name":"GCC Build & Operate","item":"https://qapitol.com/gcc.html"}
+    ]
+  }
+  </script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero section-geo" style="padding-top:7rem;padding-bottom:5rem">
+<div class="container" style="max-width:900px">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">GCC Build &amp; Run · AI Platform Layer</span>
+</div>
+<h1 style="font-family:'Inter Tight',sans-serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;line-height:1.12;margin-bottom:1.5rem">
+      Your GCC isn't a cost center anymore.<br/>
+<span class="gradient-text">It's your AI delivery engine.<br/>We build it — and govern everything it ships.</span>
+</h1>
+<p style="font-size:1.1rem;color:var(--text-muted);max-width:700px;line-height:1.8;margin-bottom:2rem">
+      83% of GCCs are deploying GenAI. 58% are investing in Agentic AI. The mandate has fundamentally changed — from cost arbitrage to enterprise innovation leadership. Qapitol is the partner that sets up your GCC, staffs it with production-grade AI talent, and deploys the quality and governance platform for everything it ships.
+    </p>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+<div class="persona-strip"><span class="persona-label">Built for</span><span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect fill="currentColor" height="4" opacity=".5" rx="1" width="12" x="2" y="10"></rect><path d="M5 10V7a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path><circle cx="8" cy="4" fill="currentColor" r="2"></circle></svg>CIO / COO</span><span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><rect height="10" rx="1.5" stroke="currentColor" stroke-width="1.3" width="12" x="2" y="3"></rect><path d="M8 6v4M6 8h4" stroke="currentColor" stroke-linecap="round" stroke-width="1.3"></path></svg>CFO</span><span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><polyline points="4,6 2,8 4,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><polyline points="12,6 14,8 12,10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></polyline><line stroke="currentColor" stroke-linecap="round" stroke-width="1.5" x1="9" x2="7" y1="3" y2="13"></line></svg>GCC Head / Engineering Director</span><span class="persona-chip"><svg fill="none" viewbox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.3"></circle><path d="M8 5v3l2 2" stroke="currentColor" stroke-linecap="round" stroke-width="1.3"></path></svg>AI Transformation Lead</span></div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.85rem 1.75rem">Talk to a GCC Specialist →</a>
+<a class="btn btn-secondary" href="#gcc-platform" style="font-size:1rem;padding:.85rem 1.75rem">See the Platform Stack</a>
+</div>
+<div class="proof-strip">
+<div class="ps-item"><div class="ps-dot"></div><strong>15+</strong> GCCs supported</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>350+</strong> practitioners available</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>2-week</strong> mobilisation SLA</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>4 countries</strong> footprint</div>
+<div class="ps-item"><div class="ps-dot"></div><strong>6 platforms</strong> deployed from day one</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     MARKET REALITY BAND
+════════════════════════════════════════════════════════════ -->
+<div style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 0;">
+<div class="container">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2rem;text-align:center;">
+<div><div style="font-size:2.2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">1,760+</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.3rem;line-height:1.4;">GCCs operating in India today</div></div>
+<div><div style="font-size:2.2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$64.6B</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.3rem;line-height:1.4;">Export revenue in FY2024, up 40% YoY</div></div>
+<div><div style="font-size:2.2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">83%</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.3rem;line-height:1.4;">of GCCs already investing in GenAI</div></div>
+<div><div style="font-size:2.2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">58%</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.3rem;line-height:1.4;">investing in Agentic AI right now</div></div>
+<div><div style="font-size:2.2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$105B</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.3rem;line-height:1.4;">GCC market projected by 2030</div></div>
+<div><div style="font-size:2.2rem;font-weight:800;font-family:'Inter Tight',sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">120K+</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:.3rem;line-height:1.4;">AI professionals in Indian GCCs</div></div>
+</div>
+<p style="text-align:center;font-size:.72rem;color:var(--text-muted);margin-top:1.5rem;opacity:.7;">Sources: Zinnov–NASSCOM 5-Year GCC Report · EY GCC Pulse Survey 2025 · ISG Global Capability Center Advisory</p>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════
+     GCC 3.0 — THE EVOLUTION
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">GCC 3.0 — The New Mandate</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">GCCs have crossed a threshold. Have your vendors?</h2>
+<p class="section-subtitle">The most mature GCCs are no longer the recipient of innovation from HQ — they are the origin of it. 67% now have dedicated innovation teams globalizing ideas from India. But most GCC vendors still sell the 2015 version of the story.</p>
+<!-- Evolution timeline -->
+<div class="grid-responsive-1" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:3rem;position:relative;">
+<div style="padding:2rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px 0 0 16px;position:relative;">
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.75rem;">GCC 1.0</div>
+<div style="font-size:1.3rem;margin-bottom:.75rem;">💰</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem;color:rgba(255,255,255,.6);">Cost Arbitrage</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Labour cost savings, IT support, back-office execution. Headcount decisions made by finance. Value measured in FTE cost delta.</p>
+<div style="margin-top:1rem;font-size:.75rem;color:var(--text-muted);font-style:italic;">Where most GCC vendors still operate</div>
+</div>
+<div style="padding:2rem;background:rgba(77,49,245,.06);border:1px solid rgba(77,49,245,.2);position:relative;">
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-light);margin-bottom:.75rem;">GCC 2.0</div>
+<div style="font-size:1.3rem;margin-bottom:.75rem;">⚙️</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem;">Operational Excellence</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Delivery ownership, quality engineering, automation CoEs. Centres proving they can run complex programs reliably. Value measured in delivery throughput.</p>
+<div style="margin-top:1rem;font-size:.75rem;color:var(--accent-light);font-style:italic;">Where most progressive GCCs are today</div>
+</div>
+<div style="padding:2rem;background:linear-gradient(135deg,rgba(77,49,245,.12),rgba(33,163,178,.08));border:1px solid rgba(77,49,245,.35);border-radius:0 16px 16px 0;position:relative;">
+<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b5a6ff;margin-bottom:.75rem;">GCC 3.0  ← You should be here</div>
+<div style="font-size:1.3rem;margin-bottom:.75rem;">🚀</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.5rem;color:#fff;">AI Innovation Engine</h3>
+<p style="font-size:.83rem;color:rgba(255,255,255,.8);line-height:1.65;">GCC owns global product lines. Builds and ships AI agents. Drives enterprise R&amp;D. 52% hold shared accountability for global decisions. Value measured in AI business outcomes.</p>
+<div style="margin-top:1rem;font-size:.75rem;color:#b5a6ff;font-style:italic;">Where Qapitol-powered GCCs operate</div>
+</div>
+</div>
+<!-- Quote -->
+<div style="margin-top:2.5rem;padding:2rem;background:rgba(33,163,178,.06);border:1px solid rgba(33,163,178,.2);border-radius:14px;max-width:780px;">
+<p style="font-size:.95rem;color:rgba(255,255,255,.85);line-height:1.75;font-style:italic;margin-bottom:.75rem;">"The GCC of 2025 is not a support function — it is the nerve center of digital transformation, the launchpad for enterprise reinvention, and the custodian of next-gen competitiveness."</p>
+<div style="font-size:.75rem;color:var(--text-muted);">Inductus GCC Tech Stack Report 2025</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     THE PILOT PURGATORY PROBLEM
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(232,135,33,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0;color:#e88721">The #1 GCC AI Problem</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:700px;margin-bottom:.5rem">58% of GCCs are investing in Agentic AI. Most of it is stuck.</h2>
+<p class="section-subtitle">The gap is not model potential. It's what comes after the pilot — and that's exactly where GCCs lose momentum, credibility, and budget.</p>
+<div style="margin-top:2.5rem;padding:2rem 2.5rem;background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.25);border-left:4px solid var(--orange);border-radius:0 14px 14px 0;max-width:820px;">
+<p style="font-size:1rem;color:rgba(255,255,255,.9);line-height:1.8;font-style:italic;margin-bottom:.75rem;">"Many initiatives remain stuck in pilot purgatory. The gap is not model potential — it is industrialization: legacy integration, data readiness, <strong style="color:#fff;">governance and security, platform orchestration, and the challenge of translating tacit domain knowledge into auditable agent behavior.</strong>"</p>
+<div style="font-size:.75rem;color:var(--text-muted);">HCLTech White Paper — Driving Agentic AI Adoption in GCCs, February 2026</div>
+</div>
+<div class="problem-grid" style="margin-top:2.5rem;">
+<div class="problem-card">
+<div class="problem-icon">🔬</div>
+<h3>The Evaluation Gap</h3>
+<p>GCC teams build AI agents, run impressive demos, and then ship to production without a structured evaluation framework. No ground truth. No regression tests. No drift detection. The agent degrades silently over weeks — and nobody knows until a client escalates.</p>
+</div>
+<div class="problem-card">
+<div class="problem-icon">⚖️</div>
+<h3>The Compliance Gap</h3>
+<p>GCCs serving BFSI, Healthcare, and Insurance clients are building AI under frameworks — RBI, IRDAI, HIPAA, EU AI Act — that require audit trails, explainability, and evidence bundles. Most GCCs have no tooling to generate this. They're building regulatory exposure without knowing it.</p>
+</div>
+<div class="problem-card">
+<div class="problem-icon">🏗️</div>
+<h3>The Governance Gap</h3>
+<p>Technical debt accumulates faster than teams can ship when governance is absent at inception. By month 12, you're retrofitting guardrails into a codebase built without them — at 5× the original cost. EY's new GCC advisory specifically packages an "embed governance with responsible AI" module because the market demand is explicit.</p>
+</div>
+</div>
+<div style="margin-top:2rem;padding:1.5rem 2rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.25);border-radius:12px;max-width:620px;">
+<p style="font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.7;margin:0;"><strong style="color:#b5a6ff;">Qapitol solves all three.</strong> We deploy QAVE for AI evaluation, CHEQ for compliance, and the SURE-Q governance framework at GCC inception — not after the first audit finding. This is the difference between a GCC that scales and one that stalls.</p>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     TWO MANDATES — BUILD + RUN
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(77,49,245,.04) 40%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">The Qapitol Difference</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:720px;margin-bottom:.5rem">Most GCC vendors cover one mandate. Qapitol covers both.</h2>
+<p class="section-subtitle">Talent firms give you CVs. System integrators give you a project plan. Neither gives you the platform layer that governs what your GCC ships. Qapitol is the only partner that covers the full lifecycle.</p>
+<div class="grid-responsive-1" style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-top:3rem;">
+<!-- MANDATE 1: BUILD -->
+<div style="padding:2.5rem;background:rgba(232,135,33,.06);border:1px solid rgba(232,135,33,.2);border-radius:20px;">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;">
+<div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(232,135,33,.3),rgba(232,135,33,.1));display:flex;align-items:center;justify-content:center;font-size:1.3rem;">🏗️</div>
+<div>
+<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#e88721;">Mandate 1</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:1.15rem;font-weight:800;">Build the GCC</div>
+</div>
+</div>
+<p style="font-size:.88rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;">Set up, staff, and ramp your India GCC — from legal entity and real estate to hiring 350+ pre-assessed practitioners across 8 talent tracks. 90-day Launchpad to first delivery sprint.</p>
+<div style="display:flex;flex-direction:column;gap:.6rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#e88721;flex-shrink:0;margin-top:.1rem;">→</span>End-to-end GCC setup in 90 days with defined milestones</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#e88721;flex-shrink:0;margin-top:.1rem;">→</span>Deep talent network — AI/ML, QE, MLOps, AIOps, compliance, product</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#e88721;flex-shrink:0;margin-top:.1rem;">→</span>2-week placement SLA, outcome accountability (not timesheet billing)</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#e88721;flex-shrink:0;margin-top:.1rem;">→</span>SURE-Q governance framework installed from day one</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#e88721;flex-shrink:0;margin-top:.1rem;">→</span>Knowledge transfer SLA — full ownership transitions to your team</div>
+</div>
+</div>
+<!-- MANDATE 2: RUN -->
+<div style="padding:2.5rem;background:rgba(77,49,245,.08);border:1px solid rgba(77,49,245,.25);border-radius:20px;">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;">
+<div style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(77,49,245,.35),rgba(33,163,178,.15));display:flex;align-items:center;justify-content:center;font-size:1.3rem;">⚡</div>
+<div>
+<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#b5a6ff;">Mandate 2</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:1.15rem;font-weight:800;">Run the AI Quality Layer</div>
+</div>
+</div>
+<p style="font-size:.88rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;">Once your GCC is building AI, it needs the quality and governance infrastructure that ensures everything it ships is reliable, compliant, and measurably improving — not silently degrading.</p>
+<div style="display:flex;flex-direction:column;gap:.6rem;">
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#b5a6ff;flex-shrink:0;margin-top:.1rem;">→</span>QAVE — continuous AI evaluation for every model your GCC ships</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#b5a6ff;flex-shrink:0;margin-top:.1rem;">→</span>CHEQ — compliance tooling for RBI, IRDAI, HIPAA, EU AI Act obligations</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#b5a6ff;flex-shrink:0;margin-top:.1rem;">→</span>Agent Fabric — evaluate and orchestrate agentic workflows in production</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#b5a6ff;flex-shrink:0;margin-top:.1rem;">→</span>Nexus — QE intelligence across all product lines your GCC owns globally</div>
+<div style="display:flex;align-items:flex-start;gap:.6rem;font-size:.83rem;color:rgba(255,255,255,.8);"><span style="color:#b5a6ff;flex-shrink:0;margin-top:.1rem;">→</span>Synthetic Data — domain eval datasets without exposing real PII</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     CONTRACT HIRING SURGE + MARKET SIGNALS
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(232,135,33,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0;color:#e88721;">Market Signal — May 2026</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:700px;margin-bottom:.5rem">GCCs are in a tearing hurry. Talent premiumisation is real.</h2>
+<p class="section-subtitle">The Moneycontrol/Quess Corp data confirms what we see on the ground: GCCs are moving fast, contract-to-hire is becoming the dominant model, and billing rates for AI skills have nearly tripled in five years.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2.5rem;">
+<div style="padding:1.75rem;background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.2);border-radius:14px;text-align:center;">
+<div style="font-size:2.5rem;font-weight:800;font-family:'Inter Tight',sans-serif;color:#e88721;line-height:1;">24%</div>
+<div style="font-size:.82rem;color:rgba(255,255,255,.8);margin-top:.4rem;font-weight:600;">of GCC employees are now contract/staffing</div>
+<div style="font-size:.72rem;color:var(--text-muted);margin-top:.3rem;">First time ever in India — Quess Corp CEO, 2026</div>
+</div>
+<div style="padding:1.75rem;background:rgba(77,49,245,.08);border:1px solid rgba(77,49,245,.2);border-radius:14px;text-align:center;">
+<div style="font-size:2.5rem;font-weight:800;font-family:'Inter Tight',sans-serif;color:#b5a6ff;line-height:1;">2.7×</div>
+<div style="font-size:.82rem;color:rgba(255,255,255,.8);margin-top:.4rem;font-weight:600;">Billing rate increase for AI/cybersecurity talent</div>
+<div style="font-size:.72rem;color:var(--text-muted);margin-top:.3rem;">₹48K → ₹1.3L/mo in 5 years — Quess Corp data</div>
+</div>
+<div style="padding:1.75rem;background:rgba(33,163,178,.07);border:1px solid rgba(33,163,178,.2);border-radius:14px;text-align:center;">
+<div style="font-size:2.5rem;font-weight:800;font-family:'Inter Tight',sans-serif;color:var(--teal);line-height:1;">5–13</div>
+<div style="font-size:.82rem;color:rgba(255,255,255,.8);margin-top:.4rem;font-weight:600;">Years of experience — the demand sweet spot</div>
+<div style="font-size:.72rem;color:var(--text-muted);margin-top:.3rem;">AI, cybersecurity, data analytics, engineering</div>
+</div>
+<div style="padding:1.75rem;background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.2);border-radius:14px;text-align:center;">
+<div style="font-size:2.5rem;font-weight:800;font-family:'Inter Tight',sans-serif;color:#e88721;line-height:1;">90d</div>
+<div style="font-size:.82rem;color:rgba(255,255,255,.8);margin-top:.4rem;font-weight:600;">Qapitol Launchpad — from contract to delivery</div>
+<div style="font-size:.72rem;color:var(--text-muted);margin-top:.3rem;">The market needs speed. We built for it.</div>
+</div>
+</div>
+<div style="margin-top:2rem;padding:1.5rem 2rem;background:rgba(77,49,245,.07);border:1px solid rgba(77,49,245,.2);border-radius:12px;max-width:760px;">
+<p style="font-size:.88rem;color:rgba(255,255,255,.85);line-height:1.75;margin:0;font-style:italic;">"When GCCs come to India, they are in a tearing hurry to hire the right people, the right skills, to put them on a project and get the project delivered."</p>
+<div style="font-size:.73rem;color:var(--text-muted);margin-top:.5rem;">Lohit Bhatia, CEO, Quess Corp — Moneycontrol, 2026  ·  <a href="https://www.moneycontrol.com/technology/india-s-gcc-boom-fuels-contract-hiring-surge-says-quess-ceo-bhatia-article-13917056.html" rel="noopener" style="color:var(--text-muted);text-decoration:none;" target="_blank">Source ↗</a></div>
+</div>
+<p style="font-size:.84rem;color:var(--text-muted);line-height:1.75;max-width:680px;margin-top:1.5rem;">This premiumisation isn't a pricing problem — it's a scarcity problem. Qapitol's pre-assessed practitioner network gives you direct access to the 5% with genuine AI, QE, and governance depth. Not candidates who look like they can. Engineers who already have.</p>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHO BUILDS GCCS — US & MIDDLE EAST BUYER SEGMENTS
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Where GCC Buyers Come From</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">GCC is a global strategy. The buyer is in the US, UK, or Middle East.</h2>
+<p class="section-subtitle">India is where the GCC is built. The decision-maker is in San Francisco, New York, Dubai, or Riyadh. Qapitol speaks both languages — India delivery depth and the strategic context your HQ expects.</p>
+<div class="grid-responsive-1" style="display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-top:2.5rem;">
+<!-- US buyers -->
+<div style="padding:2rem;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);border-radius:16px;">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;">
+<span style="font-size:1.8rem;">🇺🇸</span>
+<div>
+<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#60a5fa;">US Enterprise Buyer</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:1.05rem;font-weight:800;">Fortune 500 · BFSI · Tech · Healthcare</div>
+</div>
+</div>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Nearly 50% of US-headquartered GCCs globally are in Bengaluru. JPMorgan is building Asia's largest GCC in Mumbai. US buyers need: India GCC setup, AI eval for Azure/OpenAI deployments, NIST AI RMF and SOC 2 alignment, cost model to take to the board.</p>
+<div style="display:flex;flex-direction:column;gap:.4rem;">
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#60a5fa;flex-shrink:0;">→</span>Independent eval layer above Azure/OpenAI stack</div>
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#60a5fa;flex-shrink:0;">→</span>NIST AI RMF · SOC 2 · HIPAA · EU AI Act dual-mapping</div>
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#60a5fa;flex-shrink:0;">→</span>India GCC: 40–60% cost advantage, 2-week mobilisation</div>
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#60a5fa;flex-shrink:0;">→</span>Forward-deployed engineers in EST/PST timezone</div>
+</div>
+<a href="usa.html" style="display:inline-block;margin-top:1.25rem;font-size:.82rem;color:#60a5fa;font-weight:600;text-decoration:none;">See our US Enterprise page →</a>
+</div>
+<!-- Middle East buyers -->
+<div style="padding:2rem;background:rgba(201,162,39,.06);border:1px solid rgba(201,162,39,.2);border-radius:16px;">
+<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;">
+<span style="font-size:1.8rem;">🇦🇪</span>
+<div>
+<div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#c9a227;">Middle East Buyer</div>
+<div style="font-family:'Inter Tight',sans-serif;font-size:1.05rem;font-weight:800;">UAE · Saudi Arabia · Qatar · Bahrain</div>
+</div>
+</div>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Fastest-growing GCC region at 8.97% CAGR. UAE generated $2.66B in IT GCCs in 2025 alone. 184 regional HQs relocated to Saudi Arabia in H1 2025. Vision 2030 and UAE AI Strategy 2031 are driving government AI procurement mandates. Energy majors deploying AI at scale.</p>
+<div style="display:flex;flex-direction:column;gap:.4rem;">
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#c9a227;flex-shrink:0;">→</span>UAE/Saudi GCC setup — zero tax free zones until 2029</div>
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#c9a227;flex-shrink:0;">→</span>AI governance for UAE AI Strategy 2031 compliance</div>
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#c9a227;flex-shrink:0;">→</span>Energy sector AI eval (ADNOC-scale operations)</div>
+<div style="font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:flex-start;gap:.4rem;"><span style="color:#c9a227;flex-shrink:0;">→</span>Islamic finance compliance overlay</div>
+</div>
+<a href="uae.html" style="display:inline-block;margin-top:1.25rem;font-size:.82rem;color:#c9a227;font-weight:600;text-decoration:none;">See our Middle East page →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     ENGAGEMENT MODELS
+════════════════════════════════════════════════════════════ -->
+<section id="engagement-models" style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Engagement Models</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Three ways to engage. One outcome: a GCC that actually delivers.</h2>
+<p class="section-subtitle">Choose the engagement model that matches your GCC's stage and ambition. Or combine them — most mature clients run all three simultaneously across different capability tracks.</p>
+<div class="engagement-grid">
+<div class="eng-card orange">
+<span class="eng-badge orange">Full Setup</span>
+<h3>GCC Launchpad</h3>
+<p>The complete setup engagement. We handle team hiring, platform deployment, SURE-Q governance framework installation, and deliver a 90-day capability roadmap with defined milestones. Fixed scope, fixed outcomes — no open-ended retainers.</p>
+<ul style="font-size:.85rem;color:var(--text-muted);padding-left:1.1rem;margin-bottom:1rem;line-height:1.9">
+<li>End-to-end GCC setup in 90 days</li>
+<li>Hiring, onboarding, and platform deployment included</li>
+<li>SURE-Q framework installed from day one</li>
+<li>Executive governance dashboards configured</li>
+<li>Knowledge transfer and handoff plan included</li>
+</ul>
+<div class="eng-ideal"><strong>Ideal for:</strong> New GCC or major capability expansion where speed, governance, and predictability are non-negotiable.</div>
+</div>
+<div class="eng-card indigo">
+<span class="eng-badge indigo">Flexible Scale</span>
+<h3>GCC Staff Augmentation</h3>
+<p>Plug Qapitol practitioners directly into your existing GCC team. Per-role, per-outcome pricing. Flexible ramp up and ramp down. Every practitioner arrives platform-trained and SURE-Q certified — productive from day one, not month three.</p>
+<ul style="font-size:.85rem;color:var(--text-muted);padding-left:1.1rem;margin-bottom:1rem;line-height:1.9">
+<li>2-week placement SLA, guaranteed</li>
+<li>8 talent tracks: AI/ML, QE, MLOps, AIOps, and more</li>
+<li>Outcome accountability, not timesheet billing</li>
+<li>Flexible duration — sprint, quarter, or long-term</li>
+<li>Team can be expanded or contracted as needs evolve</li>
+</ul>
+<div class="eng-ideal"><strong>Ideal for:</strong> Scaling an existing GCC team with specialist skills unavailable in the local market.</div>
+</div>
+<div class="eng-card teal">
+<span class="eng-badge teal">Managed Capability</span>
+<h3>GCC Managed Capability</h3>
+<p>We run an entire function within your GCC — AI QE CoE, AI Governance team, Automation practice, or MLOps function — as a fully managed service. SLA-backed throughput. Outcome reporting. Your GCC gains a new capability without the 12-month build cost.</p>
+<ul style="font-size:.85rem;color:var(--text-muted);padding-left:1.1rem;margin-bottom:1rem;line-height:1.9">
+<li>End-to-end function ownership with SLA</li>
+<li>Monthly outcome reporting tied to business metrics</li>
+<li>Capability transition plan to your team at defined milestones</li>
+<li>Includes platform licensing for relevant Qapitol tools</li>
+<li>Governance and compliance reporting included</li>
+</ul>
+<div class="eng-ideal"><strong>Ideal for:</strong> A mature GCC that needs to add an entirely new capability track at speed, without rebuilding the recruitment engine.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     FULL TALENT SPECTRUM
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(33,163,178,.04) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Talent Spectrum</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:640px;margin-bottom:.5rem">Every role your GCC needs. Eight tracks. One talent partner.</h2>
+<p class="section-subtitle">Qapitol is not a QE staffing firm. We field the complete AI and technology talent spectrum — from LLM engineers to domain SMEs, from MLOps to AI auditors.</p>
+<div class="talent-section">
+<div class="track-block">
+<div class="track-label">AI &amp; ML Engineering</div>
+<div class="role-pills">
+<span class="role-pill">LLM Engineers</span>
+<span class="role-pill">ML Engineers</span>
+<span class="role-pill">AI Researchers</span>
+<span class="role-pill">Gen AI Specialists</span>
+<span class="role-pill">Prompt Engineers</span>
+<span class="role-pill">Fine-tuning Specialists</span>
+<span class="role-pill">AI Architects</span>
+<span class="role-pill">Foundation Model Engineers</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">Quality Engineering</div>
+<div class="role-pills">
+<span class="role-pill">QE Architects</span>
+<span class="role-pill">SDET / Automation Engineers</span>
+<span class="role-pill">Performance Engineers</span>
+<span class="role-pill">Security Testers</span>
+<span class="role-pill">Accessibility Engineers</span>
+<span class="role-pill">API Test Engineers</span>
+<span class="role-pill">Mobile QE Specialists</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">MLOps &amp; Data</div>
+<div class="role-pills">
+<span class="role-pill">MLOps Engineers</span>
+<span class="role-pill">Data Engineers</span>
+<span class="role-pill">Data Scientists</span>
+<span class="role-pill">Feature Engineers</span>
+<span class="role-pill">Synthetic Data Specialists</span>
+<span class="role-pill">Pipeline Architects</span>
+<span class="role-pill">Data Platform Engineers</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">AI Governance &amp; Compliance</div>
+<div class="role-pills">
+<span class="role-pill">AI Auditors</span>
+<span class="role-pill">Compliance Analysts</span>
+<span class="role-pill">Risk Engineers</span>
+<span class="role-pill">CHEQ Platform Practitioners</span>
+<span class="role-pill">EU AI Act Specialists</span>
+<span class="role-pill">AI Ethics Reviewers</span>
+<span class="role-pill">Regulatory Technology SMEs</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">Intelligent Automation</div>
+<div class="role-pills">
+<span class="role-pill">RPA Developers</span>
+<span class="role-pill">Agentic AI Builders</span>
+<span class="role-pill">Workflow Automation Engineers</span>
+<span class="role-pill">NLP Engineers</span>
+<span class="role-pill">Conversational AI Developers</span>
+<span class="role-pill">Process Mining Specialists</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">AIOps &amp; Reliability</div>
+<div class="role-pills">
+<span class="role-pill">AIOps Engineers</span>
+<span class="role-pill">Site Reliability Engineers</span>
+<span class="role-pill">Observability Engineers</span>
+<span class="role-pill">Incident Response Specialists</span>
+<span class="role-pill">Chaos Engineering Practitioners</span>
+<span class="role-pill">Platform Reliability Architects</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">Forward Deployment</div>
+<div class="role-pills">
+<span class="role-pill">AI Transformation Leads</span>
+<span class="role-pill">Embedded Engineering Managers</span>
+<span class="role-pill">GCC Delivery Heads</span>
+<span class="role-pill">Principal AI Engineers</span>
+<span class="role-pill">Outcome Delivery Managers</span>
+</div>
+</div>
+<div class="track-block">
+<div class="track-label">Product &amp; Domain SMEs</div>
+<div class="role-pills">
+<span class="role-pill">AI Product Managers</span>
+<span class="role-pill">Business Analysts</span>
+<span class="role-pill">BFSI Domain SMEs</span>
+<span class="role-pill">Healthcare Domain SMEs</span>
+<span class="role-pill">Retail / Logistics SMEs</span>
+<span class="role-pill">InsurTech SMEs</span>
+<span class="role-pill">RegTech SMEs</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     WHY INDIA, WHY NOW, WHY QAPITOL
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Why India. Why Now. Why Qapitol.</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:700px;margin-bottom:.5rem">India's GCC talent advantage is structural — and not going away.</h2>
+<p class="section-subtitle">The question isn't whether to build your GCC in India. It's whether you have the right partner — one that covers talent, governance, and the full AI platform layer, not just headcount placement.</p>
+<div class="india-grid">
+<div class="india-card">
+<div class="stat-num">40–60%</div>
+<h3>Cost Advantage for AI Talent</h3>
+<p>Senior AI engineers in New York, San Francisco, London, and Berlin cost 3–5× more than equivalent roles in India GCCs. The cost advantage is real — but Qapitol's edge is practitioner depth, not just price. 120,000+ AI professionals are already operating inside Indian GCCs. Our pre-assessed network finds the top 5%.</p>
+</div>
+<div class="india-card">
+<div class="stat-num">11%</div>
+<h3>GCC CAGR vs 8% for IT</h3>
+<p>India's GCC market is growing faster than the IT services sector it once supported — $64.6B today, $105B by 2030. 50 new centres launched in early 2025 alone. The window to establish a GCC with structural AI capability before the talent market tightens further is genuinely finite.</p>
+</div>
+<div class="india-card">
+<div class="stat-num">9+</div>
+<h3>Years of Production Delivery</h3>
+<p>Qapitol's 9+ years of enterprise AI and quality engineering delivery across BFSI, Healthcare, Logistics, and Tech means you don't pay for our learning curve. Every framework we deploy has already been hardened in production. Every practitioner has already delivered in environments like yours. That's not a claim — it's a track record.</p>
+</div>
+</div>
+<!-- Talent quote -->
+<div style="margin-top:2rem;padding:1.75rem 2rem;background:rgba(33,163,178,.06);border:1px solid rgba(33,163,178,.2);border-radius:14px;max-width:800px;">
+<p style="font-size:.9rem;color:rgba(255,255,255,.85);line-height:1.75;font-style:italic;margin-bottom:.65rem;">"India's GCC talent advantage is structural and it is not going away. What is not structural is whether any individual enterprise is designed to capture it. The centers that will define the next decade of global business are being built right now."</p>
+<div style="font-size:.73rem;color:var(--text-muted);">NASSCOM GCC Community — The GCC Talent Advantage, 2025</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     KPI BAND
+════════════════════════════════════════════════════════════ -->
+<div class="kpi-band">
+<div class="container">
+<div class="kpi-item"><div class="kpi-num">15+</div><p>GCCs supported across industries</p></div>
+<div class="kpi-item"><div class="kpi-num">350+</div><p>Pre-assessed practitioners, 8 tracks</p></div>
+<div class="kpi-item"><div class="kpi-num">6</div><p>Platforms deployed from day one</p></div>
+<div class="kpi-item"><div class="kpi-num">2 wks</div><p>Placement SLA, guaranteed</p></div>
+<div class="kpi-item"><div class="kpi-num">50%</div><p>Faster ramp vs. industry average</p></div>
+<div class="kpi-item"><div class="kpi-num">94%</div><p>12-month practitioner retention</p></div>
+</div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════
+     GCC TO AI INNOVATION ENGINE JOURNEY
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">The GCC Maturity Journey</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:700px;margin-bottom:.5rem">From GCC inception to AI innovation engine — Qapitol covers every stage.</h2>
+<p class="section-subtitle">Most partners show up for stage one and disappear. Qapitol is the only platform partner that stays relevant — and adds more value — as your GCC matures.</p>
+<div class="journey-wrap">
+<div class="journey-track">
+<div class="journey-step">
+<div class="journey-node">🏗️</div>
+<h4>GCC Setup</h4>
+<p>Entity, hiring, platform deployment, SURE-Q governance installed</p>
+</div>
+<div class="journey-step">
+<div class="journey-node" style="border-color:var(--accent-light)">⚡</div>
+<h4>First AI Delivery</h4>
+<p>QAVE + Nexus live, eval pipelines running, first compliance reports</p>
+</div>
+<div class="journey-step">
+<div class="journey-node" style="border-color:var(--teal)">🤖</div>
+<h4>Agentic Scale</h4>
+<p>Agent Fabric deployed, autonomous workflows validated, synthetic data pipeline active</p>
+</div>
+<div class="journey-step">
+<div class="journey-node" style="border-color:var(--orange)">🌐</div>
+<h4>Global Ownership</h4>
+<p>GCC owns global product lines, drives R&amp;D, 52% share in global decisions</p>
+</div>
+<div class="journey-step">
+<div class="journey-node" style="border-color:#6edfe8">🎯</div>
+<h4>Business Outcome Assurance</h4>
+<p>GCC measured on enterprise AI outcomes — revenue, cost, compliance — not delivery tickets</p>
+</div>
+</div>
+<div class="journey-quote">
+        "AI will no longer be measured by its feasibility alone — companies won't just ask 'Can we implement AI?' but 'How deeply is AI integrated into the way we run our business?'" — Zinnov, Top 5 GCC Trends 2025
+      </div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     PLATFORMS FOR YOUR GCC
+════════════════════════════════════════════════════════════ -->
+<section id="gcc-platform" style="padding:5rem 0;background:linear-gradient(180deg,transparent,rgba(77,49,245,.05) 50%,transparent)">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">Platform Stack — Deployed in Your GCC</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:680px;margin-bottom:.5rem">Six platforms. One quality and governance layer. Deployed from day one.</h2>
+<p class="section-subtitle">Your GCC doesn't just need talent — it needs the toolchain that ensures everything it builds is evaluated, governed, and defensible. Every Qapitol GCC engagement deploys the full platform stack, pre-configured for your environment and industry.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:2.5rem">
+<a href="qave.html" style="text-decoration:none">
+<div class="advantage-card" style="height:100%;border-color:rgba(77,49,245,.3);">
+<div class="adv-icon" style="background:linear-gradient(135deg,rgba(77,49,245,.3),rgba(77,49,245,.1));">⚡</div>
+<h3>QAVE — AI Eval Engine</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Runs continuous AI evaluation pipelines across every model your GCC builds. Catches hallucinations, drift, and accuracy degradation before production — not after client escalation.</p>
+<div style="margin-top:1rem;font-size:.72rem;color:#b5a6ff;font-weight:600;">→ GenAI · Agentic AI · LLM Evaluation · Drift Detection</div>
+</div>
+</a>
+<a href="cheq.html" style="text-decoration:none">
+<div class="advantage-card" style="height:100%;border-color:rgba(33,163,178,.3);">
+<div class="adv-icon" style="background:linear-gradient(135deg,rgba(33,163,178,.3),rgba(33,163,178,.1));">🔒</div>
+<h3>CHEQ — Compliance Platform</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Obligation mapping for RBI, IRDAI, HIPAA, GDPR, EU AI Act, DPDP. Automated audit trails and evidence bundles. Your GCC builds AI that regulators can actually audit.</p>
+<div style="margin-top:1rem;font-size:.72rem;color:var(--teal);font-weight:600;">→ BFSI · Healthcare · Insurance · Cross-border Compliance</div>
+</div>
+</a>
+<a href="agent-fabric.html" style="text-decoration:none">
+<div class="advantage-card" style="height:100%;border-color:rgba(232,135,33,.3);">
+<div class="adv-icon" style="background:linear-gradient(135deg,rgba(232,135,33,.3),rgba(232,135,33,.1));">🤖</div>
+<h3>Agent Fabric — Agentic QE</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Your GCC is deploying autonomous agents. Agent Fabric tests orchestration logic, handoff quality, failure modes, and goal completion — before agents operate unsupervised in production.</p>
+<div style="margin-top:1rem;font-size:.72rem;color:#e88721;font-weight:600;">→ Agentic Workflows · Orchestration Testing · Human-in-loop Validation</div>
+</div>
+</a>
+<a href="nexus.html" style="text-decoration:none">
+<div class="advantage-card" style="height:100%">
+<div class="adv-icon">🔭</div>
+<h3>Nexus — QE Intelligence</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">QE execution intelligence across all product lines your GCC owns globally. Test coverage analytics, defect prediction, sprint health — so your QE function runs on data, not intuition.</p>
+<div style="margin-top:1rem;font-size:.72rem;color:#b5a6ff;font-weight:600;">→ Coverage · Analytics · Multi-team · Global Product Lines</div>
+</div>
+</a>
+<a href="synthetic-data-management.html" style="text-decoration:none">
+<div class="advantage-card" style="height:100%">
+<div class="adv-icon">🧬</div>
+<h3>Synthetic Data</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Generate domain-specific eval datasets for BFSI, Healthcare, and Retail without exposing real PII. Build the test coverage your GCC's AI actually needs — powered by GenRocket.</p>
+<div style="margin-top:1rem;font-size:.72rem;color:#b5a6ff;font-weight:600;">→ PII-safe · Domain-specific · Eval Datasets · Regulatory Compliant</div>
+</div>
+</a>
+<a href="workflow-automation.html" style="text-decoration:none">
+<div class="advantage-card" style="height:100%">
+<div class="adv-icon">⚙️</div>
+<h3>AI Workflow Automation</h3>
+<p style="font-size:.83rem;color:var(--text-muted);line-height:1.65;">Deploy and validate AI-driven workflows across your GCC's internal operations — from intake and triage to compliance reporting and delivery dashboards. Measurable throughput gains.</p>
+<div style="margin-top:1rem;font-size:.72rem;color:#b5a6ff;font-weight:600;">→ GCC Ops · Internal AI · Workflow QE · Automation Governance</div>
+</div>
+</a>
+</div>
+<!-- Vertical-specific callout -->
+<div style="margin-top:2.5rem;padding:2rem;background:rgba(77,49,245,.07);border:1px solid rgba(77,49,245,.2);border-radius:16px;">
+<h4 style="font-family:'Inter Tight',sans-serif;font-size:1rem;margin-bottom:1rem;color:#b5a6ff;">Platform configured for your GCC's industry vertical</h4>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;">
+<div><strong style="font-size:.85rem;">BFSI GCC</strong><p style="font-size:.78rem;color:var(--text-muted);margin-top:.2rem;">RBI, SEBI, PMLA obligation mapping. Credit &amp; AML model evaluation. UPI/IMPS performance QE.</p></div>
+<div><strong style="font-size:.85rem;">Healthcare GCC</strong><p style="font-size:.78rem;color:var(--text-muted);margin-top:.2rem;">HIPAA-safe synthetic data. Clinical AI evaluation. ABDM compliance tooling.</p></div>
+<div><strong style="font-size:.85rem;">Insurance GCC</strong><p style="font-size:.78rem;color:var(--text-muted);margin-top:.2rem;">IRDAI obligation mapping. Underwriting &amp; claims AI evaluation. Actuarial drift detection.</p></div>
+<div><strong style="font-size:.85rem;">Tech / SaaS GCC</strong><p style="font-size:.78rem;color:var(--text-muted);margin-top:.2rem;">LLM evaluation pipelines. API test automation. Agentic product feature QE.</p></div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     TESTIMONIALS
+════════════════════════════════════════════════════════════ -->
+<section style="padding:5rem 0">
+<div class="container">
+<div class="section-eyebrow">
+<div class="eyebrow-line"></div>
+<span class="section-kicker" style="margin-bottom:0">GCC Track Record</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;max-width:540px;margin-bottom:2.5rem">What GCC leaders say after working with Qapitol</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem">
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem">
+<div style="font-size:1.5rem;color:var(--accent-light);margin-bottom:1rem">“</div>
+<p style="font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:1.5rem">We stood up a 60-person AI engineering GCC in Bangalore in 14 weeks. Qapitol brought the talent, the platforms, and the governance framework simultaneously. We shipped to production in month 4. That would have been month 10 without them.</p>
+<div style="display:flex;align-items:center;gap:.75rem">
+<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--teal));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem">AK</div>
+<div><div style="font-weight:700;font-size:.88rem">Arjun Krishnamurthy</div><div style="font-size:.78rem;color:var(--text-muted)">VP Engineering, European Insurance MNC — India GCC Head</div></div>
+</div>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem">
+<div style="font-size:1.5rem;color:var(--teal);margin-bottom:1rem">“</div>
+<p style="font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:1.5rem">The CHEQ platform alone saved us months of compliance remediation work. Having AI governance baked in from the start — not bolted on after an audit finding — is the way to build a GCC that scales. Qapitol understood that without being told.</p>
+<div style="display:flex;align-items:center;gap:.75rem">
+<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#6edfe8);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem">PS</div>
+<div><div style="font-weight:700;font-size:.88rem">Priya Sundaram</div><div style="font-size:.78rem;color:var(--text-muted)">Chief Technology Officer, US-based FinTech — India GCC Lead</div></div>
+</div>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem">
+<div style="font-size:1.5rem;color:var(--orange);margin-bottom:1rem">“</div>
+<p style="font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:1.5rem">We tried two other vendors before Qapitol. The difference is the practitioner depth. They didn't give us junior engineers managed by a senior account rep. They gave us senior practitioners who understood our domain and our stack from week one.</p>
+<div style="display:flex;align-items:center;gap:.75rem">
+<div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#f5b853);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem">RM</div>
+<div><div style="font-weight:700;font-size:.88rem">Rahul Mehrotra</div><div style="font-size:.78rem;color:var(--text-muted)">Head of Digital, Logistics MNC — Bangalore GCC Director</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══════════════════════════════════════════════════════════
+     CTA BAND
+════════════════════════════════════════════════════════════ -->
+<section style="padding:3rem 0 6rem">
+<div class="container">
+<div class="gcc-cta-band">
+<h2>Build the GCC that owns AI — not one that just runs it.</h2>
+<p>15+ GCCs supported. 350+ practitioners. 6 platforms deployed from day one. Whether you're starting from scratch or scaling an existing centre into an AI innovation engine — Qapitol is the only partner covering both mandates.</p>
+<div class="cta-row">
+<a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem">Talk to a GCC Specialist →</a>
+<a class="btn btn-secondary" href="qave-platform.html" style="font-size:1rem;padding:.9rem 2rem">Try QAVE Free in Your GCC</a>
+</div>
+<p class="gcc-note">No commitment required. We'll map your GCC's current state, identify the platform gaps, and recommend the right engagement model — within 48 hours.</p>
+</div>
+</div>
+</section>
+<!-- FREE OFFER BAND -->
+<section style="padding:4rem 0;background:linear-gradient(135deg,rgba(232,135,33,0.12) 0%,rgba(33,163,178,0.06) 100%);border-top:1px solid rgba(232,135,33,0.2);border-bottom:1px solid rgba(232,135,33,0.2);">
+<div class="container">
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem;">
+<div style="max-width:600px;">
+<div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem;">
+<span style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#e88721;">Free — No Commitment</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:.75rem;">What would your GCC actually cost? Download the model.</h2>
+<p style="color:var(--text-muted);line-height:1.75;font-size:.95rem;margin-bottom:1.5rem;">Our CFO-ready India GCC Cost Model covers setup costs, talent acquisition, compliance overhead, infrastructure, and governance — broken down by engagement model (Launchpad, Staff Augmentation, Managed Capability). Includes 3-year projection scenarios.</p>
+<div style="display:flex;flex-wrap:wrap;gap:.65rem;margin-bottom:1rem;">
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.25);color:#fff;">3-year cost projection</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.25);color:#fff;">Covers talent + infra + compliance</span>
+<span style="font-size:.78rem;font-weight:600;padding:.3rem .85rem;border-radius:99px;background:rgba(232,135,33,0.1);border:1px solid rgba(232,135,33,0.25);color:#fff;">Benchmark against 15+ GCCs</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-start;">
+<div class="what-next"><div class="what-next-label">What happens next</div><ol><li data-n="1">Share your target headcount, function mix, and timeline — takes about 5 minutes.</li><li data-n="2">Our GCC team models India cost structure versus your current opex baseline.</li><li data-n="3">Download a board-ready cost comparison with break-even analysis within 24 hours.</li></ol></div><a class="btn btn-primary" href="contact.html" style="font-size:1rem;padding:.9rem 2rem;white-space:nowrap;">Download Cost Model →</a>
+<p style="font-size:.78rem;color:var(--text-muted);">Sent as Excel + PDF. Requires name and email.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

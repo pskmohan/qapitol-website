@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Partner Programs — Build with Qapitol | Qapitol</title>
+<meta content="Join Qapitol's partner ecosystem. Delivery partners, resellers, implementation partners, co-innovation, talent, and distribution programs for AI quality engineering." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    .partner-type-nav{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem}
+    .ptnav{padding:.55rem 1.3rem;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;font-size:.88rem;font-family:inherit;transition:all .2s;text-decoration:none;display:inline-block}
+    .ptnav:hover,.ptnav.active{background:var(--accent);border-color:var(--accent);color:#fff}
+    .partner-section{scroll-margin-top:100px}
+    .partner-hero-block{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:3rem}
+    @media(max-width:720px){.partner-hero-block{grid-template-columns:1fr}}
+    .partner-icon-big{width:80px;height:80px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin-bottom:1.25rem}
+    .benefit-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6rem}
+    .benefit-list li{display:flex;align-items:flex-start;gap:.6rem;font-size:.92rem;color:var(--text-muted);line-height:1.5}
+    .benefit-list li::before{content:"✓";color:var(--teal);font-weight:700;flex-shrink:0;margin-top:.05rem}
+    .tier-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.5rem}
+    .tier-card{background:var(--surface-3);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center}
+    .tier-card .tier-name{font-weight:700;font-family:"Inter Tight",sans-serif;margin-bottom:.3rem}
+    .tier-card .tier-desc{font-size:.82rem;color:var(--text-muted)}
+    .existing-partners{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2rem;align-items:center}
+    .partner-logo-pill{display:flex;align-items:center;gap:.6rem;background:var(--surface-2);border:1px solid var(--border);border-radius:99px;padding:.5rem 1.25rem;font-size:.88rem;font-weight:600}
+    .partner-logo-pill span{font-size:1.2rem}
+    .apply-card{background:var(--surface-2);border:1px solid var(--border-glow);border-radius:20px;padding:2rem;margin-top:2rem}
+    .apply-card h4{font-family:"Inter Tight",sans-serif;font-size:1.1rem;margin-bottom:1rem}
+    .apply-form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    @media(max-width:600px){.apply-form-row{grid-template-columns:1fr}}
+    .apply-field input,.apply-field select,.apply-field textarea{width:100%;padding:.7rem 1rem;background:var(--surface-3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:.92rem;outline:none;transition:border .2s;box-sizing:border-box}
+    .apply-field input:focus,.apply-field select:focus,.apply-field textarea:focus{border-color:var(--accent)}
+    .apply-field label{display:block;font-size:.82rem;font-weight:600;color:var(--text-muted);margin-bottom:.35rem}
+    .apply-field textarea{min-height:80px;resize:vertical}
+    .partner-stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.25rem;margin:2.5rem 0}
+    .pstat{text-align:center;padding:1.25rem;background:var(--surface-2);border-radius:14px;border:1px solid var(--border)}
+    .pstat-num{font-size:2rem;font-weight:800;font-family:"Inter Tight",sans-serif;background:linear-gradient(135deg,var(--accent-light),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .pstat p{font-size:.8rem;color:var(--text-muted);margin-top:.2rem}
+    .divider-section{border-top:1px solid var(--border);padding-top:4rem;margin-top:4rem}
+    .partner-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:1.5rem}
+    .partner-card{background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .2s,transform .2s}
+    .partner-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+    .partner-wordmark{font-family:"Inter Tight",sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;margin-bottom:.25rem}
+    .partner-about{font-size:.85rem;color:var(--text-muted);line-height:1.7;flex:1}
+    .partner-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-top:.25rem}
+    .partner-type-badge{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:.2rem .65rem;border-radius:99px;border:1px solid var(--border);color:var(--text-muted)}
+    .partner-visit{font-size:.8rem;color:var(--accent-light);text-decoration:none;font-weight:600}
+    .partner-visit:hover{text-decoration:underline}
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" property="og:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/partnerships.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" name="twitter:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." name="twitter:description"/>
+  <meta name="description" content="Partner with Qapitol — technology alliances, SI partnerships, and reseller programmes for AI quality engineering, governance, and talent platforms across global markets.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/partnerships.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/partnerships.html">
+  <meta property="og:title" content="Partnerships | Qapitol AI Technologies">
+  <meta property="og:description" content="Partner with Qapitol — technology alliances, SI partnerships, and reseller programmes for AI quality engineering, governance, and talent platforms across global markets.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="Partnerships | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Partner with Qapitol — technology alliances, SI partnerships, and reseller programmes for AI quality engineering, governance, and talent platforms across global markets.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- HERO -->
+<section class="hero section-geo" style="padding-top:7rem;padding-bottom:5rem;text-align:center;">
+<div class="container" style="max-width:760px;">
+<p class="kicker">Partner Ecosystem</p>
+<h1>Build with Qapitol.<br/><span class="gradient-text">Win together.</span></h1>
+<p class="hero-sub" style="margin:0 auto 2rem;">We partner with technology vendors, SIs, boutique consultancies, AI labs, and talent firms to deliver AI quality engineering at scale. Multiple partnership models. Mutual commercial upside.</p>
+<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+<a class="btn btn-primary" href="#apply">Apply to Partner →</a>
+<a class="btn btn-outline" href="#programs">Explore Programs</a>
+</div>
+</div>
+</section>
+<!-- STATS -->
+<section class="section" style="padding-top:0;">
+<div class="container">
+<div class="partner-stat-row">
+<div class="pstat"><div class="pstat-num">18+</div><p>Active Partners</p></div>
+<div class="pstat"><div class="pstat-num">6</div><p>Partnership Models</p></div>
+<div class="pstat"><div class="pstat-num">₹3.5Cr+</div><p>Partner Revenue Generated</p></div>
+<div class="pstat"><div class="pstat-num">40%</div><p>Avg Partner Margin</p></div>
+<div class="pstat"><div class="pstat-num">14 days</div><p>Onboarding to First Deal</p></div>
+</div>
+<!-- Quick nav -->
+<div class="partner-type-nav" id="programs">
+<a class="ptnav" href="#ai-security">🛡️ AI Security</a>
+<a class="ptnav" href="#delivery">🚚 Delivery</a>
+<a class="ptnav" href="#resale">🔁 Resale</a>
+<a class="ptnav" href="#distribution">📦 Distribution</a>
+<a class="ptnav" href="#implementation">🔧 Implementation</a>
+<a class="ptnav" href="#talent">👥 Talent</a>
+<a class="ptnav" href="#coinnovation">💡 Co-Innovation</a>
+</div>
+</div>
+</section>
+<!-- MEET OUR PARTNERS -->
+<section class="section" style="padding-top:0;">
+<div class="container">
+<p class="kicker">Current Partners</p>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:.75rem;">Our technology &amp; innovation partners</h2>
+<p style="color:var(--text-muted);font-size:1rem;line-height:1.75;max-width:680px;margin-bottom:1rem;">From synthetic data to AI testing platforms to safety research — these partners power and shape the Qapitol ecosystem.</p>
+<div class="partner-cards-grid">
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#4d31f5;">GenRocket</div>
+<p class="partner-about">The global leader in synthetic data generation. GenRocket's rules-based engine generates statistically accurate, referentially consistent synthetic data for QE, AI training, and compliance use cases. Powers Qapitol's Synthetic Data Management offering.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Technology &amp; Delivery Partner</span>
+<a class="partner-visit" href="#">genrocket.com →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#e88721;">TestMu AI</div>
+<p class="partner-about">AI-native testing platform used by 10,000+ organizations, formerly LambdaTest. Products include KaneAI for natural language test authoring, HyperExecute for ultra-fast orchestration, and a Real Device Cloud spanning 10,000+ devices and browsers.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Strategic Technology Partner</span>
+<a class="partner-visit" href="#">testmuai.com →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#21a3b2;">QApilot</div>
+<p class="partner-about">Autonomous mobile app testing platform whose AI crawler builds a knowledge graph of your app and generates zero-touch sanity and regression tests. Works natively with Flutter, React Native, and native mobile applications.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Technology Partner (In Discussion)</span>
+<a class="partner-visit" href="#">qapilot.io →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#7c5af5;">Composo</div>
+<p class="partner-about">Production AI evaluation and guardrail platform. Composo connects to your production traces, runs a dynamic agent ensemble against 100% of outputs (sub-second, 100× cheaper than frontier models), and deploys expert-calibrated guardrails that block bad outputs at runtime. Deploys in 2 weeks vs 3–6 months to build in-house. Powers Qapitol's AI production monitoring practice across healthcare, fintech, CX, and multi-agent deployments.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Delivery Partner &amp; Co-innovation</span>
+<a class="partner-visit" href="#">Visit →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#cc785c;">Anthropic</div>
+<p class="partner-about">The AI safety company behind Claude. Anthropic's research on AI safety, interpretability, and responsible deployment directly informs Qapitol's AI governance methodology and CHEQ platform design.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Co-innovation Partner</span>
+<a class="partner-visit" href="#">anthropic.com →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#00b4d8;">Cursor</div>
+<p class="partner-about">The AI-first code editor trusted by hundreds of thousands of developers. Qapitol uses Cursor within its internal AI-native engineering workflows and co-innovates on developer-facing AI QE tooling.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Co-innovation Partner</span>
+<a class="partner-visit" href="#">cursor.com →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI SECURITY PARTNERS -->
+<section class="section band partner-section" id="ai-security" style="background:linear-gradient(135deg,#07191f 0%,#0b2330 50%,#081820 100%);border-top:1px solid rgba(33,163,178,.2);border-bottom:1px solid rgba(33,163,178,.2);">
+<div class="container">
+  <div class="partner-hero-block">
+    <div>
+      <div class="partner-icon-big" style="background:linear-gradient(135deg,#0d4a5a,#1a7a8a);">🛡️</div>
+      <p class="kicker" style="color:var(--teal);">AI Security Partnership</p>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:.75rem;">Complete the AI TRiSM stack with us.</h2>
+      <p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Qapitol covers Layers 1 and 3 of Gartner's AI TRiSM today — AI Governance (via CHEQ) and Information Governance (via CHEQ + Synthetic Data). Layers 2 (Runtime Inspection) and 4 (Infrastructure &amp; Model Security) are being built — and we're looking for the right AI security partners to make that happen. We bring the managed service wrapper, the enterprise client relationships, and the governance methodology. You bring the runtime enforcement or model security capability.</p>
+      <ul class="benefit-list">
+        <li>Access to Qapitol's enterprise client pipeline (BFSI, healthcare, GCC)</li>
+        <li>Co-branded "AI TRiSM Full Stack" solution for joint GTM</li>
+        <li>Technical integration with CHEQ and QAVE platforms</li>
+        <li>Joint CISO/board-level positioning as a complete AI governance solution</li>
+        <li>Shared revenue on joint deals</li>
+        <li>India market entry support for Israel/US AI security companies</li>
+      </ul>
+      <div style="margin-top:2rem;">
+        <p style="font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.5rem;">Are you building AI runtime security or model security? We want to talk.</p>
+        <a class="btn btn-primary" href="contact.html?inquiry=ai-security-partner" style="background:linear-gradient(135deg,var(--teal),#0d4a5a);border-color:var(--teal);">Start the Conversation →</a>
+      </div>
+    </div>
+    <div>
+      <h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:.4rem;color:#fff;">Gartner AI TRiSM — Qapitol Coverage</h4>
+      <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:1.25rem;">We cover 2 of 4 layers today. Partnering to complete the stack.</p>
+      <div style="display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem;">
+        <div style="background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.3);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;">
+          <span style="font-size:1.2rem;flex-shrink:0;">✅</span>
+          <div><div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--teal);margin-bottom:.15rem;">Layer 1 — AI Governance</div><div style="font-size:.85rem;color:#fff;">Policy, risk frameworks, obligation tracking — via CHEQ</div></div>
+        </div>
+        <div style="background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.3);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;">
+          <span style="font-size:1.2rem;flex-shrink:0;">⚙</span>
+          <div><div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#e88721;margin-bottom:.15rem;">Layer 2 — Runtime Inspection · In Development</div><div style="font-size:.85rem;color:var(--text-muted);">Prompt filtering, real-time output monitoring, agentic chain enforcement</div></div>
+        </div>
+        <div style="background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.3);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;">
+          <span style="font-size:1.2rem;flex-shrink:0;">✅</span>
+          <div><div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--teal);margin-bottom:.15rem;">Layer 3 — Information Governance</div><div style="font-size:.85rem;color:#fff;">Data provenance, synthetic data, privacy controls — via CHEQ + GenRocket</div></div>
+        </div>
+        <div style="background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.3);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem;">
+          <span style="font-size:1.2rem;flex-shrink:0;">⚙</span>
+          <div><div style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#e88721;margin-bottom:.15rem;">Layer 4 — Infrastructure &amp; Model Security · In Development</div><div style="font-size:.85rem;color:var(--text-muted);">Model scanning, adversarial hardening, AIBOM, MLOps supply chain integrity</div></div>
+        </div>
+      </div>
+      <h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;color:#fff;">Partner slots under evaluation</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <!-- Card 1: Runtime Security -->
+        <div class="partner-card" style="background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.25);position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e88721,#f5b853);"></div>
+          <div style="display:inline-flex;align-items:center;gap:.35rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#e88721;margin-bottom:.75rem;background:rgba(232,135,33,.12);border:1px solid rgba(232,135,33,.2);border-radius:99px;padding:.2rem .65rem;">⚙ Under Evaluation</div>
+          <div class="partner-wordmark" style="color:#e88721;font-size:1rem;">Runtime Security Partner</div>
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:.5rem;">Layer 2</div>
+          <p class="partner-about">Prompt filtering, real-time output monitoring, agentic chain enforcement — the runtime enforcement layer that sits between enterprise users and production AI systems.</p>
+          <div class="partner-meta" style="margin-top:.5rem;">
+            <span class="partner-type-badge" style="border-color:rgba(232,135,33,.3);color:#e88721;">Partner evaluation in progress</span>
+          </div>
+        </div>
+        <!-- Card 2: Model Security -->
+        <div class="partner-card" style="background:rgba(232,135,33,.08);border:1px solid rgba(232,135,33,.25);position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e88721,#f5b853);"></div>
+          <div style="display:inline-flex;align-items:center;gap:.35rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#e88721;margin-bottom:.75rem;background:rgba(232,135,33,.12);border:1px solid rgba(232,135,33,.2);border-radius:99px;padding:.2rem .65rem;">⚙ Under Evaluation</div>
+          <div class="partner-wordmark" style="color:#e88721;font-size:1rem;">Model Security Partner</div>
+          <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:.5rem;">Layer 4</div>
+          <p class="partner-about">Model scanning, adversarial hardening, AIBOM, MLOps supply chain integrity — securing the model layer before outputs ever reach end-users or production systems.</p>
+          <div class="partner-meta" style="margin-top:.5rem;">
+            <span class="partner-type-badge" style="border-color:rgba(232,135,33,.3);color:#e88721;">Partner evaluation in progress</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- DELIVERY PARTNERS -->
+<section class="section band partner-section" id="delivery">
+<div class="container">
+<div class="partner-hero-block">
+<div>
+<div class="partner-icon-big" style="background:linear-gradient(135deg,var(--accent),#7c5af5);">🚚</div>
+<p class="kicker">Delivery Partnership</p>
+<h2>Extend our delivery capacity. Share in the outcome.</h2>
+<p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Delivery partners work alongside Qapitol on client engagements — providing additional QE talent, specialized domain expertise, or regional reach. You bring capacity and capability; we bring platform, methodology, and deal flow.</p>
+<ul class="benefit-list">
+<li>Access to Qapitol's client pipeline — no outbound required</li>
+<li>Co-branded delivery on joint accounts</li>
+<li>Platform access (QAVE, Nexus, Agent Fabric) at partner rates</li>
+<li>Joint SOW templates and delivery playbooks</li>
+<li>Dedicated Qapitol Partner Manager</li>
+<li>Revenue share: 15–30% depending on contribution level</li>
+<li>Qapitol partner certification for your delivery team</li>
+</ul>
+<div style="margin-top:1.5rem;"><a class="btn btn-primary" href="#apply">Apply as Delivery Partner →</a></div>
+</div>
+<div>
+<h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;">Ideal delivery partner profile</h4>
+<div class="tier-grid">
+<div class="tier-card"><div class="tier-name">QE Boutique</div><div class="tier-desc">Specialized QE firm, 20–200 person, strong domain or technology depth</div></div>
+<div class="tier-card"><div class="tier-name">Regional SI</div><div class="tier-desc">System integrator with BFSI, healthcare, or logistics sector relationships</div></div>
+<div class="tier-card"><div class="tier-name">AI Lab</div><div class="tier-desc">AI research or engineering boutique with evaluation or fine-tuning expertise</div></div>
+<div class="tier-card"><div class="tier-name">Offshore Delivery Firm</div><div class="tier-desc">Offshore QE delivery with scale, complementing our onshore practice</div></div>
+</div>
+<div class="partner-cards-grid">
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#4d31f5;">GenRocket</div>
+<p class="partner-about">The global leader in synthetic data generation. GenRocket's rules-based engine generates statistically accurate, referentially consistent synthetic data for QE, AI training, and compliance use cases. Powers Qapitol's Synthetic Data Management offering.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Technology Partner &amp; Delivery Partner</span>
+<a class="partner-visit" href="#">genrocket.com →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#7c5af5;">Composo</div>
+<p class="partner-about">Production AI evaluation and guardrail platform. Connects to production traces, evaluates 100% of outputs at sub-second latency using a dynamic agent ensemble, and deploys expert-calibrated guardrails that block failures before customers see them. 100× cheaper than frontier model eval. Deploys in 2 weeks.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Delivery Partner &amp; Co-innovation</span>
+<a class="partner-visit" href="#">Visit →</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESALE PARTNERS -->
+<section class="section partner-section" id="resale">
+<div class="container divider-section">
+<div class="partner-hero-block">
+<div>
+<div class="partner-icon-big" style="background:linear-gradient(135deg,var(--teal),#0a5060);">🔁</div>
+<p class="kicker kicker-teal">Resale Partnership</p>
+<h2>Sell Qapitol platforms to your clients. Keep a healthy margin.</h2>
+<p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Resale partners embed Qapitol's platforms (QAVE, Nexus, Cheq, Agent Fabric) into their own offering or sell them directly to clients. You own the customer relationship; we provide the platform and support infrastructure.</p>
+<ul class="benefit-list">
+<li>20–35% margin on all platform subscriptions</li>
+<li>White-label option for QAVE and Nexus (Enterprise tier)</li>
+<li>Deal registration to protect your pipeline</li>
+<li>Sales training and certification program</li>
+<li>Pre-built sales collateral, case studies, and demo environments</li>
+<li>Co-marketing budget for joint campaigns</li>
+<li>Priority access to new product features and betas</li>
+</ul>
+<div style="margin-top:1.5rem;"><a class="btn btn-primary" href="#apply">Apply as Resale Partner →</a></div>
+</div>
+<div>
+<h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;">Resale partner tiers</h4>
+<div class="tier-grid">
+<div class="tier-card"><div class="tier-name">Silver</div><div class="tier-desc">Entry level · ₹50L+ ARR commitment · 20% margin</div></div>
+<div class="tier-card"><div class="tier-name">Gold</div><div class="tier-desc">₹1.5Cr+ ARR · 27% margin · co-marketing fund</div></div>
+<div class="tier-card"><div class="tier-name">Platinum</div><div class="tier-desc">₹4Cr+ ARR · 35% margin · white-label rights</div></div>
+</div>
+<div style="margin-top:1.5rem;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;">
+<p style="font-size:.88rem;color:var(--text-muted);margin:0;">💡 <strong style="color:var(--text);">White-label option:</strong> Platinum resellers can co-brand or fully white-label QAVE and Nexus for enterprise clients. Custom branding, custom subdomain, dedicated support queue. Contact us for white-label pricing.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- DISTRIBUTION PARTNERS -->
+<section class="section band partner-section" id="distribution">
+<div class="container">
+<div class="partner-hero-block">
+<div>
+<div class="partner-icon-big" style="background:linear-gradient(135deg,#e88721,#b05010);">📦</div>
+<p class="kicker kicker-orange">Distribution Partnership</p>
+<h2>Take Qapitol to markets we haven't reached yet.</h2>
+<p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Distribution partners are master resellers or market-specific channel managers who bring Qapitol into new geographies, industry verticals, or customer segments. If you have established relationships in markets where AI QE is needed, we want to work with you.</p>
+<ul class="benefit-list">
+<li>Exclusive or semi-exclusive territory rights available</li>
+<li>Up to 40% margin on platform sales in your territory</li>
+<li>Sub-reseller program management support</li>
+<li>Localisation support for marketing and sales materials</li>
+<li>Joint business planning and quarterly reviews</li>
+<li>Access to Qapitol's implementation and support infrastructure</li>
+<li>SPIFF bonuses for new logo acquisition</li>
+</ul>
+<div style="margin-top:1.5rem;"><a class="btn btn-primary" href="#apply">Apply as Distribution Partner →</a></div>
+</div>
+<div>
+<h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;">Target distribution markets</h4>
+<div class="tier-grid">
+<div class="tier-card"><div class="tier-name">Southeast Asia</div><div class="tier-desc">Singapore, Indonesia, Malaysia — regulated BFSI and tech sectors</div></div>
+<div class="tier-card"><div class="tier-name">Middle East</div><div class="tier-desc">UAE, Saudi Arabia — government AI initiatives and BFSI</div></div>
+<div class="tier-card"><div class="tier-name">ANZ</div><div class="tier-desc">Australia and New Zealand — regulated industries and enterprise tech</div></div>
+<div class="tier-card"><div class="tier-name">UK/Europe</div><div class="tier-desc">EU AI Act compliance — strong demand across financial services</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- IMPLEMENTATION PARTNERS -->
+<section class="section partner-section" id="implementation">
+<div class="container divider-section">
+<div class="partner-hero-block">
+<div>
+<div class="partner-icon-big" style="background:linear-gradient(135deg,var(--accent),var(--teal));">🔧</div>
+<p class="kicker">Implementation Partnership</p>
+<h2>Deploy Qapitol platforms for enterprise clients.</h2>
+<p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Implementation partners are certified to deploy, configure, and integrate Qapitol's platforms within client environments. With growing demand for QAVE and Cheq, we need certified partners who can handle end-to-end platform implementation.</p>
+<ul class="benefit-list">
+<li>Qapitol Platform Implementation Certification (QPIC)</li>
+<li>Access to full platform documentation, APIs, and deployment playbooks</li>
+<li>Referrals for implementation projects from Qapitol's sales team</li>
+<li>Implementation margin: 15–25% on services delivered</li>
+<li>Early access to platform updates and migration tools</li>
+<li>Dedicated technical support channel</li>
+<li>Joint case study development and reference customer program</li>
+</ul>
+<div style="margin-top:1.5rem;"><a class="btn btn-primary" href="#apply">Apply as Implementation Partner →</a></div>
+</div>
+<div>
+<h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;">Certification tracks</h4>
+<div class="tier-grid">
+<div class="tier-card"><div class="tier-name">QAVE Certified</div><div class="tier-desc">AI Evaluation platform deployment and configuration specialist</div></div>
+<div class="tier-card"><div class="tier-name">Cheq Certified</div><div class="tier-desc">Compliance platform and obligation library implementation expert</div></div>
+<div class="tier-card"><div class="tier-name">Nexus Certified</div><div class="tier-desc">QE Intelligence and Agent Fabric deployment specialist</div></div>
+<div class="tier-card"><div class="tier-name">Full Stack</div><div class="tier-desc">Certified across all Qapitol platforms — highest referral priority</div></div>
+</div>
+<p style="font-size:.82rem;color:var(--text-muted);margin-top:1rem;">Certification involves a 3-day technical workshop, hands-on lab assessment, and annual recertification. Delivered online or in-person at Qapitol's Hyderabad office.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TALENT PARTNERS -->
+<section class="section band partner-section" id="talent">
+<div class="container">
+<div class="partner-hero-block">
+<div>
+<div class="partner-icon-big" style="background:linear-gradient(135deg,var(--teal),#0a5060);">👥</div>
+<p class="kicker kicker-teal">Talent Partnership</p>
+<h2>Supply AI-skilled QE talent to Qapitol's clients.</h2>
+<p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Talent partners are staffing firms, training academies, and talent networks that supply QE practitioners and AI engineers to Qapitol's client engagements. We provide the demand; you provide the supply — and both sides win on placement fees and ongoing revenue.</p>
+<ul class="benefit-list">
+<li>Access to Qapitol's active talent requirements pipeline</li>
+<li>Preferred vendor status with faster shortlisting</li>
+<li>Joint QE skills bootcamp design and delivery</li>
+<li>Co-branded training and certification programs</li>
+<li>Placement fee: 8–12% of first-year CTC</li>
+<li>Ongoing extension revenue on multi-year placements</li>
+<li>Alumni network integration for returning Qapitol practitioners</li>
+</ul>
+<div style="margin-top:1.5rem;"><a class="btn btn-primary" href="#apply">Apply as Talent Partner →</a></div>
+</div>
+<div>
+<h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;">High-demand skill profiles</h4>
+<div class="tier-grid">
+<div class="tier-card"><div class="tier-name">AI/ML Engineers</div><div class="tier-desc">LLM fine-tuning, eval pipeline, SLM development</div></div>
+<div class="tier-card"><div class="tier-name">Senior SDETs</div><div class="tier-desc">Playwright, Selenium, API automation, AI-assisted testing</div></div>
+<div class="tier-card"><div class="tier-name">Performance Engineers</div><div class="tier-desc">k6, Gatling, JMeter, cloud load testing</div></div>
+<div class="tier-card"><div class="tier-name">DevOps/MLOps</div><div class="tier-desc">CI/CD, K8s, model deployment, monitoring</div></div>
+<div class="tier-card"><div class="tier-name">Compliance SMEs</div><div class="tier-desc">IRDAI, RBI, EU AI Act regulatory expertise</div></div>
+<div class="tier-card"><div class="tier-name">QE Delivery Managers</div><div class="tier-desc">Client-facing QE delivery leadership, 8+ years exp</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CO-INNOVATION PARTNERS -->
+<section class="section partner-section" id="coinnovation">
+<div class="container divider-section">
+<div class="partner-hero-block">
+<div>
+<div class="partner-icon-big" style="background:linear-gradient(135deg,#7c5af5,var(--accent));">💡</div>
+<p class="kicker">Co-Innovation Partnership</p>
+<h2>Build the future of AI quality engineering — with us.</h2>
+<p style="color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Co-innovation partners are technology vendors, AI labs, and research institutions who collaborate with Qapitol on building and commercializing next-generation AI QE capabilities. We contribute product engineering, market access, and client validation; you contribute IP, models, or data infrastructure.</p>
+<ul class="benefit-list">
+<li>Joint product development with shared IP ownership model</li>
+<li>Access to Qapitol's client base as early adopters and validation partners</li>
+<li>Co-branded product launch and go-to-market support</li>
+<li>Shared revenue on jointly developed products</li>
+<li>Priority access to Qapitol's AI Practice team and engineering resources</li>
+<li>Joint patent and publication program</li>
+<li>Annual co-innovation summit and roadmap alignment</li>
+</ul>
+<div style="margin-top:1.5rem;"><a class="btn btn-primary" href="#apply">Propose Co-Innovation →</a></div>
+</div>
+<div>
+<h4 style="font-family:'Inter Tight',sans-serif;margin-bottom:1rem;">Active co-innovation areas</h4>
+<div class="tier-grid">
+<div class="tier-card"><div class="tier-name">SLM Development</div><div class="tier-desc">Domain-specific small language models for insurance, BFSI, healthcare QE</div></div>
+<div class="tier-card"><div class="tier-name">RLHF Pipelines</div><div class="tier-desc">Human feedback collection and reward model training infrastructure</div></div>
+<div class="tier-card"><div class="tier-name">AI Compliance Automation</div><div class="tier-desc">Automated obligation mapping and evidence generation for global AI regulations</div></div>
+<div class="tier-card"><div class="tier-name">Synthetic Data Engines</div><div class="tier-desc">Next-gen synthetic data generation with privacy guarantees and test effectiveness validation</div></div>
+</div>
+<div class="partner-cards-grid" style="margin-top:1.5rem;">
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#cc785c;">Anthropic</div>
+<p class="partner-about">The AI safety company behind Claude. Anthropic's research on AI safety, interpretability, and responsible deployment directly informs Qapitol's AI governance methodology and CHEQ platform design.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Co-innovation Partner</span>
+<a class="partner-visit" href="#">anthropic.com →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#00b4d8;">Cursor</div>
+<p class="partner-about">The AI-first code editor trusted by hundreds of thousands of developers. Qapitol uses Cursor within its internal AI-native engineering workflows and co-innovates on developer-facing AI QE tooling.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Co-innovation Partner</span>
+<a class="partner-visit" href="#">cursor.com →</a>
+</div>
+</div>
+<div class="partner-card">
+<div class="partner-wordmark" style="color:#7c5af5;">Composo</div>
+<p class="partner-about">Production AI evaluation and guardrail platform. Connects to production traces, evaluates 100% of outputs at sub-second latency, and deploys expert-calibrated guardrails that block failures at runtime. The system learns from domain expert corrections and gets smarter every week — without retraining.</p>
+<div class="partner-meta">
+<span class="partner-type-badge">Delivery Partner &amp; Co-innovation</span>
+<a class="partner-visit" href="#">Visit →</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CERTIFICATION PARTNERSHIPS -->
+<section class="section band partner-section" id="certifications">
+<div class="container">
+<div style="display:flex;align-items:center;gap:.65rem;margin-bottom:.75rem;">
+<div style="height:2px;width:28px;background:linear-gradient(90deg,var(--teal),transparent);"></div>
+<span style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);">Regulatory &amp; Standards</span>
+</div>
+<h2 style="font-family:'Inter Tight',sans-serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:.75rem;">Certification &amp; Compliance Partnerships</h2>
+<p style="color:var(--text-muted);font-size:1rem;line-height:1.75;max-width:680px;margin-bottom:2.5rem;">We partner with certification bodies, standards organisations, and regulatory enablers to help enterprises achieve and maintain compliance with AI governance frameworks. If you operate in regulatory certification, training, or audit services for AI regulations, we want to connect.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-bottom:3rem;">
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4d31f5,#7c5af5);"></div>
+<div style="font-size:2rem;margin-bottom:1rem;">🇪🇺</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;">EU AI Act</h3>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Conformity assessment, notified body partnerships, and technical documentation frameworks for high-risk AI systems under the EU AI Act. Active from August 2026.</p>
+<span style="display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .6rem;border-radius:99px;background:rgba(77,49,245,.15);color:var(--accent-light);border:1px solid rgba(77,49,245,.25);">Partnering Now</span>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--teal),#6edfe8);"></div>
+<div style="font-size:2rem;margin-bottom:1rem;">📋</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;">ISO 42001 — AI Management Systems</h3>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Certification body partnerships for ISO/IEC 42001 implementation, gap assessment, and audit readiness. We help enterprises achieve certification; partners handle the formal audit.</p>
+<span style="display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .6rem;border-radius:99px;background:rgba(33,163,178,.15);color:var(--teal);border:1px solid rgba(33,163,178,.25);">Partnering Now</span>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e88721,#f5b853);"></div>
+<div style="font-size:2rem;margin-bottom:1rem;">🏦</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;">IRDAI &amp; RBI AI Frameworks</h3>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Empanelled advisory and technical partners for IRDAI AI Guidelines and RBI AI risk framework compliance. We provide the tooling (CHEQ); partners provide regulatory advisory and governance consulting.</p>
+<span style="display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .6rem;border-radius:99px;background:rgba(232,135,33,.15);color:#e88721;border:1px solid rgba(232,135,33,.25);">Partnering Now</span>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;overflow:hidden;">
+<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--teal));"></div>
+<div style="font-size:2rem;margin-bottom:1rem;">🔒</div>
+<h3 style="font-family:'Inter Tight',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;">SOC 2 &amp; HIPAA</h3>
+<p style="font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Audit firms and assessment providers who can validate Qapitol platform deployments within client environments for SOC 2 Type II and HIPAA Security Rule compliance. Especially for healthcare and US-market clients.</p>
+<span style="display:inline-block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .6rem;border-radius:99px;background:rgba(77,49,245,.1);color:var(--accent-light);border:1px solid rgba(77,49,245,.2);">Actively Seeking</span>
+</div>
+</div>
+<div style="background:rgba(33,163,178,.06);border:1px solid rgba(33,163,178,.2);border-radius:16px;padding:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+<div>
+<p style="font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.25rem;">Are you a certification body, audit firm, or regulatory consultant?</p>
+<p style="font-size:.85rem;color:var(--text-muted);">We're building a formal network of regulatory partners across India, UK, UAE, and EU markets. Let's talk about how Qapitol's platform + your certification authority creates enterprise value.</p>
+</div>
+<a class="btn btn-secondary" href="#apply" style="white-space:nowrap;border-color:var(--teal);color:var(--teal);">Become a Cert Partner →</a>
+</div>
+</div>
+</section>
+<!-- APPLICATION FORM -->
+<section class="section band" id="apply">
+<div class="container" style="max-width:760px;">
+<p class="kicker">Apply to Partner</p>
+<h2>Start your partnership journey</h2>
+<p style="color:var(--text-muted);margin-bottom:2rem;">Tell us about your company and the type of partnership you're interested in. Our Partnerships team will review your application and be in touch within 2 business days.</p>
+<div class="apply-card">
+<h4>Partnership Application</h4>
+<form id="partner-apply-form" novalidate="">
+<div class="apply-form-row">
+<div class="apply-field"><label for="pa-name">Your Name *</label><input id="pa-name" placeholder="Rohan Mehta" required="" type="text"/></div>
+<div class="apply-field"><label for="pa-email">Work Email *</label><input id="pa-email" placeholder="rohan@company.com" required="" type="email"/></div>
+</div>
+<div class="apply-form-row">
+<div class="apply-field"><label for="pa-company">Company Name *</label><input id="pa-company" placeholder="Your company" required="" type="text"/></div>
+<div class="apply-field"><label for="pa-website">Website</label><input id="pa-website" placeholder="https://yourcompany.com" type="url"/></div>
+</div>
+<div class="apply-form-row">
+<div class="apply-field"><label for="pa-type">Partnership Type *</label>
+<select id="pa-type" required="">
+<option value="">Select partnership type…</option>
+<option>Delivery Partner</option>
+<option>Resale Partner</option>
+<option>Distribution Partner</option>
+<option>Implementation Partner</option>
+<option>Talent Partner</option>
+<option>Co-Innovation Partner</option>
+<option>Not sure — let's discuss</option>
+</select>
+</div>
+<div class="apply-field"><label for="pa-size">Company Size</label>
+<select id="pa-size">
+<option>1–10 employees</option>
+<option>11–50 employees</option>
+<option>51–200 employees</option>
+<option>201–1000 employees</option>
+<option>1000+ employees</option>
+</select>
+</div>
+</div>
+<div class="apply-field" style="margin-bottom:1rem;"><label for="pa-message">What would you like to achieve through this partnership? *</label><textarea id="pa-message" placeholder="Tell us about your company, your clients, and what you're hoping to build together with Qapitol…" required=""></textarea></div>
+<button style="width:100%;padding:.85rem;background:linear-gradient(135deg,var(--accent),#7c5af5);border:none;border-radius:10px;color:#fff;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;" type="submit">Submit Application →</button>
+</form>
+<div id="apply-confirm" style="display:none;text-align:center;padding:2rem 0;">
+<div style="font-size:3rem;margin-bottom:1rem;">🤝</div>
+<h3 style="margin-bottom:.75rem;">Application received!</h3>
+<p style="color:var(--text-muted);">Our Partnerships team will review your application and be in touch within 2 business days. We look forward to exploring how we can build something great together.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TESTIMONIALS -->
+<section class="section">
+<div class="container">
+<p class="kicker">Partner stories</p>
+<h2>What our partners say</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:2rem;">
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+<blockquote style="font-size:.92rem;color:var(--text-muted);line-height:1.7;font-style:italic;margin-bottom:1rem;">"The delivery partnership gave us access to AI evaluation engagements we could never have won alone. Qapitol's platform does the heavy lifting; we focus on client relationships and delivery excellence."</blockquote>
+<cite style="font-size:.82rem;font-weight:600;color:var(--accent-light);font-style:normal;">Prashant Kumar, CEO — Testify QE Solutions</cite>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+<blockquote style="font-size:.92rem;color:var(--text-muted);line-height:1.7;font-style:italic;margin-bottom:1rem;">"We became a Qapitol implementation partner for CHEQ. Within 6 months, we'd closed three BFSI accounts ourselves. The certification was genuinely rigorous — and that's why clients trust us."</blockquote>
+<cite style="font-size:.82rem;font-weight:600;color:var(--accent-light);font-style:normal;">Anitha Rao, Director — Compliance Matters Consulting</cite>
+</div>
+<div style="background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+<blockquote style="font-size:.92rem;color:var(--text-muted);line-height:1.7;font-style:italic;margin-bottom:1rem;">"The co-innovation partnership let us validate our synthetic data technology with real enterprise clients, fast. Qapitol opened doors that would have taken us years to open independently."</blockquote>
+<cite style="font-size:.82rem;font-weight:600;color:var(--accent-light);font-style:normal;">Vikram Shah, CTO — GenRocket India</cite>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section class="cta-banner">
+<div class="container" style="text-align:center;">
+<h2>Ready to build with Qapitol?</h2>
+<p>Join 18+ partners earning from AI quality engineering. Application takes 5 minutes.</p>
+<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+<a class="btn btn-primary" href="#apply">Apply to Partner →</a>
+<a class="btn btn-outline" href="contact.html">Talk to Partnerships Team</a>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<script defer="" src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+<script>
+document.getElementById("partner-apply-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var name=document.getElementById("pa-name").value.trim();
+  var email=document.getElementById("pa-email").value.trim();
+  var type=document.getElementById("pa-type").value;
+  if(!name||!email||!type){return;}
+  this.style.display="none";
+  document.getElementById("apply-confirm").style.display="block";
+  console.log("[Partner Apply]",{name,email,type});
+});
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

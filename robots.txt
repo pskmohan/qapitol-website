@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block campaign landing pages from crawlers
+Disallow: /lp-
+Disallow: /board-deck-generator.html
+Disallow: /dynamic-experience-mockup.html
+Disallow: /logo-test.html
+Disallow: /qsure.html
+
+# Sitemap
+Sitemap: https://qapitol.com/sitemap.xml

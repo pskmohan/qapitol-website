@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qapitol AI — V4 Signal</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0d0d0d;--paper:#f5f4f0;--off:#ede9e3;
+  --teal:#00897B;--orange:#E65100;--violet:#4527A0;--gold:#F57F17;
+  --white:#ffffff;--border:#ddd9d2;
+  --sans:'Syne',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;
+}
+html{background:var(--paper);color:var(--ink);font-family:var(--body)}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:60px;position:sticky;top:0;z-index:100;
+  background:var(--ink);
+}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-q{width:30px;height:30px;background:var(--teal);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;font-family:var(--sans)}
+.nav-wordmark{font-family:var(--sans);font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.nav-links{display:flex;gap:0}
+.nav-links a{font-family:var(--sans);font-size:13px;color:rgba(255,255,255,.5);padding:8px 16px;transition:color .15s;font-weight:500;letter-spacing:.02em}
+.nav-links a:hover{color:#fff}
+.nav-end{display:flex;gap:10px;align-items:center}
+.nav-demo{font-family:var(--sans);font-size:13px;font-weight:700;background:var(--teal);color:#fff;padding:8px 18px;border-radius:4px;letter-spacing:.02em;transition:background .15s}
+.nav-demo:hover{background:#00695C}
+
+/* HERO — full bleed, split */
+.hero{
+  display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 60px);
+}
+.hero-left{
+  background:var(--ink);color:#fff;
+  padding:80px 64px;display:flex;flex-direction:column;justify-content:space-between;
+  border-right:4px solid var(--teal);
+}
+.hero-left h1{
+  font-family:var(--sans);font-size:clamp(48px,5vw,80px);font-weight:800;
+  line-height:.95;letter-spacing:-3px;
+  flex:1;display:flex;align-items:center;
+}
+.hero-left h1 span{display:block}
+.hero-left h1 .accent{color:var(--teal)}
+.hero-tag{
+  display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--teal);
+  border:1px solid var(--teal);border-radius:2px;padding:4px 10px;margin-bottom:40px;
+}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;padding-top:40px;border-top:1px solid rgba(255,255,255,.1)}
+.btn-ink-teal{font-family:var(--sans);font-size:13px;font-weight:700;background:var(--teal);color:#fff;padding:12px 24px;border-radius:4px;letter-spacing:.02em;transition:background .15s}
+.btn-ink-teal:hover{background:#00695C}
+.btn-ink-ghost{font-family:var(--sans);font-size:13px;font-weight:700;background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.15);padding:12px 24px;border-radius:4px;letter-spacing:.02em;transition:all .15s}
+.btn-ink-ghost:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+
+.hero-right{background:var(--paper);padding:80px 56px;display:flex;flex-direction:column;justify-content:space-between}
+.hero-right-head{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:24px}
+.hero-sub{font-family:var(--body);font-size:17px;line-height:1.75;color:#444;max-width:420px;margin-bottom:48px}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.h-stat{background:var(--off);padding:28px 24px}
+.h-stat .n{font-family:var(--sans);font-size:40px;font-weight:800;letter-spacing:-2px;line-height:1}
+.h-stat .l{font-family:var(--body);font-size:12px;color:#777;margin-top:6px;font-weight:500}
+.hero-logos{border-top:1px solid var(--border);padding-top:28px}
+.hero-logos-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+.logo-list{display:flex;flex-wrap:wrap;gap:8px}
+.logo-chip-v4{font-size:12px;font-weight:700;color:#555;padding:6px 12px;background:var(--white);border:1px solid var(--border);border-radius:3px}
+
+/* PRODUCTS */
+.products{background:var(--ink)}
+.products-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:64px 64px 40px;border-bottom:1px solid #222;flex-wrap:wrap;gap:20px;
+}
+.products-header h2{font-family:var(--sans);font-size:clamp(32px,3.5vw,52px);font-weight:800;letter-spacing:-2px;color:#fff;line-height:1.05}
+.products-header p{font-size:14px;color:rgba(255,255,255,.4);max-width:300px;line-height:1.7}
+.products-grid-v4{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #222}
+.product-v4{
+  padding:36px 28px;border-right:1px solid #222;cursor:pointer;
+  transition:background .2s;position:relative;overflow:hidden;
+}
+.product-v4:last-child{border-right:none}
+.product-v4:hover{background:#111}
+.pv4-num{font-family:var(--sans);font-size:10px;font-weight:700;color:#444;letter-spacing:.1em;margin-bottom:32px}
+.pv4-color{width:36px;height:4px;border-radius:2px;margin-bottom:20px}
+.pv4-name{font-family:var(--sans);font-size:17px;font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:12px;line-height:1.1}
+.pv4-desc{font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.65}
+.pv4-arrow{position:absolute;bottom:28px;right:24px;font-size:20px;color:#333;transition:all .25s}
+.product-v4:hover .pv4-arrow{color:#fff;transform:translate(3px,-3px)}
+
+/* WHY SECTION */
+.why{background:var(--white);padding:96px 64px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.why-left h2{font-family:var(--sans);font-size:clamp(32px,3.5vw,52px);font-weight:800;letter-spacing:-2px;line-height:1.05;margin-bottom:24px}
+.why-left h2 em{font-style:normal;color:var(--teal)}
+.why-left p{font-size:16px;line-height:1.75;color:#555;margin-bottom:32px}
+.why-right{display:flex;flex-direction:column;gap:0}
+.why-item{
+  display:grid;grid-template-columns:52px 1fr;gap:16px;
+  padding:28px 0;border-bottom:1px solid var(--border);align-items:start;
+}
+.why-item:last-child{border-bottom:none}
+.wi-icon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:14px;font-weight:900}
+.wi-h{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:6px}
+.wi-p{font-size:13px;color:#666;line-height:1.65}
+
+/* BANNER */
+.orange-banner{
+  background:var(--orange);color:#fff;
+  padding:56px 64px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+}
+.ob-text h3{font-family:var(--sans);font-size:clamp(24px,2.5vw,38px);font-weight:800;letter-spacing:-1px;margin-bottom:8px}
+.ob-text p{font-size:15px;color:rgba(255,255,255,.75);max-width:480px;line-height:1.6}
+.btn-white{font-family:var(--sans);font-size:14px;font-weight:800;background:#fff;color:var(--orange);padding:14px 28px;border-radius:4px;letter-spacing:.02em;white-space:nowrap;transition:opacity .2s}
+.btn-white:hover{opacity:.9}
+
+/* INDUSTRIES */
+.industries{background:var(--paper);padding:80px 64px}
+.ind-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px}
+.ind-head h2{font-family:var(--sans);font-size:clamp(28px,3vw,44px);font-weight:800;letter-spacing:-2px}
+.ind-head a{font-family:var(--sans);font-size:13px;font-weight:700;color:var(--teal);letter-spacing:.02em;text-decoration:underline;text-underline-offset:3px}
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.ind-card{background:var(--white);padding:28px 24px;transition:background .2s;cursor:pointer}
+.ind-card:hover{background:var(--off)}
+.ic-icon{font-size:28px;margin-bottom:16px}
+.ic-h{font-family:var(--sans);font-size:15px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px}
+.ic-p{font-size:12.5px;color:#666;line-height:1.6}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.4);padding:36px 64px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+footer .fl{font-family:var(--sans);font-size:12px}
+footer .fr{display:flex;gap:24px}
+footer .fr a{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.35);transition:color .15s}
+footer .fr a:hover{color:rgba(255,255,255,.65)}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand"><div class="nav-q">Q</div><span class="nav-wordmark">Qapitol AI</span></div>
+  <div class="nav-links">
+    <a href="#">Platforms</a><a href="#">Solutions</a><a href="#">Services</a><a href="#">Insights</a><a href="#">About</a>
+  </div>
+  <div class="nav-end">
+    <a href="#" class="nav-demo">Request Demo</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div>
+      <div class="hero-tag">AI Quality Engineering</div>
+      <h1>
+        <span>Ship AI</span>
+        <span class="accent">you can</span>
+        <span class="accent">defend.</span>
+      </h1>
+    </div>
+    <div class="hero-ctas">
+      <a href="#" class="btn-ink-teal">Start free with QAVE</a>
+      <a href="#" class="btn-ink-ghost">See our platforms →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div>
+      <div class="hero-right-head">What we solve</div>
+      <p class="hero-sub">AI systems that can't be tested can't be trusted. Qapitol gives enterprise teams the platforms, frameworks, and talent to ship production AI with complete governance — from eval to compliance.</p>
+      <div class="hero-stats">
+        <div class="h-stat"><div class="n">1,400+</div><div class="l">Regulatory obligations mapped</div></div>
+        <div class="h-stat"><div class="n">80%</div><div class="l">Reduction in test maintenance</div></div>
+        <div class="h-stat"><div class="n">94.2%</div><div class="l">Average eval accuracy</div></div>
+        <div class="h-stat" style="background:var(--teal);"><div class="n" style="color:#fff">90 days</div><div class="l" style="color:rgba(255,255,255,.7)">GCC team to full ramp</div></div>
+      </div>
+    </div>
+    <div class="hero-logos">
+      <div class="hero-logos-label">Trusted globally</div>
+      <div class="logo-list">
+        <div class="logo-chip-v4">HDFC Bank</div>
+        <div class="logo-chip-v4">ICICI Bank</div>
+        <div class="logo-chip-v4">Airtel</div>
+        <div class="logo-chip-v4">Lulu Group</div>
+        <div class="logo-chip-v4">GMG</div>
+        <div class="logo-chip-v4">EquiTrust</div>
+        <div class="logo-chip-v4">Carrefour</div>
+        <div class="logo-chip-v4">Panda Retail</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="products">
+  <div class="products-header">
+    <h2>Five platforms.<br>One control layer.</h2>
+    <p>Each platform ships independently. All integrate natively under the SURE-Q governance framework.</p>
+  </div>
+  <div class="products-grid-v4">
+    <div class="product-v4">
+      <div class="pv4-num">01</div>
+      <div class="pv4-color" style="background:#00897B"></div>
+      <div class="pv4-name">QAVE</div>
+      <div class="pv4-desc">Open AI evaluation. 500 free runs/mo. IRDAI, EU AI Act, RBI frameworks pre-loaded.</div>
+      <div class="pv4-arrow">↗</div>
+    </div>
+    <div class="product-v4">
+      <div class="pv4-num">02</div>
+      <div class="pv4-color" style="background:#7C3AED"></div>
+      <div class="pv4-name">Nexus</div>
+      <div class="pv4-desc">Test intelligence. Requirement traceability. Coverage maps. Release readiness scoring.</div>
+      <div class="pv4-arrow">↗</div>
+    </div>
+    <div class="product-v4">
+      <div class="pv4-num">03</div>
+      <div class="pv4-color" style="background:#E65100"></div>
+      <div class="pv4-name">Agent Fabric</div>
+      <div class="pv4-desc">Agentic QE. Autonomous generation, execution, and self-healing. 80% less maintenance.</div>
+      <div class="pv4-arrow">↗</div>
+    </div>
+    <div class="product-v4">
+      <div class="pv4-num">04</div>
+      <div class="pv4-color" style="background:#1D4ED8"></div>
+      <div class="pv4-name">Qurator</div>
+      <div class="pv4-desc">LLM quality pipelines. Drift detection, multi-model benchmarks, full audit trail.</div>
+      <div class="pv4-arrow">↗</div>
+    </div>
+    <div class="product-v4">
+      <div class="pv4-num">05</div>
+      <div class="pv4-color" style="background:#BE185D"></div>
+      <div class="pv4-name">CHEQ</div>
+      <div class="pv4-desc">Compliance testing. 1,400+ obligations. IRDAI, RBI, EU AI Act, DORA, Solvency II.</div>
+      <div class="pv4-arrow">↗</div>
+    </div>
+  </div>
+</div>
+
+<div class="why">
+  <div class="why-left">
+    <h2>Why CIOs choose <em>Qapitol</em></h2>
+    <p>Enterprise AI is moving fast. Regulators are moving faster. Qapitol gives you the infrastructure to keep pace with both — without sacrificing velocity for governance.</p>
+    <a href="#" class="btn-ink-teal" style="display:inline-block;font-family:var(--sans);font-size:13px;font-weight:700;padding:12px 24px;border-radius:4px;color:#fff">Read our case studies →</a>
+  </div>
+  <div class="why-right">
+    <div class="why-item">
+      <div class="wi-icon" style="background:#e8f5e9;color:#2e7d32">⚡</div>
+      <div><div class="wi-h">Ship faster with embedded quality</div><div class="wi-p">AI-native test generation means quality keeps up with your sprint velocity — not the other way around.</div></div>
+    </div>
+    <div class="why-item">
+      <div class="wi-icon" style="background:#ede7f6;color:#4527A0">🛡</div>
+      <div><div class="wi-h">Audit-ready from day one</div><div class="wi-p">Every eval, every coverage map, every compliance run is captured in a tamper-proof audit trail.</div></div>
+    </div>
+    <div class="why-item">
+      <div class="wi-icon" style="background:#fff3e0;color:#E65100">🌍</div>
+      <div><div class="wi-h">Multi-jurisdiction compliance</div><div class="wi-p">One platform covers IRDAI, RBI, EU AI Act, DORA, and Solvency II — built for global enterprises.</div></div>
+    </div>
+    <div class="why-item">
+      <div class="wi-icon" style="background:#e3f2fd;color:#1565C0">👥</div>
+      <div><div class="wi-h">Talent when you need it</div><div class="wi-p">Can't hire fast enough? We embed pre-vetted AI engineers and QE specialists alongside our platforms.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="orange-banner">
+  <div class="ob-text">
+    <h3>Start with QAVE — completely free</h3>
+    <p>500 evaluation runs per month. IRDAI, EU AI Act, and RBI frameworks included. No credit card. No sales call required.</p>
+  </div>
+  <a href="#" class="btn-white">Start free now →</a>
+</div>
+
+<div class="industries">
+  <div class="ind-head">
+    <h2>Built for regulated industries</h2>
+    <a href="#">View all industries →</a>
+  </div>
+  <div class="ind-grid">
+    <div class="ind-card"><div class="ic-icon">🏦</div><div class="ic-h">Banking & Financial Services</div><div class="ic-p">IRDAI, RBI, Solvency II compliance testing. Model risk management for credit, fraud, and AML AI.</div></div>
+    <div class="ind-card"><div class="ic-icon">🛒</div><div class="ic-h">Retail & E-commerce</div><div class="ic-p">AI-driven personalisation, inventory, and pricing quality. Release cycles down from 6 days to 2.</div></div>
+    <div class="ind-card"><div class="ic-icon">🏥</div><div class="ic-h">Healthcare & Life Sciences</div><div class="ic-p">Clinical AI validation, medical imaging model testing, patient data pipeline governance.</div></div>
+    <div class="ind-card"><div class="ic-icon">🌐</div><div class="ic-h">Tech & SaaS</div><div class="ic-p">Embedded QE for fast-moving SaaS teams. AI-powered coverage without scaling headcount.</div></div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">© 2026 Qapitol AI Technologies. All rights reserved.</div>
+  <div class="fr"><a href="#">Platforms</a><a href="#">Pricing</a><a href="#">Insights</a><a href="#">Privacy</a><a href="#">Contact</a></div>
+</footer>
+
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body></html>

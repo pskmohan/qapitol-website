@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Quality Engineering ROI Calculator | Qapitol</title>
+<meta content="Calculate the ROI of AI-powered quality engineering. See your potential savings in QA costs, defect escape reduction, and release acceleration with Qapitol." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&amp;family=Source+Sans+3:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/styles.css" rel="stylesheet"/>
+<style>
+    /* ---- ROI Calculator Styles ---- */
+
+    .calc-section {
+      padding: 80px 0 100px;
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-top: 48px;
+    }
+    @media (max-width: 960px) {
+      .calc-layout { grid-template-columns: 1fr; }
+    }
+
+    /* LEFT: Inputs Panel */
+    .inputs-panel {
+      background: linear-gradient(145deg, var(--surface) 0%, rgba(24,16,58,0.95) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      position: sticky;
+      top: 88px;
+    }
+    .inputs-panel h3 {
+      margin-bottom: 28px;
+      font-size: 1.15rem;
+      color: var(--text);
+    }
+
+    .input-group {
+      margin-bottom: 26px;
+    }
+    .input-group label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: "Inter Tight", sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      color: #c5bae8; margin-bottom: 10px;
+    }
+    .input-group label .live-val {
+      font-size: 1rem; font-weight: 800;
+      color: var(--accent-light);
+      font-family: "Inter Tight", sans-serif;
+      transition: color 0.2s;
+    }
+
+    /* Range slider */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%; height: 5px;
+      background: rgba(181,166,255,0.12);
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #7c5ff8);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(77,49,245,0.5);
+      transition: box-shadow 0.2s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      box-shadow: 0 0 18px rgba(77,49,245,0.7);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px; height: 20px;
+      border-radius: 50%; border: none;
+      background: linear-gradient(135deg, var(--accent), #7c5ff8);
+      cursor: pointer;
+    }
+    .range-bounds {
+      display: flex; justify-content: space-between;
+      font-size: 0.72rem; color: var(--text-dim); margin-top: 5px;
+    }
+
+    .input-divider {
+      height: 1px; background: var(--border); margin: 8px 0 28px;
+    }
+    .input-section-label {
+      font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent-light); font-weight: 700; margin-bottom: 20px;
+    }
+
+    /* RIGHT: Results Panel */
+    .results-panel {
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .result-header-card {
+      background: linear-gradient(135deg, var(--surface-2) 0%, rgba(37,24,88,0.9) 100%);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      position: relative; overflow: hidden;
+      box-shadow: var(--glow-sm);
+      text-align: center;
+    }
+    .result-header-card::before {
+      content: ""; position: absolute;
+      top: -50%; right: -10%; width: 300px; height: 300%;
+      background: radial-gradient(ellipse, rgba(77,49,245,0.2), transparent 60%);
+      pointer-events: none;
+    }
+    .result-header-card::after {
+      content: ""; position: absolute;
+      bottom: -40px; left: -40px; width: 200px; height: 200px;
+      background: radial-gradient(ellipse, rgba(33,163,178,0.1), transparent 60%);
+      pointer-events: none;
+    }
+
+    .roi-label {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent-light); font-weight: 700; margin-bottom: 10px;
+    }
+    .roi-big-number {
+      font-family: "Inter Tight", sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      font-weight: 800; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #fff 20%, var(--accent-light) 60%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .roi-sub {
+      color: var(--text-muted); font-size: 0.88rem; margin-top: 8px;
+    }
+    .roi-multiple {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px;
+      background: rgba(45,212,160,0.12); border: 1px solid rgba(45,212,160,0.25);
+      border-radius: 999px; padding: 8px 18px;
+    }
+    .roi-multiple-num {
+      font-family: "Inter Tight", sans-serif;
+      font-size: 1.4rem; font-weight: 800; color: var(--green);
+    }
+    .roi-multiple-label { color: var(--green); font-size: 0.83rem; font-weight: 600; }
+
+    .breakdown-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+
+    .breakdown-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      position: relative; overflow: hidden;
+    }
+    .breakdown-card.cost { border-left: 3px solid #e55; }
+    .breakdown-card.saving { border-left: 3px solid var(--green); }
+    .breakdown-card.accent { border-left: 3px solid var(--teal); }
+    .breakdown-card.highlight { border-left: 3px solid var(--accent); }
+
+    .breakdown-label {
+      font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .breakdown-label.cost-label { color: #e88; }
+    .breakdown-label.saving-label { color: var(--green); }
+    .breakdown-label.teal-label { color: var(--teal); }
+    .breakdown-label.accent-label { color: var(--accent-light); }
+
+    .breakdown-number {
+      font-family: "Inter Tight", sans-serif;
+      font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1;
+      transition: all 0.35s ease;
+    }
+    .breakdown-number.cost-num { color: #f88; }
+    .breakdown-number.saving-num { color: var(--green); }
+    .breakdown-number.teal-num { color: var(--teal); }
+    .breakdown-number.accent-num { color: var(--accent-light); }
+
+    .breakdown-detail {
+      font-size: 0.77rem; color: var(--text-dim); margin-top: 6px; line-height: 1.4;
+    }
+
+    /* 3-year projection */
+    .projection-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .projection-card h4 { margin-bottom: 20px; font-size: 0.95rem; color: var(--text-muted); font-weight: 600; }
+
+    .projection-bars {
+      display: flex; gap: 16px; align-items: flex-end; height: 120px;
+    }
+    .proj-bar-wrap {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .proj-bar-val {
+      font-family: "Inter Tight", sans-serif; font-size: 0.8rem; font-weight: 700;
+      color: var(--accent-light);
+      transition: all 0.4s ease;
+    }
+    .proj-bar {
+      width: 100%; border-radius: 6px 6px 0 0;
+      transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      min-height: 4px;
+    }
+    .proj-bar.y1 { background: linear-gradient(180deg, var(--accent), rgba(77,49,245,0.4)); }
+    .proj-bar.y2 { background: linear-gradient(180deg, var(--teal), rgba(33,163,178,0.4)); }
+    .proj-bar.y3 { background: linear-gradient(180deg, var(--green), rgba(45,212,160,0.4)); }
+    .proj-bar-label {
+      font-size: 0.78rem; color: var(--text-dim); font-weight: 600;
+    }
+
+    /* Assumptions disclosure */
+    .assumptions {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      font-size: 0.8rem; color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .assumptions summary {
+      cursor: pointer; color: var(--text-muted); font-weight: 600;
+      font-size: 0.82rem; list-style: none;
+    }
+    .assumptions summary::-webkit-details-marker { display: none; }
+    .assumptions summary::before { content: "+ "; color: var(--accent-light); }
+    details[open] summary::before { content: "− "; }
+    .assumptions ul { margin-top: 12px; padding-left: 16px; }
+    .assumptions ul li { list-style: disc; margin-bottom: 5px; }
+
+    /* CTA section */
+    .calc-cta {
+      background: linear-gradient(135deg, var(--surface-2), rgba(37,24,88,0.9));
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-xl);
+      padding: 52px;
+      display: grid; grid-template-columns: 1.4fr auto;
+      gap: 32px; align-items: center;
+      position: relative; overflow: hidden;
+      box-shadow: var(--glow-sm);
+    }
+    .calc-cta::before {
+      content: ""; position: absolute;
+      top: -50%; right: -5%; width: 400px; height: 300%;
+      background: radial-gradient(ellipse, rgba(77,49,245,0.15), transparent 60%);
+      pointer-events: none;
+    }
+    @media (max-width: 700px) { .calc-cta { grid-template-columns: 1fr; } }
+
+    /* Number animation */
+    @keyframes numPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+    .num-change { animation: numPop 0.35s ease; }
+  </style>
+<meta content="website" property="og:type"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" property="og:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." property="og:description"/>
+<meta content="https://qapitol.com/assets/img/og-default.png" property="og:image"/>
+<meta content="https://qapitol.com/roi-calculator.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Qapitol AI | AI Quality &amp; Compliance" name="twitter:title"/>
+<meta content="Business Outcome Assurance for the AI era — testing, compliance and reliability for enterprise AI systems." name="twitter:description"/>
+  <meta name="description" content="Calculate your ROI from AI quality engineering. Estimate cost savings, defect reduction, and release velocity improvements from Qapitol's platforms and services.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://qapitol.com/roi-calculator.html">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://qapitol.com/roi-calculator.html">
+  <meta property="og:title" content="ROI Calculator | Qapitol AI Technologies">
+  <meta property="og:description" content="Calculate your ROI from AI quality engineering. Estimate cost savings, defect reduction, and release velocity improvements from Qapitol's platforms and services.">
+  <meta property="og:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <meta property="og:site_name" content="Qapitol AI Technologies">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@qapitol">
+  <meta name="twitter:title" content="ROI Calculator | Qapitol AI Technologies">
+  <meta name="twitter:description" content="Calculate your ROI from AI quality engineering. Estimate cost savings, defect reduction, and release velocity improvements from Qapitol's platforms and services.">
+  <meta name="twitter:image" content="https://qapitol.com/assets/images/og-default.svg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.svg">
+  <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<style>
+.brand{display:inline-flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.15rem!important;text-decoration:none;}.brand-tagline{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.38);line-height:1;margin-top:0;}
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header class="site-header">
+<div class="container nav">
+<a class="brand" href="index.html">
+<img alt="Qapitol" class="brand-logo" height="30" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="183"/>
+<span class="brand-tagline">Control. Clarity. Confidence.</span>
+</a>
+<ul class="nav-links">
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Platforms</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>QE &amp; AI Platforms</h4><ul>
+<li><a href="platforms.html">Platforms overview</a></li>
+<li><a href="qave.html">QAVE <small>AI Simulation &amp; Eval Engine</small></a></li>
+<li><a href="nexus.html">Nexus <small>QE Intelligence</small></a></li>
+<li><a href="cheq.html">Cheq <small>AI Compliance Platform</small></a></li>
+<li><a href="agent-fabric.html">QE Agents <small>Autonomous Execution</small></a></li>
+<li><a href="qurator.html">Qurator <small>Evaluation Orchestration</small></a></li>
+<li><a href="qave-platform.html">QAVE Free Tier <small style="color:#21a3b2;">Try free</small></a></li>
+<li><a href="pricing.html">Pricing</a></li>
+<li><a href="roi-calculator.html" style="color:#e88721;">ROI Calculator 📊</a></li>
+<li><a href="integrations.html" style="color:var(--teal);">Integrations ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Solutions</button>
+<div class="megamenu three-col" role="menu">
+<div class="mega-col"><h4>AI Product &amp; Platform</h4><ul>
+<li><a href="solution-llm-safety.html" style="color:var(--accent-light);">LLM Safety &amp; Red Teaming ✨</a></li>
+<li><a href="solution-ai-validation.html">AI System Validation</a></li>
+<li><a href="solution-qe-saas.html">QE for AI SaaS Products</a></li>
+<li><a href="solution-synthetic-data.html">Synthetic Data for AI Training</a></li>
+</ul></div>
+<div class="mega-col"><h4>Enterprise Transformation</h4><ul>
+<li><a href="solution-agentic-qe.html" style="color:var(--accent-light);">Agentic QE Transformation ✨</a></li>
+<li><a href="solution-ai-compliance.html" style="color:var(--accent-light);">AI Regulatory Compliance ✨</a></li>
+<li><a href="solution-gcc-ai.html">GCC AI Practice Build</a></li>
+<li><a href="regulatory-calendar.html" style="color:#fbbf24;">AI Regulation Calendar 📅</a></li>
+</ul></div>
+<div class="mega-col"><h4>Sector-Specific</h4><ul>
+<li><a href="solution-bfsi-ai.html" style="color:#fbbf24;">AI Quality for BFSI &amp; Payments ⭐</a></li>
+<li><a href="solution-healthcare-ai.html">AI Assurance for Healthcare</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Services</button>
+<div class="megamenu four-col" role="menu">
+<div class="mega-col"><h4>AI Engineering</h4><ul>
+<li><a href="ai-engineering.html">Pillar overview</a></li>
+<li><a href="ai-in-qe.html">AI in QE (Agentic QE)</a></li>
+<li><a href="ai-evaluation.html">AI Evaluation (Evals)</a></li>
+<li><a href="agentops.html" style="color:var(--accent-light);">AgentOps &amp; AI Observability ✨</a></li>
+<li><a href="synthetic-data-management.html">Synthetic Data Management <small>powered by GenRocket</small></a></li>
+<li><a href="testmu.html" style="color:var(--accent-light);">Agentic Test Execution ✨</a></li>
+</ul></div>
+<div class="mega-col"><h4>Intelligent Automation</h4><ul>
+<li><a href="intelligent-automation.html">Pillar overview</a></li>
+<li><a href="workflow-automation.html" style="color:var(--accent-light);">AI Workflow Automation ✨</a></li>
+<li><a href="intelligent-automation.html#process">Process Automation</a></li>
+<li><a href="intelligent-automation.html#agentic">Agentic Automation</a></li>
+</ul></div>
+<div class="mega-col"><h4>Digital Reliability</h4><ul>
+<li><a href="digital-reliability.html">Pillar overview</a></li>
+<li><a href="digital-reliability.html#quality-engineering">Quality Engineering</a></li>
+<li><a href="digital-reliability.html#performance-engineering">Performance Engineering</a></li>
+<li><a href="digital-reliability.html#security-testing">Security Testing</a></li>
+<li><a href="digital-reliability.html#devops-continuous-testing">DevOps &amp; Continuous Testing</a></li>
+<li><a href="platform-engineering.html">Platform &amp; DevOps Engineering</a></li>
+<li><a href="digital-reliability.html#crowd-testing">Crowd Testing &amp; Bug Bash</a></li>
+<li><a href="digital-reliability.html#consulting-advisory">Consulting &amp; Advisory</a></li>
+<li><a href="digital-reliability.html#talent-on-demand">Talent on Demand</a></li>
+</ul></div>
+<div class="mega-col"><h4>Talent Services</h4><ul>
+<li><a href="talent-services.html">Pillar overview</a></li>
+<li><a href="gcc.html" style="color:var(--accent-light);">GCC Build &amp; Run ✨</a></li>
+<li><a href="talent-services.html#staffing">Staff Augmentation</a></li>
+<li><a href="talent-services.html#embedded">Embedded Teams</a></li>
+<li><a href="talent-services.html#ai-talent">AI-Skilled Talent</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Industries</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Industries</h4><ul>
+<li><a href="industries.html">All industries</a></li>
+<li><a href="industries.html#bfsi">Banking &amp; Financial Services</a></li>
+<li><a href="industries.html#logistics">Logistics &amp; Supply Chain</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare &amp; Life Sciences</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">Insights</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>Insights</h4><ul>
+<li><a href="case-studies.html">Case Studies</a></li>
+<li><a href="insights.html#blogs">Blogs</a></li>
+<li><a href="insights.html#whitepapers">Whitepapers</a></li>
+<li><a href="insights.html#playbooks">Playbooks &amp; Frameworks</a></li>
+<li><a href="events.html" style="color:var(--teal);">Events &amp; Webinars</a></li>
+</ul></div>
+</div>
+</li>
+      <li class="has-mega">
+<button aria-haspopup="true" class="nav-trigger">About</button>
+<div class="megamenu simple" role="menu">
+<div class="mega-col"><h4>About</h4><ul>
+<li><a href="about.html">Company</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+</ul></div>
+</div>
+</li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+<a class="btn btn-primary nav-cta" href="contact.html">Let’s Talk →</a>
+<button aria-label="Open menu" class="menu-toggle">Menu</button>
+</div>
+</header>
+<!-- HERO -->
+<section class="hero" style="padding:80px 0 60px;">
+<div class="hero-geo">
+<svg fill="none" viewbox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+<circle cx="300" cy="300" r="250" stroke="white" stroke-width="0.5"></circle>
+<circle cx="300" cy="300" r="180" stroke="white" stroke-width="0.3"></circle>
+<circle cx="300" cy="300" r="100" stroke="white" stroke-width="0.4"></circle>
+<line stroke="white" stroke-width="0.3" x1="50" x2="550" y1="300" y2="300"></line>
+<line stroke="white" stroke-width="0.3" x1="300" x2="300" y1="50" y2="550"></line>
+</svg>
+</div>
+<div class="container" style="position:relative; z-index:1;">
+<p class="eyebrow">ROI Calculator</p>
+<h1 style="max-width:780px;">Quantify your <span class="gradient-text">AI quality engineering ROI</span></h1>
+<p class="lead" style="max-width:680px;">Adjust the sliders to match your engineering context. The calculator estimates your current QA costs, projected savings with Qapitol, and total 3-year return — updated live as you type.</p>
+<p style="font-size:0.82rem; color:var(--text-dim); margin-top:12px;">All figures in Indian Rupees (₹). Based on benchmarks from 50+ QE engagements. For a custom model, <a href="contact.html" style="color:var(--accent-light); text-decoration:underline;">talk to our team</a>.</p>
+</div>
+</section>
+<!-- CALCULATOR -->
+<section class="calc-section">
+<div class="container">
+<div class="calc-layout">
+<!-- LEFT: Inputs -->
+<div class="inputs-panel">
+<h3>Your Engineering Context</h3>
+<p class="input-section-label">Team &amp; Scale</p>
+<div class="input-group">
+<label>
+            Number of developers
+            <span class="live-val" id="val-devs">50</span>
+</label>
+<input id="r-devs" max="500" min="10" step="5" type="range" value="50"/>
+<div class="range-bounds"><span>10</span><span>500</span></div>
+</div>
+<div class="input-group">
+<label>
+            Manual QA effort (% of dev time)
+            <span class="live-val" id="val-qa">35%</span>
+</label>
+<input id="r-qa" max="60" min="10" step="1" type="range" value="35"/>
+<div class="range-bounds"><span>10%</span><span>60%</span></div>
+</div>
+<div class="input-group">
+<label>
+            Release frequency (per month)
+            <span class="live-val" id="val-releases">4</span>
+</label>
+<input id="r-releases" max="20" min="1" step="1" type="range" value="4"/>
+<div class="range-bounds"><span>1</span><span>20</span></div>
+</div>
+<div class="input-divider"></div>
+<p class="input-section-label">Cost Parameters</p>
+<div class="input-group">
+<label>
+            Avg developer hourly cost (₹)
+            <span class="live-val" id="val-hourly">₹1,500</span>
+</label>
+<input id="r-hourly" max="4000" min="800" step="100" type="range" value="1500"/>
+<div class="range-bounds"><span>₹800</span><span>₹4,000</span></div>
+</div>
+<div class="input-group">
+<label>
+            Avg production bug cost (₹)
+            <span class="live-val" id="val-bugcost">₹1.5L</span>
+</label>
+<input id="r-bugcost" max="500000" min="50000" step="10000" type="range" value="150000"/>
+<div class="range-bounds"><span>₹50K</span><span>₹5L</span></div>
+</div>
+<div class="input-divider"></div>
+<p class="input-section-label">Quality Metrics</p>
+<div class="input-group">
+<label>
+            Current defect escape rate (%)
+            <span class="live-val" id="val-escape">20%</span>
+</label>
+<input id="r-escape" max="40" min="5" step="1" type="range" value="20"/>
+<div class="range-bounds"><span>5%</span><span>40%</span></div>
+</div>
+<p style="font-size:0.78rem; color:var(--text-dim); line-height:1.5; margin-top:10px;">
+          Defect escape rate = % of bugs that reach production rather than being caught in QA.
+        </p>
+</div>
+<!-- RIGHT: Results -->
+<div class="results-panel">
+<!-- Total ROI Hero -->
+<div class="result-header-card">
+<div style="position:relative; z-index:1;">
+<p class="roi-label">Estimated Annual Savings with Qapitol</p>
+<div class="roi-big-number" id="r-total-savings">₹0</div>
+<p class="roi-sub">Total annual ROI across QA cost reduction, defect savings &amp; release velocity</p>
+<div class="roi-multiple">
+<span class="roi-multiple-num" id="r-roi-multiple">0x</span>
+<span class="roi-multiple-label">return on Qapitol investment</span>
+</div>
+</div>
+</div>
+<!-- Breakdown Grid -->
+<div class="breakdown-grid">
+<div class="breakdown-card cost">
+<div class="breakdown-label cost-label">Current Annual QA Cost</div>
+<div class="breakdown-number cost-num" id="r-qa-cost">₹0</div>
+<div class="breakdown-detail">Developers × QA effort × 2,080 hrs/year × hourly rate</div>
+</div>
+<div class="breakdown-card saving">
+<div class="breakdown-label saving-label">QA Effort Savings</div>
+<div class="breakdown-number saving-num" id="r-qa-saving">₹0</div>
+<div class="breakdown-detail">40–60% reduction in manual QA time through AI-assisted automation</div>
+</div>
+<div class="breakdown-card accent">
+<div class="breakdown-label teal-label">Defect Escape Savings</div>
+<div class="breakdown-number teal-num" id="r-defect-saving">₹0</div>
+<div class="breakdown-detail">Avg 60% reduction in production defects × bug cost × monthly releases × 12</div>
+</div>
+<div class="breakdown-card highlight">
+<div class="breakdown-label accent-label">Release Velocity Value</div>
+<div class="breakdown-number accent-num" id="r-velocity-saving">₹0</div>
+<div class="breakdown-detail">Estimated value of 25% faster release cycles (reduced opportunity cost)</div>
+</div>
+</div>
+<!-- 3-Year Projection -->
+<div class="projection-card">
+<h4>3-Year Cumulative Savings Projection</h4>
+<div class="projection-bars" id="proj-bars-container">
+<div class="proj-bar-wrap">
+<span class="proj-bar-val" id="proj-y1-val">₹0</span>
+<div class="proj-bar y1" id="proj-y1" style="height:30px;"></div>
+<span class="proj-bar-label">Year 1</span>
+</div>
+<div class="proj-bar-wrap">
+<span class="proj-bar-val" id="proj-y2-val">₹0</span>
+<div class="proj-bar y2" id="proj-y2" style="height:60px;"></div>
+<span class="proj-bar-label">Year 2</span>
+</div>
+<div class="proj-bar-wrap">
+<span class="proj-bar-val" id="proj-y3-val">₹0</span>
+<div class="proj-bar y3" id="proj-y3" style="height:100px;"></div>
+<span class="proj-bar-label">Year 3</span>
+</div>
+</div>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:16px; border-top:1px solid var(--border);">
+<span style="font-size:0.82rem; color:var(--text-dim);">3-Year Total</span>
+<span id="proj-3yr-total" style="font-family:'Inter Tight',sans-serif; font-size:1.4rem; font-weight:800; color:var(--green);">₹0</span>
+</div>
+<p style="font-size:0.77rem; color:var(--text-dim); margin-top:8px;">Year 1 includes onboarding ramp. Year 2–3 benefit from compounding automation maturity and reduced tech debt.</p>
+</div>
+<!-- Assumptions -->
+<details class="assumptions">
+<summary>Calculation assumptions &amp; methodology</summary>
+<ul>
+<li>Working hours assumed at 2,080 per developer per year (52 weeks × 40 hrs)</li>
+<li>Qapitol AI QE platform reduces manual QA effort by 40–60% (midpoint 50% used in calculations)</li>
+<li>Defect escape reduction: typically 55–65% with agentic QE; 60% used as conservative estimate</li>
+<li>Production bug cost includes investigation, fix, regression, and business impact time</li>
+<li>Release velocity value estimated as 25% of current QA cost (opportunity cost of delayed releases)</li>
+<li>Estimated Qapitol annual cost = 18% of current QA cost (typical engagement benchmark)</li>
+<li>Year 1 savings discounted by 30% to account for onboarding and adoption ramp</li>
+<li>Year 2 savings = Year 1 full value + 15% compounding maturity uplift</li>
+<li>Year 3 savings = Year 2 + 20% compounding maturity uplift</li>
+<li>All figures are estimates based on 50+ QE engagement benchmarks — actual results vary</li>
+</ul>
+</details>
+</div>
+</div>
+<!-- Bottom CTA -->
+<div class="calc-cta" style="margin-top:64px;">
+<div style="position:relative; z-index:1;">
+<p class="eyebrow">Go Deeper</p>
+<h3 style="margin-bottom:10px;">Get a custom ROI analysis</h3>
+<p style="color:var(--text-muted); font-size:0.95rem; max-width:520px; line-height:1.7;">
+          The calculator gives you a directional estimate. Our team can build a detailed ROI model tailored to your specific stack, team structure, release cadence, and industry context — including a 90-day value realization roadmap.
+        </p>
+</div>
+<div style="position:relative; z-index:1; display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
+<a class="btn btn-primary" href="contact.html">Request Custom Analysis →</a>
+<a class="btn btn-outline" href="case-studies.html">See Real Case Studies</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     The Control Layer — Newsletter signup strip
+     ═══════════════════════════════════════════════════ -->
+<section id="newsletter" style="background:linear-gradient(135deg,#0d0720 0%,#110935 50%,#0a1628 100%);border-top:1px solid rgba(77,49,245,.25);padding:3.5rem 0;">
+<div class="container">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2.5rem;">
+    <!-- Left: branding -->
+    <div style="flex:1;min-width:280px;max-width:520px;">
+      <div style="display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:.75rem;">
+        <span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--teal);"></span>
+        Free Weekly Newsletter
+      </div>
+      <h2 style="font-family:'Inter Tight',sans-serif;font-size:1.55rem;font-weight:800;line-height:1.2;margin-bottom:.6rem;color:#fff;">
+        The Control Layer
+      </h2>
+      <p style="font-size:.9rem;color:rgba(181,166,255,.7);line-height:1.7;margin:0;">
+        Weekly clarity on AI governance, quality engineering, and responsible AI — for CTOs, AI leads, and compliance heads building production AI in regulated industries.
+      </p>
+      <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;">
+        <span style="font-size:.7rem;background:rgba(33,163,178,.1);border:1px solid rgba(33,163,178,.2);border-radius:20px;padding:3px 10px;color:var(--teal);">AI Governance</span>
+        <span style="font-size:.7rem;background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.2);border-radius:20px;padding:3px 10px;color:var(--accent-light);">Quality Engineering</span>
+        <span style="font-size:.7rem;background:rgba(232,135,33,.1);border:1px solid rgba(232,135,33,.2);border-radius:20px;padding:3px 10px;color:#e88721;">Regulatory Compliance</span>
+        <span style="font-size:.7rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;color:rgba(255,255,255,.4);">Agentic AI</span>
+      </div>
+    </div>
+    <!-- Right: form -->
+    <div style="flex:1;min-width:280px;max-width:460px;">
+      <div id="nl-success" style="display:none;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;">
+        <div style="font-size:1.4rem;margin-bottom:.4rem;">✅</div>
+        <p style="font-family:'Inter Tight',sans-serif;font-weight:700;font-size:.95rem;color:#4ade80;margin-bottom:.2rem;">You're in.</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);margin:0;">First issue lands in your inbox this week.</p>
+      </div>
+      <div id="nl-error" style="display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:12px;padding:.85rem 1rem;margin-bottom:.75rem;font-size:.82rem;color:#f87171;">
+        Something went wrong — please try again or email <a href="mailto:hello@qapitol.com" style="color:#f87171;">hello@qapitol.com</a>
+      </div>
+      <form id="nl-form" style="display:flex;flex-direction:column;gap:.75rem;" novalidate>
+        <input type="hidden" name="_subject" value="New Control Layer newsletter subscriber">
+        <input type="hidden" name="_next" value="https://qapitol.com/thank-you.html">
+        <input type="hidden" name="source" value="footer-newsletter-strip">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <input
+            type="email" name="email" id="nl-email"
+            placeholder="your@company.com"
+            required
+            style="flex:1;min-width:180px;background:rgba(255,255,255,.06);border:1px solid rgba(181,166,255,.15);border-radius:10px;padding:.75rem 1rem;font-size:.9rem;color:#fff;font-family:'Source Sans 3',sans-serif;outline:none;transition:border-color .2s;"
+            onfocus="this.style.borderColor='rgba(77,49,245,.5)'"
+            onblur="this.style.borderColor='rgba(181,166,255,.15)'"
+          />
+          <button
+            type="submit" id="nl-submit"
+            style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:.75rem 1.4rem;font-size:.88rem;font-weight:700;font-family:'Inter Tight',sans-serif;cursor:pointer;white-space:nowrap;transition:background .2s;flex-shrink:0;"
+            onmouseover="this.style.background='#3e27c4'"
+            onmouseout="this.style.background='var(--accent)'"
+          >Subscribe free →</button>
+        </div>
+        <p style="font-size:.72rem;color:rgba(181,166,255,.4);margin:0;line-height:1.5;">
+          No spam. Unsubscribe anytime. Read by 3,000+ AI practitioners.
+          <a href="privacy.html" style="color:rgba(181,166,255,.5);text-decoration:underline;text-underline-offset:2px;">Privacy policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var form = document.getElementById('nl-form');
+  var success = document.getElementById('nl-success');
+  var errBox = document.getElementById('nl-error');
+  var submit = document.getElementById('nl-submit');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('nl-email').value.trim();
+    if (!email) return;
+    submit.textContent = 'Subscribing…';
+    submit.disabled = true;
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xnjwrzen', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' }
+    }).then(function(r){
+      if (r.ok) {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        if (window.dataLayer) window.dataLayer.push({event:'newsletter_subscribe'});
+      } else {
+        errBox.style.display = 'block';
+        submit.textContent = 'Subscribe free →';
+        submit.disabled = false;
+      }
+    }).catch(function(){
+      errBox.style.display = 'block';
+      submit.textContent = 'Subscribe free →';
+      submit.disabled = false;
+    });
+  });
+})();
+</script>
+</section>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<a class="brand" href="index.html"><img alt="Qapitol" class="brand-logo" height="27" src="https://cdn.prod.website-files.com/6858f78f526c1151d2838c01/6858f78f526c1151d2838c3e_Logo-white%201.svg" width="165"/></a>
+<p class="muted mt-16">The independent AI governance and assurance layer — deployed inside your enterprise environment.</p>
+<p class="muted mt-16"><strong>info@qapitol.com</strong><br/>+91-9916097099</p>
+<div aria-label="ISO Certifications" style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1a3a6e;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 9001:2015 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">9001:2015</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#d97706;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 27001 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:6.5px;font-weight:700;line-height:1.4;">27001</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:#1e4d8c;color:#fff;text-align:center;flex-shrink:0;padding:4px;" title="ISO 20000-1:2011 Certified">
+<span style="font-size:5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.4;">CERTIFIED</span>
+<span style="font-size:14px;font-weight:800;line-height:1.1;font-family:'Inter Tight',sans-serif;">ISO</span>
+<span style="font-size:5.5px;font-weight:700;line-height:1.4;">20000-1:2011</span>
+<span style="font-size:4.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;">COMPANY</span>
+</div>
+</div>
+</div>
+<div><h5>Services</h5><ul>
+<li><a href="digital-reliability.html">Digital Reliability</a></li>
+<li><a href="ai-engineering.html">AI Engineering</a></li>
+<li><a href="workflow-automation.html">AI Workflow Automation</a></li>
+<li><a href="intelligent-automation.html">Intelligent Automation</a></li>
+<li><a href="gcc.html">GCC Build &amp; Run</a></li>
+<li><a href="talent-services.html">Talent Services</a></li>
+<li><a href="hire.html" style="color:var(--teal);">Hire AI Talent ✦</a></li>
+<li><a href="testmu.html">TestMu AI Partnership</a></li>
+</ul></div>
+<div><h5>Platforms</h5><ul>
+<li><a href="qave.html">QAVE</a></li>
+<li><a href="nexus.html">Nexus</a></li>
+<li><a href="cheq.html">Cheq</a></li>
+<li><a href="agent-fabric.html">QE Agents</a></li>
+<li><a href="qurator.html">Qurator</a></li>
+<li><a href="roi-calculator.html">ROI Calculator</a></li>
+</ul></div>
+<div><h5>Industries</h5><ul>
+<li><a href="industries.html#bfsi">BFSI</a></li>
+<li><a href="industries.html#logistics">Logistics</a></li>
+<li><a href="industries.html#retail">Retail &amp; E-commerce</a></li>
+<li><a href="industries.html#healthcare">Healthcare</a></li>
+<li><a href="industries.html#tech-saas">Tech &amp; SaaS</a></li>
+</ul></div>
+<div><h5>Company</h5><ul>
+<li><a href="about.html">About</a></li>
+<li><a href="about.html#leadership">Leadership</a></li>
+<li><a href="careers.html">Careers</a></li>
+<li><a href="partnerships.html">Partnerships</a></li>
+<li><a href="ai-trism.html" style="color:var(--teal);">AI TRiSM ✦</a></li>
+<li><a href="security-trust.html" style="color:var(--teal);">Security &amp; Trust ✦</a></li>
+<li><a href="ciso.html">For the CISO</a></li>
+<li><a href="why-qapitol.html" style="color:var(--teal);">Why Qapitol ✦</a></li>
+<li><a href="pivot.html">The Pivot</a></li>
+<li><a href="build-vs-buy.html">Build vs Buy</a></li>
+<li><a href="intel.html" style="color:var(--teal);">Control Layer Brief ✦</a></li>
+<li><a href="labs.html">Qapitol Labs</a></li>
+<li><a href="sure-q.html">SURE-Q Framework</a></li>
+<li><a href="events.html">Events &amp; Webinars</a></li>
+<li><a href="community.html">Community</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="uae.html" style="color:#c9a227;">UAE &amp; Middle East 🇦🇪</a></li>
+<li><a href="usa.html" style="color:#60a5fa;">USA 🇺🇸</a></li>
+<li><a href="alumni.html">Alumni Network</a></li>
+<li><a href="qen.html" style="color:var(--gold);">QEN Expert Network ✦</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul></div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Qapitol QA Services Private Limited. All rights reserved.</span>
+<span>Privacy · Terms · Cookies</span>
+</div>
+</div>
+</footer>
+<style>
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 40px; padding: 56px 0 40px; }
+  .site-footer h5 { font-family:"Inter Tight",sans-serif; font-size:.75rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent-light); margin-bottom:14px; }
+  .site-footer ul li { margin-bottom:8px; }
+  .site-footer ul li a { color:var(--text-muted); font-size:.88rem; transition:color .15s; }
+  .site-footer ul li a:hover { color:var(--text); }
+  .muted { color:var(--text-muted); font-size:.88rem; }
+  .mt-16 { margin-top:16px; }
+  .footer-bottom { border-top:1px solid var(--border); padding:22px 0; display:flex; justify-content:space-between; align-items:center; font-size:.82rem; color:var(--text-dim); }
+  @media(max-width:900px){ .footer-grid { grid-template-columns:1fr 1fr; } }
+</style>
+<script>
+  // ---- Utility: format numbers ----
+  function fmt(n) {
+    if (n >= 10000000) return '₹' + (n / 10000000).toFixed(1) + 'Cr';
+    if (n >= 100000)   return '₹' + (n / 100000).toFixed(1) + 'L';
+    if (n >= 1000)     return '₹' + (n / 1000).toFixed(0) + 'K';
+    return '₹' + Math.round(n).toLocaleString('en-IN');
+  }
+  function fmtShort(n) {
+    if (n >= 10000000) return '₹' + (n / 10000000).toFixed(2) + ' Cr';
+    if (n >= 100000)   return '₹' + (n / 100000).toFixed(2) + ' L';
+    return '₹' + Math.round(n).toLocaleString('en-IN');
+  }
+
+  // ---- Animate a number element ----
+  function animateEl(id) {
+    var el = document.getElementById(id);
+    el.classList.remove('num-change');
+    void el.offsetWidth; // reflow
+    el.classList.add('num-change');
+  }
+
+  // ---- Core calculation ----
+  function calculate() {
+    var devs     = +document.getElementById('r-devs').value;
+    var qaEff    = +document.getElementById('r-qa').value / 100;
+    var releases = +document.getElementById('r-releases').value;
+    var hourly   = +document.getElementById('r-hourly').value;
+    var bugCost  = +document.getElementById('r-bugcost').value;
+    var escape   = +document.getElementById('r-escape').value / 100;
+
+    // Update live labels
+    document.getElementById('val-devs').textContent    = devs;
+    document.getElementById('val-qa').textContent      = Math.round(qaEff * 100) + '%';
+    document.getElementById('val-releases').textContent = releases;
+    document.getElementById('val-hourly').textContent  = '₹' + hourly.toLocaleString('en-IN');
+    document.getElementById('val-bugcost').textContent = fmt(bugCost);
+    document.getElementById('val-escape').textContent  = Math.round(escape * 100) + '%';
+
+    // ---- Calculations ----
+    var annualHours = 2080;
+
+    // Current annual QA cost
+    var qaCost = devs * qaEff * annualHours * hourly;
+
+    // QA effort savings: 50% reduction in manual QA effort
+    var qaSaving = qaCost * 0.50;
+
+    // Defect escape savings: 60% reduction in production bugs
+    // escapes per month = releases * (some factor based on team size)
+    // simple model: defect escapes per year = releases * 12 * escape_rate * (devs / 10)
+    var bugsPerYear = releases * 12 * escape * (devs / 10);
+    var currentDefectCost = bugsPerYear * bugCost;
+    var defectSaving = currentDefectCost * 0.60;
+
+    // Release velocity value: 25% of QA cost (opportunity cost savings)
+    var velocitySaving = qaCost * 0.25;
+
+    // Total annual savings
+    var totalSaving = qaSaving + defectSaving + velocitySaving;
+
+    // Estimated Qapitol cost = 18% of current QA cost
+    var qapitolCost = qaCost * 0.18;
+
+    // ROI multiple
+    var roiMultiple = qapitolCost > 0 ? (totalSaving / qapitolCost) : 0;
+
+    // 3-year projections
+    var y1 = totalSaving * 0.70;   // 30% onboarding discount
+    var y2 = totalSaving * 1.15;   // full + 15% maturity
+    var y3 = totalSaving * 1.15 * 1.20; // year2 + 20% maturity
+    var y3total = y1 + y2 + y3;
+
+    // ---- Update DOM ----
+    document.getElementById('r-qa-cost').textContent         = fmtShort(qaCost);
+    document.getElementById('r-qa-saving').textContent       = fmtShort(qaSaving);
+    document.getElementById('r-defect-saving').textContent   = fmtShort(defectSaving);
+    document.getElementById('r-velocity-saving').textContent = fmtShort(velocitySaving);
+    document.getElementById('r-total-savings').textContent   = fmtShort(totalSaving);
+    document.getElementById('r-roi-multiple').textContent    = roiMultiple.toFixed(1) + 'x';
+
+    // Projection values
+    document.getElementById('proj-y1-val').textContent = fmtShort(y1);
+    document.getElementById('proj-y2-val').textContent = fmtShort(y2);
+    document.getElementById('proj-y3-val').textContent = fmtShort(y3);
+    document.getElementById('proj-3yr-total').textContent = fmtShort(y3total);
+
+    // Bar heights — scale relative to y3 (max), within 100px max
+    var maxVal = Math.max(y1, y2, y3, 1);
+    var BAR_MAX = 100;
+    document.getElementById('proj-y1').style.height = Math.max(4, (y1 / maxVal) * BAR_MAX) + 'px';
+    document.getElementById('proj-y2').style.height = Math.max(4, (y2 / maxVal) * BAR_MAX) + 'px';
+    document.getElementById('proj-y3').style.height = Math.max(4, (y3 / maxVal) * BAR_MAX) + 'px';
+
+    // Animate big number
+    animateEl('r-total-savings');
+    animateEl('r-roi-multiple');
+  }
+
+  // ---- Bind all sliders ----
+  var sliders = ['r-devs','r-qa','r-releases','r-hourly','r-bugcost','r-escape'];
+  sliders.forEach(function(id) {
+    document.getElementById(id).addEventListener('input', calculate);
+  });
+
+  // Initial calculation
+  calculate();
+</script>
+<script src="assets/js/main.js"></script>
+<script defer="" src="assets/js/widgets.js"></script>
+
+<!-- ═══════════════════════════════════════════════════
+     Cookie Consent Banner — GDPR / DPDP compliant
+     ═══════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <style>
+    #cookie-banner{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:720px;z-index:9999;background:#12131f;border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.5);font-family:'Inter Tight','Inter',sans-serif;}
+    #cookie-banner p{margin:0;font-size:13.5px;color:rgba(240,240,255,.65);line-height:1.55;flex:1;}
+    #cookie-banner a{color:#21a3b2;text-decoration:underline;text-underline-offset:2px;}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0;}
+    #cookie-accept{background:#4d31f5;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;}
+    #cookie-accept:hover{background:#3e27c4;}
+    #cookie-decline{background:transparent;color:rgba(240,240,255,.5);border:1px solid rgba(255,255,255,.12);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;}
+    #cookie-decline:hover{color:rgba(240,240,255,.8);border-color:rgba(255,255,255,.25);}
+    @media(max-width:600px){#cookie-banner{flex-direction:column;align-items:flex-start;bottom:0;left:0;right:0;transform:none;width:100%;border-radius:16px 16px 0 0;max-width:100%;}.cookie-btns{width:100%;justify-content:stretch;}#cookie-accept,#cookie-decline{flex:1;text-align:center;}}
+  </style>
+  <p>We use cookies and analytics to improve your experience and measure site performance. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+  <div class="cookie-btns">
+    <button id="cookie-accept">Accept all</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+</div>
+<script>
+(function(){
+  var STORAGE_KEY = 'qap_cookie_consent';
+  var banner = document.getElementById('cookie-banner');
+  var consent = localStorage.getItem(STORAGE_KEY);
+  if (!consent) { banner.style.display = 'flex'; }
+  if (consent === 'accepted') { window.dataLayer = window.dataLayer || []; window.dataLayer.push({event:'cookie_consent_accepted'}); }
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'accepted');
+    banner.style.display = 'none';
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'cookie_consent_accepted'});
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function(){
+    localStorage.setItem(STORAGE_KEY, 'declined');
+    banner.style.display = 'none';
+  });
+})();
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intent-Driven Experience Mockup | Qapitol AI</title>
+<style>
+  :root {
+    --accent: #4d31f5; --accent2: #7c5ff8; --accent-light: #b5a6ff;
+    --teal: #00d4b4; --gold: #f59e0b;
+    --bg: #07060f; --surface: rgba(255,255,255,.05); --border: rgba(255,255,255,.1);
+    --text: #e8e4ff; --muted: rgba(255,255,255,.5);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  /* ─── META BAR (concept explainer) ─── */
+  .meta-bar { background: rgba(77,49,245,.18); border-bottom: 1px solid rgba(77,49,245,.35); padding: .55rem 1.5rem; display: flex; align-items: center; gap: .6rem; font-size: .75rem; color: var(--accent-light); }
+  .meta-bar strong { color: #fff; }
+  .meta-pill { background: rgba(77,49,245,.28); border-radius: 99px; padding: .2rem .65rem; font-size: .68rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+
+  /* ─── SITE HEADER ─── */
+  .site-header { padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; background: rgba(7,6,15,.85); backdrop-filter: blur(14px); }
+  .brand { font-size: 1.15rem; font-weight: 900; background: linear-gradient(135deg,#fff,var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .nav-links { display: flex; gap: 1.5rem; margin-left: 2rem; font-size: .85rem; color: var(--muted); }
+  .nav-links a { color: inherit; text-decoration: none; }
+  .nav-links a:hover { color: #fff; }
+  .header-cta { margin-left: auto; display: flex; align-items: center; gap: .75rem; }
+  .btn-sm { padding: .45rem 1rem; border-radius: 7px; font-size: .82rem; font-weight: 600; cursor: pointer; border: none; }
+  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+
+  /* ─── ROLE SELECTOR ─── */
+  .role-selector-section { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.02); }
+  .role-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: .75rem; }
+  .role-cards { display: flex; gap: .6rem; flex-wrap: wrap; }
+  .role-card {
+    cursor: pointer; padding: .55rem 1rem; border-radius: 8px; border: 1px solid var(--border);
+    background: rgba(255,255,255,.04); display: flex; align-items: center; gap: .5rem;
+    font-size: .82rem; font-weight: 500; transition: all .2s;
+  }
+  .role-card:hover { border-color: rgba(77,49,245,.4); background: rgba(77,49,245,.1); }
+  .role-card.active { border-color: var(--accent-light); background: rgba(77,49,245,.18); color: #fff; }
+  .role-card .role-icon { font-size: 1.1rem; }
+
+  /* ─── MAIN LAYOUT ─── */
+  .main-layout { display: grid; grid-template-columns: 1fr 340px; min-height: calc(100vh - 180px); }
+
+  /* ─── SITE CONTENT ─── */
+  .site-content { padding: 0; overflow: hidden; }
+
+  /* Hero */
+  .hero { padding: 3.5rem 2.5rem 2.5rem; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 80% 40%, rgba(77,49,245,.18) 0%, transparent 70%); pointer-events: none; }
+  .hero-badge { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--accent-light); background: rgba(77,49,245,.14); border: 1px solid rgba(77,49,245,.28); border-radius: 99px; padding: .28rem .75rem; margin-bottom: 1rem; transition: all .4s; }
+  .hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.2; margin-bottom: 1rem; transition: all .4s; }
+  .hero h1 .hl { color: var(--accent-light); }
+  .hero .hero-sub { font-size: .95rem; color: var(--muted); line-height: 1.75; max-width: 540px; margin-bottom: 1.75rem; transition: all .4s; }
+  .hero-ctas { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .hero-cta-primary { padding: .8rem 1.5rem; background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 9px; color: #fff; font-size: .9rem; font-weight: 700; cursor: pointer; transition: all .4s; }
+  .hero-cta-outline { padding: .8rem 1.5rem; background: transparent; border: 1px solid var(--border); border-radius: 9px; color: var(--muted); font-size: .9rem; font-weight: 600; cursor: pointer; }
+  .persona-strip { display: flex; align-items: center; flex-wrap: wrap; gap: .45rem; padding: .55rem 1rem; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.11); border-radius: 2rem; width: fit-content; transition: all .4s; }
+  .persona-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+  .persona-chip { display: inline-flex; align-items: center; gap: .3rem; font-size: .76rem; font-weight: 500; color: rgba(255,255,255,.82); background: rgba(255,255,255,.09); border-radius: 1rem; padding: .22rem .65rem; }
+
+  /* Proof strip */
+  .proof-strip { display: flex; gap: 1.5rem; padding: 1rem 2.5rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(255,255,255,.02); flex-wrap: wrap; }
+  .proof-item { display: flex; flex-direction: column; }
+  .proof-num { font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1; }
+  .proof-label { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+
+  /* Service cards */
+  .services-section { padding: 2rem 2.5rem; }
+  .section-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 1rem; }
+  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+  .svc-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; cursor: pointer; transition: all .25s; }
+  .svc-card:hover { border-color: rgba(77,49,245,.4); background: rgba(77,49,245,.08); }
+  .svc-card.highlight { border-color: var(--accent-light); background: rgba(77,49,245,.12); }
+  .svc-icon { font-size: 1.3rem; margin-bottom: .5rem; }
+  .svc-title { font-size: .88rem; font-weight: 700; margin-bottom: .3rem; }
+  .svc-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
+  .svc-tag { display: inline-block; margin-top: .5rem; font-size: .68rem; font-weight: 600; color: var(--accent-light); background: rgba(77,49,245,.15); border-radius: 99px; padding: .15rem .55rem; }
+
+  /* Social proof / case study */
+  .case-section { padding: 1.5rem 2.5rem 2rem; border-top: 1px solid var(--border); }
+  .case-card { background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; display: flex; gap: 1rem; align-items: flex-start; transition: all .4s; }
+  .case-logo { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+  .case-body .case-company { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .3rem; }
+  .case-body .case-quote { font-size: .85rem; line-height: 1.6; color: rgba(255,255,255,.8); font-style: italic; }
+  .case-body .case-result { margin-top: .6rem; font-size: .8rem; color: var(--teal); font-weight: 600; }
+
+  /* ─── AGENT PANEL ─── */
+  .agent-panel { border-left: 1px solid var(--border); background: rgba(7,6,15,.6); display: flex; flex-direction: column; height: calc(100vh - 180px); position: sticky; top: 180px; }
+  .agent-header { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .75rem; }
+  .agent-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--teal)); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; position: relative; }
+  .agent-avatar::after { content: ''; position: absolute; bottom: 1px; right: 1px; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); border: 2px solid var(--bg); }
+  .agent-title { font-size: .88rem; font-weight: 700; }
+  .agent-sub { font-size: .72rem; color: var(--muted); }
+
+  /* Signals panel */
+  .signals-section { padding: .9rem 1.2rem; border-bottom: 1px solid var(--border); }
+  .signals-title { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--muted); margin-bottom: .65rem; display: flex; align-items: center; gap: .4rem; }
+  .signals-title::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+  .signal-row { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: .5rem; }
+  .signal-icon { font-size: .9rem; flex-shrink: 0; margin-top: .05rem; }
+  .signal-text { font-size: .75rem; color: rgba(255,255,255,.7); line-height: 1.45; }
+  .signal-text strong { color: #fff; }
+  .signal-badge { display: inline-block; font-size: .63rem; font-weight: 600; padding: .1rem .45rem; border-radius: 99px; margin-left: .3rem; }
+  .signal-badge.up { background: rgba(0,212,180,.15); color: var(--teal); }
+  .signal-badge.hot { background: rgba(245,158,11,.15); color: var(--gold); }
+  .signal-badge.risk { background: rgba(239,68,68,.15); color: #f87171; }
+
+  /* Chat area */
+  .chat-area { flex: 1; padding: .9rem 1.2rem; overflow-y: auto; display: flex; flex-direction: column; gap: .75rem; }
+  .msg { max-width: 90%; animation: msgIn .3s ease; }
+  @keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .msg.agent { align-self: flex-start; }
+  .msg.user { align-self: flex-end; }
+  .msg-bubble { padding: .75rem .9rem; border-radius: 12px; font-size: .82rem; line-height: 1.55; }
+  .msg.agent .msg-bubble { background: rgba(255,255,255,.07); border: 1px solid var(--border); color: rgba(255,255,255,.85); border-bottom-left-radius: 4px; }
+  .msg.user .msg-bubble { background: linear-gradient(135deg, rgba(77,49,245,.35), rgba(77,49,245,.25)); border: 1px solid rgba(77,49,245,.35); border-bottom-right-radius: 4px; }
+  .msg-time { font-size: .62rem; color: rgba(255,255,255,.25); margin-top: .25rem; }
+  .msg.user .msg-time { text-align: right; }
+  .typing { display: flex; gap: .3rem; align-items: center; padding: .75rem .9rem; background: rgba(255,255,255,.07); border: 1px solid var(--border); border-radius: 12px; border-bottom-left-radius: 4px; width: fit-content; }
+  .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: typingDot 1.2s ease infinite; }
+  .typing span:nth-child(2) { animation-delay: .2s; }
+  .typing span:nth-child(3) { animation-delay: .4s; }
+  @keyframes typingDot { 0%,80%,100% { transform: scale(0.7); opacity: .5; } 40% { transform: scale(1); opacity: 1; } }
+
+  /* Quick replies */
+  .quick-replies { padding: .6rem 1.2rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: .4rem; }
+  .qr-label { font-size: .62rem; color: rgba(255,255,255,.3); text-transform: uppercase; letter-spacing: .08em; }
+  .qr-buttons { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .qr-btn { background: rgba(255,255,255,.06); border: 1px solid var(--border); color: rgba(255,255,255,.7); font-size: .74rem; padding: .3rem .65rem; border-radius: 6px; cursor: pointer; transition: all .2s; }
+  .qr-btn:hover { border-color: var(--accent-light); color: var(--accent-light); }
+
+  /* Chat input */
+  .chat-input-row { padding: .8rem 1.2rem; border-top: 1px solid var(--border); display: flex; gap: .5rem; }
+  .chat-input { flex: 1; background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; color: #fff; font-size: .82rem; font-family: inherit; outline: none; }
+  .chat-input:focus { border-color: var(--accent-light); }
+  .chat-send { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: .9rem; }
+
+  /* ─── TRANSITIONS ─── */
+  .fade-transition { transition: opacity .3s ease, transform .3s ease; }
+  .fade-out { opacity: 0; transform: translateY(4px); }
+
+  /* ─── CONCEPT NOTE ─── */
+  .concept-note { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); background: rgba(7,6,15,.92); border: 1px solid rgba(77,49,245,.35); border-radius: 12px; padding: .8rem 1.2rem; font-size: .78rem; color: var(--muted); text-align: center; z-index: 200; backdrop-filter: blur(12px); max-width: 480px; width: 90%; }
+  .concept-note strong { color: var(--accent-light); }
+  .concept-note .close-note { float: right; cursor: pointer; color: var(--muted); margin-left: .5rem; }
+</style>
+
+<!-- Intel Side Panel Tab -->
+<style>
+#qip-tab{position:fixed!important;right:0!important;top:50%!important;transform:translateY(-50%)!important;z-index:2147483000!important;cursor:pointer;background:linear-gradient(180deg,#21a3b2,#4d31f5);border-radius:10px 0 0 10px;width:28px;padding:14px 0;border:none;outline:none;box-shadow:-3px 0 16px rgba(33,163,178,.4);display:flex!important;align-items:center;justify-content:center;}
+#qip-tab .qt-lbl{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Inter Tight',sans-serif;font-size:9px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;white-space:nowrap;}
+#qip-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2147482990;backdrop-filter:blur(2px);}
+#qip-overlay.qip-on{display:block;}
+#qip-panel{position:fixed;top:0;right:-420px;width:390px;max-width:95vw;height:100%;background:#0b0c1a;border-left:1px solid rgba(255,255,255,.1);z-index:2147482995;overflow-y:auto;transition:right .32s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-6px 0 40px rgba(0,0,0,.6);}
+#qip-panel.qip-on{right:0;}
+.qip-rt{padding:4px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:transparent;color:rgba(255,255,255,.5);font-size:11px;font-weight:700;cursor:pointer;font-family:'Inter Tight',sans-serif;}
+.qip-rt.on{background:rgba(33,163,178,.2);border-color:rgba(33,163,178,.5);color:#fff;}
+</style>
+<script>
+(function(){
+  var INTEL={
+    ciso:[
+      {d:"May 9",c:"Incident",col:"#fca5a5",t:"CERT-In advisory: LLM prompt injection hits 19 enterprise apps",w:"CERT-In now expects documented adversarial test evidence. Without a test log you're exposed in any audit.",l:"cheq.html"},
+      {d:"May 6",c:"Regulatory",col:"#fde68a",t:"EU AI Act: first €2.4M fine for opaque hiring AI",w:"Explainability is now enforceable, not a guideline. Any AI touching EU employees needs a decision trail.",l:"sure-q.html"}
+    ],
+    cio:[
+      {d:"May 10",c:"Research",col:"#67e8f9",t:"McKinsey: governance retrofitted after deployment costs 2.6× more",w:"Every AI project without a governance layer is a compounding liability. The cost of inaction is now quantified.",l:"solution-ai-compliance.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"RBI: AI credit-scoring must produce per-loan explainability in 24 hours",w:"If you use AI in credit decisioning, you need an automated reporting pipeline by Q3.",l:"solution-bfsi-ai.html"}
+    ],
+    eng:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"71% of enterprise RAG deployments fail multi-hop reasoning",w:"If your RAG hasn't been tested for multi-hop, you're shipping confidence risk to users who trust wrong answers.",l:"qave.html"},
+      {d:"May 8",c:"Incident",col:"#fca5a5",t:"Three banks hit by incidents from AI-generated code merged without review",w:"Your CI/CD pipeline needs an AI-code scan as a distinct gate, separate from standard code review.",l:"integrations.html"}
+    ],
+    talent:[
+      {d:"May 11",c:"Market",col:"#c4b5fd",t:"'AI Governance Lead' searches up 340% YoY — 60% unfilled at 90+ days",w:"You can't hire this person from a job board. The profile blends regulatory, AI engineering, and risk skills.",l:"hire.html"},
+      {d:"May 7",c:"Regulatory",col:"#fde68a",t:"MeitY: firms with 10+ AI systems must designate an AI Risk Officer",w:"This is a compliance hire, not just a capability hire. The enforcement clock is running for Q1 2027.",l:"talent-services.html"}
+    ],
+    practitioner:[
+      {d:"May 12",c:"Research",col:"#67e8f9",t:"Semantic chunking cuts RAG retrieval failure by 38% vs fixed-token",w:"Run the chunking benchmark against your corpus this week — two hours, likely your highest-leverage change.",l:"qave.html"},
+      {d:"Apr 29",c:"Research",col:"#67e8f9",t:"Gemini 2.5 Pro: +34% on TruthfulQA, but −12% on Hindi financial tasks",w:"English benchmark scores don't transfer to Indian language deployments. Eval on your actual language distribution.",l:"qave.html"}
+    ]
+  };
+  var ROLES=[{k:"ciso",n:"CISO"},{k:"cio",n:"CIO"},{k:"eng",n:"Eng Lead"},{k:"talent",n:"Talent"},{k:"practitioner",n:"AI Dev"}];
+  var role="ciso";
+
+  function cards(r){
+    return INTEL[r].map(function(i){
+      return '<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:12px;">'
+        +'<div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;"><span style="font-size:10px;color:rgba(255,255,255,.35);">'+i.d+'</span>'
+        +'<span style="font-size:9px;font-weight:800;text-transform:uppercase;color:'+i.col+';background:rgba(255,255,255,.05);padding:2px 7px;border-radius:99px;">'+i.c+'</span></div>'
+        +'<p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:700;line-height:1.35;color:#fff;margin:0 0 8px;">'+i.t+'</p>'
+        +'<p style="font-size:12px;color:rgba(255,255,255,.58);line-height:1.6;margin:0 0 8px;padding-left:8px;border-left:2px solid #21a3b2;">'+i.w+'</p>'
+        +'<a href="'+i.l+'" style="font-size:11px;font-weight:600;color:#21a3b2;text-decoration:none;">What Qapitol does →</a></div>';
+    }).join('');
+  }
+
+  function render(){
+    var p=document.getElementById('qip-panel');
+    p.innerHTML='<div style="padding:18px 18px 12px;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;background:#0b0c1a;z-index:1;">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">'
+      +'<div><div style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;color:#21a3b2;margin-bottom:2px;">Control Layer Intel · Issue #48</div>'
+      +'<div style="font-size:10px;color:rgba(255,255,255,.28);">May 2026 · Last 15 days</div></div>'
+      +'<button id="qip-x" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);width:26px;height:26px;border-radius:6px;cursor:pointer;font-size:14px;line-height:1;flex-shrink:0;">×</button></div>'
+      +'<p style="font-size:11px;color:rgba(255,255,255,.38);margin:0 0 10px;">Pick your role for personalised intel.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:5px;" id="qip-roles">'
+      +ROLES.map(function(r2){return '<button class="qip-rt'+(r2.k===role?' on':'')+'" data-k="'+r2.k+'">'+r2.n+'</button>';}).join('')+'</div></div>'
+      +'<div id="qip-cards" style="padding:14px 18px;flex:1;">'+cards(role)+'</div>'
+      +'<div style="padding:12px 18px;border-top:1px solid rgba(255,255,255,.07);background:#0b0c1a;">'
+      +'<a href="intel.html?role='+role+'" id="qip-fl" style="display:block;text-align:center;font-size:12px;font-weight:700;color:#21a3b2;text-decoration:none;margin-bottom:10px;padding:8px;border:1px solid rgba(33,163,178,.25);border-radius:8px;">See all 4 items + full issue →</a>'
+      +'<div style="background:rgba(77,49,245,.1);border:1px solid rgba(77,49,245,.22);border-radius:10px;padding:12px;">'
+      +'<p style="font-size:11px;font-weight:700;color:#fff;margin:0 0 8px;font-family:'Inter Tight',sans-serif;">Get this fortnightly for your role</p>'
+      +'<div style="display:flex;gap:5px;" id="qip-sr"><input type="email" id="qip-em" placeholder="you@company.com" style="flex:1;min-width:0;padding:7px 10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:7px;color:#fff;font-size:12px;outline:none;"/>'
+      +'<button id="qip-sb" style="background:linear-gradient(135deg,#21a3b2,#4d31f5);border:none;color:#fff;padding:7px 12px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Subscribe</button></div>'
+      +'<div id="qip-ok" style="display:none;font-size:11px;color:#4ade80;padding-top:6px;text-align:center;">✓ You're in!</div></div></div>';
+
+    document.getElementById('qip-x').onclick=close;
+    document.getElementById('qip-roles').addEventListener('click',function(e){
+      var b=e.target.closest('.qip-rt'); if(!b) return;
+      role=b.dataset.k;
+      p.querySelectorAll('.qip-rt').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      p.querySelector('#qip-cards').innerHTML=cards(role);
+      p.querySelector('#qip-fl').href='intel.html?role='+role;
+    });
+    document.getElementById('qip-sb').onclick=function(){
+      var em=document.getElementById('qip-em').value.trim();
+      if(!em||em.indexOf('@')<0){document.getElementById('qip-em').focus();return;}
+      var fd=new FormData(); fd.append('email',em); fd.append('role',role); fd.append('source','intel-tab');
+      fetch('https://formspree.io/f/xnjwrzen',{method:'POST',body:fd,headers:{Accept:'application/json'}})
+        .then(function(){document.getElementById('qip-sr').style.display='none';document.getElementById('qip-ok').style.display='block';});
+    };
+  }
+
+  function open(){render();document.getElementById('qip-panel').classList.add('qip-on');document.getElementById('qip-overlay').classList.add('qip-on');document.getElementById('qip-tab').style.display='none';document.body.style.overflow='hidden';}
+  function close(){document.getElementById('qip-panel').classList.remove('qip-on');document.getElementById('qip-overlay').classList.remove('qip-on');document.getElementById('qip-tab').style.display='';document.body.style.overflow='';}
+
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('qip-tab').addEventListener('click',open);
+    document.getElementById('qip-overlay').addEventListener('click',close);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  });
+})();
+</script>
+</head>
+<body>
+
+<!-- Concept explainer bar -->
+<div class="meta-bar">
+  <span class="meta-pill">🔬 Mockup</span>
+  <span><strong>Intent-Driven Surface Concept</strong> — Select your role to see how every element adapts: hero copy, CTAs, proof points, highlighted services, case studies, and the AI consultant's opening context.</span>
+</div>
+
+<!-- Site Header -->
+<header class="site-header">
+  <span class="brand">Qapitol AI</span>
+  <nav class="nav-links">
+    <a href="#">Services</a><a href="#">Platforms</a><a href="#">Industries</a><a href="#">About</a>
+  </nav>
+  <div class="header-cta">
+    <button class="btn-sm btn-outline">Sign in</button>
+    <button class="btn-sm btn-primary">Let's Talk →</button>
+  </div>
+</header>
+
+<!-- Role Selector -->
+<div class="role-selector-section">
+  <div class="role-label">I am a… <span style="color:rgba(255,255,255,.3);font-weight:400;text-transform:none;letter-spacing:0">(select your role to personalise this experience)</span></div>
+  <div class="role-cards">
+    <div class="role-card" data-role="cio" onclick="setRole('cio', this)"><span class="role-icon">🏢</span> CIO / CDO</div>
+    <div class="role-card" data-role="cto" onclick="setRole('cto', this)"><span class="role-icon">⚙️</span> CTO / VP Engineering</div>
+    <div class="role-card" data-role="ml" onclick="setRole('ml', this)"><span class="role-icon">🤖</span> ML / AI Engineer</div>
+    <div class="role-card" data-role="compliance" onclick="setRole('compliance', this)"><span class="role-icon">⚖️</span> Compliance Officer</div>
+    <div class="role-card" data-role="qa" onclick="setRole('qa', this)"><span class="role-icon">🧪</span> QA Lead / SDET</div>
+    <div class="role-card" data-role="product" onclick="setRole('product', this)"><span class="role-icon">🎯</span> Product Manager</div>
+  </div>
+</div>
+
+<!-- Main Layout -->
+<div class="main-layout">
+
+  <!-- Site Content -->
+  <div class="site-content">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div id="hero-badge" class="hero-badge fade-transition">🏆 Business Outcome Assurance</div>
+      <h1 id="hero-h1" class="fade-transition">We don't just test AI.<br><span class="hl">We guarantee its outcomes.</span></h1>
+      <p id="hero-sub" class="hero-sub fade-transition">AI quality, compliance and reliability — delivered as a managed service with measurable SLAs. Trusted by 25+ unicorns and enterprise AI teams.</p>
+      <div class="hero-ctas">
+        <button id="hero-cta1" class="hero-cta-primary fade-transition">Start Free Evaluation →</button>
+        <button class="hero-cta-outline">See How It Works</button>
+      </div>
+      <div id="persona-strip" class="persona-strip fade-transition">
+        <span class="persona-label">Built for</span>
+        <span class="persona-chip">CTO</span>
+        <span class="persona-chip">Head of AI</span>
+        <span class="persona-chip">VP Engineering</span>
+      </div>
+    </section>
+
+    <!-- Proof -->
+    <div class="proof-strip">
+      <div class="proof-item"><span id="p1-num" class="proof-num">350+</span><span id="p1-lbl" class="proof-label">AI specialists</span></div>
+      <div class="proof-item"><span id="p2-num" class="proof-num">25+</span><span id="p2-lbl" class="proof-label">Unicorns served</span></div>
+      <div class="proof-item"><span id="p3-num" class="proof-num">$50M+</span><span id="p3-lbl" class="proof-label">Outcomes assured</span></div>
+      <div class="proof-item"><span id="p4-num" class="proof-num">60s</span><span id="p4-lbl" class="proof-label">First eval report</span></div>
+    </div>
+
+    <!-- Services -->
+    <section class="services-section">
+      <div class="section-label" id="services-label">Recommended for your role</div>
+      <div class="service-grid" id="service-grid">
+        <div class="svc-card highlight"><div class="svc-icon">🧪</div><div class="svc-title">AI Evaluation (QAVE)</div><div class="svc-desc">Continuous accuracy, safety and hallucination scoring across every model version.</div><span class="svc-tag">Free tier available</span></div>
+        <div class="svc-card"><div class="svc-icon">🛡️</div><div class="svc-title">SURE-Q Framework</div><div class="svc-desc">6-pillar AI quality architecture applied to your entire AI estate.</div></div>
+        <div class="svc-card"><div class="svc-icon">⚖️</div><div class="svc-title">CHEQ Compliance</div><div class="svc-desc">EU AI Act, IRDAI and DPDP compliance mapping with gap reports in 3 days.</div><span class="svc-tag">Free gap scan</span></div>
+        <div class="svc-card"><div class="svc-icon">🤖</div><div class="svc-title">Agent Fabric</div><div class="svc-desc">Testing harness and production guardrails for multi-agent AI systems.</div></div>
+      </div>
+    </section>
+
+    <!-- Case study -->
+    <section class="case-section">
+      <div class="section-label">Similar to your context</div>
+      <div class="case-card" id="case-card">
+        <div class="case-logo" style="background:rgba(77,49,245,.2)">🏦</div>
+        <div class="case-body">
+          <div class="case-company">Leading BFSI Enterprise</div>
+          <div class="case-quote">"Qapitol's QAVE platform caught compliance gaps our own team missed for 6 months. The eval cycle went from 2 weeks to under 60 seconds."</div>
+          <div class="case-result">↑ 94% hallucination detection · ↓ 70% eval cycle time · Zero compliance flags in last audit</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Agent Panel -->
+  <aside class="agent-panel">
+    <div class="agent-header">
+      <div class="agent-avatar">🤖</div>
+      <div>
+        <div class="agent-title">Qapitol AI Consultant</div>
+        <div class="agent-sub">Context-aware · Powered by SURE-Q + live signals</div>
+      </div>
+    </div>
+
+    <!-- Live signals -->
+    <div class="signals-section">
+      <div class="signals-title">Live context signals</div>
+      <div id="signals-list">
+        <div class="signal-row"><span class="signal-icon">🏢</span><span class="signal-text"><strong>Company detected:</strong> Qapitol.com visitor <span class="signal-badge hot">Intent: High</span></span></div>
+        <div class="signal-row"><span class="signal-icon">📈</span><span class="signal-text">Hiring <strong>AI/ML Engineers</strong> actively <span class="signal-badge up">↑ 3 open roles</span></span></div>
+        <div class="signal-row"><span class="signal-icon">🔍</span><span class="signal-text">Recent searches: <strong>"AI compliance IRDAI"</strong>, <strong>"LLM eval tools"</strong></span></div>
+        <div class="signal-row"><span class="signal-icon">⚠️</span><span class="signal-text">Industry: <strong>BFSI</strong> — EU AI Act deadline 8 months away <span class="signal-badge risk">At Risk</span></span></div>
+        <div class="signal-row"><span class="signal-icon">💡</span><span class="signal-text">Funding stage: <strong>Series C</strong> — scaling AI infrastructure phase</span></div>
+      </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="chat-area" id="chat-area">
+      <div class="msg agent">
+        <div class="msg-bubble" id="opening-msg">👋 Hi! I can see you're exploring AI quality options. Based on what I know about your context — active AI hiring, BFSI regulatory pressure, and the upcoming EU AI Act deadline — want me to walk you through what matters most for your situation?</div>
+        <div class="msg-time">just now</div>
+      </div>
+    </div>
+
+    <!-- Quick replies -->
+    <div class="quick-replies">
+      <div class="qr-label">Suggested questions</div>
+      <div class="qr-buttons" id="qr-buttons">
+        <button class="qr-btn" onclick="sendQuickReply(this, 'What are my compliance risks?')">What are my compliance risks?</button>
+        <button class="qr-btn" onclick="sendQuickReply(this, 'Show me ROI estimates')">Show me ROI estimates</button>
+        <button class="qr-btn" onclick="sendQuickReply(this, 'How long does onboarding take?')">Onboarding timeline?</button>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="chat-input-row">
+      <input class="chat-input" id="chat-input" placeholder="Ask anything about AI quality…" onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button class="chat-send" onclick="sendMessage()">➤</button>
+    </div>
+  </aside>
+
+</div>
+
+<!-- Concept note -->
+<div class="concept-note" id="concept-note">
+  <span class="close-note" onclick="document.getElementById('concept-note').style.display='none'">✕</span>
+  <strong>Phase 2 Vision:</strong> When built, the agent auto-detects company from IP/domain, enriches via hiring APIs, search trend tools, CRM history and news signals — enabling a personalised sales motion 24/7 without a rep.
+</div>
+
+<script>
+const ROLE_DATA = {
+  cio: {
+    badge: "🏢 For Technology Leaders",
+    h1: "AI quality isn't just a tech problem.<br><span class='hl'>It's your next board agenda item.</span>",
+    sub: "CIOs leading AI transformation need an assurance layer that speaks to the board — cost savings, compliance posture, risk reduction. That's what Qapitol delivers.",
+    cta1: "Get Board-Ready Cost Model →",
+    personas: ["CIO", "CDO", "Chief Digital Officer"],
+    proofs: [["$50M+","Outcomes assured"],["60%","Cost reduction typical"],["25+","Enterprises served"],["24h","Board report delivery"]],
+    services: [
+      {icon:"🏗️", title:"GCC Setup in India", desc:"60–70% cost vs US/UK teams. Board-ready cost model in 24 hours.", tag:"Free model", highlight:true},
+      {icon:"📊", title:"AI Governance Dashboard", desc:"Real-time quality, compliance and cost visibility across your entire AI estate.", tag:"", highlight:false},
+      {icon:"⚖️", title:"CHEQ Compliance", desc:"Compliance posture for the board — written gap reports in 3 business days.", tag:"Free gap scan", highlight:false},
+      {icon:"🤝", title:"Managed AI QE", desc:"Outcome SLAs replace T&M contracts. Pay for results, not hours.", tag:"", highlight:false},
+    ],
+    caseIcon:"🏢", caseCo:"Global BFSI Enterprise (Series D)",
+    caseQuote:"\"We presented Qapitol's board-ready cost model to our leadership. Within 6 weeks we had approved a GCC that saved $4.2M in year one.\"",
+    caseResult:"↓ $4.2M year-one savings · ↑ 3× AI deployment velocity · 100% compliance posture",
+    signals: [
+      {icon:"📊", text:"<strong>Board meeting:</strong> Q2 AI budget review flagged <span class='signal-badge risk'>Overspend</span>"},
+      {icon:"🌏", text:"Evaluating <strong>India GCC</strong> options — 3 vendors shortlisted <span class='signal-badge hot'>Decision Soon</span>"},
+      {icon:"📈", text:"AI headcount growing <strong>40% YoY</strong> <span class='signal-badge up'>↑ Scaling fast</span>"},
+      {icon:"⚠️", text:"No formal <strong>AI governance framework</strong> detected <span class='signal-badge risk'>Gap</span>"},
+      {icon:"💡", text:"Peer CIOs at similar orgs are investing in <strong>AI assurance layers</strong>"},
+    ],
+    openingMsg: "👋 Hi! I can see your organisation is scaling AI investment fast — and the board is asking hard questions about cost and governance. I can put together a board-ready cost model for a GCC in India in 24 hours, or walk you through how other CIOs are structuring AI governance. Where would you like to start?",
+    quickReplies: ["Show GCC cost model", "What does AI governance look like?", "How do I pitch this to the board?"],
+  },
+  cto: {
+    badge: "⚙️ For Engineering Leaders",
+    h1: "Ship AI faster.<br><span class='hl'>Without breaking things in production.</span>",
+    sub: "Engineering leaders need eval pipelines that don't slow releases, test infrastructure that scales with model complexity, and SLAs they can take to the business.",
+    cta1: "See SURE-Q Framework →",
+    personas: ["CTO", "VP Engineering", "Engineering Director"],
+    proofs: [["70%","Release cycle reduction"],["60s","Eval per model version"],["350+","AI engineers on platform"],["3×","Higher deployment confidence"]],
+    services: [
+      {icon:"🧪", title:"QAVE Eval Platform", desc:"Continuous model evaluation — accuracy, safety, hallucination — in 60 seconds per version.", tag:"Free tier", highlight:true},
+      {icon:"🤖", title:"Agent Fabric", desc:"Testing harness and guardrails for multi-agent AI systems at enterprise scale.", tag:"", highlight:false},
+      {icon:"🛡️", title:"SURE-Q Framework", desc:"6-pillar quality architecture — instrument your AI estate with automated scoring.", tag:"", highlight:false},
+      {icon:"🧬", title:"Synthetic Data", desc:"10K production-faithful records in 48h — unblock your training pipelines.", tag:"Free pilot", highlight:false},
+    ],
+    caseIcon:"⚙️", caseCo:"AI-native SaaS Scale-up",
+    caseQuote:"\"We went from 2-week manual eval cycles to 60-second automated reports. Our engineers stopped dreading model updates and started shipping weekly.\"",
+    caseResult:"↓ 70% eval cycle time · ↑ 4× release velocity · Zero production hallucination incidents in Q1",
+    signals: [
+      {icon:"🔧", text:"<strong>12 open engineering roles</strong> — AI/MLOps heavy <span class='signal-badge up'>↑ Scaling</span>"},
+      {icon:"⚠️", text:"No automated <strong>LLM eval pipeline</strong> detected <span class='signal-badge risk'>Gap</span>"},
+      {icon:"📈", text:"Shipping AI features <strong>bi-weekly</strong> — eval is bottleneck <span class='signal-badge hot'>Pain Point</span>"},
+      {icon:"🔍", text:"Searched: <strong>\"LLM red-teaming tools\"</strong>, <strong>\"AI eval automation\"</strong>"},
+      {icon:"💡", text:"Similar CTOs use <strong>QAVE</strong> to cut eval overhead by 70%"},
+    ],
+    openingMsg: "⚙️ Hey — I can see you're running a fast-moving AI engineering team. The eval bottleneck is real at your release cadence. Want me to show you how QAVE integrates with your CI/CD pipeline, or walk through the agent reliability testing approach for your multi-agent setup?",
+    quickReplies: ["How does QAVE integrate with CI/CD?", "Show agent testing approach", "What's the eval coverage model?"],
+  },
+  ml: {
+    badge: "🤖 For ML & AI Engineers",
+    h1: "Eval that actually understands<br><span class='hl'>what your model is doing wrong.</span>",
+    sub: "Purpose-built for ML engineers who need structured evaluation beyond accuracy metrics — hallucination detection, safety scoring, bias analysis and compliance coverage.",
+    cta1: "Start Free Eval in 90 Seconds →",
+    personas: ["ML Engineer", "LLM Engineer", "AI Researcher"],
+    proofs: [["60s","First eval report"],["12+","Eval dimensions covered"],["Free","To start — no card"],["10K","Free synthetic records"]],
+    services: [
+      {icon:"🧪", title:"QAVE Platform", desc:"Connect your model or upload prompts — get hallucination, accuracy, safety and compliance scores in 60 seconds.", tag:"Start free", highlight:true},
+      {icon:"🧬", title:"Synthetic Data", desc:"Generate training and eval datasets that are PII-free, schema-matched and compliance-ready.", tag:"10K free", highlight:false},
+      {icon:"🔬", title:"Compliance Eval Sets", desc:"Pre-built eval datasets for EU AI Act, IRDAI, DPDP, NIST — validate model compliance before deployment.", tag:"Labs preview", highlight:false},
+      {icon:"🛡️", title:"Production Guardrails", desc:"Stop bad model responses reaching users — in-production safety layer with real-time blocking.", tag:"Labs preview", highlight:false},
+    ],
+    caseIcon:"🤖", caseCo:"ML Team at Fintech Unicorn",
+    caseQuote:"\"QAVE caught 6 edge-case hallucinations our internal testing completely missed. It's now part of every model release gate — takes 60 seconds.\"",
+    caseResult:"↓ 94% fewer hallucinations in production · ↑ 3× eval coverage · Zero missed compliance checks",
+    signals: [
+      {icon:"🧪", text:"Repo activity: <strong>LLM fine-tuning</strong> in progress <span class='signal-badge hot'>Active</span>"},
+      {icon:"🔍", text:"Searched: <strong>\"hallucination benchmark\"</strong>, <strong>\"LLM safety eval\"</strong>"},
+      {icon:"⚠️", text:"No <strong>structured eval pipeline</strong> in detected stack <span class='signal-badge risk'>Gap</span>"},
+      {icon:"📈", text:"Model updates shipping <strong>3× per week</strong> <span class='signal-badge up'>Fast cadence</span>"},
+      {icon:"💡", text:"<strong>QAVE</strong> integrates with your existing Hugging Face + LangChain setup"},
+    ],
+    openingMsg: "🤖 Hey — I can see you're actively training and evaluating models. QAVE gives you 12 evaluation dimensions in one free report — hallucination rates, safety scores, bias detection, and compliance coverage. Want me to show you how to connect your model, or walk through the eval dimensions that matter most for your use case?",
+    quickReplies: ["Show eval dimensions", "How do I connect my model?", "What compliance sets do you have?"],
+  },
+  compliance: {
+    badge: "⚖️ For Compliance & Risk Leaders",
+    h1: "AI compliance gaps you don't know about<br><span class='hl'>are the ones that cost you most.</span>",
+    sub: "Every unvalidated AI system is a regulatory liability. CHEQ maps your AI estate against EU AI Act, IRDAI, DPDP and NIST — and delivers a written remediation plan in 3 days.",
+    cta1: "Get Free Compliance Gap Scan →",
+    personas: ["Chief Compliance Officer", "Risk Officer", "Legal Counsel"],
+    proofs: [["100%","AI teams have ≥1 gap","3 days","Gap report delivery"],["€30M","Max EU AI Act fine"],["3 days","Gap report delivery"]],
+    services: [
+      {icon:"⚖️", title:"CHEQ Compliance", desc:"Full AI compliance mapping — IRDAI, EU AI Act, DPDP, NIST — with written remediation roadmap in 3 business days.", tag:"Free scan", highlight:true},
+      {icon:"📋", title:"Audit Trail & Evidence", desc:"Board-level compliance dashboard with full auditability for every AI decision and model version.", tag:"", highlight:false},
+      {icon:"🛡️", title:"Production Guardrails", desc:"Real-time AI response blocking before non-compliant outputs reach users or regulators.", tag:"", highlight:false},
+      {icon:"📊", title:"Compliance Eval Datasets", desc:"Pre-built test sets aligned to regulatory requirements — validate compliance before every deployment.", tag:"Labs preview", highlight:false},
+    ],
+    caseIcon:"⚖️", caseCo:"BFSI Enterprise (IRDAI Regulated)",
+    caseQuote:"\"We had 11 critical compliance gaps across our AI stack. Qapitol's CHEQ team found all of them in 3 days and closed 9 within 6 weeks.\"",
+    caseResult:"↑ Full IRDAI compliance posture · ↓ Zero findings in next regulatory audit · €0 in fines",
+    signals: [
+      {icon:"⚠️", text:"<strong>EU AI Act</strong> deadline: 8 months away <span class='signal-badge risk'>Urgent</span>"},
+      {icon:"📋", text:"<strong>IRDAI AI Guidelines</strong> audit scheduled <span class='signal-badge hot'>Q3</span>"},
+      {icon:"🔍", text:"Searched: <strong>\"AI compliance India\"</strong>, <strong>\"DPDP AI requirements\"</strong>"},
+      {icon:"💡", text:"<strong>2 of 5</strong> peer orgs in your sector already have AI compliance programmes"},
+      {icon:"📈", text:"AI deployment velocity rising — <strong>compliance coverage not keeping pace</strong> <span class='signal-badge risk'>Gap</span>"},
+    ],
+    openingMsg: "⚖️ Hi — compliance leaders I speak to are all facing the same pressure: AI is being deployed faster than compliance teams can validate it. Given your EU AI Act deadline in 8 months, want me to walk through what a gap scan finds in a typical BFSI AI stack, or explain the remediation timeline?",
+    quickReplies: ["What does a gap scan find?", "EU AI Act timeline for my sector", "How fast can you remediate?"],
+  },
+  qa: {
+    badge: "🧪 For QA Engineers & SDETs",
+    h1: "AI testing is different.<br><span class='hl'>Your tools need to keep up.</span>",
+    sub: "Traditional test automation can't validate AI model behaviour, hallucination rates, or agent decision paths. QAVE and Agent Fabric are purpose-built for the AI testing era.",
+    cta1: "Try QAVE Free →",
+    personas: ["QA Lead", "SDET", "Test Architect"],
+    proofs: [["60s","Eval report time"],["Free","To start QAVE"],["12+","Eval dimensions"],["48h","Synthetic dataset delivery"]],
+    services: [
+      {icon:"🧪", title:"QAVE Eval Platform", desc:"The eval layer your test suite has been missing — accuracy, safety, hallucination, compliance in 60 seconds.", tag:"Free tier", highlight:true},
+      {icon:"🧬", title:"Synthetic Test Data", desc:"10K production-faithful records in 48h — unblock testing without touching production PII.", tag:"Free pilot", highlight:false},
+      {icon:"🤖", title:"Agent Fabric Testing", desc:"Automated testing for multi-agent systems — coverage across every decision path and tool call.", tag:"", highlight:false},
+      {icon:"🛠️", title:"AI-Native QA Framework", desc:"The SURE-Q quality architecture — adapts your existing automation practice to AI-era requirements.", tag:"", highlight:false},
+    ],
+    caseIcon:"🧪", caseCo:"QA Team at AI Platform Company",
+    caseQuote:"\"We added QAVE to our CI/CD pipeline in an afternoon. Now every model PR triggers a full eval report before merge. Zero hallucination incidents since.\"",
+    caseResult:"↓ 100% hallucination incidents in production · ↑ 4× eval coverage · Free tier still active after 3 months",
+    signals: [
+      {icon:"🔧", text:"Stack detected: <strong>Selenium, Cypress, pytest</strong> — no AI eval tools <span class='signal-badge risk'>Gap</span>"},
+      {icon:"🔍", text:"Searched: <strong>\"LLM testing framework\"</strong>, <strong>\"AI test automation\"</strong>"},
+      {icon:"📈", text:"AI features shipping <strong>weekly</strong> — QA coverage unclear <span class='signal-badge hot'>Pain Point</span>"},
+      {icon:"💡", text:"<strong>QAVE</strong> integrates with pytest, GitHub Actions and Jenkins in < 30 min"},
+      {icon:"🧬", text:"Prod data access restricted — <strong>synthetic data</strong> can unblock your test environment"},
+    ],
+    openingMsg: "🧪 Hey! QA engineers I talk to all hit the same wall: their existing automation stack can't validate AI model behaviour. QAVE gives you proper eval — hallucination rates, safety scores, model drift detection — starting free in 90 seconds. Want me to show you a CI/CD integration pattern, or walk through what eval dimensions matter for your model type?",
+    quickReplies: ["Show CI/CD integration", "What eval dimensions exist?", "How does synthetic data help?"],
+  },
+  product: {
+    badge: "🎯 For Product Managers",
+    h1: "Ship AI features confidently.<br><span class='hl'>Know they work before users do.</span>",
+    sub: "Product managers need proof that AI features are working correctly, not just feedback after they've shipped. QAVE gives you measurable confidence scores before every release.",
+    cta1: "Get AI Feature Confidence Scores →",
+    personas: ["AI Product Manager", "Head of Product", "Product Owner"],
+    proofs: [["60s","Pre-release eval report"],["3×","Higher release confidence"],["25+","AI product teams served"],["Zero","Surprise failures in prod"]],
+    services: [
+      {icon:"📊", title:"Pre-Release AI Eval", desc:"Confidence scores, safety ratings and user-impact assessments before every AI feature ships.", tag:"Free tier", highlight:true},
+      {icon:"🎯", title:"User Impact Simulation", desc:"Synthetic user scenarios stress-test your AI features across edge cases before they reach real users.", tag:"", highlight:false},
+      {icon:"📋", title:"AI Feature Audit Trail", desc:"Full decision log for every AI feature — stakeholder-ready reports for governance reviews.", tag:"", highlight:false},
+      {icon:"🔬", title:"Qapitol Labs Access", desc:"Early access to experimental AI quality tooling — be first to adopt the next-gen eval approach.", tag:"Preview", highlight:false},
+    ],
+    caseIcon:"🎯", caseCo:"AI Product Team at Series B Startup",
+    caseQuote:"\"We used to ship AI features and hope for the best. Now we get a confidence score before every release. Our NPS on AI features improved 40 points in one quarter.\"",
+    caseResult:"↑ 40pt NPS on AI features · ↓ 80% post-release AI incidents · 3× release velocity",
+    signals: [
+      {icon:"📅", text:"<strong>Q3 AI feature roadmap</strong> review in 2 weeks <span class='signal-badge hot'>Upcoming</span>"},
+      {icon:"⚠️", text:"Last AI feature had <strong>3 user-facing incidents</strong> in first week <span class='signal-badge risk'>History</span>"},
+      {icon:"🔍", text:"Searched: <strong>\"AI feature testing\"</strong>, <strong>\"how to measure AI quality\"</strong>"},
+      {icon:"💡", text:"Competitors shipping AI features <strong>40% faster</strong> with structured eval"},
+      {icon:"📈", text:"AI features on roadmap: <strong>8 in next quarter</strong> — eval coverage: 0 <span class='signal-badge risk'>Gap</span>"},
+    ],
+    openingMsg: "🎯 Hi! Product managers building AI features face a tough problem — you can't just run your normal QA checklist on a model. QAVE gives you a pre-release confidence score so you can make a data-driven go/no-go call. Given you have 8 AI features in your Q3 roadmap, want me to walk through what 'confidence scoring' looks like, or show you how other PMs use it in their release process?",
+    quickReplies: ["What is a confidence score?", "Show release process integration", "How do I explain this to my team?"],
+  },
+};
+
+let currentRole = null;
+
+function setRole(role, el) {
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentRole = role;
+  const d = ROLE_DATA[role];
+
+  // Fade out
+  document.querySelectorAll('.fade-transition').forEach(e => e.classList.add('fade-out'));
+
+  setTimeout(() => {
+    // Update hero
+    document.getElementById('hero-badge').textContent = d.badge;
+    document.getElementById('hero-h1').innerHTML = d.h1;
+    document.getElementById('hero-sub').textContent = d.sub;
+    document.getElementById('hero-cta1').textContent = d.cta1;
+    document.getElementById('persona-strip').innerHTML =
+      '<span class="persona-label">Built for</span>' +
+      d.personas.map(p => `<span class="persona-chip">${p}</span>`).join('');
+
+    // Update proofs
+    const pr = d.proofs;
+    for (let i = 0; i < 4; i++) {
+      const n = document.getElementById(`p${i+1}-num`);
+      const l = document.getElementById(`p${i+1}-lbl`);
+      if (pr[i]) { if(n) n.textContent = pr[i][0]; if(l) l.textContent = pr[i][1]; }
+    }
+
+    // Update services
+    document.getElementById('service-grid').innerHTML = d.services.map(s =>
+      `<div class="svc-card${s.highlight?' highlight':''}">
+        <div class="svc-icon">${s.icon}</div>
+        <div class="svc-title">${s.title}</div>
+        <div class="svc-desc">${s.desc}</div>
+        ${s.tag ? `<span class="svc-tag">${s.tag}</span>` : ''}
+      </div>`
+    ).join('');
+
+    // Update case study
+    const cc = document.getElementById('case-card');
+    cc.innerHTML = `
+      <div class="case-logo" style="background:rgba(77,49,245,.2)">${d.caseIcon}</div>
+      <div class="case-body">
+        <div class="case-company">${d.caseCo}</div>
+        <div class="case-quote">${d.caseQuote}</div>
+        <div class="case-result">${d.caseResult}</div>
+      </div>`;
+
+    // Update signals
+    document.getElementById('signals-list').innerHTML = d.signals.map(s =>
+      `<div class="signal-row"><span class="signal-icon">${s.icon}</span><span class="signal-text">${s.text}</span></div>`
+    ).join('');
+
+    // Update opening message & quick replies
+    document.getElementById('chat-area').innerHTML = `
+      <div class="msg agent">
+        <div class="msg-bubble">${d.openingMsg}</div>
+        <div class="msg-time">just now</div>
+      </div>`;
+    document.getElementById('qr-buttons').innerHTML = d.quickReplies.map(r =>
+      `<button class="qr-btn" onclick="sendQuickReply(this,'${r}')">${r}</button>`
+    ).join('');
+
+    // Fade in
+    document.querySelectorAll('.fade-transition').forEach(e => e.classList.remove('fade-out'));
+  }, 250);
+}
+
+const QUICK_RESPONSES = {
+  "What are my compliance risks?": "Based on your signals — BFSI sector + EU AI Act deadline — your top 3 risks are: (1) unaudited model decision trails, (2) no bias testing across protected attributes, and (3) missing human oversight documentation for high-risk AI. Our CHEQ team can map all of these in a free 10-min intake call.",
+  "Show me ROI estimates": "For a team your size in BFSI: typical outcomes include 60% reduction in eval overhead ($400K–$800K/year saved), €2M–€8M in regulatory fine avoidance, and 3× release velocity. Want me to generate a tailored business case with your actual headcount?",
+  "How long does onboarding take?": "First value in 48–72 hours: your first eval report in 60 seconds on Day 1, compliance gap scan in 3 days, SURE-Q framework instrumented in 6–8 weeks. Full managed service mode typically live in Week 9. No lock-in — pilot-first.",
+  "Show GCC cost model": "A GCC in India for a 50-person AI team saves $2.8M–$4.5M/year vs equivalent US hiring. Our model includes salary benchmarks, ramp costs, management overhead and break-even analysis. Shall I generate your custom model? Needs headcount + function mix.",
+  "What does AI governance look like?": "Board-level AI governance with Qapitol includes: real-time model quality dashboards, compliance posture scores, audit trails for every AI decision, incident SLAs and quarterly governance reviews. Takes 6–8 weeks to fully instrument.",
+  "How do I pitch this to the board?": "I can generate a board deck in 60 seconds — just needs 5 inputs: company name, industry, primary challenge, team size, and current QE maturity. Hit 'Generate My Board Deck' in the nav. Want me to walk through the key board messages first?",
+  "How does QAVE integrate with CI/CD?": "QAVE integrates via API or GitHub Action. On every PR that touches model code: trigger eval → get JSON report with scores → fail/pass gate based on thresholds you set. Setup takes under 30 minutes. Want the integration spec?",
+  "Show agent testing approach": "Agent Fabric tests your agents by: (1) synthetic task simulation across 200+ scenario types, (2) tool call validation — does the agent use the right tools correctly?, (3) decision path coverage — every branch exercised, (4) adversarial testing — jailbreak and prompt injection resistance.",
+  "What eval dimensions exist?": "QAVE evaluates: Accuracy · Hallucination rate · Safety (RLHF alignment) · Bias across protected groups · Factual grounding · Instruction following · Refusal appropriateness · Compliance (IRDAI/EU AI Act/NIST) · Toxicity · Context retention · Tool use correctness · Latency. 12 dimensions in one report.",
+  "What is a confidence score?": "A QAVE confidence score (0–100) aggregates accuracy, safety, hallucination rate and compliance alignment into one release-gate number. Teams typically gate on 80+. Below 70 triggers a hold. It gives PMs a single number to take to stakeholders instead of raw model metrics.",
+  "Show CI/CD integration": "The QAVE GitHub Action runs on any PR touching model files: installs in 5 minutes, posts scores as PR comments, and blocks merge if thresholds aren't met. Supports custom thresholds per dimension. I can share the YAML config now if useful.",
+  "What compliance sets do you have?": "Available eval sets: EU AI Act (high-risk systems checklist), IRDAI AI Guidelines (BFSI-specific), DPDP Act (data handling), NIST AI RMF (all 4 functions), ISO 42001, HIPAA (healthcare), SOC 2 (infrastructure AI). Qapitol Labs is building domain-specific sets for healthcare diagnostics and financial advice AI.",
+  "What does a gap scan find?": "In a typical BFSI AI stack, our CHEQ gap scan finds: missing human oversight documentation (87% of orgs), no bias testing on credit/insurance models (71%), unaudited model decision trails (94%), and missing data lineage records (68%). Average of 8–12 gaps per enterprise. Written report in 3 business days.",
+  "EU AI Act timeline for my sector": "BFSI is one of the hardest-hit sectors — credit scoring, fraud detection and underwriting AI are all classified as high-risk systems under Annex III. Key deadline: August 2026 (high-risk systems fully compliant). Gap scan + remediation takes 6–12 weeks. You have a window to act now.",
+  "How fast can you remediate?": "Typical timeline: Gap scan in 3 days → prioritised remediation plan in week 1 → critical gaps closed in 4–6 weeks → full compliance posture in 10–12 weeks. We've run this programme with 15+ BFSI enterprises. Most close their top 3 risks in the first sprint.",
+  "Show release process integration": "PMs use QAVE at two gates: (1) Pre-release: run eval on staging → review confidence score → go/no-go call, (2) Post-release: QAVE monitors production model behaviour → alerts if scores drift. Total overhead: 5 minutes per release. The score is in the PR description before your release review.",
+  "How do I explain this to my team?": "Frame it as: 'QAVE is to AI features what unit tests are to code — it tells us if the model is working correctly before users see it.' For engineers: it's a CI/CD eval gate. For stakeholders: it's a confidence score. For legal: it's an audit trail. One tool, three audiences.",
+  "How does synthetic data help?": "Your test environment probably can't use production data — GDPR, DPDP, internal policy. Synthetic data gives you 10K records that behave exactly like production data, match your schema, and have zero PII risk. Unblocks your test environment in 48h. Free 10K-record pilot to try.",
+};
+
+function sendQuickReply(btn, text) {
+  btn.disabled = true;
+  addUserMsg(text);
+  showTyping();
+  const response = QUICK_RESPONSES[text] || "Great question — let me pull that context together for you. Can you tell me a bit more about your specific situation so I can give you the most relevant answer?";
+  setTimeout(() => { removeTyping(); addAgentMsg(response); }, 1200 + Math.random()*600);
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addUserMsg(text);
+  showTyping();
+  const response = QUICK_RESPONSES[text] || "That's a great question. In a live version, I'd have access to your CRM history, industry signals, hiring trends and search intent to give you a deeply contextual answer. For now — want me to connect you with a Qapitol consultant who can answer this in 15 minutes?";
+  setTimeout(() => { removeTyping(); addAgentMsg(response); }, 1200 + Math.random()*800);
+}
+
+function addUserMsg(text) {
+  const area = document.getElementById('chat-area');
+  const d = document.createElement('div');
+  d.className = 'msg user';
+  d.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-time">just now</div>`;
+  area.appendChild(d);
+  area.scrollTop = area.scrollHeight;
+}
+
+function addAgentMsg(text) {
+  const area = document.getElementById('chat-area');
+  const d = document.createElement('div');
+  d.className = 'msg agent';
+  d.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-time">just now</div>`;
+  area.appendChild(d);
+  area.scrollTop = area.scrollHeight;
+}
+
+function showTyping() {
+  const area = document.getElementById('chat-area');
+  const t = document.createElement('div');
+  t.className = 'msg agent';
+  t.id = 'typing-indicator';
+  t.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+  area.appendChild(t);
+  area.scrollTop = area.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+</script>
+
+<button id="qip-tab" aria-label="Open Intel brief"><span class="qt-lbl">Intel ✶</span></button>
+<div id="qip-overlay"></div>
+<div id="qip-panel" role="dialog" aria-label="Control Layer Intel"></div>
+
+</body>
+</html>
